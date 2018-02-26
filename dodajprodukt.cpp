@@ -1,0 +1,344 @@
+#include "dodajprodukt.h"
+#include "ui_dodajprodukt.h"
+
+DodajProdukt::DodajProdukt(QWidget *parent) :
+    QDialog(parent), ui(new Ui::DodajProdukt), m_id(""), m_naziv(""), m_cena(""), m_produkt(""), m_count(true), m_itr(0)
+{
+    ui->setupUi(this);
+    ui->treeWidget->setColumnCount(3);
+    ui->treeWidget->setColumnWidth(0,100);
+    ui->treeWidget->setColumnWidth(1,450);
+    AddItemsToCombo();
+    Read();
+}
+
+DodajProdukt::~DodajProdukt()
+{
+    delete ui;
+}
+
+void DodajProdukt::Arhiv(QString arhiv_file, QString stream)
+{
+    // odpri file
+    QFile mFile(arhiv_file);
+    // test ce je file odprt
+    if(!mFile.open(QFile::WriteOnly | QFile::Append))
+    {
+        qDebug() << "Error opening mFile for writing in Arhiv()";
+        return;
+    }
+    // stream za num file
+    QTextStream out(&mFile);
+    out << stream << "\n";
+    mFile.flush();
+    mFile.close();
+}
+
+// dodat root v treeWidget
+void DodajProdukt::AddRoot(QString id, QString naziv, QString cena)
+{
+    // pointer na treeWidget
+    QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
+    // nastavimo stevilko podjetja in ime podjetja v colom 0 in 1
+    itm->setText(0, id);
+    itm->setText(1, naziv);
+    itm->setText(2, cena + "€");
+    // dodamo podjetje v treeWidget
+    ui->treeWidget->addTopLevelItem(itm);
+    // nastavimo barvo za vsako drugo podjetje
+    QColor color(210,210,210);
+    QColor wcolor(250,250,250);
+    // m_count je member bool ce je tru je barva siva drugace bela
+    if(m_count)
+    {
+        itm->setBackgroundColor(0,color);
+        itm->setBackgroundColor(1,color);
+        itm->setBackgroundColor(2,color);
+        m_count = false;
+    } else {
+        itm->setBackgroundColor(0,wcolor);
+        itm->setBackgroundColor(1,wcolor);
+        itm->setBackgroundColor(2,wcolor);
+        m_count = true;
+    }
+}
+
+
+// Preberi produkt iz file-a
+void DodajProdukt::Read()
+{
+    // zbrise vse iz treeWidgeta
+    ui->treeWidget->clear();
+    // direktorij je trenutno nastavljen na moj komp
+    QDir::setCurrent("/usr/home/cloudjunkie/");
+    int izbPod = ui->comboBox_podjetje->currentIndex() + 1;
+    QString podjetje = QString::number(izbPod) + ".txt";
+
+    QFile fileName(podjetje);
+    // test ce je odprt za branje
+    if(!fileName.open(QFile::ReadOnly | QFile::Text))
+    {
+        qDebug() << "Error opening file for reading in Read()";
+        return;
+    }
+    // stream za branje fila
+    QTextStream in(&fileName);
+    // preberi vsako vrstico ce je prazna izpusti drugace dodaj vrstico v listWidget
+    QString mText("");
+    // locilo med podatki podjetja v filu ime_podjetja;naslov;ddv;email itd itd
+    QRegExp rx("[;]");
+    // naredimo listo da posamezne podatke locimo in shranimo kot posamezno kategorijo
+    QStringList list;
+
+    // preberemo celoten dokument in shranimo posamezne podatke v list
+    while(!in.atEnd())
+    {
+        // prebere podjetje
+        mText = in.readLine();
+        // v listo shranimo posamezne podatke podjetja iz fila
+        list = mText.split(rx, QString::SkipEmptyParts);
+        if(mText == "")
+        {
+            continue;
+        }
+        else if(list.at(0) == "Dodano: ")
+        {
+            continue;
+        }
+        else
+        {
+            // v treeWidget vnesemo vsa podjetja (posamezni podatki iz liste so list.at(?))
+            AddRoot(list.at(0), list.at(1), list.at(2));
+        }
+    }
+    // zapremo file
+    fileName.close();
+}
+
+// vstavi podjetja v combo box
+void DodajProdukt::AddItemsToCombo()
+{
+    // zbrise vse iz combo boxa
+    ui->comboBox_podjetje->clear();
+    // naredi QFile var za fileName
+    QFile mFile(m_fileName);
+    // test ce je odprt za branje
+    if(!mFile.open(QFile::ReadOnly | QFile::Text))
+    {
+        qDebug() << "Error opening file for reading in Read()";
+        return;
+    }
+    // stream za branje fila
+    QTextStream in(&mFile);
+    // preberi vsako vrstico ce je prazna izpusti drugace dodaj vrstico v combo box
+    QString mText("");
+    // locilo med podatki podjetja v filu ime_podjetja;naslov;ddv;email itd itd
+    QRegExp rx("[;]");
+    // naredimo listo da posamezne podatke locimo in shranimo kot posamezno kategorijo
+    QStringList list;
+    // preberemo celoten dokument in shranimo posamezne podatke v list
+    while(!in.atEnd())
+    {
+        // prebere podjetje
+        mText = in.readLine();
+        // v listo shranimo posamezne podatke podjetja iz fila
+        list = mText.split(rx, QString::SkipEmptyParts);
+        if(mText == "")
+        {
+            continue;
+        }
+        else
+        {
+            // doda podjetje v combo box
+            ui->comboBox_podjetje->addItem(list.at(1));
+        }
+    }
+    // zapremo file
+    mFile.close();
+    Read();
+}
+
+void DodajProdukt::on_pushButton_dodaj_clicked()
+{
+    QDir::setCurrent("/usr/home/cloudjunkie/");
+    int izbPod = ui->comboBox_podjetje->currentIndex() + 1;
+    QString podjetje = QString::number(izbPod) + ".txt";
+
+    QFile fileName(podjetje);
+    if(!fileName.open(QFile::WriteOnly | QFile::Append))
+    {
+        qDebug() << "Error opening fileName for writing in dodaj produkt gumb";
+        return;
+    }
+    QTextStream out(&fileName);
+    m_id = ui->lineEdit_id->text();
+    if(m_id == "")
+        m_id = "ni podatka";
+    m_naziv = ui->lineEdit_nazivProdukta->text();
+    if(m_naziv == "")
+        m_naziv = "ni podatka";
+    m_cena = ui->lineEdit_cena->text();
+    if(m_cena == "")
+        m_cena = "ni podatka";
+    out << m_id << ";" << m_naziv << ";" << m_cena << ";" << "\n";
+    fileName.flush();
+    fileName.close();
+    Read();
+    QDateTime date = QDateTime::currentDateTime();
+    QString dodano = "Dodano";
+    QString arhiv = dodano + " ; " + date.toString("dd.MM.yyyy ; hh:mm:ss.zzz") + " ; " + m_id + " ; " + m_naziv + " ; " + m_cena + " ; " + "Rajh" + " !?!";
+    Arhiv(m_arhivProdukti, arhiv);
+}
+
+void DodajProdukt::on_comboBox_podjetje_currentIndexChanged()
+{
+    Read();
+}
+
+void DodajProdukt::on_treeWidget_doubleClicked(const QModelIndex &index)
+{
+    QDir::setCurrent("/usr/home/cloudjunkie/");
+    int izbPod = ui->comboBox_podjetje->currentIndex() + 1;
+    QString podjetje = QString::number(izbPod) + ".txt";
+
+    QFile mFile(podjetje);
+    // test ce je file odprt
+    if(!mFile.open(QFile::ReadOnly | QFile::Text))
+    {
+        qDebug() << "Error opening mFile for reading in list clicked";
+        return;
+    }
+    // stream za file
+    QTextStream in(&mFile);
+    // itr nastavimo na -1 da prebere 0-to vrstico v filu
+    m_itr = -2;
+    // var za text
+    QString text("");
+    // while loop da pride do vrstice ki smo jo kliknali in shrani to vrstico v text var
+    do
+    {
+        text = in.readLine();
+        m_itr++;
+        // safety da ne pride v endless loop
+        if(m_itr > 5000) break;
+    } while(m_itr != index.row());
+    m_produkt = text;
+    // rx var kjer je locilo med podatki o podjetju
+    QRegExp rx("[;]");
+    // v listo shranimo posamezne podatke podjetja iz fila
+    QStringList list = text.split(rx, QString::SkipEmptyParts);
+    // iz liste vzame posamezne podatke in jih vstavi v lineEdite po kategorijah
+    ui->lineEdit_id->setText(list.at(0));
+    ui->lineEdit_nazivProdukta->setText(list.at(1));
+    ui->lineEdit_cena->setText(list.at(2));
+    // nastavi spremenljivke za podjetje ki smo ga oznacili
+    m_id = ui->lineEdit_id->text();
+    m_naziv = ui->lineEdit_nazivProdukta->text();
+    m_cena = ui->lineEdit_cena->text();
+}
+
+void DodajProdukt::on_pushButton_popravi_clicked()
+{
+    if(ui->treeWidget->currentItem() == 0)
+    {
+        return;
+    }
+    QDir::setCurrent("/usr/home/cloudjunkie/");
+    int izbPod = ui->comboBox_podjetje->currentIndex() + 1;
+    QString podjetje = QString::number(izbPod) + ".txt";
+    // odpre file za branje
+    QFile mFile(podjetje);
+    // test ce je file odprt
+    if(!mFile.open(QFile::Text | QFile::ReadOnly))
+    {
+        qDebug() << "Error opening mFile for reading in popravi button";
+        return;
+    }
+    // stream za shranit text fila
+    QTextStream out(&mFile);
+    // prebere celoten dokument in shrani v var
+    QString allText = out.readAll();
+    // zapre file
+    mFile.close();
+    // zamenja spremenjene dele besedila
+    QRegularExpression produkt(m_produkt);
+    QString rep_produkt(ui->lineEdit_id->text() + ";" + ui->lineEdit_nazivProdukta->text() + ";" + ui->lineEdit_cena->text() + ";");
+    allText.replace(produkt, rep_produkt);
+    // odpre file za pisanje (z namenom da zbrise vse stare podatke) in test
+    if(!mFile.open(QFile::WriteOnly | QFile::Truncate))
+    {
+        qDebug() << "Error opening mFile for truncate in popravi button";
+        return;
+    }
+    // zbrise celoten file in ga zapre
+    mFile.flush();
+    mFile.close();
+    // odpre file za pisanje (z namenom da zapise nove podatke) in test
+    if(!mFile.open(QFile::WriteOnly | QFile::Text))
+    {
+        qDebug() << "Error opening mFile for writing in popravi button";
+        return;
+    }
+    // zapise nove podatke, flush in zapre
+    out << allText;
+    mFile.flush();
+    mFile.close();
+    // ponovno branje, da se osvezi treeWidget
+    Read();
+    QDateTime date = QDateTime::currentDateTime();
+    QString popravljeno = "Popravljeno";
+    QString arhiv = popravljeno + " ; " + date.toString("dd.MM.yyyy ; hh:mm:ss.zzz") + " ; " + m_id + " ; " + m_naziv + " ; " + m_cena + " ; " + "Rajh" + " !?!";
+    Arhiv(m_arhivProdukti, arhiv);
+}
+
+
+void DodajProdukt::Search(QString searchName)
+{
+    QDir::setCurrent("/usr/home/cloudjunkie/");
+    int izbPod = ui->comboBox_podjetje->currentIndex() + 1;
+    QString podjetje = QString::number(izbPod) + ".txt";
+    // odpre file za branje
+    QFile mFile(podjetje);
+    // test ce je file odprt
+    if(!mFile.open(QFile::Text | QFile::ReadOnly))
+    {
+        qDebug() << "Error opening mFile for reading in popravi button";
+        return;
+    }
+    // stream za shranit text fila
+    QTextStream out(&mFile);
+    // prebere celoten dokument in shrani v var
+    QString line;
+    while(!out.atEnd()){
+        line = out.readLine();
+        if(line.contains(searchName, Qt::CaseInsensitive)) {
+            // locilo med podatki podjetja v filu ime_podjetja;naslov;ddv;email itd itd
+            QRegExp rx("[;]");
+            // naredimo listo da posamezne podatke locimo in shranimo kot posamezno kategorijo
+            QStringList list;
+            list = line.split(rx, QString::SkipEmptyParts);
+                if(list.at(0) == "Dodano: ")
+                    break;
+                else
+                {
+                    // v treeWidget vnesemo vsa podjetja (posamezni podatki iz liste so list.at(?))
+                    AddRoot(list.at(0), list.at(1), list.at(2));
+                }
+        }
+    }
+    // zapre file
+    mFile.close();
+}
+
+
+void DodajProdukt::on_lineEdit_isci_editingFinished()
+{
+    QString search = ui->lineEdit_isci->text();
+    if(search == "")
+        Read();
+    else
+    {
+        ui->treeWidget->clear();
+        Search(search);
+    }
+}

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Arhiv</class>
+ <widget class="QDialog" name="Arhiv">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>677</width>
+    <height>514</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Iskalnik</string>
+     </property>
+     <property name="buddy">
+      <cstring>lineEdit_isci</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QRadioButton" name="radioButton_vse">
+           <property name="text">
+            <string>Vse</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioButton_dodaneStranke">
+           <property name="text">
+            <string>Dodane stranke</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioButton_popravljeneStranke">
+           <property name="text">
+            <string>Popravljene stranke</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioButton_dodaniProdukti">
+           <property name="text">
+            <string>Dodani produkti</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioButton_popravljeniProdukti">
+           <property name="text">
+            <string>Popravljeni produkti</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioButton_uspesnaPrijava">
+           <property name="text">
+            <string>Uspesna prijava</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioButton_neuspesnaPrijava">
+           <property name="text">
+            <string>Neuspesna prijava</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QListWidget" name="listWidget">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>Izhod</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="0">
+    <widget class="QComboBox" name="comboBox"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLineEdit" name="lineEdit_isci"/>
+   </item>
+   <item row="3" column="0">
+    <widget class="QPushButton" name="pushButton_2">
+     <property name="text">
+      <string>Isci</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>comboBox</tabstop>
+  <tabstop>lineEdit_isci</tabstop>
+  <tabstop>pushButton_2</tabstop>
+  <tabstop>radioButton_vse</tabstop>
+  <tabstop>radioButton_dodaneStranke</tabstop>
+  <tabstop>radioButton_popravljeneStranke</tabstop>
+  <tabstop>radioButton_dodaniProdukti</tabstop>
+  <tabstop>radioButton_popravljeniProdukti</tabstop>
+  <tabstop>radioButton_uspesnaPrijava</tabstop>
+  <tabstop>radioButton_neuspesnaPrijava</tabstop>
+  <tabstop>listWidget</tabstop>
+  <tabstop>pushButton</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Arhiv</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>38</x>
+     <y>488</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>329</x>
+     <y>237</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

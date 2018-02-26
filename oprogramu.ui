@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Oprogramu</class>
+ <widget class="QDialog" name="Oprogramu">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>721</width>
+    <height>337</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+         <italic>true</italic>
+        </font>
+       </property>
+       <property name="text">
+        <string>O programu</string>
+       </property>
+       <property name="buddy">
+        <cstring>plainTextEdit</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPlainTextEdit" name="plainTextEdit">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+       <property name="plainText">
+        <string>Avtor: Nejc Sedovnik
+Datum: november 2017
+Namen: zdruzenje racuna, terjatev, obveznosti, statistike in arhiva v celoto
+                                
+                                v0.1
+                                    - ikone
+                                    - glavni meni
+                                    - nov racun
+                                    - dodaj podjetje
+                                    - dodaj produkt
+                                    - o podjetju
+                                    - action meniji
+                                
+                                v0.2
+                                    - nov racun oblika
+                                    - dodaj podjetje oblika
+                                    - dodaj produkt oblika
+                                    - o podjetju oblika
+                                    - main menu oblika
+                                
+                                v0.3
+                                    - dodaj podjetje osnovna logika
+                                    - zapise podjetje v file
+                                    - doda v list widget
+                                    - osnovna write &amp; read funkcija
+                                    - gumb za popravljanje podatkov v filu
+                                
+                                v0.3.1
+                                    - sprememba listWidget v treeWidget
+                                    - dodana posta stranke
+                                
+                                v0.4
+                                    - dodaj produkt logika
+                                    - spremenjen izgled v produktih in strankah
+                                    - mogoce dodajati stranke
+                                    - mogoce dodajati produkte za stranke
+                                    - mogoce spreminjati podatke strank
+                                    - mogoce spreminjati podatke produktov
+                                    - ob novi stranki naredi file za produkte te stranke, kot id_stranke.txt
+                                
+                                v0.5
+                                    - nov racun omogoca vnos produktov, kosov in izracuna ceno za vsoto vseh produktov, ddv, popust in celoto
+                                
+                                v0.6
+                                    - iskalnik v nov racun in dodaj / popravi produkte
+                                    - nekaj popravkov v nov racun, dodan eur znak produktom, ce je med ceno vejica jo zamenja s piko,
+                                      ker vejica ni decimalno locilo in jo racunalnik ne prebere kot decimalko, nekaj vizualnih popravkov
+                                
+                                v0.7
+                                    - arhiv narejen
+                                    - arhiv za nove racune narejen, osnovna oblika racuna narejena, print racuna narejen, shranjevanje
+                                      racuna narejeno
+                                    - manjsi popravki v celoti
+                                
+                                v0.8
+                                    - terjatve osnova, prikaz, izracun
+                                    - obveznosti izgled
+                                
+                                v0.9
+                                    - terjatve in obveznosti osnovno delujejo, popravki v kodi, vizualni popravki
+                                    - dodajajnje funkcij v terjatve in obveznosti in nov racun
+                                    - mozno dodajati produkte direktno iz nov racun
+                                
+                                
+                                TO_DO:
+                                    - pretvorba racuna za bizbox
+                                    - moznost posiljanja racuna po emailu strankam
+                                    - grafi, statistika
+                                    - itd.</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="Line" name="line_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>Izhod</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Oprogramu</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>265</x>
+     <y>341</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>263</x>
+     <y>258</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

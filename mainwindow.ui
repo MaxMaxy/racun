@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>232</width>
+    <height>323</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="documentMode">
+   <bool>false</bool>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <property name="text">
+       <string>Glavni meni</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string> Nov racun</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../icons/new_invoice.png</normaloff>../icons/new_invoice.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="shortcut">
+         <string>F1</string>
+        </property>
+        <property name="autoExclusive">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_6">
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Vnos obveznosti</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <activeon>../icons/money-bag.png</activeon>
+         </iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_5">
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Terjatve / obveznosti</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normalon>../icons/terjatve_obveznosti.png</normalon>
+         </iconset>
+        </property>
+        <property name="shortcut">
+         <string>F2</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_3">
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string> Dodaj stranko</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../icons/dodaj_podjetje.png</normaloff>../icons/dodaj_podjetje.png</iconset>
+        </property>
+        <property name="shortcut">
+         <string>F3</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_4">
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string> Dodaj / popravi produkt</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../icons/dodaj_produkt.png</normaloff>../icons/dodaj_produkt.png</iconset>
+        </property>
+        <property name="shortcut">
+         <string>F4</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_arhiv">
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string> Arhiv</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normalon>../icons/arhiv.png</normalon>
+         </iconset>
+        </property>
+        <property name="shortcut">
+         <string>F5</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string> Izhod</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../icons/izhod.png</normaloff>../icons/izhod.png</iconset>
+        </property>
+        <property name="shortcut">
+         <string>Ctrl+Q</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="font">
+         <font>
+          <pointsize>6</pointsize>
+         </font>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="text">
+         <string>v0.9</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="0">
+     <widget class="Line" name="line_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>232</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuStart">
+    <property name="title">
+     <string>Start</string>
+    </property>
+    <addaction name="actionNov_racun"/>
+    <addaction name="actionVnos_obveznosti"/>
+    <addaction name="actionTerjatve_obveznosti"/>
+    <addaction name="actionDodaj_podjetje"/>
+    <addaction name="actionDodaj_produkt"/>
+    <addaction name="actionArhiv"/>
+    <addaction name="separator"/>
+    <addaction name="actionIzhod"/>
+   </widget>
+   <widget class="QMenu" name="menuPomoc">
+    <property name="title">
+     <string>Pomoc</string>
+    </property>
+    <addaction name="actionO_programu"/>
+   </widget>
+   <addaction name="menuStart"/>
+   <addaction name="menuPomoc"/>
+  </widget>
+  <action name="actionNov_racun">
+   <property name="icon">
+    <iconset>
+     <normalon>../icons/new_invoice.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Nov racun</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
+   </property>
+  </action>
+  <action name="actionDodaj_podjetje">
+   <property name="icon">
+    <iconset>
+     <normalon>../icons/dodaj_podjetje.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Dodaj stranko</string>
+   </property>
+   <property name="shortcut">
+    <string>F4</string>
+   </property>
+  </action>
+  <action name="actionDodaj_produkt">
+   <property name="icon">
+    <iconset>
+     <normalon>../icons/dodaj_produkt.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Dodaj produkt</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
+   </property>
+  </action>
+  <action name="actionIzhod">
+   <property name="icon">
+    <iconset>
+     <normalon>../icons/izhod.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Izhod</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionO_programu">
+   <property name="icon">
+    <iconset>
+     <normaloff>../icons/about.png</normaloff>../icons/about.png</iconset>
+   </property>
+   <property name="text">
+    <string>O programu</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
+   </property>
+  </action>
+  <action name="actionArhiv">
+   <property name="icon">
+    <iconset>
+     <normalon>../icons/arhiv.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Arhiv</string>
+   </property>
+   <property name="shortcut">
+    <string>F6</string>
+   </property>
+  </action>
+  <action name="actionTerjatve_obveznosti">
+   <property name="icon">
+    <iconset>
+     <normalon>../icons/terjatve_obveznosti.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Terjatve / obveznosti</string>
+   </property>
+   <property name="shortcut">
+    <string>F3</string>
+   </property>
+  </action>
+  <action name="actionVnos_obveznosti">
+   <property name="icon">
+    <iconset>
+     <normalon>../icons/money-bag.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Vnos obveznosti</string>
+   </property>
+   <property name="shortcut">
+    <string>F2</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>209</x>
+     <y>296</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>231</x>
+     <y>290</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

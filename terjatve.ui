@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Terjatve</class>
+ <widget class="QDialog" name="Terjatve">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1690</width>
+    <height>881</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout_14">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_13">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="font">
+            <font>
+             <pointsize>16</pointsize>
+             <italic>true</italic>
+            </font>
+           </property>
+           <property name="text">
+            <string>Obveznosti / Terjatve</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_10">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_7">
+             <item>
+              <widget class="QLabel" name="label_7">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                 <italic>true</italic>
+                </font>
+               </property>
+               <property name="text">
+                <string>Terjatve</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="Line" name="line_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_2">
+               <property name="font">
+                <font>
+                 <pointsize>9</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Dolznik:</string>
+               </property>
+               <property name="buddy">
+                <cstring>comboBox_stranke</cstring>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_2">
+               <item>
+                <widget class="QComboBox" name="comboBox_stranke"/>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_3">
+               <item>
+                <widget class="QLabel" name="label_3">
+                 <property name="text">
+                  <string>Od:</string>
+                 </property>
+                 <property name="buddy">
+                  <cstring>dateEdit_terjatveOd</cstring>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QDateEdit" name="dateEdit_terjatveOd"/>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_4">
+               <item>
+                <widget class="QLabel" name="label_4">
+                 <property name="text">
+                  <string>Do:</string>
+                 </property>
+                 <property name="buddy">
+                  <cstring>dateEdit_terjatveDo</cstring>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QDateEdit" name="dateEdit_terjatveDo"/>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_13">
+             <property name="text">
+              <string>Iskalnik:</string>
+             </property>
+             <property name="buddy">
+              <cstring>lineEdit_iskalnikTerjatve</cstring>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_iskalnikTerjatve"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_isciTerjatve">
+             <property name="text">
+              <string>Isci</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTreeWidget" name="treeWidget_terjatve">
+             <column>
+              <property name="text">
+               <string>Racun st.</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Stranka</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Datum izdaje</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Datum valute</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Znesek</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Placilo</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Datum placila</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Opomba</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_2">
+             <property name="text">
+              <string>Nov racun</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="Line" name="line_4">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line_5">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_12">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_11">
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_9">
+               <item>
+                <widget class="QLabel" name="label_8">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                   <italic>true</italic>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Obveznosti</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_8">
+                 <item>
+                  <widget class="Line" name="line_3">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_14">
+                   <property name="text">
+                    <string>Upnik:</string>
+                   </property>
+                   <property name="buddy">
+                    <cstring>comboBox_upniki</cstring>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="comboBox_upniki"/>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_3"/>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_2">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_6">
+                 <item>
+                  <widget class="QLabel" name="label_5">
+                   <property name="font">
+                    <font>
+                     <pointsize>9</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Od:</string>
+                   </property>
+                   <property name="buddy">
+                    <cstring>dateEdit_obveznostiOd</cstring>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QDateEdit" name="dateEdit_obveznostiOd"/>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_5">
+                 <item>
+                  <widget class="QLabel" name="label_6">
+                   <property name="font">
+                    <font>
+                     <pointsize>9</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Do:</string>
+                   </property>
+                   <property name="buddy">
+                    <cstring>dateEdit_obveznostiDo</cstring>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QDateEdit" name="dateEdit_obveznostiDo"/>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_9">
+             <property name="font">
+              <font>
+               <pointsize>9</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Iskalnik:</string>
+             </property>
+             <property name="buddy">
+              <cstring>lineEdit_iskalnikObveznosti</cstring>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_iskalnikObveznosti"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_isci_upniki">
+             <property name="text">
+              <string>Isci</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTreeWidget" name="treeWidget_obveznosti">
+             <column>
+              <property name="text">
+               <string>Listina</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Dobavitelj</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Znesek</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Datum valute</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Znesek placila</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Datum placila</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Opombe</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton">
+             <property name="text">
+              <string>Vnos obveznosti</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_15">
+         <item>
+          <widget class="QLabel" name="label_11">
+           <property name="text">
+            <string>Skupaj obveznosti:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_10">
+           <property name="text">
+            <string>Skupaj terjatve:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line_7">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_12">
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+             <italic>true</italic>
+            </font>
+           </property>
+           <property name="text">
+            <string>Terjatve - obveznosti:</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_16">
+         <item>
+          <widget class="QLabel" name="label_skupajObveznosti">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_skupajTerjatve">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line_8">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_terjatve_obveznosti">
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+             <italic>true</italic>
+            </font>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="Line" name="line_6">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_izhod">
+       <property name="text">
+        <string>Izhod</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>comboBox_stranke</tabstop>
+  <tabstop>dateEdit_terjatveOd</tabstop>
+  <tabstop>dateEdit_terjatveDo</tabstop>
+  <tabstop>lineEdit_iskalnikTerjatve</tabstop>
+  <tabstop>pushButton_isciTerjatve</tabstop>
+  <tabstop>treeWidget_terjatve</tabstop>
+  <tabstop>pushButton_2</tabstop>
+  <tabstop>comboBox_upniki</tabstop>
+  <tabstop>dateEdit_obveznostiOd</tabstop>
+  <tabstop>dateEdit_obveznostiDo</tabstop>
+  <tabstop>lineEdit_iskalnikObveznosti</tabstop>
+  <tabstop>pushButton_isci_upniki</tabstop>
+  <tabstop>treeWidget_obveznosti</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>pushButton_izhod</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButton_izhod</sender>
+   <signal>clicked()</signal>
+   <receiver>Terjatve</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>870</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>339</x>
+     <y>234</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

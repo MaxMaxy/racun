@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>VnosObveznosti</class>
+ <widget class="QDialog" name="VnosObveznosti">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>685</width>
+    <height>384</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+         <italic>true</italic>
+        </font>
+       </property>
+       <property name="text">
+        <string>Vnos obveznosti</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Listina:</string>
+       </property>
+       <property name="buddy">
+        <cstring>lineEdit_listina</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_listina"/>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Dobavitelj:</string>
+       </property>
+       <property name="buddy">
+        <cstring>lineEdit_dobavitelj</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_dobavitelj"/>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Znesek:</string>
+       </property>
+       <property name="buddy">
+        <cstring>lineEdit_znesek</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_znesek"/>
+     </item>
+    </layout>
+   </item>
+   <item row="4" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout_5">
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Datum valute:</string>
+       </property>
+       <property name="buddy">
+        <cstring>dateEdit_valute</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDateEdit" name="dateEdit_valute"/>
+     </item>
+    </layout>
+   </item>
+   <item row="5" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout_8">
+     <item>
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>Opombe:</string>
+       </property>
+       <property name="buddy">
+        <cstring>lineEdit_opombe</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_opombe"/>
+     </item>
+    </layout>
+   </item>
+   <item row="6" column="0">
+    <widget class="QPushButton" name="pushButton_vnos">
+     <property name="text">
+      <string>Vnos</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout_11">
+     <item>
+      <widget class="Line" name="line_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_izhod">
+       <property name="text">
+        <string>Izhod</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>lineEdit_listina</tabstop>
+  <tabstop>lineEdit_dobavitelj</tabstop>
+  <tabstop>lineEdit_znesek</tabstop>
+  <tabstop>dateEdit_valute</tabstop>
+  <tabstop>lineEdit_opombe</tabstop>
+  <tabstop>pushButton_vnos</tabstop>
+  <tabstop>pushButton_izhod</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButton_izhod</sender>
+   <signal>clicked()</signal>
+   <receiver>VnosObveznosti</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>193</x>
+     <y>276</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>279</x>
+     <y>240</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
