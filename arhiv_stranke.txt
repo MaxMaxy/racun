@@ -1,0 +1,4 @@
+Popravljeno ; 15.02.2018 ; 20:36:47.125 ; Elektronika Pahor d.o.o. ; Elektronika Pahor d.o.o., podjetje in proizvodnja ; Ljubljana 123 ; 1000 Ljubljana ; 55654988 ; pahor@pahor.si ; Rajh !?!
+Popravljeno ; 21.02.2018 ; 19:20:58.468 ; Atech d.o.o. ; Atech d.o.o., proizvodnja ; Primorska 120 ; 3000 Koper ; 565889654 ; atech@atech.com ; Rajh !?!
+Dodano ; 21.02.2018 ; 19:21:29.220 ; Atech s.p ; Atech d.o.o., proizvodnja test ; Primorska test ; 3000 Koper ; 55656524 ; atech@atech.si ; Rajh !?!
+Dodano ; 25.02.2018 ; 15:18:44.272 ; Termotehnika d.o.o. ; Termotehnika d.o.o., proizvodnja ; Polzela 123 ; Polzela 2213 ; 55566655 ; termo@termotehnika.com ; Rajh !?!
