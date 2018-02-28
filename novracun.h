@@ -45,15 +45,15 @@ private slots:
     void on_treeWidget_dodani_doubleClicked();
     void on_lineEdit_popust_editingFinished();
     void on_lineEdit_isci_editingFinished();
-
     void on_pushButton_dodajNovProdukt_clicked();
 
 private:
     Ui::NovRacun *ui;
+    QString m_currentDir;
     QString m_fileName;
-    QString m_arhivNovRacun = "/usr/home/cloudjunkie/arhiv_novRacun.txt";
-    QString m_arhivStRacuna = "/usr/home/cloudjunkie/arhiv_stRacuna.txt";
-    QString m_arhivLogin = "/usr/home/cloudjunkie/arhiv_login.txt";
+    QString m_arhivNovRacun;
+    QString m_arhivStRacuna;
+    QString m_arhivLogin;
     QString m_cNaziv;
     QString m_naslov;
     QString m_posta;

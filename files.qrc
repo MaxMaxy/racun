@@ -1,2 +1,12 @@
-<!DOCTYPE RCC>
-<RCC version="1.0"/>
+<RCC>
+    <qresource prefix="/icons">
+        <file>about.png</file>
+        <file>arhiv.png</file>
+        <file>dodaj_podjetje.png</file>
+        <file>dodaj_produkt.png</file>
+        <file>izhod.png</file>
+        <file>money-bag.png</file>
+        <file>new_invoice.png</file>
+        <file>terjatve_obveznosti.png</file>
+    </qresource>
+</RCC>

@@ -3,7 +3,7 @@
 
 NovRacun::NovRacun(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::NovRacun), m_fileName("/usr/home/cloudjunkie/test.txt"), m_cNaziv(""), m_naslov(""), m_posta(""), m_ddv(""), m_email(""), m_numItems("1"), m_count(true), m_total(0), m_itemsAdded(0), m_max_produktov(19), m_vrstic(0)
+    ui(new Ui::NovRacun), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/test.txt"), m_arhivNovRacun(m_currentDir + "/arhiv_novRacun.txt"), m_arhivStRacuna(m_currentDir + "/arhiv_stRacuna.txt"), m_arhivLogin(m_currentDir + "/arhiv_login.txt"), m_cNaziv(""), m_naslov(""), m_posta(""), m_ddv(""), m_email(""), m_numItems("1"), m_count(true), m_total(0), m_itemsAdded(0), m_max_produktov(19), m_vrstic(0)
 {
     ui->setupUi(this);
     ui->treeWidget_seznam->setColumnCount(3);
@@ -68,8 +68,6 @@ void NovRacun::Read()
 {
     // zbrise vse iz treeWidgeta
     ui->treeWidget_seznam->clear();
-    // direktorij je trenutno nastavljen na moj komp
-    QDir::setCurrent("/usr/home/cloudjunkie/");
     int izbPod = ui->comboBox_narocnik->currentIndex() + 1;
     QString podjetje = QString::number(izbPod) + ".txt";
 
@@ -470,7 +468,6 @@ void NovRacun::on_treeWidget_dodani_doubleClicked()
 
 void NovRacun::Search(QString searchName)
 {
-    QDir::setCurrent("/usr/home/cloudjunkie/");
     int izbPod = ui->comboBox_narocnik->currentIndex() + 1;
     QString podjetje = QString::number(izbPod) + ".txt";
     // odpre file za branje
@@ -1699,7 +1696,7 @@ int NovRacun::creatPDF()
         else
             stranka = list.at(0) + "_" + list.at(1);
 
-        QString output = "/usr/home/cloudjunkie/" "RACUN_IN_DOBAVNICA_" + stranka + "_" + stevilka_racuna + ".pdf";
+        QString output = m_currentDir + "/RACUN_IN_DOBAVNICA_" + stranka + "_" + stevilka_racuna + ".pdf";
         printer->setOutputFileName(output);
         qreal left = 0, right = 0, top = 0, bottom = 0;
         printer->setPageMargins(left, top, right, bottom, QPrinter::Millimeter);

@@ -58,7 +58,8 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../icons/new_invoice.png</normaloff>../icons/new_invoice.png</iconset>
+          <normaloff>../icons/new_invoice.png</normaloff>
+          <activeon>:/icons/new_invoice.png</activeon>../icons/new_invoice.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -87,7 +88,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <activeon>../icons/money-bag.png</activeon>
+          <activeon>:/icons/money-bag.png</activeon>
          </iconset>
         </property>
        </widget>
@@ -106,6 +107,7 @@
         <property name="icon">
          <iconset>
           <normalon>../icons/terjatve_obveznosti.png</normalon>
+          <activeon>:/icons/terjatve_obveznosti.png</activeon>
          </iconset>
         </property>
         <property name="shortcut">
@@ -126,7 +128,8 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../icons/dodaj_podjetje.png</normaloff>../icons/dodaj_podjetje.png</iconset>
+          <normaloff>../icons/dodaj_podjetje.png</normaloff>
+          <activeon>:/icons/dodaj_podjetje.png</activeon>../icons/dodaj_podjetje.png</iconset>
         </property>
         <property name="shortcut">
          <string>F3</string>
@@ -146,7 +149,8 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../icons/dodaj_produkt.png</normaloff>../icons/dodaj_produkt.png</iconset>
+          <normaloff>../icons/dodaj_produkt.png</normaloff>
+          <activeon>:/icons/dodaj_produkt.png</activeon>../icons/dodaj_produkt.png</iconset>
         </property>
         <property name="shortcut">
          <string>F4</string>
@@ -167,6 +171,7 @@
         <property name="icon">
          <iconset>
           <normalon>../icons/arhiv.png</normalon>
+          <activeon>:/icons/arhiv.png</activeon>
          </iconset>
         </property>
         <property name="shortcut">
@@ -194,7 +199,8 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../icons/izhod.png</normaloff>../icons/izhod.png</iconset>
+          <normaloff>../icons/izhod.png</normaloff>
+          <activeon>:/icons/izhod.png</activeon>../icons/izhod.png</iconset>
         </property>
         <property name="shortcut">
          <string>Ctrl+Q</string>
@@ -272,9 +278,9 @@
   </widget>
   <action name="actionNov_racun">
    <property name="icon">
-    <iconset>
-     <normalon>../icons/new_invoice.png</normalon>
-    </iconset>
+    <iconset resource="files.qrc">
+     <normaloff>:/icons/new_invoice.png</normaloff>
+     <normalon>../icons/new_invoice.png</normalon>:/icons/new_invoice.png</iconset>
    </property>
    <property name="text">
     <string>Nov racun</string>
@@ -286,7 +292,7 @@
   <action name="actionDodaj_podjetje">
    <property name="icon">
     <iconset>
-     <normalon>../icons/dodaj_podjetje.png</normalon>
+     <normalon>:/icons/dodaj_podjetje.png</normalon>
     </iconset>
    </property>
    <property name="text">
@@ -299,7 +305,7 @@
   <action name="actionDodaj_produkt">
    <property name="icon">
     <iconset>
-     <normalon>../icons/dodaj_produkt.png</normalon>
+     <normalon>:/icons/dodaj_produkt.png</normalon>
     </iconset>
    </property>
    <property name="text">
@@ -312,7 +318,7 @@
   <action name="actionIzhod">
    <property name="icon">
     <iconset>
-     <normalon>../icons/izhod.png</normalon>
+     <normalon>:/icons/izhod.png</normalon>
     </iconset>
    </property>
    <property name="text">
@@ -325,7 +331,8 @@
   <action name="actionO_programu">
    <property name="icon">
     <iconset>
-     <normaloff>../icons/about.png</normaloff>../icons/about.png</iconset>
+     <normaloff>../icons/about.png</normaloff>
+     <normalon>:/icons/about.png</normalon>../icons/about.png</iconset>
    </property>
    <property name="text">
     <string>O programu</string>
@@ -337,7 +344,7 @@
   <action name="actionArhiv">
    <property name="icon">
     <iconset>
-     <normalon>../icons/arhiv.png</normalon>
+     <normalon>:/icons/arhiv.png</normalon>
     </iconset>
    </property>
    <property name="text">
@@ -350,7 +357,7 @@
   <action name="actionTerjatve_obveznosti">
    <property name="icon">
     <iconset>
-     <normalon>../icons/terjatve_obveznosti.png</normalon>
+     <normalon>:/icons/terjatve_obveznosti.png</normalon>
     </iconset>
    </property>
    <property name="text">
@@ -363,7 +370,7 @@
   <action name="actionVnos_obveznosti">
    <property name="icon">
     <iconset>
-     <normalon>../icons/money-bag.png</normalon>
+     <normalon>:/icons/money-bag.png</normalon>
     </iconset>
    </property>
    <property name="text">
@@ -375,7 +382,9 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="files.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>pushButton</sender>

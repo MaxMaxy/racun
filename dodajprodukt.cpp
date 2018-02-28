@@ -2,7 +2,7 @@
 #include "ui_dodajprodukt.h"
 
 DodajProdukt::DodajProdukt(QWidget *parent) :
-    QDialog(parent), ui(new Ui::DodajProdukt), m_id(""), m_naziv(""), m_cena(""), m_produkt(""), m_count(true), m_itr(0)
+    QDialog(parent), ui(new Ui::DodajProdukt), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/test.txt"), m_arhivProdukti(m_currentDir + "/arhiv_produkti.txt"), m_id(""), m_naziv(""), m_cena(""), m_produkt(""), m_count(true), m_itr(0)
 {
     ui->setupUi(this);
     ui->treeWidget->setColumnCount(3);
@@ -69,8 +69,6 @@ void DodajProdukt::Read()
 {
     // zbrise vse iz treeWidgeta
     ui->treeWidget->clear();
-    // direktorij je trenutno nastavljen na moj komp
-    QDir::setCurrent("/usr/home/cloudjunkie/");
     int izbPod = ui->comboBox_podjetje->currentIndex() + 1;
     QString podjetje = QString::number(izbPod) + ".txt";
 
@@ -160,7 +158,6 @@ void DodajProdukt::AddItemsToCombo()
 
 void DodajProdukt::on_pushButton_dodaj_clicked()
 {
-    QDir::setCurrent("/usr/home/cloudjunkie/");
     int izbPod = ui->comboBox_podjetje->currentIndex() + 1;
     QString podjetje = QString::number(izbPod) + ".txt";
 
@@ -197,7 +194,6 @@ void DodajProdukt::on_comboBox_podjetje_currentIndexChanged()
 
 void DodajProdukt::on_treeWidget_doubleClicked(const QModelIndex &index)
 {
-    QDir::setCurrent("/usr/home/cloudjunkie/");
     int izbPod = ui->comboBox_podjetje->currentIndex() + 1;
     QString podjetje = QString::number(izbPod) + ".txt";
 
@@ -243,7 +239,6 @@ void DodajProdukt::on_pushButton_popravi_clicked()
     {
         return;
     }
-    QDir::setCurrent("/usr/home/cloudjunkie/");
     int izbPod = ui->comboBox_podjetje->currentIndex() + 1;
     QString podjetje = QString::number(izbPod) + ".txt";
     // odpre file za branje
@@ -294,7 +289,6 @@ void DodajProdukt::on_pushButton_popravi_clicked()
 
 void DodajProdukt::Search(QString searchName)
 {
-    QDir::setCurrent("/usr/home/cloudjunkie/");
     int izbPod = ui->comboBox_podjetje->currentIndex() + 1;
     QString podjetje = QString::number(izbPod) + ".txt";
     // odpre file za branje

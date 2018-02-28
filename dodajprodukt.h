@@ -35,8 +35,9 @@ private slots:
 
 private:
     Ui::DodajProdukt *ui;
-    QString m_fileName = "/usr/home/cloudjunkie/test.txt";
-    QString m_arhivProdukti = "/usr/home/cloudjunkie/arhiv_produkti.txt";
+    QString m_currentDir;
+    QString m_fileName;
+    QString m_arhivProdukti;
     QString m_id;
     QString m_naziv;
     QString m_cena;

@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QTextStream>
+#include <QDir>
 
 namespace Ui {
 class VnosObveznosti;
@@ -25,8 +26,9 @@ private slots:
 
 private:
     Ui::VnosObveznosti *ui;
-    QString m_upnikSeznam = "/usr/home/cloudjunkie/arhiv_upnikiSeznam.txt";
-    QString m_vnosObv = "/usr/home/cloudjunkie/arhiv_upniki.txt";
+    QString m_currentDir;
+    QString m_upnikSeznam;
+    QString m_vnosObv;
 };
 
 #endif // VNOSOBVEZNOSTI_H

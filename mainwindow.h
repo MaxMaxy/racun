@@ -31,17 +31,11 @@ private slots:
     void on_actionDodaj_produkt_triggered();
     void on_actionNov_racun_triggered();
     void on_actionO_programu_triggered();
-
     void on_actionArhiv_triggered();
-
     void on_pushButton_arhiv_clicked();
-
     void on_actionTerjatve_obveznosti_triggered();
-
     void on_pushButton_5_clicked();
-
     void on_actionVnos_obveznosti_triggered();
-
     void on_pushButton_6_clicked();
 
 private:

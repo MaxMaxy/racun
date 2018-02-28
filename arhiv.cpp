@@ -3,7 +3,7 @@
 
 Arhiv::Arhiv(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::Arhiv)
+    ui(new Ui::Arhiv), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/arhiv_files.txt")
 {
     ui->setupUi(this);
     AddItemsToCombo();
@@ -99,8 +99,6 @@ void Arhiv::on_comboBox_currentIndexChanged(const QString &item)
 // Preberi produkt iz file-a
 void Arhiv::Read()
 {
-    // direktorij je trenutno nastavljen na moj komp
-    QDir::setCurrent("/usr/home/cloudjunkie/");
     QString comboIzbira = ui->comboBox->currentText() + ".txt";
     QFile fileName(comboIzbira);
     // test ce je odprt za branje
@@ -170,7 +168,6 @@ void Arhiv::AddItemsToCombo()
 void Arhiv::Search(QString searchName)
 {
     ui->listWidget->clear();
-    QDir::setCurrent("/usr/home/cloudjunkie/");
     QString comboIzbira = ui->comboBox->currentText() + ".txt";
     // odpre file za branje
     QFile mFile(comboIzbira);

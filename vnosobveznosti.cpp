@@ -3,7 +3,7 @@
 
 VnosObveznosti::VnosObveznosti(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::VnosObveznosti)
+    ui(new Ui::VnosObveznosti), m_currentDir(QDir::currentPath()), m_upnikSeznam(m_currentDir + "/arhiv_upnikiSeznam.txt"), m_vnosObv(m_currentDir + "/arhiv_upniki.txt")
 {
     ui->setupUi(this);
     ui->dateEdit_valute->setDisplayFormat("d. M. yyyy");

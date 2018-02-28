@@ -36,9 +36,10 @@ private slots:
 
 private:
     Ui::DodajPodjetje *ui;
-    QString m_fileName = "/usr/home/cloudjunkie/test.txt";
-    QString m_numOfCompany = "/usr/home/cloudjunkie/num.txt";
-    QString m_arhivStranke = "/usr/home/cloudjunkie/arhiv_stranke.txt";
+    QString m_currentDir;
+    QString m_fileName;
+    QString m_numOfCompany;
+    QString m_arhivStranke;
     QString m_zapSt;
     QString m_cNaziv;
     QString m_kNaziv;

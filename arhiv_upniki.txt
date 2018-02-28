@@ -1,2 +1,0 @@
-Nova obveznost ; 26. 2. 2018 ; 15:38:14.919 ; Listina: DDV ; Dobavitelj: DURS ; Znesek: 5000 ; Dat_valute: 26. 2. 2018 ; Placilo: 5000 ; Dat_placila: 26. 2. 2018 ; Opombe: Test za DURS sprememba ; (end)
-Nova obveznost ; 26. 2. 2018 ; 15:40:56.777 ; Listina: Placa za marec ; Dobavitelj:  ; Znesek: 1000 ; Dat_valute: 26. 2. 2018 ; Placilo: 1000 ; Dat_placila: 26. 2. 2018 ; Opombe: Nejc Sedovnik placano ; (end)

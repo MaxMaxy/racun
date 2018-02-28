@@ -35,7 +35,9 @@ private slots:
 
 private:
     Ui::Arhiv *ui;
-    QString m_fileName = "/usr/home/cloudjunkie/arhiv_files.txt";
+    QString m_currentDir;
+    QString m_fileName;
+
 };
 
 #endif // ARHIV_H

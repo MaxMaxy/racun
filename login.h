@@ -6,6 +6,7 @@
 #include <QTextStream>
 #include <QDebug>
 #include <QDateTime>
+#include <QDir>
 
 namespace Ui {
 class Login;
@@ -26,8 +27,9 @@ private slots:
 
 private:
     Ui::Login *ui;
-    QString m_fileName = "/usr/home/cloudjunkie/login.txt";
-    QString m_arhivLogin = "/usr/home/cloudjunkie/arhiv_login.txt";
+    QString m_currentDir;
+    QString m_fileName;
+    QString m_arhivLogin;
 };
 
 #endif // LOGIN_H

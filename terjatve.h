@@ -49,10 +49,11 @@ private slots:
 
 private:
     Ui::Terjatve *ui;
-    QString m_stranke = "/usr/home/cloudjunkie/test.txt";
-    QString m_terjatve = "/usr/home/cloudjunkie/arhiv_novRacun.txt";
-    QString m_obveznosti = "/usr/home/cloudjunkie/arhiv_upniki.txt";
-    QString m_upnikiSeznam = "/usr/home/cloudjunkie/arhiv_upnikiSeznam.txt";
+    QString m_currentDir;
+    QString m_stranke;
+    QString m_terjatve;
+    QString m_obveznosti;
+    QString m_upnikiSeznam;
     float m_totalTerjatve;
     float m_totalObveznosti;
     float m_totalTerMinObv;

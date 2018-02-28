@@ -64,14 +64,17 @@ FORMS += \
     placiloracuna.ui
 
 RESOURCES += \
-    icons.qrc
+    files.qrc
 
 DISTFILES += \
-    ../icons/dodaj_podjetje.png \
-    ../icons/dodaj_produkt.png \
-    ../icons/izhod.png \
-    ../icons/new_invoice.png \
-    ../icons/about.png \
-    ../icons/arhiv.png \
-    ../icons/terjatve_obveznosti.png \
-    ../icons/money-bag.png
+    arhiv_files.txt \
+    arhiv_login.txt \
+    arhiv_novRacun.txt \
+    arhiv_produkti.txt \
+    arhiv_stRacuna.txt \
+    arhiv_stranke.txt \
+    arhiv_upniki.txt \
+    arhiv_upnikiSeznam.txt \
+    login.txt \
+    num.txt \
+    test.txt

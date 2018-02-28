@@ -24,9 +24,9 @@ void PlaciloRacuna::setOpombe(QString &opomba, QString &cena, QString &datum)
 
 QStringList PlaciloRacuna::on_pushButton_clicked()
 {
-    m_list << ui->lineEdit->text();
-    m_list << ui->dateEdit->text();
-    m_list << ui->lineEdit_opombe->text();
+    m_list.append(ui->lineEdit->text());
+    m_list.append(ui->dateEdit->text());
+    m_list.append(ui->lineEdit_opombe->text());
     PlaciloRacuna::close();
     return m_list;
 }

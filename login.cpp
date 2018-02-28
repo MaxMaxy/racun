@@ -3,9 +3,10 @@
 
 Login::Login(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::Login)
+    ui(new Ui::Login), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/login.txt"), m_arhivLogin(m_currentDir + "/arhiv_login.txt")
 {
     ui->setupUi(this);
+    QDir::setCurrent(m_currentDir);
 }
 
 Login::~Login()
@@ -56,6 +57,7 @@ void Login::on_pushButton_prijava_clicked()
             QString stream = "Prijava v sistem: " + date.toString("dd.MM.yyyy - hh:mm:ss.zzz ; ") + ui->lineEdit_login->text();
             Arhiv(m_arhivLogin, stream);
             close();
+            break;
         }
         else
         {

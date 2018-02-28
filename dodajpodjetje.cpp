@@ -3,7 +3,7 @@
 
 // constructor
 DodajPodjetje::DodajPodjetje(QWidget *parent) :
-    QDialog(parent), ui(new Ui::DodajPodjetje), m_zapSt("") ,m_cNaziv(""), m_kNaziv(""), m_naslov(""),m_posta(""), m_ddv(""), m_email(""), m_stranka(""), m_itr(0), m_count(true)
+    QDialog(parent), ui(new Ui::DodajPodjetje), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/test.txt"), m_numOfCompany(m_currentDir + "/num.txt"), m_arhivStranke(m_currentDir + "/arhiv_stranke.txt"), m_zapSt("") ,m_cNaziv(""), m_kNaziv(""), m_naslov(""),m_posta(""), m_ddv(""), m_email(""), m_stranka(""), m_itr(0), m_count(true)
 {
     ui->setupUi(this);
     ui->treeWidget->setColumnCount(2);
@@ -256,7 +256,6 @@ void DodajPodjetje::on_pushButton_dodajPodjetje_clicked()
 {
     Write(m_fileName, m_numOfCompany);
     QFile file;
-    QDir::setCurrent("/usr/home/cloudjunkie/");
     file.setFileName(m_zapSt + ".txt");
     if(!file.open(QFile::WriteOnly | QFile::Text))
     {
