@@ -49,8 +49,8 @@ private:
     QString m_email;
     QString m_stranka;
     int m_itr;
-    bool m_count;
     int m_totalCompanys;
+    bool m_count;
 };
 
 #endif // DODAJPODJETJE_H

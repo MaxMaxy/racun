@@ -35,7 +35,8 @@ SOURCES += \
     arhiv.cpp \
     terjatve.cpp \
     vnosobveznosti.cpp \
-    placiloracuna.cpp
+    placiloracuna.cpp \
+    settings.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -48,7 +49,8 @@ HEADERS += \
     arhiv.h \
     terjatve.h \
     vnosobveznosti.h \
-    placiloracuna.h
+    placiloracuna.h \
+    settings.h
 
 FORMS += \
         mainwindow.ui \
@@ -61,7 +63,8 @@ FORMS += \
     arhiv.ui \
     terjatve.ui \
     vnosobveznosti.ui \
-    placiloracuna.ui
+    placiloracuna.ui \
+    settings.ui
 
 RESOURCES += \
     files.qrc

@@ -3,7 +3,7 @@
 
 Terjatve::Terjatve(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::Terjatve), m_currentDir(QDir::currentPath()), m_stranke(m_currentDir + "/test.txt"), m_terjatve(m_currentDir + "/arhiv_novRacun.txt"), m_obveznosti(m_currentDir + "/arhiv_upniki.txt"), m_upnikiSeznam(m_currentDir + "/arhiv_upnikiSeznam.txt"), m_totalTerjatve(0), m_totalObveznosti(0), m_totalTerMinObv(0)
+    ui(new Ui::Terjatve), m_currentDir(QDir::currentPath()), m_stranke(m_currentDir + "/company_file.txt"), m_terjatve(m_currentDir + "/arhiv_novRacun.txt"), m_obveznosti(m_currentDir + "/arhiv_upniki.txt"), m_upnikiSeznam(m_currentDir + "/arhiv_upnikiSeznam.txt"), m_totalTerjatve(0), m_totalObveznosti(0), m_totalTerMinObv(0)
 {
     ui->setupUi(this);
     ui->dateEdit_obveznostiOd->setDisplayFormat("d. M. yyyy");

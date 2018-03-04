@@ -2,7 +2,7 @@
 #include "ui_dodajprodukt.h"
 
 DodajProdukt::DodajProdukt(QWidget *parent) :
-    QDialog(parent), ui(new Ui::DodajProdukt), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/test.txt"), m_arhivProdukti(m_currentDir + "/arhiv_produkti.txt"), m_id(""), m_naziv(""), m_cena(""), m_produkt(""), m_count(true), m_itr(0)
+    QDialog(parent), ui(new Ui::DodajProdukt), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/company_file.txt"), m_arhivProdukti(m_currentDir + "/arhiv_produkti.txt"), m_id(""), m_naziv(""), m_cena(""), m_produkt(""), m_count(true), m_itr(0)
 {
     ui->setupUi(this);
     ui->treeWidget->setColumnCount(3);

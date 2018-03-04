@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>721</width>
+    <width>723</width>
     <height>337</height>
    </rect>
   </property>
@@ -60,75 +60,79 @@
         <bool>true</bool>
        </property>
        <property name="plainText">
-        <string>Avtor: Nejc Sedovnik
+        <string>Trenutna verzija 0.9.1
+
+Avtor: Nejc Sedovnik
 Datum: november 2017
 Namen: zdruzenje racuna, terjatev, obveznosti, statistike in arhiva v celoto
                                 
-                                v0.1
-                                    - ikone
-                                    - glavni meni
-                                    - nov racun
-                                    - dodaj podjetje
-                                    - dodaj produkt
-                                    - o podjetju
-                                    - action meniji
+v0.1
+    - ikone
+    - glavni meni
+    - nov racun
+    - dodaj podjetje
+    - dodaj produkt
+    - o podjetju
+    - action meniji
                                 
-                                v0.2
-                                    - nov racun oblika
-                                    - dodaj podjetje oblika
-                                    - dodaj produkt oblika
-                                    - o podjetju oblika
-                                    - main menu oblika
+v0.2
+    - nov racun oblika
+    - dodaj podjetje oblika
+    - dodaj produkt oblika
+    - o podjetju oblika
+    - main menu oblika
                                 
-                                v0.3
-                                    - dodaj podjetje osnovna logika
-                                    - zapise podjetje v file
-                                    - doda v list widget
-                                    - osnovna write &amp; read funkcija
-                                    - gumb za popravljanje podatkov v filu
+v0.3
+    - dodaj podjetje osnovna logika
+    - zapise podjetje v file
+    - doda v list widget
+    - osnovna write &amp; read funkcija
+    - gumb za popravljanje podatkov v filu
                                 
-                                v0.3.1
-                                    - sprememba listWidget v treeWidget
-                                    - dodana posta stranke
+v0.3.1
+    - sprememba listWidget v treeWidget
+    - dodana posta stranke
                                 
-                                v0.4
-                                    - dodaj produkt logika
-                                    - spremenjen izgled v produktih in strankah
-                                    - mogoce dodajati stranke
-                                    - mogoce dodajati produkte za stranke
-                                    - mogoce spreminjati podatke strank
-                                    - mogoce spreminjati podatke produktov
-                                    - ob novi stranki naredi file za produkte te stranke, kot id_stranke.txt
+v0.4
+    - dodaj produkt logika
+    - spremenjen izgled v produktih in strankah
+    - mogoce dodajati stranke
+    - mogoce dodajati produkte za stranke
+    - mogoce spreminjati podatke strank
+    - mogoce spreminjati podatke produktov
+    - ob novi stranki naredi file za produkte te stranke, kot id_stranke.txt
                                 
-                                v0.5
-                                    - nov racun omogoca vnos produktov, kosov in izracuna ceno za vsoto vseh produktov, ddv, popust in celoto
+v0.5
+    - nov racun omogoca vnos produktov, kosov in izracuna ceno za vsoto vseh produktov, ddv, popust in celoto
                                 
-                                v0.6
-                                    - iskalnik v nov racun in dodaj / popravi produkte
-                                    - nekaj popravkov v nov racun, dodan eur znak produktom, ce je med ceno vejica jo zamenja s piko,
-                                      ker vejica ni decimalno locilo in jo racunalnik ne prebere kot decimalko, nekaj vizualnih popravkov
+v0.6
+    - iskalnik v nov racun in dodaj / popravi produkte
+    - nekaj popravkov v nov racun, dodan eur znak produktom, ce je med ceno vejica jo zamenja s piko,
+      ker vejica ni decimalno locilo in jo racunalnik ne prebere kot decimalko, nekaj vizualnih popravkov
                                 
-                                v0.7
-                                    - arhiv narejen
-                                    - arhiv za nove racune narejen, osnovna oblika racuna narejena, print racuna narejen, shranjevanje
-                                      racuna narejeno
-                                    - manjsi popravki v celoti
+v0.7
+    - arhiv narejen
+    - arhiv za nove racune narejen, osnovna oblika racuna narejena, print racuna narejen, shranjevanje
+      racuna narejeno
+    - manjsi popravki v celoti
                                 
-                                v0.8
-                                    - terjatve osnova, prikaz, izracun
-                                    - obveznosti izgled
+v0.8
+    - terjatve osnova, prikaz, izracun
+    - obveznosti izgled
                                 
-                                v0.9
-                                    - terjatve in obveznosti osnovno delujejo, popravki v kodi, vizualni popravki
-                                    - dodajajnje funkcij v terjatve in obveznosti in nov racun
-                                    - mozno dodajati produkte direktno iz nov racun
+v0.9
+    - terjatve in obveznosti osnovno delujejo, popravki v kodi, vizualni popravki
+    - dodajajnje funkcij v terjatve in obveznosti in nov racun
+    - mozno dodajati produkte direktno iz nov racun
+
+v0.9.1
+    - testna verzija, iskanje bugov, itd. 
                                 
-                                
-                                TO_DO:
-                                    - pretvorba racuna za bizbox
-                                    - moznost posiljanja racuna po emailu strankam
-                                    - grafi, statistika
-                                    - itd.</string>
+TO_DO:
+    - pretvorba racuna za bizbox
+    - moznost posiljanja racuna po emailu strankam
+    - grafi, statistika
+    - itd.</string>
        </property>
       </widget>
      </item>

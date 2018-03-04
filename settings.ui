@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Login</class>
- <widget class="QDialog" name="Login">
+ <class>Settings</class>
+ <widget class="QDialog" name="Settings">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>272</width>
-    <height>125</height>
+    <width>221</width>
+    <height>145</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,7 +15,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <layout class="QVBoxLayout" name="verticalLayout_2">
+    <layout class="QVBoxLayout" name="verticalLayout_4">
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
@@ -27,10 +27,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Prijava</string>
-         </property>
-         <property name="buddy">
-          <cstring>lineEdit_login</cstring>
+          <string>Nastavitve</string>
          </property>
         </widget>
        </item>
@@ -41,31 +38,28 @@
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QLineEdit" name="lineEdit_login"/>
-       </item>
       </layout>
      </item>
      <item>
-      <widget class="Line" name="line_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
+      <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="pushButton_nastaviShrani">
          <property name="text">
-          <string>Izhod</string>
+          <string>Shrani racun v ...</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_prijava">
+        <widget class="QPushButton" name="pushButton_shraniV">
          <property name="text">
-          <string>Prijava</string>
+          <string>Shrani nastavitve</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_izhod">
+         <property name="text">
+          <string>Izhod</string>
          </property>
         </widget>
        </item>
@@ -75,11 +69,23 @@
    </item>
   </layout>
  </widget>
- <tabstops>
-  <tabstop>lineEdit_login</tabstop>
-  <tabstop>pushButton_prijava</tabstop>
-  <tabstop>pushButton</tabstop>
- </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton_izhod</sender>
+   <signal>clicked()</signal>
+   <receiver>Settings</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>51</x>
+     <y>124</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>188</x>
+     <y>144</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

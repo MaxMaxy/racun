@@ -3,7 +3,7 @@
 
 Login::Login(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::Login), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/login.txt"), m_arhivLogin(m_currentDir + "/arhiv_login.txt")
+    ui(new Ui::Login), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/login_file.txt"), m_arhivLogin(m_currentDir + "/arhiv_login.txt")
 {
     ui->setupUi(this);
     QDir::setCurrent(m_currentDir);

@@ -3,7 +3,7 @@
 
 NovRacun::NovRacun(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::NovRacun), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/test.txt"), m_arhivNovRacun(m_currentDir + "/arhiv_novRacun.txt"), m_arhivStRacuna(m_currentDir + "/arhiv_stRacuna.txt"), m_arhivLogin(m_currentDir + "/arhiv_login.txt"), m_cNaziv(""), m_naslov(""), m_posta(""), m_ddv(""), m_email(""), m_numItems("1"), m_count(true), m_total(0), m_itemsAdded(0), m_max_produktov(19), m_vrstic(0)
+    ui(new Ui::NovRacun), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/company_file.txt"), m_arhivNovRacun(m_currentDir + "/arhiv_novRacun.txt"), m_arhivStRacuna(m_currentDir + "/arhiv_stRacuna.txt"), m_arhivLogin(m_currentDir + "/arhiv_login.txt"), m_cNaziv(""), m_naslov(""), m_posta(""), m_ddv(""), m_email(""), m_numItems("1"), m_shrani(m_currentDir + "/settings.txt"), m_fileShrani(m_currentDir), m_count(true), m_total(0), m_itemsAdded(0), m_max_produktov(19), m_vrstic(0)
 {
     ui->setupUi(this);
     ui->treeWidget_seznam->setColumnCount(3);
@@ -39,6 +39,7 @@ NovRacun::NovRacun(QWidget *parent) :
     ui->dateEdit->setDate(QDate::currentDate());
     AddItemsToCombo();
     Read();
+    Shrani();
 }
 
 NovRacun::~NovRacun()
@@ -60,6 +61,32 @@ void NovRacun::Arhiv(QString arhiv_file, QString stream)
     QTextStream out(&mFile);
     out << stream << "\n";
     mFile.flush();
+    mFile.close();
+}
+
+void NovRacun::Shrani()
+{
+    QFile mFile(m_shrani);
+    QTextStream in(&mFile);
+    QRegularExpression exp(" ;");
+    QString mLine("");
+    QStringList mList;
+    if(!mFile.open(QFile::ReadOnly | QFile::Text))
+    {
+        qDebug() << "Error opening file for reading in Shrani() in novracun.cpp";
+        return;
+    }
+    else
+    {
+        mLine = in.readLine();
+        mList = mLine.split(exp, QString::SkipEmptyParts);
+        if(mList.at(0) == "Shrani v:")
+        {
+            m_fileShrani = mList.at(1);
+            m_fileShrani.remove(0,1);
+            qDebug() << m_fileShrani;
+        }
+    }
     mFile.close();
 }
 
@@ -1684,8 +1711,7 @@ int NovRacun::creatPDF()
     {
         printer->setOutputFormat(QPrinter::PdfFormat);
         printer->setPaperSize(QPrinter::A4);
-        ui->dateEdit->setDisplayFormat("ddMMyyyy");
-        QString stevilka_racuna = ui->dateEdit->text();
+        QString stevilka_racuna = ui->lineEdit_stRacuna->text();
         QString stranka = ui->comboBox_narocnik->currentText();
         QRegExp rx("[ ]");
         QStringList list;
@@ -1696,12 +1722,11 @@ int NovRacun::creatPDF()
         else
             stranka = list.at(0) + "_" + list.at(1);
 
-        QString output = m_currentDir + "/RACUN_IN_DOBAVNICA_" + stranka + "_" + stevilka_racuna + ".pdf";
+        QString output = m_fileShrani + "/RACUN_IN_DOBAVNICA_" + stranka + "_" + stevilka_racuna + ".pdf";
         printer->setOutputFileName(output);
         qreal left = 0, right = 0, top = 0, bottom = 0;
         printer->setPageMargins(left, top, right, bottom, QPrinter::Millimeter);
         document_racun.print(printer);
-        ui->dateEdit->setDisplayFormat("d. M. yyyy");
     }
     NovRacun::close();
     return 0;

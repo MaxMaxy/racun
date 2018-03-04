@@ -8,5 +8,6 @@
         <file>money-bag.png</file>
         <file>new_invoice.png</file>
         <file>terjatve_obveznosti.png</file>
+        <file>settings.png</file>
     </qresource>
 </RCC>

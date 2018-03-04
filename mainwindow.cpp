@@ -36,12 +36,6 @@ void MainWindow::on_pushButton_4_clicked()
     MainWindow::on_actionDodaj_produkt_triggered();
 }
 
-// arhiv gumb
-void MainWindow::on_pushButton_arhiv_clicked()
-{
-    MainWindow::on_actionArhiv_triggered();
-}
-
 // terjatve gumb
 void MainWindow::on_pushButton_5_clicked()
 {
@@ -108,4 +102,11 @@ void MainWindow::on_actionVnos_obveznosti_triggered()
     VnosObveznosti obveznost;
     obveznost.setModal(true);
     obveznost.exec();
+}
+
+void MainWindow::on_actionNastavitve_triggered()
+{
+    Settings settings;
+    settings.setModal(true);
+    settings.exec();
 }

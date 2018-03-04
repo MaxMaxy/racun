@@ -2,8 +2,7 @@
 #include "ui_arhiv.h"
 
 Arhiv::Arhiv(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Arhiv), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/arhiv_files.txt")
+    QDialog(parent), ui(new Ui::Arhiv), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/arhiv_files.txt")
 {
     ui->setupUi(this);
     AddItemsToCombo();
@@ -14,10 +13,11 @@ Arhiv::~Arhiv()
     delete ui;
 }
 
-// doda text iz arhivskih filov ob spremembi indexa v comboboxu
+// if comboBox index change function
 void Arhiv::on_comboBox_currentIndexChanged(const QString &item)
 {
     ui->listWidget->clear();
+    // radioButton enable/desable based on comboBox index
     QButtonGroup *group = new QButtonGroup();
     group->addButton(ui->radioButton_dodaneStranke);
     group->addButton(ui->radioButton_dodaniProdukti);
@@ -96,25 +96,21 @@ void Arhiv::on_comboBox_currentIndexChanged(const QString &item)
     }
 }
 
-// Preberi produkt iz file-a
+// read file to populate comboBox function
 void Arhiv::Read()
 {
+    // open file based on comboBox text
     QString comboIzbira = ui->comboBox->currentText() + ".txt";
     QFile fileName(comboIzbira);
-    // test ce je odprt za branje
     if(!fileName.open(QFile::ReadOnly | QFile::Text))
     {
-        qDebug() << "Error opening file for reading in Read()";
+        qDebug() << "Error opening file for reading in Read() function in arhiv.cpp";
         return;
     }
-    // stream za branje fila
     QTextStream in(&fileName);
-    // preberi vsako vrstico ce je prazna izpusti drugace dodaj vrstico v listWidget
     QString mText("");
-    // preberemo celoten dokument in shranimo posamezne podatke v list
     while(!in.atEnd())
     {
-        // prebere podjetje
         mText = in.readLine();
         if(mText == "")
         {
@@ -122,33 +118,26 @@ void Arhiv::Read()
         }
         else
         {
-            // v treeWidget vnesemo vsa podjetja (posamezni podatki iz liste so list.at(?))
             ui->listWidget->addItem(mText);
         }
     }
-    // zapremo file
     fileName.close();
 }
 
-// vstavi podjetja v combo box
+// add items to combobox function
 void Arhiv::AddItemsToCombo()
 {
-    // zbrise vse iz combo boxa
     ui->comboBox->clear();
-    // naredi QFile var za fileName
     QFile mFile(m_fileName);
-    // test ce je odprt za branje
     if(!mFile.open(QFile::ReadOnly | QFile::Text))
     {
-        qDebug() << "Error opening file for reading in Read()";
+        qDebug() << "Error opening file for reading in AddItemsToCombo() function in arhiv.cpp)";
         return;
     }
-    // stream za branje fila
     QTextStream in(&mFile);
     QString mText("");
     while(!in.atEnd())
     {
-        // prebere podjetje
         mText = in.readLine();
         if(mText == "")
         {
@@ -156,30 +145,25 @@ void Arhiv::AddItemsToCombo()
         }
         else
         {
-            // doda podjetje v combo box
             ui->comboBox->addItem(mText);
         }
     }
-    // zapremo file
     mFile.close();
 }
 
-// iskalnik
+// search function
 void Arhiv::Search(QString searchName)
 {
     ui->listWidget->clear();
+    // open file based on comboBox current file text
     QString comboIzbira = ui->comboBox->currentText() + ".txt";
-    // odpre file za branje
     QFile mFile(comboIzbira);
-    // test ce je file odprt
-    if(!mFile.open(QFile::Text | QFile::ReadOnly))
+    if(!mFile.open(QFile::ReadOnly | QFile::Text))
     {
-        qDebug() << "Error opening mFile for reading in Search() Arhiv";
+        qDebug() << "Error opening mFile for reading in Search() function in arhiv.cpp";
         return;
     }
-    // stream za shranit text fila
     QTextStream out(&mFile);
-    // prebere celoten dokument in shrani v var
     QString line;
     while(!out.atEnd()){
         line = out.readLine();
@@ -187,11 +171,10 @@ void Arhiv::Search(QString searchName)
             ui->listWidget->addItem(line);
         }
     }
-    // zapre file
     mFile.close();
 }
 
-// radial gumbi opcije
+// radial button editing options
 void Arhiv::on_lineEdit_isci_editingFinished()
 {
     QString search = ui->lineEdit_isci->text();

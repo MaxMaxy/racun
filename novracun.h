@@ -36,6 +36,7 @@ public:
     void CalcSkupaj(QString &, QString &, bool);
     void Search(QString);
     void Arhiv(QString, QString);
+    void Shrani();
     QString CenaDDV(QString, QString);
 
 
@@ -60,6 +61,8 @@ private:
     QString m_ddv;
     QString m_email;
     QString m_numItems;
+    QString m_shrani;
+    QString m_fileShrani;
     bool m_count;
     float m_total;
     int m_itemsAdded;
