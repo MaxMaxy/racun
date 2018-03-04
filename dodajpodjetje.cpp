@@ -5,6 +5,8 @@ DodajPodjetje::DodajPodjetje(QWidget *parent) :
     QDialog(parent), ui(new Ui::DodajPodjetje), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/company_file.txt"), m_numOfCompany(m_currentDir + "/num_company.txt"), m_arhivStranke(m_currentDir + "/arhiv_stranke.txt"), m_zapSt("") ,m_cNaziv(""), m_kNaziv(""), m_naslov(""),m_posta(""), m_ddv(""), m_email(""), m_stranka(""), m_itr(0), m_totalCompanys(0), m_count(true)
 {
     ui->setupUi(this);
+    QIcon icon(":/icons/icon.ico");
+    this->setWindowIcon(icon);
     ui->treeWidget->setColumnCount(2);
     ui->treeWidget->setColumnWidth(0,40);
     Read();

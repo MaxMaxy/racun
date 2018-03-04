@@ -6,6 +6,8 @@ NumOfItems::NumOfItems(QWidget *parent) :
     m_numKosov("1"), ui(new Ui::NumOfItems)
 {
     ui->setupUi(this);
+    QIcon icon(":/icons/icon.ico");
+    this->setWindowIcon(icon);
     ui->lineEdit_steviloKosov->setValidator(new QIntValidator(0, 1000000, this));
 }
 

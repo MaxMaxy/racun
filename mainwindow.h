@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QIcon>
 #include "novracun.h"
 #include "dodajpodjetje.h"
 #include "dodajprodukt.h"

@@ -6,6 +6,8 @@ NovRacun::NovRacun(QWidget *parent) :
     ui(new Ui::NovRacun), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/company_file.txt"), m_arhivNovRacun(m_currentDir + "/arhiv_novRacun.txt"), m_arhivStRacuna(m_currentDir + "/arhiv_stRacuna.txt"), m_arhivLogin(m_currentDir + "/arhiv_login.txt"), m_cNaziv(""), m_naslov(""), m_posta(""), m_ddv(""), m_email(""), m_numItems("1"), m_shrani(m_currentDir + "/settings.txt"), m_fileShrani(m_currentDir), m_count(true), m_total(0), m_itemsAdded(0), m_max_produktov(19), m_vrstic(0)
 {
     ui->setupUi(this);
+    QIcon icon(":/icons/icon.ico");
+    this->setWindowIcon(icon);
     ui->treeWidget_seznam->setColumnCount(3);
     ui->treeWidget_seznam->setColumnWidth(0,80);
     ui->treeWidget_seznam->setColumnWidth(1,300);

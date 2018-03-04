@@ -5,6 +5,7 @@
 #include <QDialog>
 #include <QFile>
 #include <QDir>
+#include <QIcon>
 #include <QTextStream>
 
 namespace Ui {

@@ -6,6 +6,8 @@ PlaciloRacuna::PlaciloRacuna(QWidget *parent) :
     ui(new Ui::PlaciloRacuna)
 {
     ui->setupUi(this);
+    QIcon icon(":/icons/icon.ico");
+    this->setWindowIcon(icon);
     ui->dateEdit->setDisplayFormat("d. M. yyyy");
     ui->dateEdit->setDate(QDate::currentDate());
 }

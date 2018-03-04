@@ -2,6 +2,7 @@
 #define OPROGRAMU_H
 
 #include <QDialog>
+#include <QIcon>
 
 namespace Ui {
 class Oprogramu;

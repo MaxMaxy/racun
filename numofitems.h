@@ -2,6 +2,7 @@
 #define NUMOFITEMS_H
 
 #include <QDialog>
+#include <QIcon>
 
 namespace Ui {
 class NumOfItems;

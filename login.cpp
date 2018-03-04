@@ -6,6 +6,8 @@ Login::Login(QWidget *parent) :
     ui(new Ui::Login), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/login_file.txt"), m_arhivLogin(m_currentDir + "/arhiv_login.txt")
 {
     ui->setupUi(this);
+    QIcon icon(":/icons/icon.ico");
+    this->setWindowIcon(icon);
     QDir::setCurrent(m_currentDir);
 }
 

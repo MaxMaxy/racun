@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QDateTime>
 #include <QDir>
+#include <QIcon>
 
 namespace Ui {
 class Login;

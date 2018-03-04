@@ -8,6 +8,7 @@
 #include <QTreeWidgetItem>
 #include <QDebug>
 #include <QDateTime>
+#include <QIcon>
 
 namespace Ui {
 class DodajProdukt;

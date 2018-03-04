@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QDebug>
+#include <QIcon>
 
 namespace Ui {
 class Settings;

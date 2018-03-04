@@ -6,7 +6,8 @@ Oprogramu::Oprogramu(QWidget *parent) :
     ui(new Ui::Oprogramu)
 {
     ui->setupUi(this);
-
+    QIcon icon(":/icons/icon.ico");
+    this->setWindowIcon(icon);
 }
 
 Oprogramu::~Oprogramu()

@@ -5,6 +5,8 @@ Arhiv::Arhiv(QWidget *parent) :
     QDialog(parent), ui(new Ui::Arhiv), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/arhiv_files.txt")
 {
     ui->setupUi(this);
+    QIcon icon(":/icons/icon.ico");
+    this->setWindowIcon(icon);
     AddItemsToCombo();
 }
 

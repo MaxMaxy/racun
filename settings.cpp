@@ -5,6 +5,8 @@ Settings::Settings(QWidget *parent) :
     QDialog(parent), ui(new Ui::Settings), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/settings.txt"), m_dir(m_currentDir)
 {
     ui->setupUi(this);
+    QIcon icon(":/icons/icon.ico");
+    this->setWindowIcon(icon);
 }
 
 Settings::~Settings()

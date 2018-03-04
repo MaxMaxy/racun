@@ -9,6 +9,7 @@
 #include <QTextStream>
 #include <QDateTime>
 #include <QDebug>
+#include <QIcon>
 
 namespace Ui {
 class DodajPodjetje;

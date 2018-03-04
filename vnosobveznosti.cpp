@@ -6,6 +6,8 @@ VnosObveznosti::VnosObveznosti(QWidget *parent) :
     ui(new Ui::VnosObveznosti), m_currentDir(QDir::currentPath()), m_upnikSeznam(m_currentDir + "/arhiv_upnikiSeznam.txt"), m_vnosObv(m_currentDir + "/arhiv_upniki.txt")
 {
     ui->setupUi(this);
+    QIcon icon(":/icons/icon.ico");
+    this->setWindowIcon(icon);
     ui->dateEdit_valute->setDisplayFormat("d. M. yyyy");
     ui->dateEdit_valute->setDate(QDate::currentDate());
 }

@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QDir>
+#include <QIcon>
 
 namespace Ui {
 class VnosObveznosti;

@@ -9,6 +9,7 @@
 #include <QStringList>
 #include <QDir>
 #include <QTextStream>
+#include <QIcon>
 #include "vnosobveznosti.h"
 #include "novracun.h"
 #include "placiloracuna.h"

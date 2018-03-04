@@ -16,6 +16,7 @@
 #include <QPrintDialog>
 #include <QTextEdit>
 #include <QPainter>
+#include <QIcon>
 #include "numofitems.h"
 #include "dodajprodukt.h"
 

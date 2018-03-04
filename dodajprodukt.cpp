@@ -5,6 +5,8 @@ DodajProdukt::DodajProdukt(QWidget *parent) :
     QDialog(parent), ui(new Ui::DodajProdukt), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/company_file.txt"), m_arhivProdukti(m_currentDir + "/arhiv_produkti.txt"), m_id(""), m_naziv(""), m_cena(""), m_produkt(""), m_count(true), m_itr(0)
 {
     ui->setupUi(this);
+    QIcon icon(":/icons/icon.ico");
+    this->setWindowIcon(icon);
     ui->treeWidget->setColumnCount(3);
     ui->treeWidget->setColumnWidth(0,100);
     ui->treeWidget->setColumnWidth(1,450);

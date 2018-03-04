@@ -6,6 +6,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    QIcon icon(":icon/icon.ico");
+    this->setWindowIcon(icon);
+    MainWindow::setWindowIcon(icon);
 }
 
 MainWindow::~MainWindow()
