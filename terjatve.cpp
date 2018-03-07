@@ -417,6 +417,7 @@ void Terjatve::on_pushButton_2_clicked()
 void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
 {
     QString itemDatum = item->text(8);
+    qDebug() << itemDatum;
     QFile mFile(m_terjatve);
     if(!mFile.open(QFile::ReadOnly | QFile::Text))
     {
@@ -431,24 +432,23 @@ void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
         QString tmp("");
         QStringList list;
         QRegularExpression exp(" ;");
-        QRegularExpression exp_second(": ");
         QStringList placiloList;
         PlaciloRacuna placilo;
         QStringList tmp_list;
         allText = in.readAll();
         mFile.close();
 
-        if(!mFile.open(QFile::ReadOnly))
+        if(!mFile.open(QFile::ReadOnly | QFile::Text))
         {
             qDebug() << "Error opening in treeWidget_terjatve_itemDoubleClicked";
             return;
         }
         else
         {
-            while(!in.atEnd())
+            while(!mFile.atEnd())
             {
-                text_stRacuna = in.readLine();
-                list = allText.split(exp, QString::SkipEmptyParts);
+                text_stRacuna = mFile.readLine();
+                list = text_stRacuna.split(exp, QString::SkipEmptyParts);
                 tmp = list.at(1);
                 tmp.remove(0,1);
                 tmp.append(list.at(2));
@@ -456,7 +456,8 @@ void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
                     break;
             }
             tmp = text_stRacuna;
-            tmp_list = text_stRacuna.split(exp, QString::SkipEmptyParts);
+            qDebug() << tmp;
+            tmp_list = tmp.split(exp, QString::SkipEmptyParts);
             placilo.setModal(true);
             QString opomba = tmp_list.at(12);
             opomba.remove("Opomba: ");
@@ -478,6 +479,16 @@ void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
             if(!mFile.open(QFile::WriteOnly | QFile::Truncate | QFile::Text))
             {
                 qDebug() << "Error opening in treeWidget_terjatve_itemDoubleClicked";
+                return;
+            }
+            else
+            {
+                mFile.flush();
+                mFile.close();
+            }
+            if(!mFile.open(QFile::WriteOnly | QFile::Text))
+            {
+                qDebug() << "Error opening file fore writing in treeWidget_terjatve_itemDoubleClicked";
                 return;
             }
             else
