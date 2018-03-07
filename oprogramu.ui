@@ -126,12 +126,19 @@ v0.9
     - mozno dodajati produkte direktno iz nov racun
 
 v0.9.1
-    - testna verzija, iskanje bugov, itd. 
-                                
+    - testna verzija, iskanje bugov, itd.
+
+v0.9.2
+    - dodan osnutek statistike
+    - tablewidget v osnovi deluje
+    - grafi se niso implementirani
+
 TO_DO:
     - pretvorba racuna za bizbox
     - moznost posiljanja racuna po emailu strankam
-    - grafi, statistika
+    - grafi
+    - printanje ne deluje pravilno!!!
+    - preview printa??
     - itd.</string>
        </property>
       </widget>

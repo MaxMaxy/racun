@@ -7,15 +7,13 @@
 #include <QStringList>
 #include <QTextStream>
 #include <QString>
+#include <QTextDocument>
 #include <QTreeWidgetItem>
 #include <QTableWidget>
 #include <QDebug>
 #include <QPrinter>
-#include <QTextDocument>
 #include <QMessageBox>
 #include <QPrintDialog>
-#include <QTextEdit>
-#include <QPainter>
 #include <QIcon>
 #include "numofitems.h"
 #include "dodajprodukt.h"

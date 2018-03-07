@@ -86,7 +86,6 @@ void NovRacun::Shrani()
         {
             m_fileShrani = mList.at(1);
             m_fileShrani.remove(0,1);
-            qDebug() << m_fileShrani;
         }
     }
     mFile.close();
@@ -1728,9 +1727,10 @@ int NovRacun::creatPDF()
         printer->setOutputFileName(output);
         qreal left = 0, right = 0, top = 0, bottom = 0;
         printer->setPageMargins(left, top, right, bottom, QPrinter::Millimeter);
+
         document_racun.print(printer);
     }
-    NovRacun::close();
+    //NovRacun::close();
     return 0;
 }
 

@@ -479,6 +479,13 @@
       </layout>
      </item>
      <item>
+      <widget class="QPushButton" name="pushButton_statistika">
+       <property name="text">
+        <string>Statistika</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="Line" name="line_6">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>

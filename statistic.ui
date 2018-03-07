@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Statistic</class>
+ <widget class="QDialog" name="Statistic">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1244</width>
+    <height>941</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout_9">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="font">
+            <font>
+             <pointsize>16</pointsize>
+             <italic>true</italic>
+            </font>
+           </property>
+           <property name="text">
+            <string>Statistika</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout"/>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Stranke:</string>
+           </property>
+           <property name="buddy">
+            <cstring>comboBox_podjetja</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBox_podjetja"/>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_8">
+       <item>
+        <widget class="QPushButton" name="pushButton_izpis">
+         <property name="text">
+          <string>Izpis</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_6">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_7">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_6">
+             <item>
+              <widget class="QLabel" name="label_2">
+               <property name="font">
+                <font>
+                 <pointsize>11</pointsize>
+                 <italic>true</italic>
+                </font>
+               </property>
+               <property name="text">
+                <string>ODPRTO</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="Line" name="line_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QTableWidget" name="tableWidget_brez">
+               <row>
+                <property name="text">
+                 <string>Januar</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>Februar</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>Marec</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>April</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>Maj</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>Junij</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>Julij</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>Avgust</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>September</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>Oktober</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>November</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>December</string>
+                </property>
+               </row>
+               <column>
+                <property name="text">
+                 <string>OSNOVA</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>DDV</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>SKUPAJ</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+             <item>
+              <widget class="Line" name="line_5">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_3">
+               <property name="font">
+                <font>
+                 <pointsize>11</pointsize>
+                 <italic>true</italic>
+                </font>
+               </property>
+               <property name="text">
+                <string>SKUPAJ</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="Line" name="line_4">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QTableWidget" name="tableWidget_vse">
+               <row>
+                <property name="text">
+                 <string>Januar</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>Februar</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>Marec</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>April</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>Maj</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>Junij</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>Julij</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>Avgust</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>September</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>Oktober</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>November</string>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>December</string>
+                </property>
+               </row>
+               <column>
+                <property name="text">
+                 <string>OSNOVA</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>DDV</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>SKUPAJ</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="Line" name="line_7">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QWidget" name="plot" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="Line" name="line_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_izhod">
+           <property name="text">
+            <string>Izhod</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>comboBox_podjetja</tabstop>
+  <tabstop>pushButton_izpis</tabstop>
+  <tabstop>tableWidget_brez</tabstop>
+  <tabstop>pushButton_izhod</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButton_izhod</sender>
+   <signal>clicked()</signal>
+   <receiver>Statistic</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>66</x>
+     <y>651</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>377</x>
+     <y>236</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

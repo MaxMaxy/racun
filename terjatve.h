@@ -13,6 +13,7 @@
 #include "vnosobveznosti.h"
 #include "novracun.h"
 #include "placiloracuna.h"
+#include "statistic.h"
 
 namespace Ui {
 class Terjatve;
@@ -47,6 +48,7 @@ private slots:
     void on_pushButton_2_clicked();
     void on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *);
     void on_treeWidget_obveznosti_itemDoubleClicked(QTreeWidgetItem *);
+    void on_pushButton_statistika_clicked();
 
 private:
     Ui::Terjatve *ui;

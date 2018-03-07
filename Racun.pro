@@ -37,7 +37,9 @@ SOURCES += \
     terjatve.cpp \
     vnosobveznosti.cpp \
     placiloracuna.cpp \
-    settings.cpp
+    settings.cpp \
+    statistic.cpp \
+    qcustomplot.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -51,7 +53,9 @@ HEADERS += \
     terjatve.h \
     vnosobveznosti.h \
     placiloracuna.h \
-    settings.h
+    settings.h \
+    statistic.h \
+    qcustomplot.h
 
 FORMS += \
     mainwindow.ui \
@@ -65,7 +69,8 @@ FORMS += \
     terjatve.ui \
     vnosobveznosti.ui \
     placiloracuna.ui \
-    settings.ui
+    settings.ui \
+    statistic.ui
 
 RESOURCES += \
     files.qrc

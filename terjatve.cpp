@@ -582,3 +582,10 @@ void Terjatve::on_treeWidget_obveznosti_itemDoubleClicked(QTreeWidgetItem *item)
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: green}");
     ui->label_terjatve_obveznosti->setText(QString::number(m_totalTerMinObv) + "€");
 }
+
+void Terjatve::on_pushButton_statistika_clicked()
+{
+    Statistic statistika;
+    statistika.setModal(true);
+    statistika.exec();
+}

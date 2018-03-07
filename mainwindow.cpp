@@ -113,3 +113,10 @@ void MainWindow::on_actionNastavitve_triggered()
     settings.setModal(true);
     settings.exec();
 }
+
+void MainWindow::on_actionStatistika_triggered()
+{
+    Statistic statistika;
+    statistika.setModal(true);
+    statistika.exec();
+}

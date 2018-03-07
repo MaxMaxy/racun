@@ -11,6 +11,7 @@
 #include "terjatve.h"
 #include "vnosobveznosti.h"
 #include "settings.h"
+#include "statistic.h"
 
 namespace Ui {
 class MainWindow;
@@ -40,6 +41,8 @@ private slots:
     void on_pushButton_6_clicked();
 
     void on_actionNastavitve_triggered();
+
+    void on_actionStatistika_triggered();
 
 private:
     Ui::MainWindow *ui;

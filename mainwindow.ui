@@ -202,7 +202,7 @@
          <enum>QFrame::Raised</enum>
         </property>
         <property name="text">
-         <string>v0.9.1</string>
+         <string>v0.9.2</string>
         </property>
         <property name="textFormat">
          <enum>Qt::AutoText</enum>
@@ -229,7 +229,7 @@
      <x>0</x>
      <y>0</y>
      <width>246</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuStart">
@@ -241,6 +241,7 @@
     <addaction name="actionTerjatve_obveznosti"/>
     <addaction name="actionDodaj_podjetje"/>
     <addaction name="actionDodaj_produkt"/>
+    <addaction name="actionStatistika"/>
     <addaction name="separator"/>
     <addaction name="actionArhiv"/>
     <addaction name="actionNastavitve"/>
@@ -331,7 +332,7 @@
     <string>Arhiv</string>
    </property>
    <property name="shortcut">
-    <string>F6</string>
+    <string>F7</string>
    </property>
   </action>
   <action name="actionTerjatve_obveznosti">
@@ -370,7 +371,20 @@
     <string>Nastavitve</string>
    </property>
    <property name="shortcut">
-    <string>F7</string>
+    <string>F8</string>
+   </property>
+  </action>
+  <action name="actionStatistika">
+   <property name="icon">
+    <iconset>
+     <normalon>:/icons/statistic.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Statistika</string>
+   </property>
+   <property name="shortcut">
+    <string>F6</string>
    </property>
   </action>
  </widget>
