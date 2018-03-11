@@ -158,6 +158,24 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="pushButton_7">
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Statistika</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normalon>:/icons/statistic.png</normalon>
+         </iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="Line" name="line">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -202,7 +220,7 @@
          <enum>QFrame::Raised</enum>
         </property>
         <property name="text">
-         <string>v0.9.2</string>
+         <string>v0.9.3</string>
         </property>
         <property name="textFormat">
          <enum>Qt::AutoText</enum>

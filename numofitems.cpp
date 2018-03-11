@@ -8,6 +8,7 @@ NumOfItems::NumOfItems(QWidget *parent) :
     ui->setupUi(this);
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
+    this->setWindowTitle("Stevilo kosov");
     ui->lineEdit_steviloKosov->setValidator(new QIntValidator(0, 1000000, this));
 }
 

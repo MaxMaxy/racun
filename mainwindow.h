@@ -44,6 +44,8 @@ private slots:
 
     void on_actionStatistika_triggered();
 
+    void on_pushButton_7_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

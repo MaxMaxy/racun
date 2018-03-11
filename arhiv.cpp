@@ -7,6 +7,7 @@ Arhiv::Arhiv(QWidget *parent) :
     ui->setupUi(this);
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
+    this->setWindowTitle("Arhiv");
     AddItemsToCombo();
 }
 

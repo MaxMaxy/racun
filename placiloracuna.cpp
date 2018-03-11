@@ -10,6 +10,7 @@ PlaciloRacuna::PlaciloRacuna(QWidget *parent) :
     this->setWindowIcon(icon);
     ui->dateEdit->setDisplayFormat("d. M. yyyy");
     ui->dateEdit->setDate(QDate::currentDate());
+    this->setWindowTitle("Placila");
 }
 
 PlaciloRacuna::~PlaciloRacuna()

@@ -9,6 +9,7 @@ DodajPodjetje::DodajPodjetje(QWidget *parent) :
     this->setWindowIcon(icon);
     ui->treeWidget->setColumnCount(2);
     ui->treeWidget->setColumnWidth(0,40);
+    this->setWindowTitle("Dodaj/popravi stranko");
     Read();
     TotalCompany();
 }

@@ -8,6 +8,7 @@ NovRacun::NovRacun(QWidget *parent) :
     ui->setupUi(this);
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
+    this->setWindowTitle("Nov racun");
     ui->treeWidget_seznam->setColumnCount(3);
     ui->treeWidget_seznam->setColumnWidth(0,80);
     ui->treeWidget_seznam->setColumnWidth(1,300);
@@ -1727,7 +1728,6 @@ int NovRacun::creatPDF()
         printer->setOutputFileName(output);
         qreal left = 0, right = 0, top = 0, bottom = 0;
         printer->setPageMargins(left, top, right, bottom, QPrinter::Millimeter);
-
         document_racun.print(printer);
     }
     //NovRacun::close();

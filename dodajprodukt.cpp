@@ -10,6 +10,7 @@ DodajProdukt::DodajProdukt(QWidget *parent) :
     ui->treeWidget->setColumnCount(3);
     ui->treeWidget->setColumnWidth(0,100);
     ui->treeWidget->setColumnWidth(1,450);
+    this->setWindowTitle("Dodaj/popravi produkt");
     AddItemsToCombo();
     Read();
 }

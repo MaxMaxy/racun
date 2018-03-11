@@ -133,10 +133,14 @@ v0.9.2
     - tablewidget v osnovi deluje
     - grafi se niso implementirani
 
+v0.9.3
+    - dodan graf v statistiko
+    - popravljena koda v statistiki
+    - vizualni popravki
+
 TO_DO:
     - pretvorba racuna za bizbox
     - moznost posiljanja racuna po emailu strankam
-    - grafi
     - printanje ne deluje pravilno!!!
     - preview printa??
     - itd.</string>

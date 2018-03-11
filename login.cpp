@@ -8,6 +8,7 @@ Login::Login(QWidget *parent) :
     ui->setupUi(this);
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
+    this->setWindowTitle("Prijava");
     QDir::setCurrent(m_currentDir);
 }
 

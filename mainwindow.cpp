@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     QIcon icon(":icon/icon.ico");
     this->setWindowIcon(icon);
+    this->setWindowTitle("Glavni meni");
     MainWindow::setWindowIcon(icon);
 }
 
@@ -49,6 +50,12 @@ void MainWindow::on_pushButton_5_clicked()
 void MainWindow::on_pushButton_6_clicked()
 {
     MainWindow::on_actionVnos_obveznosti_triggered();
+}
+
+// statistika gumb
+void MainWindow::on_pushButton_7_clicked()
+{
+    MainWindow::on_actionStatistika_triggered();
 }
 
 // action dodaj podjetje

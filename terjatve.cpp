@@ -8,6 +8,7 @@ Terjatve::Terjatve(QWidget *parent) :
     ui->setupUi(this);
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
+    this->setWindowTitle("Terjatve in obveznosti");
     ui->dateEdit_obveznostiOd->setDisplayFormat("d. M. yyyy");
     ui->dateEdit_obveznostiDo->setDisplayFormat("d. M. yyyy");
     ui->dateEdit_terjatveOd->setDisplayFormat("d. M. yyyy");
@@ -417,7 +418,6 @@ void Terjatve::on_pushButton_2_clicked()
 void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
 {
     QString itemDatum = item->text(8);
-    qDebug() << itemDatum;
     QFile mFile(m_terjatve);
     if(!mFile.open(QFile::ReadOnly | QFile::Text))
     {
@@ -456,7 +456,6 @@ void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
                     break;
             }
             tmp = text_stRacuna;
-            qDebug() << tmp;
             tmp_list = tmp.split(exp, QString::SkipEmptyParts);
             placilo.setModal(true);
             QString opomba = tmp_list.at(12);
