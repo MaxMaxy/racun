@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>246</width>
-    <height>292</height>
+    <height>323</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -271,6 +271,8 @@
      <string>Pomoc</string>
     </property>
     <addaction name="actionO_programu"/>
+    <addaction name="separator"/>
+    <addaction name="actionTesting"/>
    </widget>
    <addaction name="menuStart"/>
    <addaction name="menuPomoc"/>
@@ -403,6 +405,14 @@
    </property>
    <property name="shortcut">
     <string>F6</string>
+   </property>
+  </action>
+  <action name="actionTesting">
+   <property name="text">
+    <string>Testing</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
    </property>
   </action>
  </widget>

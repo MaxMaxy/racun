@@ -8,6 +8,12 @@ Statistic::Statistic(QWidget *parent) :
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
     this->setWindowTitle("Statistika");
+    int color;
+    for(int i(0); i < 150; i++)
+    {
+        color = qrand() % 255;
+        m_colorArray[i] = color;
+    }
     QHeaderView *h_header_brez = ui->tableWidget_brez->horizontalHeader();
     QHeaderView *v_header_brez = ui->tableWidget_brez->verticalHeader();
     h_header_brez->setSectionResizeMode(QHeaderView::Stretch);
@@ -1360,9 +1366,6 @@ void Statistic::Plot()
 
     // set all companys name and color from comboBox
     QCPBars *podjetja[m_numInCombo];
-    int col_num;
-    int col_sec;
-    int col_thr;
     // create empty bar chart objects:
     for(int itr(0); itr < m_numInCombo; itr++)
     {
@@ -1371,11 +1374,8 @@ void Statistic::Plot()
         podjetja[itr]->setStackingGap(1);
         // set names and colors:
         podjetja[itr]->setName(ui->comboBox_podjetja->itemText(itr));
-        col_num = qrand() % 255;
-        col_sec = (qrand() % 255);
-        col_thr = (qrand() % 50);
-        podjetja[itr]->setPen(QPen(QColor(col_num, col_sec, col_thr).lighter(130)));
-        podjetja[itr]->setBrush(QColor(col_thr, col_sec, col_num));
+        podjetja[itr]->setPen(QPen(QColor(0,0,0).lighter(130)));
+        podjetja[itr]->setBrush(QColor(m_colorArray[qrand()%150], m_colorArray[qrand()%150], m_colorArray[qrand()%150]));
         // stack bars on top of each other:
         if(itr == 0)
             continue;
@@ -1546,7 +1546,8 @@ void Statistic::GetData(QVector<double> *allData, int itr, QString name)
 
 void Statistic::on_pushButton_izpis_clicked()
 {
-
+    ui->plot->clearPlottables();
+    Plot();
 }
 
 void Statistic::on_comboBox_podjetja_currentTextChanged()

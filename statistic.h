@@ -35,6 +35,7 @@ private:
     QString m_fileNameCompanys;
     QString m_fileRacun;
     int m_numInCombo;
+    int m_colorArray[150];
 };
 
 #endif // STATISTIC_H

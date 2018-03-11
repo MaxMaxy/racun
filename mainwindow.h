@@ -12,6 +12,7 @@
 #include "vnosobveznosti.h"
 #include "settings.h"
 #include "statistic.h"
+#include "testingdialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -45,6 +46,8 @@ private slots:
     void on_actionStatistika_triggered();
 
     void on_pushButton_7_clicked();
+
+    void on_actionTesting_triggered();
 
 private:
     Ui::MainWindow *ui;

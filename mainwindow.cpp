@@ -127,3 +127,10 @@ void MainWindow::on_actionStatistika_triggered()
     statistika.setModal(true);
     statistika.exec();
 }
+
+void MainWindow::on_actionTesting_triggered()
+{
+    TestingDialog testing;
+    testing.setModal(true);
+    testing.exec();
+}

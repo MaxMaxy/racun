@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui printsupport
+QT       += core gui printsupport sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -39,7 +39,8 @@ SOURCES += \
     placiloracuna.cpp \
     settings.cpp \
     statistic.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    testingdialog.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -55,7 +56,8 @@ HEADERS += \
     placiloracuna.h \
     settings.h \
     statistic.h \
-    qcustomplot.h
+    qcustomplot.h \
+    testingdialog.h
 
 FORMS += \
     mainwindow.ui \
@@ -70,7 +72,8 @@ FORMS += \
     vnosobveznosti.ui \
     placiloracuna.ui \
     settings.ui \
-    statistic.ui
+    statistic.ui \
+    testingdialog.ui
 
 RESOURCES += \
     files.qrc
