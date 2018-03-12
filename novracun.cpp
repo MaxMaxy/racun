@@ -587,6 +587,12 @@ int NovRacun::creatPDF()
     QStringList mTextList = mText.split(" ; ");
     mText = mTextList.at(1);
     mFile.close();
+    QString sum_osnova = ui->label_osnova->text();
+    QString sum_ddv = ui->label_ddv->text();
+    QString sum_skupaj = ui->label_skupaj->text();
+    sum_osnova.remove("€");
+    sum_ddv.remove("€");
+    sum_skupaj.remove("€");
     QString arhiv = "Nov racun ; " + date.toString("dd.MM.yyyy ; hh:mm:ss.zzz") + " ; "
             + "St_rac: " + ui->lineEdit_stRacuna->text() + " ; "
             + "Vezni_dok: " + ui->lineEdit_sklic->text() + " ; "
@@ -594,9 +600,9 @@ int NovRacun::creatPDF()
             + "Dat_valute: " + inputDate.addDays(45).toString("d. M. yyyy") + " ; "
             + "Narocnik: " + ui->comboBox_narocnik->currentText() + " ; "
             + "Produkti: " + items + " ; "
-            + "Sum_osnova: " + ui->label_osnova->text() + " ; "
-            + "Sum_ddv: " + ui->label_ddv->text() + " ; "
-            + "Sum_skupaj: " + ui->label_skupaj->text() + " ; "
+            + "Sum_osnova: " + sum_osnova + " ; "
+            + "Sum_ddv: " + sum_ddv + " ; "
+            + "Sum_skupaj: " + sum_skupaj + " ; "
             + "Opomba: " + ui->lineEdit->text() + " ; "
             + "Rac_napisal: " + mText + " ; "
             + "Placilo: " + "" + " ; " + "Dat_placila: " + "" + " ; " + "Opomba: " + "" + "; (end)" ;
