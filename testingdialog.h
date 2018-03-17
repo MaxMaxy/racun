@@ -2,9 +2,10 @@
 #define TESTINGDIALOG_H
 
 #include <QDialog>
-#include <QSqlDatabase>
-#include <QSqlQuery>
 #include <QDebug>
+#include <QDomDocument>
+#include <QDomElement>
+#include <QFile>
 
 namespace Ui {
 class TestingDialog;
@@ -24,6 +25,7 @@ private slots:
 
 private:
     Ui::TestingDialog *ui;
+    int m_num_of_products;
 };
 
 #endif // TESTINGDIALOG_H

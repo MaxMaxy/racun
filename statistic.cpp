@@ -121,7 +121,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     // OSNOVA
                     tmp = mList.at(9);
                     tmp.remove("Sum_osnova: ");
-                    tmp.remove(-1,1);
                     num = ui->tableWidget_vse->item(0,0)->text();
                     num.remove(-1,2);
                     mSumOsnova = num.toDouble();
@@ -166,7 +165,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     {
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
-                        tmp.remove(-1,1);
                         num = ui->tableWidget_brez->item(0,0)->text();
                         num.remove(-1,2);
                         mSumOsnova = num.toDouble();
@@ -223,7 +221,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     // OSNOVA
                     tmp = mList.at(9);
                     tmp.remove("Sum_osnova: ");
-                    tmp.remove(-1,1);
                     num = ui->tableWidget_vse->item(1,0)->text();
                     num.remove(-1,2);
                     mSumOsnova = num.toDouble();
@@ -268,7 +265,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     {
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
-                        tmp.remove(-1,1);
                         num = ui->tableWidget_brez->item(1,0)->text();
                         num.remove(-1,2);
                         mSumOsnova = num.toDouble();
@@ -325,7 +321,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     // OSNOVA
                     tmp = mList.at(9);
                     tmp.remove("Sum_osnova: ");
-                    tmp.remove(-1,1);
                     num = ui->tableWidget_vse->item(2,0)->text();
                     num.remove(-1,2);
                     mSumOsnova = num.toDouble();
@@ -371,7 +366,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     {
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
-                        tmp.remove(-1,1);
                         num = ui->tableWidget_brez->item(2,0)->text();
                         num.remove(-1,2);
                         mSumOsnova = num.toDouble();
@@ -430,7 +424,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     // OSNOVA
                     tmp = mList.at(9);
                     tmp.remove("Sum_osnova: ");
-                    tmp.remove(-1,1);
                     num = ui->tableWidget_vse->item(3,0)->text();
                     num.remove(-1,2);
                     mSumOsnova = num.toDouble();
@@ -475,7 +468,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     {
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
-                        tmp.remove(-1,1);
                         num = ui->tableWidget_brez->item(3,0)->text();
                         num.remove(-1,2);
                         mSumOsnova = num.toDouble();
@@ -532,7 +524,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     // OSNOVA
                     tmp = mList.at(9);
                     tmp.remove("Sum_osnova: ");
-                    tmp.remove(-1,1);
                     num = ui->tableWidget_vse->item(4,0)->text();
                     num.remove(-1,2);
                     mSumOsnova = num.toDouble();
@@ -577,7 +568,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     {
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
-                        tmp.remove(-1,1);
                         num = ui->tableWidget_brez->item(4,0)->text();
                         num.remove(-1,2);
                         mSumOsnova = num.toDouble();
@@ -634,7 +624,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     // OSNOVA
                     tmp = mList.at(9);
                     tmp.remove("Sum_osnova: ");
-                    tmp.remove(-1,1);
                     num = ui->tableWidget_vse->item(5,0)->text();
                     num.remove(-1,2);
                     mSumOsnova = num.toDouble();
@@ -679,7 +668,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     {
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
-                        tmp.remove(-1,1);
                         num = ui->tableWidget_brez->item(5,0)->text();
                         num.remove(-1,2);
                         mSumOsnova = num.toDouble();
@@ -736,7 +724,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     // OSNOVA
                     tmp = mList.at(9);
                     tmp.remove("Sum_osnova: ");
-                    tmp.remove(-1,1);
                     num = ui->tableWidget_vse->item(6,0)->text();
                     num.remove(-1,2);
                     mSumOsnova = num.toDouble();
@@ -781,7 +768,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     {
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
-                        tmp.remove(-1,1);
                         num = ui->tableWidget_brez->item(6,0)->text();
                         num.remove(-1,2);
                         mSumOsnova = num.toDouble();
@@ -838,7 +824,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     // OSNOVA
                     tmp = mList.at(9);
                     tmp.remove("Sum_osnova: ");
-                    tmp.remove(-1,1);
                     num = ui->tableWidget_vse->item(7,0)->text();
                     num.remove(-1,2);
                     mSumOsnova = num.toDouble();
@@ -883,7 +868,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     {
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
-                        tmp.remove(-1,1);
                         num = ui->tableWidget_brez->item(7,0)->text();
                         num.remove(-1,2);
                         mSumOsnova = num.toDouble();
@@ -940,7 +924,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     // OSNOVA
                     tmp = mList.at(9);
                     tmp.remove("Sum_osnova: ");
-                    tmp.remove(-1,1);
                     num = ui->tableWidget_vse->item(8,0)->text();
                     num.remove(-1,2);
                     mSumOsnova = num.toDouble();
@@ -985,7 +968,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     {
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
-                        tmp.remove(-1,1);
                         num = ui->tableWidget_brez->item(8,0)->text();
                         num.remove(-1,2);
                         mSumOsnova = num.toDouble();
@@ -1042,7 +1024,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     // OSNOVA
                     tmp = mList.at(9);
                     tmp.remove("Sum_osnova: ");
-                    tmp.remove(-1,1);
                     num = ui->tableWidget_vse->item(9,0)->text();
                     num.remove(-1,2);
                     mSumOsnova = num.toDouble();
@@ -1087,7 +1068,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     {
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
-                        tmp.remove(-1,1);
                         num = ui->tableWidget_brez->item(9,0)->text();
                         num.remove(-1,2);
                         mSumOsnova = num.toDouble();
@@ -1144,7 +1124,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     // OSNOVA
                     tmp = mList.at(9);
                     tmp.remove("Sum_osnova: ");
-                    tmp.remove(-1,1);
                     num = ui->tableWidget_vse->item(10,0)->text();
                     num.remove(-1,2);
                     mSumOsnova = num.toDouble();
@@ -1189,7 +1168,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     {
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
-                        tmp.remove(-1,1);
                         num = ui->tableWidget_brez->item(10,0)->text();
                         num.remove(-1,2);
                         mSumOsnova = num.toDouble();
@@ -1246,7 +1224,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     // OSNOVA
                     tmp = mList.at(9);
                     tmp.remove("Sum_osnova: ");
-                    tmp.remove(-1,1);
                     num = ui->tableWidget_vse->item(11,0)->text();
                     num.remove(-1,2);
                     mSumOsnova = num.toDouble();
@@ -1291,7 +1268,6 @@ void Statistic::AddToTableWidget(QString fileName)
                     {
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
-                        tmp.remove(-1,1);
                         num = ui->tableWidget_brez->item(11,0)->text();
                         num.remove(-1,2);
                         mSumOsnova = num.toDouble();
@@ -1492,7 +1468,6 @@ void Statistic::GetData(QVector<double> *allData, int itr, QString name)
                         {
                             tmp = listText.at(9);
                             tmp.remove("Sum_osnova: ");
-                            tmp.remove(-1,1);
                             sumPerMonth += tmp.toDouble();
                         }
                     }
@@ -1530,7 +1505,6 @@ void Statistic::GetData(QVector<double> *allData, int itr, QString name)
                         {
                             tmp = listText.at(9);
                             tmp.remove("Sum_osnova: ");
-                            tmp.remove(-1,1);
                             sumPerMonth += tmp.toDouble();
                         }
                     }

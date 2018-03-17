@@ -4,8 +4,10 @@
 #
 #-------------------------------------------------
 
-QT       += core gui printsupport sql
-
+QT       += core
+QT       += gui
+QT       += printsupport
+QT       += xml
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Racun

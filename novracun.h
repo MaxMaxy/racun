@@ -15,6 +15,8 @@
 #include <QMessageBox>
 #include <QPrintDialog>
 #include <QIcon>
+#include <QDomDocument>
+#include <QDomElement>
 #include "numofitems.h"
 #include "dodajprodukt.h"
 
@@ -36,6 +38,7 @@ public:
     void Search(QString);
     void Arhiv(QString, QString);
     void Shrani();
+    void MakeXML();
     QString CenaDDV(QString, QString);
 
 
@@ -46,6 +49,10 @@ private slots:
     void on_lineEdit_popust_editingFinished();
     void on_lineEdit_isci_editingFinished();
     void on_pushButton_dodajNovProdukt_clicked();
+
+    void on_pushButton_2_clicked();
+
+    void on_lineEdit_popust_textChanged(const QString &arg1);
 
 private:
     Ui::NovRacun *ui;
