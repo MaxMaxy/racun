@@ -51,6 +51,20 @@
           </widget>
          </item>
          <item>
+          <widget class="QRadioButton" name="radioButton_noviRacuni">
+           <property name="text">
+            <string>Novi racuni</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioButton_spremenjeniRacuni">
+           <property name="text">
+            <string>Spremenjeni racuni</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QRadioButton" name="radioButton_dodaneStranke">
            <property name="text">
             <string>Dodane stranke</string>

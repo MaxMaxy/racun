@@ -17,6 +17,8 @@
 #include <QIcon>
 #include <QDomDocument>
 #include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include "numofitems.h"
 #include "dodajprodukt.h"
 
@@ -39,6 +41,7 @@ public:
     void Arhiv(QString, QString);
     void Shrani();
     void MakeXML();
+    void PopraviRacun(QString, QString, QString, QString, QString, QString, QString, QString, QString, QString);
     QString CenaDDV(QString, QString);
 
 
@@ -46,13 +49,14 @@ private slots:
     void on_comboBox_narocnik_currentIndexChanged();
     void on_treeWidget_seznam_doubleClicked();
     void on_treeWidget_dodani_doubleClicked();
-    void on_lineEdit_popust_editingFinished();
     void on_lineEdit_isci_editingFinished();
     void on_pushButton_dodajNovProdukt_clicked();
 
     void on_pushButton_2_clicked();
 
-    void on_lineEdit_popust_textChanged(const QString &arg1);
+    void on_lineEdit_popust_textChanged();
+
+    void on_lineEdit_popust_editingFinished();
 
 private:
     Ui::NovRacun *ui;
@@ -70,10 +74,11 @@ private:
     QString m_shrani;
     QString m_fileShrani;
     bool m_count;
-    float m_total;
+    double m_total;
     int m_itemsAdded;
     int m_max_produktov;
     int m_vrstic;
+    bool m_sprememba;
 
 public slots:
     int creatPDF();

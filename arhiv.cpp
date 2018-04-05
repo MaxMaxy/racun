@@ -28,6 +28,8 @@ void Arhiv::on_comboBox_currentIndexChanged(const QString &item)
     group->addButton(ui->radioButton_popravljeneStranke);
     group->addButton(ui->radioButton_popravljeniProdukti);
     group->addButton(ui->radioButton_uspesnaPrijava);
+    group->addButton(ui->radioButton_noviRacuni);
+    group->addButton(ui->radioButton_spremenjeniRacuni);
     group->addButton(ui->radioButton_vse);
     QAbstractButton * checked = group->checkedButton();
     if(checked)
@@ -46,6 +48,8 @@ void Arhiv::on_comboBox_currentIndexChanged(const QString &item)
         ui->radioButton_popravljeniProdukti->setEnabled(false);
         ui->radioButton_uspesnaPrijava->setEnabled(true);
         ui->radioButton_neuspesnaPrijava->setEnabled(true);
+        ui->radioButton_noviRacuni->setEnabled(false);
+        ui->radioButton_spremenjeniRacuni->setEnabled(false);
     }
     else if(item == "arhiv_novRacun")
     {
@@ -56,6 +60,8 @@ void Arhiv::on_comboBox_currentIndexChanged(const QString &item)
         ui->radioButton_popravljeniProdukti->setEnabled(false);
         ui->radioButton_uspesnaPrijava->setEnabled(false);
         ui->radioButton_neuspesnaPrijava->setEnabled(false);
+        ui->radioButton_noviRacuni->setEnabled(true);
+        ui->radioButton_spremenjeniRacuni->setEnabled(true);
     }
     else if(item == "arhiv_produkti")
     {
@@ -66,6 +72,8 @@ void Arhiv::on_comboBox_currentIndexChanged(const QString &item)
         ui->radioButton_popravljeniProdukti->setEnabled(true);
         ui->radioButton_uspesnaPrijava->setEnabled(false);
         ui->radioButton_neuspesnaPrijava->setEnabled(false);
+        ui->radioButton_noviRacuni->setEnabled(false);
+        ui->radioButton_spremenjeniRacuni->setEnabled(false);
     }
     else if(item == "arhiv_stranke")
     {
@@ -76,6 +84,8 @@ void Arhiv::on_comboBox_currentIndexChanged(const QString &item)
         ui->radioButton_popravljeniProdukti->setEnabled(false);
         ui->radioButton_uspesnaPrijava->setEnabled(false);
         ui->radioButton_neuspesnaPrijava->setEnabled(false);
+        ui->radioButton_noviRacuni->setEnabled(false);
+        ui->radioButton_spremenjeniRacuni->setEnabled(false);
     }
     else if(item == "arhiv_files")
     {
@@ -86,6 +96,8 @@ void Arhiv::on_comboBox_currentIndexChanged(const QString &item)
         ui->radioButton_popravljeniProdukti->setEnabled(false);
         ui->radioButton_uspesnaPrijava->setEnabled(false);
         ui->radioButton_neuspesnaPrijava->setEnabled(false);
+        ui->radioButton_noviRacuni->setEnabled(false);
+        ui->radioButton_spremenjeniRacuni->setEnabled(false);
     }
     else
     {
@@ -96,6 +108,8 @@ void Arhiv::on_comboBox_currentIndexChanged(const QString &item)
         ui->radioButton_popravljeniProdukti->setEnabled(false);
         ui->radioButton_uspesnaPrijava->setEnabled(false);
         ui->radioButton_neuspesnaPrijava->setEnabled(false);
+        ui->radioButton_noviRacuni->setEnabled(false);
+        ui->radioButton_spremenjeniRacuni->setEnabled(false);
     }
 }
 
@@ -237,4 +251,41 @@ void Arhiv::on_radioButton_popravljeneStranke_toggled(bool checked)
     ui->listWidget->clear();
     if(checked)
         Search("Popravljeno");
+}
+
+void Arhiv::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
+{
+    if(ui->comboBox->currentText() == "arhiv_novRacun")
+    {
+        QString tmp("");
+        QStringList list = item->text().split(" ; ", QString::SkipEmptyParts);
+        QStringList tmp_list;
+        for(int i(0); i < list.length(); i++)
+        {
+            tmp = list.at(i);
+            tmp_list.append(tmp.split(": ", QString::SkipEmptyParts));
+        }
+        for(int i(0); i < tmp_list.length(); i++)
+            qDebug() << i << tmp_list.at(i);
+        NovRacun racun;
+        racun.setModal(true);
+        racun.PopraviRacun(tmp_list.at(12), tmp_list.at(4), tmp_list.at(6), tmp_list.at(8), tmp_list.at(22), tmp_list.at(14), tmp_list.at(16), tmp_list.at(18), tmp_list.at(20), tmp_list.at(29));
+        racun.exec();
+        ui->listWidget->clear();
+        Read();
+    }
+}
+
+void Arhiv::on_radioButton_noviRacuni_toggled(bool checked)
+{
+    ui->listWidget->clear();
+    if(checked)
+        Search("Nov racun");
+}
+
+void Arhiv::on_radioButton_spremenjeniRacuni_toggled(bool checked)
+{
+    ui->listWidget->clear();
+    if(checked)
+        Search("Sprememba racuna");
 }

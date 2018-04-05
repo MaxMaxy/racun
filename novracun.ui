@@ -21,7 +21,7 @@
      </property>
     </widget>
    </item>
-   <item row="30" column="2">
+   <item row="32" column="2">
     <widget class="QLabel" name="label_9">
      <property name="text">
       <string>DDV €</string>
@@ -31,7 +31,7 @@
      </property>
     </widget>
    </item>
-   <item row="31" column="2">
+   <item row="28" column="2">
     <widget class="QLabel" name="label_10">
      <property name="text">
       <string>Popust %</string>
@@ -54,7 +54,7 @@
      </property>
     </widget>
    </item>
-   <item row="37" column="2">
+   <item row="39" column="2">
     <widget class="QPushButton" name="pushButton_izhod">
      <property name="text">
       <string>Izhod</string>
@@ -118,7 +118,7 @@
      </property>
     </widget>
    </item>
-   <item row="37" column="3">
+   <item row="39" column="3">
     <widget class="QPushButton" name="pushButton_natisniRacun">
      <property name="text">
       <string>Natisni racun</string>
@@ -161,7 +161,7 @@
      </property>
     </widget>
    </item>
-   <item row="36" column="2" colspan="2">
+   <item row="38" column="2" colspan="2">
     <widget class="Line" name="line">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -224,7 +224,7 @@
      </property>
     </widget>
    </item>
-   <item row="34" column="2">
+   <item row="36" column="2">
     <widget class="QLabel" name="label_11">
      <property name="font">
       <font>
@@ -259,7 +259,7 @@
      </property>
     </widget>
    </item>
-   <item row="30" column="3">
+   <item row="32" column="3">
     <widget class="QLabel" name="label_ddv">
      <property name="frameShape">
       <enum>QFrame::WinPanel</enum>
@@ -275,7 +275,7 @@
      </property>
     </widget>
    </item>
-   <item row="34" column="3">
+   <item row="36" column="3">
     <widget class="QLabel" name="label_skupaj">
      <property name="font">
       <font>
@@ -306,13 +306,6 @@
      </property>
     </widget>
    </item>
-   <item row="31" column="3">
-    <widget class="QLineEdit" name="lineEdit_popust">
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
    <item row="15" column="2">
     <widget class="QLabel" name="label_12">
      <property name="text">
@@ -333,7 +326,7 @@
      </property>
     </widget>
    </item>
-   <item row="33" column="3">
+   <item row="35" column="3">
     <widget class="Line" name="line_5">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -391,17 +384,24 @@
      </property>
     </widget>
    </item>
-   <item row="32" column="2">
+   <item row="28" column="3">
+    <widget class="QLineEdit" name="lineEdit_popust">
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="29" column="2">
     <widget class="QLabel" name="label_14">
      <property name="text">
-      <string>Popust €</string>
+      <string>Osnova € - Popust €</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
    </item>
-   <item row="32" column="3">
+   <item row="29" column="3">
     <widget class="QLabel" name="label_popust">
      <property name="frameShape">
       <enum>QFrame::WinPanel</enum>
@@ -430,7 +430,6 @@
   <tabstop>pushButton_dodajNovProdukt</tabstop>
   <tabstop>treeWidget_seznam</tabstop>
   <tabstop>treeWidget_dodani</tabstop>
-  <tabstop>lineEdit_popust</tabstop>
   <tabstop>pushButton_natisniRacun</tabstop>
   <tabstop>pushButton_izhod</tabstop>
  </tabstops>

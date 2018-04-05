@@ -7,6 +7,8 @@
 #include <QDir>
 #include <QIcon>
 #include <QTextStream>
+#include <QListWidgetItem>
+#include "novracun.h"
 
 namespace Ui {
 class Arhiv;
@@ -33,6 +35,11 @@ private slots:
     void on_radioButton_popravljeniProdukti_toggled(bool);
     void on_radioButton_dodaneStranke_toggled(bool);
     void on_radioButton_popravljeneStranke_toggled(bool);
+    void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
+
+    void on_radioButton_noviRacuni_toggled(bool checked);
+
+    void on_radioButton_spremenjeniRacuni_toggled(bool checked);
 
 private:
     Ui::Arhiv *ui;

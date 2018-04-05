@@ -139,6 +139,22 @@ void Terjatve::AddRootTerjatve(QStringList textList)
     itm->setText(6, dat_placila);
     itm->setText(8, itemDatum);
 
+    if(znesek.remove("€").toDouble() > placilo.remove("€").toDouble())
+    {
+        for(int i(0); i < itm->columnCount(); i++)
+            itm->setTextColor(i, QColor("red"));
+    }
+    else if(znesek.remove("€").toDouble() < placilo.remove("€").toDouble())
+    {
+        for(int i(0); i < itm->columnCount(); i++)
+            itm->setBackgroundColor(i, QColor("red"));
+    }
+    else
+    {
+        for(int i(0); i < itm->columnCount(); i++)
+            itm->setTextColor(i, QColor("green"));
+    }
+
     ui->treeWidget_terjatve->addTopLevelItem(itm);
 }
 
@@ -232,6 +248,21 @@ void Terjatve::AddRootObveznosti(QStringList textList)
     itm->setText(6, opomba);
     itm->setText(7, ident);
 
+    if(znesek.remove("€").toDouble() > placilo.remove("€").toDouble())
+    {
+        for(int i(0); i < itm->columnCount(); i++)
+            itm->setTextColor(i, QColor("red"));
+    }
+    else if(znesek.remove("€").toDouble() < placilo.remove("€").toDouble())
+    {
+        for(int i(0); i < itm->columnCount(); i++)
+            itm->setBackgroundColor(i, QColor("red"));
+    }
+    else
+    {
+        for(int i(0); i < itm->columnCount(); i++)
+            itm->setTextColor(i, QColor("green"));
+    }
     ui->treeWidget_obveznosti->addTopLevelItem(itm);
 }
 
