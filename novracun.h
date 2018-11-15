@@ -19,6 +19,8 @@
 #include <QDomElement>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <QPrintPreviewDialog>
+#include <QDesktopServices>
 #include "numofitems.h"
 #include "dodajprodukt.h"
 

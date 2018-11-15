@@ -484,7 +484,7 @@ void TestingDialog::Test()
     QDomText datum_text = document.createTextNode(ui->dateEdit->text() + "T00:00:00.0Z"); // --------> datum + 45 dni
     datum.appendChild(datum_text);
 
-    TODO: // POSTAVKE RACUNA
+    // POSTAVKE RACUNA
     for(int i(0); i < m_num_of_products; i++)
     {
        QDomElement postavkeRacuna = document.createElement("PostavkeRacuna");

@@ -2748,6 +2748,28 @@ int NovRacun::creatPDF()
     cursor.insertHtml(text_dobavnica);
 
     QPrinter* printer = new QPrinter(QPrinter::HighResolution);
+
+    printer->setOutputFormat(QPrinter::PdfFormat);
+    printer->setPaperSize(QPrinter::A4);
+    QString stevilka_racuna = ui->lineEdit_stRacuna->text();
+    QString stranka = ui->comboBox_narocnik->currentText();
+    QRegExp rx("[ ]");
+    QStringList list;
+    list = stranka.split(rx, QString::SkipEmptyParts);
+
+    if(list.at(1) == "d.o.o." || list.at(1) == "doo" || list.at(1) == "D.O.O."  || list.at(1) == "DOO" || list.at(1) == "s.p." || list.at(1) == "sp" || list.at(1) == "s.p" || list.at(1) == "S.P." || list.at(1) == "S.P" || list.at(1) == "SP")
+        stranka = list.at(0);
+    else
+        stranka = list.at(0) + "_" + list.at(1);
+
+    QString output = m_fileShrani + "/RACUN_IN_DOBAVNICA_" + stranka + "_" + stevilka_racuna + ".pdf";
+    printer->setOutputFileName(output);
+    qreal left = 0, right = 0, top = 0, bottom = 0;
+    printer->setPageMargins(left, top, right, bottom, QPrinter::Millimeter);
+    document_racun.print(printer);
+    QDesktopServices::openUrl(QUrl::fromLocalFile(output));
+
+    /* Star način, ker mi print dialog v QT ne dela (ne začne printat, verjetno driverji), direktno odprem pdf file in sprintam od tam
     QPrintDialog printDlg(printer);
     QList<QWidget*> childWidgets = printDlg.findChildren<QWidget*>(QLatin1String("printers"), Qt::FindChildrenRecursively);
 
@@ -2780,7 +2802,10 @@ int NovRacun::creatPDF()
         qreal left = 0, right = 0, top = 0, bottom = 0;
         printer->setPageMargins(left, top, right, bottom, QPrinter::Millimeter);
         document_racun.print(printer);
+        // Test odpiranja pdf datoteke
+        QDesktopServices::openUrl(QUrl::fromLocalFile(output));
     }
+    */
     //NovRacun::close();
     if(ui->comboBox_narocnik->currentText() == "Kronoterm d.o.o.")
         MakeXML();
@@ -2807,7 +2832,7 @@ void NovRacun::on_lineEdit_popust_textChanged()
     double skupaj(0);
     double ddv = ui->label_ddv->text().toDouble();
     popust = m_total - (m_total * (pop / 100));
-    if(pop == 0)
+    if(pop == 0.0)
         ui->label_popust->setText(QString::number(m_total) + "€");
     else
         ui->label_popust->setText(QString::number(popust) + "€");

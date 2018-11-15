@@ -4,14 +4,19 @@
 #
 #-------------------------------------------------
 
-QT       += core
-QT       += gui
-QT       += printsupport
-QT       += xml
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
+greaterThan(QT_MAJOR_VERSION, 4) {
+    QT       += widgets
+    QT       += core
+    QT       += gui
+    QT       += printsupport
+    QT       += xml
+    QT       += serialport
+    QT       += network
+}
 TARGET = Racun
 TEMPLATE = app
+
+QTPLUGIN += windowsprintersupport
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
