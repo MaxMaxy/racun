@@ -895,7 +895,7 @@ void NovRacun::MakeXML()
     vrstaZneska_1.appendChild(vrstaZneska_1_text);
     zneskiRacuna_1.appendChild(vrstaZneska_1);
     QDomElement znesekRacuna_1 = document.createElement("ZnesekRacuna");
-    QDomText znesekRacuna_1_text = document.createTextNode(QString::number(m_total - popust_total));
+    QDomText znesekRacuna_1_text = document.createTextNode(QString::number(m_total));
     znesekRacuna_1.appendChild(znesekRacuna_1_text);
     zneskiRacuna_1.appendChild(znesekRacuna_1);
     QDomElement sklicZaPlacilo_1 = document.createElement("SklicZaPlacilo");

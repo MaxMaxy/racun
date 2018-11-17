@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>246</width>
-    <height>323</height>
+    <width>281</width>
+    <height>367</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -220,7 +220,7 @@
          <enum>QFrame::Raised</enum>
         </property>
         <property name="text">
-         <string>v0.9.3</string>
+         <string>v0.9.5</string>
         </property>
         <property name="textFormat">
          <enum>Qt::AutoText</enum>
@@ -246,8 +246,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>246</width>
-     <height>20</height>
+     <width>281</width>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuStart">

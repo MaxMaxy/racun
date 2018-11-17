@@ -60,7 +60,7 @@
         <bool>true</bool>
        </property>
        <property name="plainText">
-        <string>Trenutna verzija 0.9.3
+        <string>Trenutna verzija 0.9.4
 
 Avtor: Nejc Sedovnik
 Datum: november 2017
@@ -138,11 +138,19 @@ v0.9.3
     - popravljena koda v statistiki
     - vizualni popravki
 
+v0.9.4
+    - printanje računa nrejeno preko AdobeReader
+    - popravljene terjatve, možno vpisovanje plačanih računov
+    - bizbox račun izdelan (potrebno testiranje na bizbox strani)
+
+v0.9.5
+    - stilski popravki
+    - statistika deluje (potrebni popravki v primeru popravljanja podjetja)
+
 TO_DO:
-    - pretvorba racuna za bizbox
     - moznost posiljanja racuna po emailu strankam
-    - printanje ne deluje pravilno!!!
-    - preview printa??
+    - printanje deluje preko AdobeReaderja
+    - preveri kako odpraviti napako pri statistiki (popravek podjetja)
     - itd.</string>
        </property>
       </widget>

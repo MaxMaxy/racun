@@ -511,7 +511,7 @@ void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
                 qDebug() << "Error opening in treeWidget_terjatve_itemDoubleClicked";
                 return;
             }
-            else
+            /*else
             {
                 mFile.flush();
                 mFile.close();
@@ -520,7 +520,7 @@ void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
             {
                 qDebug() << "Error opening file fore writing in treeWidget_terjatve_itemDoubleClicked";
                 return;
-            }
+            }*/
             else
             {
                 in << allText;

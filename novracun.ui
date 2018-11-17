@@ -428,10 +428,12 @@
   <tabstop>lineEdit_isci</tabstop>
   <tabstop>pushButton</tabstop>
   <tabstop>pushButton_dodajNovProdukt</tabstop>
+  <tabstop>pushButton_2</tabstop>
   <tabstop>treeWidget_seznam</tabstop>
   <tabstop>treeWidget_dodani</tabstop>
-  <tabstop>pushButton_natisniRacun</tabstop>
+  <tabstop>lineEdit_popust</tabstop>
   <tabstop>pushButton_izhod</tabstop>
+  <tabstop>pushButton_natisniRacun</tabstop>
  </tabstops>
  <resources/>
  <connections>
@@ -442,8 +444,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>168</x>
-     <y>759</y>
+     <x>177</x>
+     <y>809</y>
     </hint>
     <hint type="destinationlabel">
      <x>270</x>
@@ -458,8 +460,8 @@
    <slot>creatPDF()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>927</x>
-     <y>759</y>
+     <x>1067</x>
+     <y>809</y>
     </hint>
     <hint type="destinationlabel">
      <x>929</x>
