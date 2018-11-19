@@ -23,6 +23,14 @@
    </item>
    <item row="32" column="2">
     <widget class="QLabel" name="label_9">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
       <string>DDV €</string>
      </property>
@@ -33,6 +41,14 @@
    </item>
    <item row="28" column="2">
     <widget class="QLabel" name="label_10">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
       <string>Popust %</string>
      </property>
@@ -46,6 +62,14 @@
    </item>
    <item row="6" column="2">
     <widget class="QLabel" name="label_7">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
       <string>Vezni dokument:</string>
      </property>
@@ -56,6 +80,12 @@
    </item>
    <item row="39" column="2">
     <widget class="QPushButton" name="pushButton_izhod">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="text">
       <string>Izhod</string>
      </property>
@@ -69,10 +99,25 @@
     </widget>
    </item>
    <item row="5" column="2" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_stRacuna"/>
+    <widget class="QLineEdit" name="lineEdit_stRacuna">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+    </widget>
    </item>
    <item row="4" column="2">
     <widget class="QLabel" name="label_3">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
       <string>Stevilka racuna:</string>
      </property>
@@ -83,6 +128,14 @@
    </item>
    <item row="2" column="2">
     <widget class="QLabel" name="label_4">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
       <string>Narocnik:</string>
      </property>
@@ -93,6 +146,12 @@
    </item>
    <item row="9" column="2" colspan="2">
     <widget class="QDateEdit" name="dateEdit">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
      <property name="displayFormat">
       <string>d. M. yyyy</string>
      </property>
@@ -109,8 +168,11 @@
     <widget class="QLabel" name="label">
      <property name="font">
       <font>
-       <pointsize>16</pointsize>
+       <family>MS Sans Serif</family>
+       <pointsize>18</pointsize>
+       <weight>75</weight>
        <italic>true</italic>
+       <bold>true</bold>
       </font>
      </property>
      <property name="text">
@@ -120,6 +182,12 @@
    </item>
    <item row="39" column="3">
     <widget class="QPushButton" name="pushButton_natisniRacun">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="text">
       <string>Natisni racun</string>
      </property>
@@ -127,6 +195,14 @@
    </item>
    <item row="8" column="2">
     <widget class="QLabel" name="label_2">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
       <string>Datum:</string>
      </property>
@@ -137,6 +213,14 @@
    </item>
    <item row="20" column="2">
     <widget class="QLabel" name="label_5">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
       <string>Seznam produktov:</string>
      </property>
@@ -150,6 +234,14 @@
    </item>
    <item row="20" column="3">
     <widget class="QLabel" name="label_6">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
       <string>Dodani produkti:</string>
      </property>
@@ -169,10 +261,23 @@
     </widget>
    </item>
    <item row="7" column="2" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_sklic"/>
+    <widget class="QLineEdit" name="lineEdit_sklic">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+    </widget>
    </item>
    <item row="22" column="3">
     <widget class="QTreeWidget" name="treeWidget_dodani">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
      <column>
       <property name="text">
        <string>ID</string>
@@ -197,6 +302,12 @@
    </item>
    <item row="22" column="2">
     <widget class="QTreeWidget" name="treeWidget_seznam">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
      <column>
       <property name="text">
        <string>ID</string>
@@ -216,6 +327,14 @@
    </item>
    <item row="27" column="2">
     <widget class="QLabel" name="label_8">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
       <string>Osnova €</string>
      </property>
@@ -228,8 +347,11 @@
     <widget class="QLabel" name="label_11">
      <property name="font">
       <font>
-       <pointsize>14</pointsize>
-       <italic>true</italic>
+       <family>MS Sans Serif</family>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
       </font>
      </property>
      <property name="text">
@@ -245,6 +367,12 @@
    </item>
    <item row="27" column="3">
     <widget class="QLabel" name="label_osnova">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
      <property name="frameShape">
       <enum>QFrame::WinPanel</enum>
      </property>
@@ -261,6 +389,12 @@
    </item>
    <item row="32" column="3">
     <widget class="QLabel" name="label_ddv">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
      <property name="frameShape">
       <enum>QFrame::WinPanel</enum>
      </property>
@@ -279,8 +413,11 @@
     <widget class="QLabel" name="label_skupaj">
      <property name="font">
       <font>
-       <pointsize>14</pointsize>
-       <italic>true</italic>
+       <family>MS Sans Serif</family>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
       </font>
      </property>
      <property name="autoFillBackground">
@@ -308,6 +445,14 @@
    </item>
    <item row="15" column="2">
     <widget class="QLabel" name="label_12">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
       <string>Iskalnik:</string>
      </property>
@@ -318,6 +463,12 @@
    </item>
    <item row="16" column="2" colspan="2">
     <widget class="QLineEdit" name="lineEdit_isci">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -348,10 +499,25 @@
     </widget>
    </item>
    <item row="3" column="2" colspan="2">
-    <widget class="QComboBox" name="comboBox_narocnik"/>
+    <widget class="QComboBox" name="comboBox_narocnik">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+    </widget>
    </item>
    <item row="10" column="2">
     <widget class="QLabel" name="label_13">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
       <string>Opombe:</string>
      </property>
@@ -361,10 +527,23 @@
     </widget>
    </item>
    <item row="11" column="2" colspan="2">
-    <widget class="QLineEdit" name="lineEdit"/>
+    <widget class="QLineEdit" name="lineEdit">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+    </widget>
    </item>
    <item row="17" column="2" colspan="2">
     <widget class="QPushButton" name="pushButton">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="text">
       <string>Isci</string>
      </property>
@@ -372,6 +551,12 @@
    </item>
    <item row="21" column="2">
     <widget class="QPushButton" name="pushButton_dodajNovProdukt">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="text">
       <string>Dodaj nov produkt</string>
      </property>
@@ -386,6 +571,12 @@
    </item>
    <item row="28" column="3">
     <widget class="QLineEdit" name="lineEdit_popust">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
@@ -393,6 +584,14 @@
    </item>
    <item row="29" column="2">
     <widget class="QLabel" name="label_14">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
       <string>Osnova € - Popust €</string>
      </property>
@@ -403,6 +602,12 @@
    </item>
    <item row="29" column="3">
     <widget class="QLabel" name="label_popust">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
      <property name="frameShape">
       <enum>QFrame::WinPanel</enum>
      </property>

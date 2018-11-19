@@ -28,8 +28,11 @@
      <widget class="QLabel" name="label_2">
       <property name="font">
        <font>
-        <pointsize>16</pointsize>
+        <family>MS Sans Serif</family>
+        <pointsize>18</pointsize>
+        <weight>75</weight>
         <italic>true</italic>
+        <bold>true</bold>
        </font>
       </property>
       <property name="frameShape">
@@ -49,9 +52,16 @@
        <widget class="QPushButton" name="pushButton_2">
         <property name="font">
          <font>
-          <pointsize>11</pointsize>
-          <italic>true</italic>
+          <family>MS Sans Serif</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <italic>false</italic>
+          <bold>true</bold>
+          <kerning>true</kerning>
          </font>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
         </property>
         <property name="text">
          <string> Nov racun</string>
@@ -79,8 +89,11 @@
        <widget class="QPushButton" name="pushButton_6">
         <property name="font">
          <font>
-          <pointsize>11</pointsize>
-          <italic>true</italic>
+          <family>MS Sans Serif</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <italic>false</italic>
+          <bold>true</bold>
          </font>
         </property>
         <property name="text">
@@ -97,8 +110,11 @@
        <widget class="QPushButton" name="pushButton_5">
         <property name="font">
          <font>
-          <pointsize>11</pointsize>
-          <italic>true</italic>
+          <family>MS Sans Serif</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <italic>false</italic>
+          <bold>true</bold>
          </font>
         </property>
         <property name="text">
@@ -119,8 +135,11 @@
        <widget class="QPushButton" name="pushButton_3">
         <property name="font">
          <font>
-          <pointsize>11</pointsize>
-          <italic>true</italic>
+          <family>MS Sans Serif</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <italic>false</italic>
+          <bold>true</bold>
          </font>
         </property>
         <property name="text">
@@ -140,8 +159,11 @@
        <widget class="QPushButton" name="pushButton_4">
         <property name="font">
          <font>
-          <pointsize>11</pointsize>
-          <italic>true</italic>
+          <family>MS Sans Serif</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <italic>false</italic>
+          <bold>true</bold>
          </font>
         </property>
         <property name="text">
@@ -161,8 +183,11 @@
        <widget class="QPushButton" name="pushButton_7">
         <property name="font">
          <font>
-          <pointsize>11</pointsize>
-          <italic>true</italic>
+          <family>MS Sans Serif</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <italic>false</italic>
+          <bold>true</bold>
          </font>
         </property>
         <property name="text">
@@ -186,8 +211,11 @@
        <widget class="QPushButton" name="pushButton">
         <property name="font">
          <font>
-          <pointsize>11</pointsize>
-          <italic>true</italic>
+          <family>MS Sans Serif</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <italic>false</italic>
+          <bold>true</bold>
          </font>
         </property>
         <property name="text">
@@ -247,7 +275,7 @@
      <x>0</x>
      <y>0</y>
      <width>281</width>
-     <height>27</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuStart">

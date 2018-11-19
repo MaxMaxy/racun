@@ -24,8 +24,11 @@
           <widget class="QLabel" name="label">
            <property name="font">
             <font>
-             <pointsize>16</pointsize>
+             <family>MS Sans Serif</family>
+             <pointsize>18</pointsize>
+             <weight>75</weight>
              <italic>true</italic>
+             <bold>true</bold>
             </font>
            </property>
            <property name="text">
@@ -52,8 +55,9 @@
               <widget class="QLabel" name="label_7">
                <property name="font">
                 <font>
+                 <family>MS Sans Serif</family>
                  <pointsize>12</pointsize>
-                 <italic>true</italic>
+                 <italic>false</italic>
                 </font>
                </property>
                <property name="text">
@@ -75,7 +79,9 @@
               <widget class="QLabel" name="label_2">
                <property name="font">
                 <font>
+                 <family>MS Sans Serif</family>
                  <pointsize>12</pointsize>
+                 <italic>false</italic>
                 </font>
                </property>
                <property name="text">
@@ -89,7 +95,14 @@
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_2">
                <item>
-                <widget class="QComboBox" name="comboBox_stranke"/>
+                <widget class="QComboBox" name="comboBox_stranke">
+                 <property name="font">
+                  <font>
+                   <family>MS Sans Serif</family>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
@@ -101,6 +114,13 @@
               <layout class="QVBoxLayout" name="verticalLayout_3">
                <item>
                 <widget class="QLabel" name="label_3">
+                 <property name="font">
+                  <font>
+                   <family>MS Sans Serif</family>
+                   <pointsize>12</pointsize>
+                   <italic>false</italic>
+                  </font>
+                 </property>
                  <property name="text">
                   <string>Od:</string>
                  </property>
@@ -110,7 +130,14 @@
                 </widget>
                </item>
                <item>
-                <widget class="QDateEdit" name="dateEdit_terjatveOd"/>
+                <widget class="QDateEdit" name="dateEdit_terjatveOd">
+                 <property name="font">
+                  <font>
+                   <family>MS Sans Serif</family>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
@@ -118,6 +145,13 @@
               <layout class="QVBoxLayout" name="verticalLayout_4">
                <item>
                 <widget class="QLabel" name="label_4">
+                 <property name="font">
+                  <font>
+                   <family>MS Sans Serif</family>
+                   <pointsize>12</pointsize>
+                   <italic>false</italic>
+                  </font>
+                 </property>
                  <property name="text">
                   <string>Do:</string>
                  </property>
@@ -127,7 +161,14 @@
                 </widget>
                </item>
                <item>
-                <widget class="QDateEdit" name="dateEdit_terjatveDo"/>
+                <widget class="QDateEdit" name="dateEdit_terjatveDo">
+                 <property name="font">
+                  <font>
+                   <family>MS Sans Serif</family>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
@@ -135,6 +176,13 @@
            </item>
            <item>
             <widget class="QLabel" name="label_13">
+             <property name="font">
+              <font>
+               <family>MS Sans Serif</family>
+               <pointsize>12</pointsize>
+               <italic>false</italic>
+              </font>
+             </property>
              <property name="text">
               <string>Iskalnik:</string>
              </property>
@@ -144,10 +192,23 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="lineEdit_iskalnikTerjatve"/>
+            <widget class="QLineEdit" name="lineEdit_iskalnikTerjatve">
+             <property name="font">
+              <font>
+               <family>MS Sans Serif</family>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QPushButton" name="pushButton_isciTerjatve">
+             <property name="font">
+              <font>
+               <family>MS Sans Serif</family>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
              <property name="text">
               <string>Isci</string>
              </property>
@@ -155,6 +216,12 @@
            </item>
            <item>
             <widget class="QTreeWidget" name="treeWidget_terjatve">
+             <property name="font">
+              <font>
+               <family>MS Sans Serif</family>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
              <column>
               <property name="text">
                <string>Racun st.</string>
@@ -230,8 +297,9 @@
                 <widget class="QLabel" name="label_8">
                  <property name="font">
                   <font>
+                   <family>MS Sans Serif</family>
                    <pointsize>12</pointsize>
-                   <italic>true</italic>
+                   <italic>false</italic>
                   </font>
                  </property>
                  <property name="text">
@@ -253,6 +321,13 @@
                  </item>
                  <item>
                   <widget class="QLabel" name="label_14">
+                   <property name="font">
+                    <font>
+                     <family>MS Sans Serif</family>
+                     <pointsize>12</pointsize>
+                     <italic>false</italic>
+                    </font>
+                   </property>
                    <property name="text">
                     <string>Upnik:</string>
                    </property>
@@ -279,7 +354,9 @@
                   <widget class="QLabel" name="label_5">
                    <property name="font">
                     <font>
+                     <family>MS Sans Serif</family>
                      <pointsize>12</pointsize>
+                     <italic>false</italic>
                     </font>
                    </property>
                    <property name="text">
@@ -291,7 +368,14 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QDateEdit" name="dateEdit_obveznostiOd"/>
+                  <widget class="QDateEdit" name="dateEdit_obveznostiOd">
+                   <property name="font">
+                    <font>
+                     <family>MS Sans Serif</family>
+                     <pointsize>10</pointsize>
+                    </font>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -301,7 +385,9 @@
                   <widget class="QLabel" name="label_6">
                    <property name="font">
                     <font>
+                     <family>MS Sans Serif</family>
                      <pointsize>12</pointsize>
+                     <italic>false</italic>
                     </font>
                    </property>
                    <property name="text">
@@ -313,7 +399,14 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QDateEdit" name="dateEdit_obveznostiDo"/>
+                  <widget class="QDateEdit" name="dateEdit_obveznostiDo">
+                   <property name="font">
+                    <font>
+                     <family>MS Sans Serif</family>
+                     <pointsize>10</pointsize>
+                    </font>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -325,7 +418,9 @@
             <widget class="QLabel" name="label_9">
              <property name="font">
               <font>
+               <family>MS Sans Serif</family>
                <pointsize>12</pointsize>
+               <italic>false</italic>
               </font>
              </property>
              <property name="text">
@@ -337,10 +432,23 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="lineEdit_iskalnikObveznosti"/>
+            <widget class="QLineEdit" name="lineEdit_iskalnikObveznosti">
+             <property name="font">
+              <font>
+               <family>MS Sans Serif</family>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QPushButton" name="pushButton_isci_upniki">
+             <property name="font">
+              <font>
+               <family>MS Sans Serif</family>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
              <property name="text">
               <string>Isci</string>
              </property>
@@ -348,6 +456,12 @@
            </item>
            <item>
             <widget class="QTreeWidget" name="treeWidget_obveznosti">
+             <property name="font">
+              <font>
+               <family>MS Sans Serif</family>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
              <column>
               <property name="text">
                <string>Listina</string>
@@ -404,6 +518,13 @@
         <layout class="QVBoxLayout" name="verticalLayout_15">
          <item>
           <widget class="QLabel" name="label_11">
+           <property name="font">
+            <font>
+             <family>MS Sans Serif</family>
+             <pointsize>12</pointsize>
+             <italic>false</italic>
+            </font>
+           </property>
            <property name="text">
             <string>Skupaj obveznosti:</string>
            </property>
@@ -411,6 +532,13 @@
          </item>
          <item>
           <widget class="QLabel" name="label_10">
+           <property name="font">
+            <font>
+             <family>MS Sans Serif</family>
+             <pointsize>12</pointsize>
+             <italic>false</italic>
+            </font>
+           </property>
            <property name="text">
             <string>Skupaj terjatve:</string>
            </property>
@@ -427,8 +555,11 @@
           <widget class="QLabel" name="label_12">
            <property name="font">
             <font>
-             <pointsize>11</pointsize>
-             <italic>true</italic>
+             <family>MS Sans Serif</family>
+             <pointsize>12</pointsize>
+             <weight>75</weight>
+             <italic>false</italic>
+             <bold>true</bold>
             </font>
            </property>
            <property name="text">
@@ -442,6 +573,13 @@
         <layout class="QVBoxLayout" name="verticalLayout_16">
          <item>
           <widget class="QLabel" name="label_skupajObveznosti">
+           <property name="font">
+            <font>
+             <family>MS Sans Serif</family>
+             <pointsize>10</pointsize>
+             <italic>false</italic>
+            </font>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -449,6 +587,13 @@
          </item>
          <item>
           <widget class="QLabel" name="label_skupajTerjatve">
+           <property name="font">
+            <font>
+             <family>MS Sans Serif</family>
+             <pointsize>10</pointsize>
+             <italic>false</italic>
+            </font>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -465,8 +610,11 @@
           <widget class="QLabel" name="label_terjatve_obveznosti">
            <property name="font">
             <font>
-             <pointsize>11</pointsize>
-             <italic>true</italic>
+             <family>MS Sans Serif</family>
+             <pointsize>10</pointsize>
+             <weight>75</weight>
+             <italic>false</italic>
+             <bold>true</bold>
             </font>
            </property>
            <property name="text">
@@ -480,6 +628,12 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_statistika">
+       <property name="font">
+        <font>
+         <family>MS Sans Serif</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>Statistika</string>
        </property>
@@ -494,6 +648,12 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_izhod">
+       <property name="font">
+        <font>
+         <family>MS Sans Serif</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>Izhod</string>
        </property>

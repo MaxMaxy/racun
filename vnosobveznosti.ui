@@ -20,8 +20,11 @@
       <widget class="QLabel" name="label">
        <property name="font">
         <font>
-         <pointsize>16</pointsize>
+         <family>MS Sans Serif</family>
+         <pointsize>18</pointsize>
+         <weight>75</weight>
          <italic>true</italic>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
@@ -42,6 +45,14 @@
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
       <widget class="QLabel" name="label_2">
+       <property name="font">
+        <font>
+         <family>MS Sans Serif</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>Listina:</string>
        </property>
@@ -51,7 +62,14 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_listina"/>
+      <widget class="QLineEdit" name="lineEdit_listina">
+       <property name="font">
+        <font>
+         <family>MS Sans Serif</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -59,6 +77,14 @@
     <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
       <widget class="QLabel" name="label_3">
+       <property name="font">
+        <font>
+         <family>MS Sans Serif</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>Dobavitelj:</string>
        </property>
@@ -68,7 +94,14 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_dobavitelj"/>
+      <widget class="QLineEdit" name="lineEdit_dobavitelj">
+       <property name="font">
+        <font>
+         <family>MS Sans Serif</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -76,6 +109,14 @@
     <layout class="QVBoxLayout" name="verticalLayout_4">
      <item>
       <widget class="QLabel" name="label_4">
+       <property name="font">
+        <font>
+         <family>MS Sans Serif</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>Znesek:</string>
        </property>
@@ -85,7 +126,14 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_znesek"/>
+      <widget class="QLineEdit" name="lineEdit_znesek">
+       <property name="font">
+        <font>
+         <family>MS Sans Serif</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -93,6 +141,14 @@
     <layout class="QVBoxLayout" name="verticalLayout_5">
      <item>
       <widget class="QLabel" name="label_5">
+       <property name="font">
+        <font>
+         <family>MS Sans Serif</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>Datum valute:</string>
        </property>
@@ -102,7 +158,14 @@
       </widget>
      </item>
      <item>
-      <widget class="QDateEdit" name="dateEdit_valute"/>
+      <widget class="QDateEdit" name="dateEdit_valute">
+       <property name="font">
+        <font>
+         <family>MS Sans Serif</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -110,6 +173,14 @@
     <layout class="QVBoxLayout" name="verticalLayout_8">
      <item>
       <widget class="QLabel" name="label_8">
+       <property name="font">
+        <font>
+         <family>MS Sans Serif</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>Opombe:</string>
        </property>
@@ -119,12 +190,25 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_opombe"/>
+      <widget class="QLineEdit" name="lineEdit_opombe">
+       <property name="font">
+        <font>
+         <family>MS Sans Serif</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
    <item row="6" column="0">
     <widget class="QPushButton" name="pushButton_vnos">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="text">
       <string>Vnos</string>
      </property>
@@ -141,6 +225,12 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_izhod">
+       <property name="font">
+        <font>
+         <family>MS Sans Serif</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>Izhod</string>
        </property>

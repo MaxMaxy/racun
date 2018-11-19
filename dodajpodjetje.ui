@@ -27,6 +27,8 @@
     <widget class="QTreeWidget" name="treeWidget">
      <property name="font">
       <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
        <weight>50</weight>
        <bold>false</bold>
       </font>
@@ -54,6 +56,12 @@
    </item>
    <item row="21" column="2">
     <widget class="QPushButton" name="pushButton_izhod">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="text">
       <string>Izhod</string>
      </property>
@@ -61,6 +69,14 @@
    </item>
    <item row="8" column="1">
     <widget class="QLabel" name="label_7">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
       <string>Posta:</string>
      </property>
@@ -70,7 +86,14 @@
     </widget>
    </item>
    <item row="9" column="1" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_posta"/>
+    <widget class="QLineEdit" name="lineEdit_posta">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+    </widget>
    </item>
    <item row="14" column="1" colspan="2">
     <widget class="Line" name="line_3">
@@ -83,9 +106,11 @@
     <widget class="QLabel" name="label">
      <property name="font">
       <font>
-       <family>Sans Serif</family>
-       <pointsize>16</pointsize>
-       <italic>false</italic>
+       <family>MS Sans Serif</family>
+       <pointsize>18</pointsize>
+       <weight>75</weight>
+       <italic>true</italic>
+       <bold>true</bold>
       </font>
      </property>
      <property name="text">
@@ -95,6 +120,14 @@
    </item>
    <item row="6" column="1">
     <widget class="QLabel" name="label_3">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
       <string>Naslov podjetja:</string>
      </property>
@@ -104,16 +137,45 @@
     </widget>
    </item>
    <item row="3" column="1" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_kNaziv"/>
+    <widget class="QLineEdit" name="lineEdit_kNaziv">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+    </widget>
    </item>
    <item row="7" column="1" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_naslov"/>
+    <widget class="QLineEdit" name="lineEdit_naslov">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+    </widget>
    </item>
    <item row="11" column="1" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_ddv"/>
+    <widget class="QLineEdit" name="lineEdit_ddv">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+    </widget>
    </item>
    <item row="10" column="1">
     <widget class="QLabel" name="label_4">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
       <string>ID DDV:</string>
      </property>
@@ -124,6 +186,14 @@
    </item>
    <item row="4" column="1">
     <widget class="QLabel" name="label_6">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
       <string>Celoten naziv:</string>
      </property>
@@ -133,10 +203,25 @@
     </widget>
    </item>
    <item row="5" column="1" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_cNaziv"/>
+    <widget class="QLineEdit" name="lineEdit_cNaziv">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+    </widget>
    </item>
    <item row="2" column="1">
     <widget class="QLabel" name="label_2">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
       <string>Kratek naziv:</string>
      </property>
@@ -154,6 +239,14 @@
    </item>
    <item row="12" column="1">
     <widget class="QLabel" name="label_5">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
       <string>Elektronski naslov:</string>
      </property>
@@ -163,7 +256,14 @@
     </widget>
    </item>
    <item row="13" column="1" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_email"/>
+    <widget class="QLineEdit" name="lineEdit_email">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+    </widget>
    </item>
    <item row="20" column="1" colspan="2">
     <widget class="Line" name="line">
@@ -174,6 +274,12 @@
    </item>
    <item row="16" column="2">
     <widget class="QPushButton" name="pushButton_dodajPodjetje">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="text">
       <string>Dodaj stranko</string>
      </property>
@@ -181,6 +287,12 @@
    </item>
    <item row="16" column="1">
     <widget class="QPushButton" name="pushButton_popraviPodatke">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="text">
       <string>Popravi podatke</string>
      </property>
