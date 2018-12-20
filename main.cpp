@@ -9,8 +9,8 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.setWindowIcon(icon);
     w.show();
-    Login login;
-    login.setModal(true);
-    login.exec();
+    //Login login;
+    //login.setModal(true);
+    //login.exec();
     return a.exec();
 }
