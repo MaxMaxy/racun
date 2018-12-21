@@ -1,0 +1,23 @@
+Dodano ; 04.03.2018 ; 17:40:13.060 ; Test d.o.o. ; Test d.o.o. ; Test 123 ; 1234 Test ; Test1234 ; test@test.com ; Rajh !?!
+Dodano ; 19.11.2018 ; 10:32:10.275 ; KRONOTERM d.o.o. ; KRONOTERM d.o.o. ; Trnava 5e ; 3303 Gomilsko ; SI64719839 ; gasper.zavrsnik@kronoterm.com ; Rajh !?!
+Popravljeno ; 19.12.2018 ; 13:31:34.506 ; KRONOTERM d.o.o. ; KRONOTERM d.o.o. ; Trnava 5e ; 3303 Gomilsko ; SI64719839 ; gasper.zavrsnik@kronoterm.com ; Rajh !?!
+Popravljeno ; 19.12.2018 ; 13:33:21.757 ; Test d.o.o. ; Test d.o.o. ; Test 123 ; 1234 Test ; Test1234 ; test@test.com ; Rajh !?!
+Dodano ; 19.12.2018 ; 13:34:35.029 ; ALPFRIGO d.o.o. ; ALPFRIGO d.o.o. ; Obrtna cona Logatec 11A ; 1370 LOGATEC ; SI81067356 ; janez.gorsek@alpfrigo.com ; Rajh !?!
+Dodano ; 19.12.2018 ; 13:35:43.326 ; ATECH elektronika d.o.o. ; ATECH elektronika d.o.o. ; Baè pri Materiji 30 ; 6242 MATERIJA ; SI22395067 ; acc@atech.si ; Rajh !?!
+Dodano ; 19.12.2018 ; 13:36:37.573 ; DOORSON d.o.o. ; DOORSON d.o.o. ; Milenkova ulica 9 ; 2000 MARIBOR ; SI62925113 ; barbara.veiniger@doorson.si ; Rajh !?!
+Dodano ; 19.12.2018 ; 13:37:32.235 ; FBS elektronika d.o.o. ; FBS elektronika d.o.o. ; Prešernova cesta 8 ; 3320 VELENJE ; SI31910319 ; janez.kralj@fbselektronik.si ; Rajh !?!
+Dodano ; 19.12.2018 ; 13:38:23.580 ; INDATA d.o.o. ; INDATA d.o.o. ; Povšetova ulica 47 ; 1000 LJUBLJANA ; SI39090779 ; miha.horvat@indata.si ; Rajh !?!
+Dodano ; 19.12.2018 ; 13:39:16.476 ; ISKRA zašèite d.o.o. ; ISKRA zašèite d.o.o. ; Stegne 23A ; 1000 Ljubljana ; SI11021322 ; hzevnik@raycap.com ; Rajh !?!
+Dodano ; 19.12.2018 ; 13:40:24.899 ; ELEKTRONIKA PAHOR d.o.o. ; ELEKTRONIKA PAHOR d.o.o. ; Brnèièeva ulica 9A ; 1231 Ljubljana - ÈRNUÈE ; SI97622796 ; info@termomer.com ; Rajh !?!
+Dodano ; 19.12.2018 ; 13:41:24.107 ; STRIP`S d.o.o. ; STRIP`S d.o.o. ; Kandrše 7 ; 1252 VAÈE ; SI62372823 ; marko.brandstatter@strips.eu ; Rajh !?!
+Dodano ; 20.12.2018 ; 10:12:00.601 ; DAIHEN VARSTROJ d.d. ; DAIHEN VARSTROJ d.d. ; Industrijska ulica 4 ; 9220 LENDAVA ; SI86926659 ; finance@varstroj.si ; Rajh !?!
+Dodano ; 20.12.2018 ; 10:13:07.628 ; VALMAR GLOBAL d.o.o. ; VALMAR GLOBAL d.o.o. ; Dobrava 1A ; 5293 VOLÈJA DRAGA ; SI77427122 ; matijas@valmar.eu ; Rajh !?!
+Dodano ; 20.12.2018 ; 10:13:49.142 ; VIMOSA d.o.o. ; VIMOSA d.o.o. ; Koroška cesta 37A ; 3320 VELENJE ; SI96844566 ; racuni@vimosa.si ; Rajh !?!
+Dodano ; 20.12.2018 ; 10:14:37.831 ; MA-PROF d.o.o. ; MA-PROF d.o.o. ; Petrov trg 7 ; 3311 ŠEMPETER ; SI16838572 ; ni podatka ; Rajh !?!
+Dodano ; 20.12.2018 ; 10:15:25.014 ; POLIDEL d.o.o. ; POLIDEL d.o.o. ; Andraž nad Polzelo 6B ; 3313 POLZELA ; SI60782927 ; uros@polidel.si ; Rajh !?!
+Dodano ; 20.12.2018 ; 10:16:13.934 ; KOVINARSTVO ROK MOHORIÈ s.p. ; KOVINARSTVO ROK MOHORIÈ s.p. ; Na Plavžu 41 ; 4228 ŽELEZNIKI ; SI48590529 ; rokmohoric@gmail.com ; Rajh !?!
+Dodano ; 20.12.2018 ; 10:16:59.301 ; PETEZE d.o.o. ; PETEZE d.o.o. ; Jama 15 ; 1234 MENGEŠ ; SI74513125 ; info@peteze.si ; Rajh !?!
+Dodano ; 20.12.2018 ; 10:17:58.974 ; U3p, Irena Huš s.p. ; U3p, Irena Huš s.p. ; Kreševa ulica 8 ; 2380 SLOVENJ GRADEC ; SI27572684 ; u3p@amis.net ; Rajh !?!
+Dodano ; 20.12.2018 ; 10:18:47.109 ; EPROS d.o.o. ; EPROS d.o.o. ; Parižlje 35 ; 3314 BRASLOVÈE ; SI56619898 ; info@epros.si ; Rajh !?!
+Dodano ; 20.12.2018 ; 10:19:44.717 ; OPTIPRINT d.o.o. ; OPTIPRINT d.o.o. ; Kranjèeva ulica 20 ; 1000 LJUBLJANA ; SI10180630 ; banka@optiprint.si ; Rajh !?!
+Dodano ; 20.12.2018 ; 10:20:31.860 ; SIP STROJNA INDUSTRIJA d.d. ; SIP STROJNA INDUSTRIJA d.d. ; Juhartova ulica 2 ; 3311 ŠEMPETER ; SI24049174 ; dejan.divjak@sip.si ; Rajh !?!

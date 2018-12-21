@@ -1,0 +1,14 @@
+Dodano: ;KRONOTERM d.o.o. - 19.11.2018 ; 10:32:10.275 ;
+1088170;Komplet kablov in vodnikov WPL 8-13 K1;12.79;
+1000000;Stroški prevoza;4.8;
+1088934;Komplet kablov in vodnikov TT3003;5.72;
+1090609;Komplet kablov in vodnikov WPL 16-18;22.95;
+1056230;Kabel K3.75.22;0.9;
+1083342;Kabel K2.150.2;0.8;
+1077662;Kabel K3.25.34;1.4;
+1079451;Vodnik V.CR.150.19;0.25;
+1083441;Veriga V.CR.0.71;0.3;
+1083472;Veriga V.RZ.0.72;0.4;
+1083502;Kabel K3.75.94;1.4;
+1077617;Vodnik V.MO.150.14;0.2;
+1077624;Veriga V.RJ.0.15;0.35;

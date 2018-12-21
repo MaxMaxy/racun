@@ -1,0 +1,29 @@
+Dodano ; 04.03.2018 ; 17:40:27.100 ; Test123 ; Test 1 ; 10 ; Rajh !?!
+Dodano ; 19.11.2018 ; 10:33:01.557 ; 1088170 ; Sklop kablov in vodnikov WPL 8-13 K1 ; 12.79 ; Rajh !?!
+Dodano ; 19.11.2018 ; 10:34:02.541 ; 100000 ; Stroški prevoza ; 4.8 ; Rajh !?!
+Dodano ; 29.11.2018 ; 06:02:08.942 ; 1088934 ; Komplet kablov in vodnikov TT3003 ; 5.72 ; Rajh !?!
+Dodano ; 29.11.2018 ; 06:04:26.302 ; 1090609 ; Komplet kablov in vodnikov WPL 16-18 ; 22.95 ; Rajh !?!
+Dodano ; 29.11.2018 ; 06:04:32.838 ; 1090609 ; Komplet kablov in vodnikov WPL 16-18 ; 22.95 ; Rajh !?!
+Dodano ; 03.12.2018 ; 06:35:26.204 ; 1056230 ; Kabel K3.75.22 ; ni podatka ; Rajh !?!
+Dodano ; 03.12.2018 ; 06:35:59.533 ; 1083342 ; Kabel K2.150.2 ; ni podatka ; Rajh !?!
+Dodano ; 03.12.2018 ; 06:36:21.541 ; 1077662 ; Kabel K3.25.34 ; ni podatka ; Rajh !?!
+Dodano ; 03.12.2018 ; 06:36:45.437 ; 1079451 ; Vodnik V.CR.150.19 ; ni podatka ; Rajh !?!
+Dodano ; 03.12.2018 ; 06:37:18.668 ; 1083441 ; Veriga V.CR.0.71 ; ni podatka ; Rajh !?!
+Dodano ; 03.12.2018 ; 06:37:40.597 ; 1083472 ; Veriga V.RZ.0.72 ; ni podatka ; Rajh !?!
+Dodano ; 03.12.2018 ; 06:38:08.179 ; 1083502 ; Kabel K3.75.94 ; ni podatka ; Rajh !?!
+Dodano ; 03.12.2018 ; 06:38:35.428 ; 1077617 ; Vodnik V.MO.150.14 ; ni podatka ; Rajh !?!
+Dodano ; 03.12.2018 ; 06:39:05.396 ; 1077624 ; Veriga V.RJ.0.15 ; ni podatka ; Rajh !?!
+Popravljeno ; 03.12.2018 ; 06:43:25.949 ; 1056230 ; Kabel K3.75.22 ; ni podatka ; Rajh !?!
+Popravljeno ; 03.12.2018 ; 06:43:36.850 ; 1056230 ; Kabel K3.75.22 ; 0,9 ; Rajh !?!
+Popravljeno ; 03.12.2018 ; 06:43:52.817 ; 1083342 ; Kabel K2.150.2 ; ni podatka ; Rajh !?!
+Popravljeno ; 03.12.2018 ; 06:44:04.514 ; 1077662 ; Kabel K3.25.34 ; ni podatka ; Rajh !?!
+Popravljeno ; 03.12.2018 ; 06:44:20.314 ; 1079451 ; Vodnik V.CR.150.19 ; ni podatka ; Rajh !?!
+Popravljeno ; 03.12.2018 ; 06:44:28.097 ; 1083441 ; Veriga V.CR.0.71 ; ni podatka ; Rajh !?!
+Popravljeno ; 03.12.2018 ; 06:44:37.849 ; 1083472 ; Veriga V.RZ.0.72 ; ni podatka ; Rajh !?!
+Popravljeno ; 03.12.2018 ; 06:44:47.345 ; 1083502 ; Kabel K3.75.94 ; ni podatka ; Rajh !?!
+Popravljeno ; 03.12.2018 ; 06:44:56.177 ; 1077617 ; Vodnik V.MO.150.14 ; ni podatka ; Rajh !?!
+Popravljeno ; 03.12.2018 ; 06:45:07.385 ; 1077624 ; Veriga V.RJ.0.15 ; ni podatka ; Rajh !?!
+Popravljeno ; 20.12.2018 ; 10:21:55.545 ; Test123 ; Test 1 ; 10 ; Rajh !?!
+Popravljeno ; 20.12.2018 ; 10:22:23.319 ; 1090609 ; Komplet kablov in vodnikov WPL 16-18 ; 22.95 ; Rajh !?!
+Popravljeno ; 20.12.2018 ; 10:23:35.704 ; 1088170 ; Sklop kablov in vodnikov WPL 8-13 K1 ; 12.79 ; Rajh !?!
+Popravljeno ; 20.12.2018 ; 10:24:18.087 ; 100000 ; Stroški prevoza ; 4.8 ; Rajh !?!
