@@ -8,6 +8,7 @@
 #include <QIcon>
 #include <QTextStream>
 #include <QListWidgetItem>
+#include <QButtonGroup>
 #include "novracun.h"
 
 namespace Ui {

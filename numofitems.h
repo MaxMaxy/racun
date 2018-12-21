@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QIcon>
+#include <QIntValidator>
 
 namespace Ui {
 class NumOfItems;

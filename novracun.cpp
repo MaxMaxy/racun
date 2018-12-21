@@ -21,6 +21,8 @@ NovRacun::NovRacun(QWidget *parent) :
     ui->label_ddv->setText("€0");
     ui->label_osnova->setText("€0");
     ui->dateEdit->setMinimumDate(QDate(2016,1,1));
+    ui->lineEdit_sklic->setMaxLength(35);
+    ui->lineEdit->setMaxLength(60);
     QFile mFile(m_arhivStRacuna);
     if(!mFile.open(QFile::ReadOnly | QFile::Text))
     {
@@ -1336,57 +1338,13 @@ QString NovRacun::CenaDDV(QString price, QString items)
 
 void NovRacun::on_treeWidget_seznam_doubleClicked()
 {
-    int vrstic(0);
-    if(ui->treeWidget_seznam->currentItem()->text(1).length() < 43 && (m_vrstic + 1) <= m_max_produktov)
-        vrstic++;
-    else if(ui->treeWidget_seznam->currentItem()->text(1).length() < 57 && (m_vrstic + 3) <= m_max_produktov)
-        vrstic += 3;
-    else if(ui->treeWidget_seznam->currentItem()->text(1).length() < 77 && (m_vrstic + 4) <= m_max_produktov)
-        vrstic += 4;
-    else if(ui->treeWidget_seznam->currentItem()->text(1).length() < 90 && (m_vrstic + 5) <= m_max_produktov)
-        vrstic += 5;
-    else if(ui->treeWidget_seznam->currentItem()->text(1).length() < 108 && (m_vrstic + 6) <= m_max_produktov)
-        vrstic += 6;
-    else if(ui->treeWidget_seznam->currentItem()->text(1).length() < 126 && (m_vrstic + 7) <= m_max_produktov)
-        vrstic += 7;
-    else if(ui->treeWidget_seznam->currentItem()->text(1).length() < 144 && (m_vrstic + 8) <= m_max_produktov)
-        vrstic += 8;
-    else if(ui->treeWidget_seznam->currentItem()->text(1).length() < 162 && (m_vrstic + 9) <= m_max_produktov)
-        vrstic += 9;
-    else if(ui->treeWidget_seznam->currentItem()->text(1).length() < 180 && (m_vrstic + 10) <= m_max_produktov)
-        vrstic += 10;
-    else if(ui->treeWidget_seznam->currentItem()->text(1).length() < 198 && (m_vrstic + 11) <= m_max_produktov)
-        vrstic += 11;
-    else if(ui->treeWidget_seznam->currentItem()->text(1).length() < 216 && (m_vrstic + 12) <= m_max_produktov)
-        vrstic += 12;
-    else if(ui->treeWidget_seznam->currentItem()->text(1).length() < 234 && (m_vrstic + 13) <= m_max_produktov)
-        vrstic += 13;
-    else if(ui->treeWidget_seznam->currentItem()->text(1).length() < 252 && (m_vrstic + 14) <= m_max_produktov)
-        vrstic += 14;
-    else if(ui->treeWidget_seznam->currentItem()->text(1).length() < 270 && (m_vrstic + 15) <= m_max_produktov)
-        vrstic += 15;
-    else if(ui->treeWidget_seznam->currentItem()->text(1).length() < 288 && (m_vrstic + 16) <= m_max_produktov)
-        vrstic += 16;
-    else if(ui->treeWidget_seznam->currentItem()->text(1).length() < 306 && (m_vrstic + 17) <= m_max_produktov)
-        vrstic += 17;
-    else if(ui->treeWidget_seznam->currentItem()->text(1).length() < 324 && (m_vrstic + 18) <= m_max_produktov)
-        vrstic += 18;
-    else if(ui->treeWidget_seznam->currentItem()->text(1).length() < 342 && (m_vrstic + 19) <= m_max_produktov)
-        vrstic += 19;
-    else if(ui->treeWidget_seznam->currentItem()->text(1).length() < 360 && (m_vrstic + 20) <= m_max_produktov)
-        vrstic += 20;
-    else
-    {
+    m_vrstic++;
+    if(m_vrstic > m_max_produktov) {
         QMessageBox error_stringToLong;
         error_stringToLong.critical(this, "Napaka", "Racun vsebuje prevec produktov ali pa je ime produkta predolgo!");
         error_stringToLong.show();
         return;
     }
-
-    if(m_vrstic >= m_max_produktov)
-        return;
-    else
-        m_vrstic += vrstic;
 
     NumOfItems numItems;
     numItems.setModal(true);
@@ -1476,53 +1434,16 @@ void NovRacun::CalcSkupaj(QString &price, QString &numOfItems, bool plus)
 
 void NovRacun::on_treeWidget_dodani_doubleClicked()
 {
-    int vrstic(0);
-    if(ui->treeWidget_dodani->currentItem()->text(1).length() < 43)
-        vrstic++;
-    else if(ui->treeWidget_dodani->currentItem()->text(1).length() < 57)
-        vrstic += 3;
-    else if(ui->treeWidget_dodani->currentItem()->text(1).length() < 77)
-        vrstic += 4;
-    else if(ui->treeWidget_dodani->currentItem()->text(1).length() < 90)
-        vrstic += 5;
-    else if(ui->treeWidget_dodani->currentItem()->text(1).length() < 108)
-        vrstic += 6;
-    else if(ui->treeWidget_dodani->currentItem()->text(1).length() < 126)
-        vrstic += 7;
-    else if(ui->treeWidget_dodani->currentItem()->text(1).length() < 144)
-        vrstic += 8;
-    else if(ui->treeWidget_dodani->currentItem()->text(1).length() < 162)
-        vrstic += 9;
-    else if(ui->treeWidget_dodani->currentItem()->text(1).length() < 180)
-        vrstic += 10;
-    else if(ui->treeWidget_dodani->currentItem()->text(1).length() < 198)
-        vrstic += 11;
-    else if(ui->treeWidget_dodani->currentItem()->text(1).length() < 216)
-        vrstic += 12;
-    else if(ui->treeWidget_dodani->currentItem()->text(1).length() < 234)
-        vrstic += 13;
-    else if(ui->treeWidget_dodani->currentItem()->text(1).length() < 252)
-        vrstic += 14;
-    else if(ui->treeWidget_dodani->currentItem()->text(1).length() < 270)
-        vrstic += 15;
-    else if(ui->treeWidget_dodani->currentItem()->text(1).length() < 288)
-        vrstic += 16;
-    else if(ui->treeWidget_dodani->currentItem()->text(1).length() < 306)
-        vrstic += 17;
-    else if(ui->treeWidget_dodani->currentItem()->text(1).length() < 324)
-        vrstic += 18;
-    else if(ui->treeWidget_dodani->currentItem()->text(1).length() < 342)
-        vrstic += 19;
-    else if(ui->treeWidget_dodani->currentItem()->text(1).length() < 360)
-        vrstic += 20;
-    else
+    m_vrstic--;
+    if(m_vrstic <= 0)
     {
         QMessageBox error_stringToLong;
-        error_stringToLong.critical(this, "Napaka", "Racun vsebuje prevec produktov ali pa je ime produkta predolgo!");
+        error_stringToLong.critical(this, "Napaka", "V seznamu ni produktov!");
         error_stringToLong.show();
+        m_vrstic = 0;
         return;
     }
-    m_vrstic -= vrstic;
+
     QString price = ui->treeWidget_dodani->currentItem()->text(2);
     QString numItems = ui->treeWidget_dodani->currentItem()->text(3);
     CalcSkupaj(price, numItems, false);
@@ -1724,6 +1645,14 @@ int NovRacun::creatPDF()
                                              "Opombe: " + ui->lineEdit->text() + "<br>"
                                          "</div>"
                                      "</th>"
+                                     "<th rowspan=5>"
+                                         "<div align=right>"
+                                            "<img src=\"qrc:/icons/zig.png\"/>"
+                                            "<img src=\"qrc:/icons/podpis.png\"/ height=16 width=16>"
+                                         "</div>"
+                                     "</th>"
+                                     "<th>"
+                                     "</th>"
                                  "</tr>"
                                  "<tr>"
                                      "<th>"
@@ -1731,13 +1660,10 @@ int NovRacun::creatPDF()
                                             "Dokument sestavil:"
                                          "</div>"
                                      "</th>"
-                                     "<th rowspan=2>"
-                                         "<div align=center height=16 width=16>"
-                                            "<img src=\"qrc:/icons/zig.png\"/>"
-                                            "<img src=\"qrc:/icons/podpis.png\"/ height=16 width=16>"
-                                         "</div>"
-                                     "</th>"
                                      "<th>"
+                                         "<div align=center>"
+                                             ""
+                                         "</div>"
                                      "</th>"
                                      "<th>"
                                          "<div align=right>"
@@ -1995,9 +1921,11 @@ int NovRacun::creatPDF()
                   "</th>"
                 "</tr>"
                 "<tr>"
-                    "<th>"
+                    "<th rowspan=2>"
                         "<div align=left>"
-                            ""
+                            "<font size=6>"
+                                "<b><u>Naročnik:</u></b>"
+                            "</font>"
                         "</div>"
                     "</th>"
                     "<th>"
@@ -2019,13 +1947,6 @@ int NovRacun::creatPDF()
                 "<tr>"
                     "<th>"
                         "<div align=left>"
-                            "<font size=6>"
-                                "<b><u>Naročnik:</u></b>"
-                            "</font>"
-                        "</div>"
-                    "</th>"
-                    "<th>"
-                        "<div align=left>"
                             ""
                         "</div>"
                     "</th>"
@@ -2041,7 +1962,7 @@ int NovRacun::creatPDF()
                     "</th>"
                 "</tr>"
                 "<tr>"
-                    "<th>"
+                    "<th rowspan=2>"
                         "<div align=left>""<font size=5>"
                             + ui->comboBox_narocnik->currentText() +
                         "</div>"
@@ -2064,11 +1985,6 @@ int NovRacun::creatPDF()
                 "</tr>"
                 "<tr>"
                     "<th>"
-                        "<div align=left>""<font size=4>"
-                            + m_naslov +
-                        "</div>"
-                    "</th>"
-                    "<th>"
                         "<div align=left>"
                             ""
                         "</div>"
@@ -2087,7 +2003,7 @@ int NovRacun::creatPDF()
                 "<tr>"
                     "<th>"
                         "<div align=left>""<font size=4>"
-                            + m_posta +
+                            + m_naslov +
                         "</div>"
                     "</th>"
                     "<th>"
@@ -2108,8 +2024,8 @@ int NovRacun::creatPDF()
                 "</tr>"
                 "<tr>"
                     "<th>"
-                        "<div align=left>"
-                            ""
+                        "<div align=left>""<font size=4>"
+                            + m_posta +
                         "</div>"
                     "</th>"
                     "<th>"
@@ -2373,9 +2289,11 @@ int NovRacun::creatPDF()
                   "</th>"
                 "</tr>"
                 "<tr>"
-                    "<th>"
+                    "<th rowspan=2>"
                         "<div align=left>"
-                            ""
+                            "<font size=6>"
+                                "<b><u>Naročnik:</u></b>"
+                            "</font>"
                         "</div>"
                     "</th>"
                     "<th>"
@@ -2397,13 +2315,6 @@ int NovRacun::creatPDF()
                 "<tr>"
                     "<th>"
                         "<div align=left>"
-                            "<font size=6>"
-                                "<b><u>Naročnik:</u></b>"
-                            "</font>"
-                        "</div>"
-                    "</th>"
-                    "<th>"
-                        "<div align=left>"
                             ""
                         "</div>"
                     "</th>"
@@ -2419,7 +2330,7 @@ int NovRacun::creatPDF()
                     "</th>"
                 "</tr>"
                 "<tr>"
-                    "<th>"
+                    "<th rowspan=2>"
                         "<div align=left>""<font size=5>"
                             + ui->comboBox_narocnik->currentText() +
                         "</div>"
@@ -2442,11 +2353,6 @@ int NovRacun::creatPDF()
                 "</tr>"
                 "<tr>"
                     "<th>"
-                        "<div align=left>""<font size=4>"
-                            + m_naslov +
-                        "</div>"
-                    "</th>"
-                    "<th>"
                         "<div align=left>"
                             ""
                         "</div>"
@@ -2465,7 +2371,7 @@ int NovRacun::creatPDF()
                 "<tr>"
                     "<th>"
                         "<div align=left>""<font size=4>"
-                            + m_posta +
+                            + m_naslov +
                         "</div>"
                     "</th>"
                     "<th>"
@@ -2486,8 +2392,8 @@ int NovRacun::creatPDF()
                 "</tr>"
                 "<tr>"
                     "<th>"
-                        "<div align=left>"
-                            ""
+                        "<div align=left>""<font size=4>"
+                            + m_posta +
                         "</div>"
                     "</th>"
                     "<th>"

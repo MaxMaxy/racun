@@ -7,6 +7,7 @@
 #include <QTextStream>
 #include <QDebug>
 #include <QIcon>
+#include <QRegularExpression>
 
 namespace Ui {
 class Settings;
