@@ -1,4 +1,4 @@
-<RCC>
+﻿<RCC>
     <qresource prefix="/icons">
         <file>about.png</file>
         <file>arhiv.png</file>
@@ -11,5 +11,7 @@
         <file>settings.png</file>
         <file>icon.ico</file>
         <file>statistic.png</file>
+        <file>zig.png</file>
+	<file>podpis.png</file>
     </qresource>
 </RCC>
