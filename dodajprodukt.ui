@@ -16,18 +16,33 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="18" column="0" colspan="2">
     <widget class="Line" name="line_4">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <italic>true</italic>
+      </font>
+     </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
    <item row="17" column="0" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_isci"/>
+    <widget class="QLineEdit" name="lineEdit_isci">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <italic>true</italic>
+      </font>
+     </property>
+    </widget>
    </item>
    <item row="0" column="0">
     <widget class="QLabel" name="label">
      <property name="font">
       <font>
+       <family>MS Sans Serif</family>
        <pointsize>16</pointsize>
        <italic>true</italic>
       </font>
@@ -39,6 +54,12 @@
    </item>
    <item row="2" column="0">
     <widget class="QLabel" name="label_2">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <italic>true</italic>
+      </font>
+     </property>
      <property name="text">
       <string>Podjetje:</string>
      </property>
@@ -49,6 +70,12 @@
    </item>
    <item row="1" column="0">
     <widget class="Line" name="line">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <italic>true</italic>
+      </font>
+     </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -56,6 +83,12 @@
    </item>
    <item row="10" column="0">
     <widget class="QLabel" name="label_4">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <italic>true</italic>
+      </font>
+     </property>
      <property name="text">
       <string>Cena produkta:</string>
      </property>
@@ -66,6 +99,12 @@
    </item>
    <item row="7" column="0">
     <widget class="QLabel" name="label_3">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <italic>true</italic>
+      </font>
+     </property>
      <property name="text">
       <string>Naziv produkta:</string>
      </property>
@@ -75,16 +114,46 @@
     </widget>
    </item>
    <item row="4" column="0" colspan="2">
-    <widget class="QComboBox" name="comboBox_podjetje"/>
+    <widget class="QComboBox" name="comboBox_podjetje">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <italic>true</italic>
+      </font>
+     </property>
+    </widget>
    </item>
    <item row="9" column="0" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_nazivProdukta"/>
+    <widget class="QLineEdit" name="lineEdit_nazivProdukta">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <italic>true</italic>
+      </font>
+     </property>
+    </widget>
    </item>
    <item row="11" column="0" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_cena"/>
+    <widget class="QLineEdit" name="lineEdit_cena">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <italic>true</italic>
+      </font>
+     </property>
+    </widget>
    </item>
    <item row="22" column="0" colspan="2">
     <widget class="Line" name="line_2">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <italic>true</italic>
+      </font>
+     </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -92,25 +161,68 @@
    </item>
    <item row="20" column="0" colspan="2">
     <widget class="QTreeWidget" name="treeWidget">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <italic>true</italic>
+      </font>
+     </property>
      <column>
       <property name="text">
        <string>ID</string>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Sans Serif</family>
+        <pointsize>10</pointsize>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="textAlignment">
+       <set>AlignCenter</set>
       </property>
      </column>
      <column>
       <property name="text">
        <string>Naziv</string>
       </property>
+      <property name="font">
+       <font>
+        <family>MS Sans Serif</family>
+        <pointsize>10</pointsize>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="textAlignment">
+       <set>AlignCenter</set>
+      </property>
      </column>
      <column>
       <property name="text">
        <string>Cena €</string>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Sans Serif</family>
+        <pointsize>10</pointsize>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="textAlignment">
+       <set>AlignCenter</set>
       </property>
      </column>
     </widget>
    </item>
    <item row="19" column="0">
     <widget class="QLabel" name="label_6">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <italic>true</italic>
+      </font>
+     </property>
      <property name="text">
       <string>Produkti:</string>
      </property>
@@ -121,6 +233,12 @@
    </item>
    <item row="23" column="1">
     <widget class="QPushButton" name="pushButton">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <italic>true</italic>
+      </font>
+     </property>
      <property name="text">
       <string>Izhod</string>
      </property>
@@ -128,6 +246,12 @@
    </item>
    <item row="5" column="0">
     <widget class="QLabel" name="label_5">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <italic>true</italic>
+      </font>
+     </property>
      <property name="text">
       <string>ID produkta:</string>
      </property>
@@ -137,10 +261,24 @@
     </widget>
    </item>
    <item row="6" column="0" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_id"/>
+    <widget class="QLineEdit" name="lineEdit_id">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <italic>true</italic>
+      </font>
+     </property>
+    </widget>
    </item>
    <item row="14" column="1">
     <widget class="QPushButton" name="pushButton_dodaj">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <italic>true</italic>
+      </font>
+     </property>
      <property name="text">
       <string>Dodaj produkt</string>
      </property>
@@ -148,6 +286,12 @@
    </item>
    <item row="14" column="0">
     <widget class="QPushButton" name="pushButton_popravi">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <italic>true</italic>
+      </font>
+     </property>
      <property name="text">
       <string>Popravi podatke</string>
      </property>
@@ -155,6 +299,12 @@
    </item>
    <item row="16" column="0">
     <widget class="QLabel" name="label_7">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <italic>true</italic>
+      </font>
+     </property>
      <property name="text">
       <string>Iskalnik:</string>
      </property>
@@ -165,6 +315,12 @@
    </item>
    <item row="15" column="0" colspan="2">
     <widget class="Line" name="line_3">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <italic>true</italic>
+      </font>
+     </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -172,6 +328,12 @@
    </item>
    <item row="12" column="0" colspan="2">
     <widget class="Line" name="line_5">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <italic>true</italic>
+      </font>
+     </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>

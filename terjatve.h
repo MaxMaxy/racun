@@ -57,9 +57,9 @@ private:
     QString m_terjatve;
     QString m_obveznosti;
     QString m_upnikiSeznam;
-    float m_totalTerjatve;
-    float m_totalObveznosti;
-    float m_totalTerMinObv;
+    double m_totalTerjatve;
+    double m_totalObveznosti;
+    double m_totalTerMinObv;
 };
 
 #endif // TERJATVE_H

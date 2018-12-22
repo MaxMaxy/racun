@@ -11,6 +11,15 @@ VnosObveznosti::VnosObveznosti(QWidget *parent) :
     this->setWindowTitle("Vnos obveznosti");
     ui->dateEdit_valute->setDisplayFormat("d. M. yyyy");
     ui->dateEdit_valute->setDate(QDate::currentDate());
+    ui->lineEdit_listina->setFocus();
+    QRegularExpression regex("^[.0123456789]*$");
+    QValidator *validator = new QRegularExpressionValidator(regex, this);
+    ui->lineEdit_znesek->setValidator(validator);
+    QRegularExpression regealfabet("^[a-zA-Z0-9,@. -/&#čšžŠČŽ]*$");
+    QValidator *validatoralfabet = new QRegularExpressionValidator(regealfabet, this);
+    ui->lineEdit_opombe->setValidator(validatoralfabet);
+    ui->lineEdit_listina->setValidator(validatoralfabet);
+    ui->lineEdit_dobavitelj->setValidator(validatoralfabet);
 }
 
 VnosObveznosti::~VnosObveznosti()

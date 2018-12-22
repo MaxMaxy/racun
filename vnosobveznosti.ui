@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>685</width>
-    <height>384</height>
+    <height>396</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,6 +34,11 @@
      </item>
      <item>
       <widget class="Line" name="line">
+       <property name="font">
+        <font>
+         <italic>true</italic>
+        </font>
+       </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -50,6 +55,7 @@
          <family>MS Sans Serif</family>
          <pointsize>10</pointsize>
          <weight>75</weight>
+         <italic>true</italic>
          <bold>true</bold>
         </font>
        </property>
@@ -65,8 +71,9 @@
       <widget class="QLineEdit" name="lineEdit_listina">
        <property name="font">
         <font>
-         <family>MS Sans Serif</family>
+         <family>Arial</family>
          <pointsize>10</pointsize>
+         <italic>true</italic>
         </font>
        </property>
       </widget>
@@ -82,6 +89,7 @@
          <family>MS Sans Serif</family>
          <pointsize>10</pointsize>
          <weight>75</weight>
+         <italic>true</italic>
          <bold>true</bold>
         </font>
        </property>
@@ -97,8 +105,9 @@
       <widget class="QLineEdit" name="lineEdit_dobavitelj">
        <property name="font">
         <font>
-         <family>MS Sans Serif</family>
+         <family>Arial</family>
          <pointsize>10</pointsize>
+         <italic>true</italic>
         </font>
        </property>
       </widget>
@@ -114,6 +123,7 @@
          <family>MS Sans Serif</family>
          <pointsize>10</pointsize>
          <weight>75</weight>
+         <italic>true</italic>
          <bold>true</bold>
         </font>
        </property>
@@ -129,8 +139,9 @@
       <widget class="QLineEdit" name="lineEdit_znesek">
        <property name="font">
         <font>
-         <family>MS Sans Serif</family>
+         <family>Arial</family>
          <pointsize>10</pointsize>
+         <italic>true</italic>
         </font>
        </property>
       </widget>
@@ -146,6 +157,7 @@
          <family>MS Sans Serif</family>
          <pointsize>10</pointsize>
          <weight>75</weight>
+         <italic>true</italic>
          <bold>true</bold>
         </font>
        </property>
@@ -161,8 +173,9 @@
       <widget class="QDateEdit" name="dateEdit_valute">
        <property name="font">
         <font>
-         <family>MS Sans Serif</family>
+         <family>Arial</family>
          <pointsize>10</pointsize>
+         <italic>true</italic>
         </font>
        </property>
       </widget>
@@ -178,6 +191,7 @@
          <family>MS Sans Serif</family>
          <pointsize>10</pointsize>
          <weight>75</weight>
+         <italic>true</italic>
          <bold>true</bold>
         </font>
        </property>
@@ -193,8 +207,9 @@
       <widget class="QLineEdit" name="lineEdit_opombe">
        <property name="font">
         <font>
-         <family>MS Sans Serif</family>
+         <family>Arial</family>
          <pointsize>10</pointsize>
+         <italic>true</italic>
         </font>
        </property>
       </widget>
@@ -207,6 +222,7 @@
       <font>
        <family>MS Sans Serif</family>
        <pointsize>12</pointsize>
+       <italic>true</italic>
       </font>
      </property>
      <property name="text">
@@ -218,6 +234,11 @@
     <layout class="QVBoxLayout" name="verticalLayout_11">
      <item>
       <widget class="Line" name="line_2">
+       <property name="font">
+        <font>
+         <italic>true</italic>
+        </font>
+       </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -229,6 +250,7 @@
         <font>
          <family>MS Sans Serif</family>
          <pointsize>12</pointsize>
+         <italic>true</italic>
         </font>
        </property>
        <property name="text">

@@ -9,6 +9,15 @@ DodajPodjetje::DodajPodjetje(QWidget *parent) :
     this->setWindowIcon(icon);
     ui->treeWidget->setColumnCount(2);
     ui->treeWidget->setColumnWidth(0,40);
+    ui->lineEdit_kNaziv->setFocus();
+    QRegularExpression regex("^[a-zA-Z0-9,@. -/&#čšžŠČŽ]*$");
+    QValidator *validator = new QRegularExpressionValidator(regex, this);
+    ui->lineEdit_kNaziv->setValidator(validator);
+    ui->lineEdit_cNaziv->setValidator(validator);
+    ui->lineEdit_naslov->setValidator(validator);
+    ui->lineEdit_posta->setValidator(validator);
+    ui->lineEdit_ddv->setValidator(validator);
+    ui->lineEdit_email->setValidator(validator);
     this->setWindowTitle("Dodaj/popravi stranko");
     Read();
     TotalCompany();
@@ -240,7 +249,7 @@ void DodajPodjetje::on_pushButton_dodajPodjetje_clicked()
 // button to fix already added clients
 void DodajPodjetje::on_pushButton_popraviPodatke_clicked()
 {
-    if(ui->treeWidget->currentItem() == 0)
+    if(ui->treeWidget->currentItem() == nullptr)
     {
         return;
     }

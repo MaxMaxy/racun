@@ -29,8 +29,7 @@
       <font>
        <family>MS Sans Serif</family>
        <pointsize>10</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
+       <italic>true</italic>
       </font>
      </property>
      <property name="styleSheet">
@@ -46,10 +45,30 @@
       <property name="text">
        <string>St.</string>
       </property>
+      <property name="font">
+       <font>
+        <family>MS Sans Serif</family>
+        <pointsize>10</pointsize>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="textAlignment">
+       <set>AlignCenter</set>
+      </property>
      </column>
      <column>
       <property name="text">
        <string>Seznam strank</string>
+      </property>
+      <property name="font">
+       <font>
+        <family>MS Sans Serif</family>
+        <pointsize>10</pointsize>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="textAlignment">
+       <set>AlignCenter</set>
       </property>
      </column>
     </widget>
@@ -60,6 +79,7 @@
       <font>
        <family>MS Sans Serif</family>
        <pointsize>12</pointsize>
+       <italic>true</italic>
       </font>
      </property>
      <property name="text">
@@ -74,11 +94,12 @@
        <family>MS Sans Serif</family>
        <pointsize>10</pointsize>
        <weight>75</weight>
+       <italic>true</italic>
        <bold>true</bold>
       </font>
      </property>
      <property name="text">
-      <string>Posta:</string>
+      <string>Pošta:</string>
      </property>
      <property name="buddy">
       <cstring>lineEdit_posta</cstring>
@@ -91,12 +112,19 @@
       <font>
        <family>MS Sans Serif</family>
        <pointsize>10</pointsize>
+       <italic>true</italic>
       </font>
      </property>
     </widget>
    </item>
    <item row="14" column="1" colspan="2">
     <widget class="Line" name="line_3">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <italic>true</italic>
+      </font>
+     </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -125,6 +153,7 @@
        <family>MS Sans Serif</family>
        <pointsize>10</pointsize>
        <weight>75</weight>
+       <italic>true</italic>
        <bold>true</bold>
       </font>
      </property>
@@ -142,6 +171,7 @@
       <font>
        <family>MS Sans Serif</family>
        <pointsize>10</pointsize>
+       <italic>true</italic>
       </font>
      </property>
     </widget>
@@ -152,6 +182,7 @@
       <font>
        <family>MS Sans Serif</family>
        <pointsize>10</pointsize>
+       <italic>true</italic>
       </font>
      </property>
     </widget>
@@ -162,6 +193,7 @@
       <font>
        <family>MS Sans Serif</family>
        <pointsize>10</pointsize>
+       <italic>true</italic>
       </font>
      </property>
     </widget>
@@ -173,6 +205,7 @@
        <family>MS Sans Serif</family>
        <pointsize>10</pointsize>
        <weight>75</weight>
+       <italic>true</italic>
        <bold>true</bold>
       </font>
      </property>
@@ -191,6 +224,7 @@
        <family>MS Sans Serif</family>
        <pointsize>10</pointsize>
        <weight>75</weight>
+       <italic>true</italic>
        <bold>true</bold>
       </font>
      </property>
@@ -208,6 +242,7 @@
       <font>
        <family>MS Sans Serif</family>
        <pointsize>10</pointsize>
+       <italic>true</italic>
       </font>
      </property>
     </widget>
@@ -219,6 +254,7 @@
        <family>MS Sans Serif</family>
        <pointsize>10</pointsize>
        <weight>75</weight>
+       <italic>true</italic>
        <bold>true</bold>
       </font>
      </property>
@@ -232,6 +268,12 @@
    </item>
    <item row="1" column="1">
     <widget class="Line" name="line_2">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <italic>true</italic>
+      </font>
+     </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -244,6 +286,7 @@
        <family>MS Sans Serif</family>
        <pointsize>10</pointsize>
        <weight>75</weight>
+       <italic>true</italic>
        <bold>true</bold>
       </font>
      </property>
@@ -261,12 +304,19 @@
       <font>
        <family>MS Sans Serif</family>
        <pointsize>10</pointsize>
+       <italic>true</italic>
       </font>
      </property>
     </widget>
    </item>
    <item row="20" column="1" colspan="2">
     <widget class="Line" name="line">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <italic>true</italic>
+      </font>
+     </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -278,6 +328,7 @@
       <font>
        <family>MS Sans Serif</family>
        <pointsize>12</pointsize>
+       <italic>true</italic>
       </font>
      </property>
      <property name="text">
@@ -291,6 +342,7 @@
       <font>
        <family>MS Sans Serif</family>
        <pointsize>12</pointsize>
+       <italic>true</italic>
       </font>
      </property>
      <property name="text">
@@ -300,6 +352,12 @@
    </item>
    <item row="17" column="1" colspan="2">
     <widget class="Line" name="line_4">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <italic>true</italic>
+      </font>
+     </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>

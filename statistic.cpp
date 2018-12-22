@@ -17,16 +17,19 @@ Statistic::Statistic(QWidget *parent) :
     QHeaderView *h_header_brez = ui->tableWidget_brez->horizontalHeader();
     QHeaderView *v_header_brez = ui->tableWidget_brez->verticalHeader();
     h_header_brez->setSectionResizeMode(QHeaderView::Stretch);
-    v_header_brez->setSectionResizeMode(QHeaderView::Stretch);
+    v_header_brez->setSectionResizeMode(QHeaderView::Fixed);
+    v_header_brez->setDefaultSectionSize(21);
     QHeaderView *h_header_vse = ui->tableWidget_vse->horizontalHeader();
     QHeaderView *v_header_vse = ui->tableWidget_vse->verticalHeader();
     h_header_vse->setSectionResizeMode(QHeaderView::Stretch);
-    v_header_vse->setSectionResizeMode(QHeaderView::Stretch);
+    v_header_vse->setSectionResizeMode(QHeaderView::Fixed);
+    v_header_vse->setDefaultSectionSize(21);
     AddToComboBox(m_fileNameCompanys);
     AddToTableWidget(m_fileRacun);
     ui->tableWidget_vse->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableWidget_brez->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->plot->clearPlottables();
+    ui->comboBox_podjetja->setFocus();
     Plot();
 }
 
@@ -1339,7 +1342,6 @@ void Statistic::Plot()
     gradient.setColorAt(0.38, QColor(200, 200, 200));
     gradient.setColorAt(1, QColor(130, 130, 130));
     ui->plot->setBackground(QBrush(gradient));
-
     // set all companys name and color from comboBox
     QCPBars *podjetja[m_numInCombo];
     // create empty bar chart objects:
@@ -1357,7 +1359,7 @@ void Statistic::Plot()
             continue;
         else
             podjetja[itr]->moveAbove(podjetja[itr-1]);
-    }
+     }
 
     // prepare x axis with country labels:
     QVector<double> ticks;
@@ -1369,8 +1371,8 @@ void Statistic::Plot()
     ui->plot->xAxis->setTicker(textTicker);
     ui->plot->xAxis->setTickLabelRotation(60);
     ui->plot->xAxis->setSubTicks(false);
-    ui->plot->xAxis->setTickLength(0, 4);
-    ui->plot->xAxis->setRange(0, 10);
+    ui->plot->xAxis->setTickLength(0, 5);
+    ui->plot->xAxis->setRange(0, 13);
     ui->plot->xAxis->setBasePen(QPen(Qt::black));
     ui->plot->xAxis->setTickPen(QPen(Qt::black));
     ui->plot->xAxis->grid()->setVisible(true);
@@ -1379,8 +1381,8 @@ void Statistic::Plot()
     ui->plot->xAxis->setLabelColor(Qt::black);
 
     // prepare y axis:
-    ui->plot->yAxis->setRange(0, 15000);
-    ui->plot->yAxis->setPadding(5); // a bit more space to the left border
+    ui->plot->yAxis->setRange(0, 17500);
+    ui->plot->yAxis->setPadding(1); // a bit more space to the left border
     ui->plot->yAxis->setLabel("Promet po mesecih\nOSNOVA");
     ui->plot->yAxis->setBasePen(QPen(Qt::black));
     ui->plot->yAxis->setTickPen(QPen(Qt::black));
@@ -1419,12 +1421,15 @@ void Statistic::Plot()
 
     // setup legend:
     ui->plot->legend->setVisible(true);
-    ui->plot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignTop|Qt::AlignHCenter);
+    ui->plot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignTop|Qt::AlignRight);
     ui->plot->legend->setBrush(QColor(255, 255, 255, 100));
     ui->plot->legend->setBorderPen(Qt::NoPen);
     QFont legendFont = font();
     legendFont.setPointSize(10);
+    legendFont.setFamily("MS Sans Serif");
+    legendFont.setItalic(true);
     ui->plot->legend->setFont(legendFont);
+    ui->plot->legend->setWrap(6);
     ui->plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
     ui->plot->replot();
     ui->plot->update();

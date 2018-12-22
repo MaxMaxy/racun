@@ -55,7 +55,7 @@
           <family>MS Sans Serif</family>
           <pointsize>12</pointsize>
           <weight>75</weight>
-          <italic>false</italic>
+          <italic>true</italic>
           <bold>true</bold>
           <kerning>true</kerning>
          </font>
@@ -64,7 +64,7 @@
          <enum>Qt::LeftToRight</enum>
         </property>
         <property name="text">
-         <string> Nov racun</string>
+         <string> Nov račun</string>
         </property>
         <property name="icon">
          <iconset>
@@ -92,7 +92,7 @@
           <family>MS Sans Serif</family>
           <pointsize>12</pointsize>
           <weight>75</weight>
-          <italic>false</italic>
+          <italic>true</italic>
           <bold>true</bold>
          </font>
         </property>
@@ -113,7 +113,7 @@
           <family>MS Sans Serif</family>
           <pointsize>12</pointsize>
           <weight>75</weight>
-          <italic>false</italic>
+          <italic>true</italic>
           <bold>true</bold>
          </font>
         </property>
@@ -138,7 +138,7 @@
           <family>MS Sans Serif</family>
           <pointsize>12</pointsize>
           <weight>75</weight>
-          <italic>false</italic>
+          <italic>true</italic>
           <bold>true</bold>
          </font>
         </property>
@@ -162,7 +162,7 @@
           <family>MS Sans Serif</family>
           <pointsize>12</pointsize>
           <weight>75</weight>
-          <italic>false</italic>
+          <italic>true</italic>
           <bold>true</bold>
          </font>
         </property>
@@ -186,7 +186,7 @@
           <family>MS Sans Serif</family>
           <pointsize>12</pointsize>
           <weight>75</weight>
-          <italic>false</italic>
+          <italic>true</italic>
           <bold>true</bold>
          </font>
         </property>
@@ -202,6 +202,12 @@
       </item>
       <item>
        <widget class="Line" name="line">
+        <property name="font">
+         <font>
+          <family>MS Sans Serif</family>
+          <italic>true</italic>
+         </font>
+        </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -214,7 +220,7 @@
           <family>MS Sans Serif</family>
           <pointsize>12</pointsize>
           <weight>75</weight>
-          <italic>false</italic>
+          <italic>true</italic>
           <bold>true</bold>
          </font>
         </property>
@@ -235,7 +241,9 @@
        <widget class="QLabel" name="label">
         <property name="font">
          <font>
+          <family>MS Sans Serif</family>
           <pointsize>6</pointsize>
+          <italic>true</italic>
          </font>
         </property>
         <property name="layoutDirection">
@@ -248,7 +256,7 @@
          <enum>QFrame::Raised</enum>
         </property>
         <property name="text">
-         <string>v0.9.5</string>
+         <string>v0.9.9</string>
         </property>
         <property name="textFormat">
          <enum>Qt::AutoText</enum>
@@ -262,6 +270,12 @@
     </item>
     <item row="1" column="0">
      <widget class="Line" name="line_2">
+      <property name="font">
+       <font>
+        <family>MS Sans Serif</family>
+        <italic>true</italic>
+       </font>
+      </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -280,7 +294,7 @@
    </property>
    <widget class="QMenu" name="menuStart">
     <property name="title">
-     <string>Start</string>
+     <string>Meni</string>
     </property>
     <addaction name="actionNov_racun"/>
     <addaction name="actionVnos_obveznosti"/>

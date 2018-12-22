@@ -40,6 +40,11 @@
            </item>
            <item>
             <widget class="Line" name="line">
+             <property name="font">
+              <font>
+               <italic>true</italic>
+              </font>
+             </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -55,6 +60,7 @@
                <family>MS Sans Serif</family>
                <pointsize>10</pointsize>
                <weight>75</weight>
+               <italic>true</italic>
                <bold>true</bold>
               </font>
              </property>
@@ -70,8 +76,9 @@
             <widget class="QComboBox" name="comboBox_podjetja">
              <property name="font">
               <font>
-               <family>MS Sans Serif</family>
+               <family>Arial</family>
                <pointsize>10</pointsize>
+               <italic>true</italic>
               </font>
              </property>
             </widget>
@@ -84,6 +91,11 @@
         <layout class="QVBoxLayout" name="verticalLayout_8">
          <item>
           <widget class="Line" name="line_3">
+           <property name="font">
+            <font>
+             <italic>true</italic>
+            </font>
+           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -98,7 +110,8 @@
                <property name="font">
                 <font>
                  <family>MS Sans Serif</family>
-                 <pointsize>12</pointsize>
+                 <pointsize>10</pointsize>
+                 <italic>true</italic>
                 </font>
                </property>
                <property name="text">
@@ -108,6 +121,11 @@
              </item>
              <item>
               <widget class="Line" name="line_6">
+               <property name="font">
+                <font>
+                 <italic>true</italic>
+                </font>
+               </property>
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
@@ -126,9 +144,9 @@
                    <property name="font">
                     <font>
                      <family>MS Sans Serif</family>
-                     <pointsize>12</pointsize>
+                     <pointsize>10</pointsize>
                      <weight>75</weight>
-                     <italic>false</italic>
+                     <italic>true</italic>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -142,10 +160,17 @@
                  </item>
                  <item>
                   <widget class="QTableWidget" name="tableWidget_vse">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="font">
                     <font>
                      <family>MS Sans Serif</family>
-                     <pointsize>10</pointsize>
+                     <pointsize>8</pointsize>
+                     <italic>true</italic>
                     </font>
                    </property>
                    <row>
@@ -231,6 +256,11 @@
                 <layout class="QHBoxLayout" name="horizontalLayout">
                  <item>
                   <widget class="Line" name="line_7">
+                   <property name="font">
+                    <font>
+                     <italic>true</italic>
+                    </font>
+                   </property>
                    <property name="orientation">
                     <enum>Qt::Vertical</enum>
                    </property>
@@ -238,6 +268,11 @@
                  </item>
                  <item>
                   <widget class="Line" name="line_4">
+                   <property name="font">
+                    <font>
+                     <italic>true</italic>
+                    </font>
+                   </property>
                    <property name="orientation">
                     <enum>Qt::Vertical</enum>
                    </property>
@@ -254,9 +289,9 @@
                  <property name="font">
                   <font>
                    <family>MS Sans Serif</family>
-                   <pointsize>12</pointsize>
+                   <pointsize>10</pointsize>
                    <weight>75</weight>
-                   <italic>false</italic>
+                   <italic>true</italic>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -270,10 +305,17 @@
                </item>
                <item>
                 <widget class="QTableWidget" name="tableWidget_brez">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <property name="font">
                   <font>
                    <family>MS Sans Serif</family>
-                   <pointsize>10</pointsize>
+                   <pointsize>8</pointsize>
+                   <italic>true</italic>
                   </font>
                  </property>
                  <row>
@@ -381,6 +423,7 @@
         <font>
          <family>MS Sans Serif</family>
          <pointsize>10</pointsize>
+         <italic>true</italic>
         </font>
        </property>
       </widget>
@@ -389,6 +432,11 @@
       <layout class="QVBoxLayout" name="verticalLayout_10">
        <item>
         <widget class="Line" name="line_2">
+         <property name="font">
+          <font>
+           <italic>true</italic>
+          </font>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -400,6 +448,7 @@
           <font>
            <family>MS Sans Serif</family>
            <pointsize>12</pointsize>
+           <italic>true</italic>
           </font>
          </property>
          <property name="text">

@@ -10,7 +10,14 @@ PlaciloRacuna::PlaciloRacuna(QWidget *parent) :
     this->setWindowIcon(icon);
     ui->dateEdit->setDisplayFormat("d. M. yyyy");
     ui->dateEdit->setDate(QDate::currentDate());
+    ui->lineEdit->setFocus();
     this->setWindowTitle("Placila");
+    QRegularExpression regex("^[.0123456789]*$");
+    QValidator *validator = new QRegularExpressionValidator(regex, this);
+    ui->lineEdit->setValidator(validator);
+    QRegularExpression regealfabet("^[a-zA-Z0-9,@. -/&#čšžŠČŽ]*$");
+    QValidator *validatoralfabet = new QRegularExpressionValidator(regealfabet, this);
+    ui->lineEdit_opombe->setValidator(validatoralfabet);
 }
 
 PlaciloRacuna::~PlaciloRacuna()

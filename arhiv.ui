@@ -36,6 +36,7 @@
       <font>
        <family>MS Sans Serif</family>
        <pointsize>10</pointsize>
+       <italic>true</italic>
       </font>
      </property>
      <property name="text">
@@ -58,6 +59,7 @@
             <font>
              <family>MS Sans Serif</family>
              <pointsize>10</pointsize>
+             <italic>true</italic>
             </font>
            </property>
            <property name="text">
@@ -71,10 +73,11 @@
             <font>
              <family>MS Sans Serif</family>
              <pointsize>10</pointsize>
+             <italic>true</italic>
             </font>
            </property>
            <property name="text">
-            <string>Novi racuni</string>
+            <string>Novi računi</string>
            </property>
           </widget>
          </item>
@@ -84,10 +87,11 @@
             <font>
              <family>MS Sans Serif</family>
              <pointsize>10</pointsize>
+             <italic>true</italic>
             </font>
            </property>
            <property name="text">
-            <string>Spremenjeni racuni</string>
+            <string>Spremenjeni računi</string>
            </property>
           </widget>
          </item>
@@ -97,6 +101,7 @@
             <font>
              <family>MS Sans Serif</family>
              <pointsize>10</pointsize>
+             <italic>true</italic>
             </font>
            </property>
            <property name="text">
@@ -110,6 +115,7 @@
             <font>
              <family>MS Sans Serif</family>
              <pointsize>10</pointsize>
+             <italic>true</italic>
             </font>
            </property>
            <property name="text">
@@ -123,6 +129,7 @@
             <font>
              <family>MS Sans Serif</family>
              <pointsize>10</pointsize>
+             <italic>true</italic>
             </font>
            </property>
            <property name="text">
@@ -136,6 +143,7 @@
             <font>
              <family>MS Sans Serif</family>
              <pointsize>10</pointsize>
+             <italic>true</italic>
             </font>
            </property>
            <property name="text">
@@ -149,10 +157,11 @@
             <font>
              <family>MS Sans Serif</family>
              <pointsize>10</pointsize>
+             <italic>true</italic>
             </font>
            </property>
            <property name="text">
-            <string>Uspesna prijava</string>
+            <string>Uspešna prijava</string>
            </property>
           </widget>
          </item>
@@ -162,10 +171,11 @@
             <font>
              <family>MS Sans Serif</family>
              <pointsize>10</pointsize>
+             <italic>true</italic>
             </font>
            </property>
            <property name="text">
-            <string>Neuspesna prijava</string>
+            <string>Neuspešna prijava</string>
            </property>
           </widget>
          </item>
@@ -180,6 +190,7 @@
           <font>
            <family>MS Sans Serif</family>
            <pointsize>10</pointsize>
+           <italic>true</italic>
           </font>
          </property>
         </widget>
@@ -192,6 +203,7 @@
         <font>
          <family>MS Sans Serif</family>
          <pointsize>12</pointsize>
+         <italic>true</italic>
         </font>
        </property>
        <property name="text">
@@ -207,6 +219,7 @@
       <font>
        <family>MS Sans Serif</family>
        <pointsize>10</pointsize>
+       <italic>true</italic>
       </font>
      </property>
     </widget>
@@ -217,6 +230,7 @@
       <font>
        <family>MS Sans Serif</family>
        <pointsize>10</pointsize>
+       <italic>true</italic>
       </font>
      </property>
     </widget>
@@ -227,15 +241,22 @@
       <font>
        <family>MS Sans Serif</family>
        <pointsize>12</pointsize>
+       <italic>true</italic>
       </font>
      </property>
      <property name="text">
-      <string>Isci</string>
+      <string>Išči</string>
      </property>
     </widget>
    </item>
    <item row="1" column="0">
     <widget class="Line" name="line">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <italic>true</italic>
+      </font>
+     </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>

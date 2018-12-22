@@ -43,7 +43,7 @@ public:
     void Arhiv(QString, QString);
     void Shrani();
     void MakeXML();
-    void PopraviRacun(QString, QString, QString, QString, QString, QString, QString, QString, QString, QString);
+    void PopraviRacun(QString, QString, QString, QString, QString, QString, QString, QString);
     QString CenaDDV(QString, QString);
 
 
@@ -53,11 +53,7 @@ private slots:
     void on_treeWidget_dodani_doubleClicked();
     void on_lineEdit_isci_editingFinished();
     void on_pushButton_dodajNovProdukt_clicked();
-
-    void on_pushButton_2_clicked();
-
     void on_lineEdit_popust_textChanged();
-
     void on_lineEdit_popust_editingFinished();
 
 private:

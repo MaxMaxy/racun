@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>272</width>
-    <height>125</height>
+    <height>132</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,6 +39,11 @@
        </item>
        <item>
         <widget class="Line" name="line">
+         <property name="font">
+          <font>
+           <italic>true</italic>
+          </font>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -48,8 +53,9 @@
         <widget class="QLineEdit" name="lineEdit_login">
          <property name="font">
           <font>
-           <family>MS Sans Serif</family>
+           <family>Arial</family>
            <pointsize>10</pointsize>
+           <italic>true</italic>
           </font>
          </property>
         </widget>
@@ -58,6 +64,11 @@
      </item>
      <item>
       <widget class="Line" name="line_2">
+       <property name="font">
+        <font>
+         <italic>true</italic>
+        </font>
+       </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -71,6 +82,7 @@
           <font>
            <family>MS Sans Serif</family>
            <pointsize>12</pointsize>
+           <italic>true</italic>
           </font>
          </property>
          <property name="text">
@@ -84,6 +96,7 @@
           <font>
            <family>MS Sans Serif</family>
            <pointsize>12</pointsize>
+           <italic>true</italic>
           </font>
          </property>
          <property name="text">

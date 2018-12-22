@@ -12,6 +12,16 @@ DodajProdukt::DodajProdukt(QWidget *parent) :
     ui->treeWidget->setColumnWidth(1,450);
     ui->lineEdit_id->setMaxLength(7);
     ui->lineEdit_nazivProdukta->setMaxLength(64);
+    ui->comboBox_podjetje->setFocus();
+    QRegularExpression regenum("^[0123456789]*$");
+    QValidator *validatornum = new QRegularExpressionValidator(regenum, this);
+    ui->lineEdit_id->setValidator(validatornum);
+    QRegularExpression regex("^[.0123456789]*$");
+    QValidator *validator = new QRegularExpressionValidator(regex, this);
+    ui->lineEdit_cena->setValidator(validator);
+    QRegularExpression regealfabet("^[a-zA-Z0-9,@. -/&#čšžŠČŽ]*$");
+    QValidator *validatoralfabet = new QRegularExpressionValidator(regealfabet, this);
+    ui->lineEdit_nazivProdukta->setValidator(validatoralfabet);
     this->setWindowTitle("Dodaj/popravi produkt");
     AddItemsToCombo();
     Read();
@@ -240,7 +250,7 @@ void DodajProdukt::on_treeWidget_doubleClicked(const QModelIndex &index)
 
 void DodajProdukt::on_pushButton_popravi_clicked()
 {
-    if(ui->treeWidget->currentItem() == 0)
+    if(ui->treeWidget->currentItem() == nullptr)
     {
         return;
     }

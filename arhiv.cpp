@@ -8,6 +8,7 @@ Arhiv::Arhiv(QWidget *parent) :
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
     this->setWindowTitle("Arhiv");
+    ui->comboBox->setFocus();
     AddItemsToCombo();
 }
 
@@ -265,11 +266,9 @@ void Arhiv::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
             tmp = list.at(i);
             tmp_list.append(tmp.split(": ", QString::SkipEmptyParts));
         }
-        for(int i(0); i < tmp_list.length(); i++)
-            qDebug() << i << tmp_list.at(i);
         NovRacun racun;
         racun.setModal(true);
-        racun.PopraviRacun(tmp_list.at(12), tmp_list.at(4), tmp_list.at(6), tmp_list.at(8), tmp_list.at(22), tmp_list.at(14), tmp_list.at(16), tmp_list.at(18), tmp_list.at(20), tmp_list.at(29));
+        racun.PopraviRacun(tmp_list.at(12), tmp_list.at(4), tmp_list.at(6), tmp_list.at(8), tmp_list.at(22), tmp_list.at(14), tmp_list.at(16), tmp_list.at(29));
         racun.exec();
         ui->listWidget->clear();
         Read();

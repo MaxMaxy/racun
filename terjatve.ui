@@ -38,6 +38,11 @@
          </item>
          <item>
           <widget class="Line" name="line">
+           <property name="font">
+            <font>
+             <italic>true</italic>
+            </font>
+           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -57,7 +62,7 @@
                 <font>
                  <family>MS Sans Serif</family>
                  <pointsize>12</pointsize>
-                 <italic>false</italic>
+                 <italic>true</italic>
                 </font>
                </property>
                <property name="text">
@@ -70,6 +75,11 @@
              </item>
              <item>
               <widget class="Line" name="line_2">
+               <property name="font">
+                <font>
+                 <italic>true</italic>
+                </font>
+               </property>
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
@@ -81,11 +91,11 @@
                 <font>
                  <family>MS Sans Serif</family>
                  <pointsize>12</pointsize>
-                 <italic>false</italic>
+                 <italic>true</italic>
                 </font>
                </property>
                <property name="text">
-                <string>Dolznik:</string>
+                <string>Dolžnik:</string>
                </property>
                <property name="buddy">
                 <cstring>comboBox_stranke</cstring>
@@ -98,8 +108,11 @@
                 <widget class="QComboBox" name="comboBox_stranke">
                  <property name="font">
                   <font>
-                   <family>MS Sans Serif</family>
+                   <family>Arial</family>
                    <pointsize>10</pointsize>
+                   <weight>50</weight>
+                   <italic>true</italic>
+                   <bold>false</bold>
                   </font>
                  </property>
                 </widget>
@@ -118,7 +131,7 @@
                   <font>
                    <family>MS Sans Serif</family>
                    <pointsize>12</pointsize>
-                   <italic>false</italic>
+                   <italic>true</italic>
                   </font>
                  </property>
                  <property name="text">
@@ -133,8 +146,11 @@
                 <widget class="QDateEdit" name="dateEdit_terjatveOd">
                  <property name="font">
                   <font>
-                   <family>MS Sans Serif</family>
+                   <family>Arial</family>
                    <pointsize>10</pointsize>
+                   <weight>50</weight>
+                   <italic>true</italic>
+                   <bold>false</bold>
                   </font>
                  </property>
                 </widget>
@@ -149,7 +165,7 @@
                   <font>
                    <family>MS Sans Serif</family>
                    <pointsize>12</pointsize>
-                   <italic>false</italic>
+                   <italic>true</italic>
                   </font>
                  </property>
                  <property name="text">
@@ -164,8 +180,11 @@
                 <widget class="QDateEdit" name="dateEdit_terjatveDo">
                  <property name="font">
                   <font>
-                   <family>MS Sans Serif</family>
+                   <family>Arial</family>
                    <pointsize>10</pointsize>
+                   <weight>50</weight>
+                   <italic>true</italic>
+                   <bold>false</bold>
                   </font>
                  </property>
                 </widget>
@@ -180,7 +199,7 @@
               <font>
                <family>MS Sans Serif</family>
                <pointsize>12</pointsize>
-               <italic>false</italic>
+               <italic>true</italic>
               </font>
              </property>
              <property name="text">
@@ -195,8 +214,11 @@
             <widget class="QLineEdit" name="lineEdit_iskalnikTerjatve">
              <property name="font">
               <font>
-               <family>MS Sans Serif</family>
+               <family>Arial</family>
                <pointsize>10</pointsize>
+               <weight>50</weight>
+               <italic>true</italic>
+               <bold>false</bold>
               </font>
              </property>
             </widget>
@@ -207,10 +229,11 @@
               <font>
                <family>MS Sans Serif</family>
                <pointsize>12</pointsize>
+               <italic>true</italic>
               </font>
              </property>
              <property name="text">
-              <string>Isci</string>
+              <string>Išči</string>
              </property>
             </widget>
            </item>
@@ -218,13 +241,16 @@
             <widget class="QTreeWidget" name="treeWidget_terjatve">
              <property name="font">
               <font>
-               <family>MS Sans Serif</family>
+               <family>Arial</family>
                <pointsize>10</pointsize>
+               <weight>50</weight>
+               <italic>true</italic>
+               <bold>false</bold>
               </font>
              </property>
              <column>
               <property name="text">
-               <string>Racun st.</string>
+               <string>Račun št.</string>
               </property>
              </column>
              <column>
@@ -249,12 +275,12 @@
              </column>
              <column>
               <property name="text">
-               <string>Placilo</string>
+               <string>Plačilo</string>
               </property>
              </column>
              <column>
               <property name="text">
-               <string>Datum placila</string>
+               <string>Datum plačila</string>
               </property>
              </column>
              <column>
@@ -266,8 +292,13 @@
            </item>
            <item>
             <widget class="QPushButton" name="pushButton_2">
+             <property name="font">
+              <font>
+               <italic>true</italic>
+              </font>
+             </property>
              <property name="text">
-              <string>Nov racun</string>
+              <string>Nov račun</string>
              </property>
             </widget>
            </item>
@@ -275,6 +306,11 @@
          </item>
          <item>
           <widget class="Line" name="line_4">
+           <property name="font">
+            <font>
+             <italic>true</italic>
+            </font>
+           </property>
            <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
@@ -282,6 +318,11 @@
          </item>
          <item>
           <widget class="Line" name="line_5">
+           <property name="font">
+            <font>
+             <italic>true</italic>
+            </font>
+           </property>
            <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
@@ -299,7 +340,7 @@
                   <font>
                    <family>MS Sans Serif</family>
                    <pointsize>12</pointsize>
-                   <italic>false</italic>
+                   <italic>true</italic>
                   </font>
                  </property>
                  <property name="text">
@@ -314,6 +355,11 @@
                 <layout class="QVBoxLayout" name="verticalLayout_8">
                  <item>
                   <widget class="Line" name="line_3">
+                   <property name="font">
+                    <font>
+                     <italic>true</italic>
+                    </font>
+                   </property>
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
                    </property>
@@ -325,7 +371,7 @@
                     <font>
                      <family>MS Sans Serif</family>
                      <pointsize>12</pointsize>
-                     <italic>false</italic>
+                     <italic>true</italic>
                     </font>
                    </property>
                    <property name="text">
@@ -337,7 +383,16 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="comboBox_upniki"/>
+                  <widget class="QComboBox" name="comboBox_upniki">
+                   <property name="font">
+                    <font>
+                     <family>Arial</family>
+                     <weight>50</weight>
+                     <italic>true</italic>
+                     <bold>false</bold>
+                    </font>
+                   </property>
+                  </widget>
                  </item>
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_3"/>
@@ -356,7 +411,7 @@
                     <font>
                      <family>MS Sans Serif</family>
                      <pointsize>12</pointsize>
-                     <italic>false</italic>
+                     <italic>true</italic>
                     </font>
                    </property>
                    <property name="text">
@@ -371,8 +426,11 @@
                   <widget class="QDateEdit" name="dateEdit_obveznostiOd">
                    <property name="font">
                     <font>
-                     <family>MS Sans Serif</family>
+                     <family>Arial</family>
                      <pointsize>10</pointsize>
+                     <weight>50</weight>
+                     <italic>true</italic>
+                     <bold>false</bold>
                     </font>
                    </property>
                   </widget>
@@ -387,7 +445,7 @@
                     <font>
                      <family>MS Sans Serif</family>
                      <pointsize>12</pointsize>
-                     <italic>false</italic>
+                     <italic>true</italic>
                     </font>
                    </property>
                    <property name="text">
@@ -402,8 +460,11 @@
                   <widget class="QDateEdit" name="dateEdit_obveznostiDo">
                    <property name="font">
                     <font>
-                     <family>MS Sans Serif</family>
+                     <family>Arial</family>
                      <pointsize>10</pointsize>
+                     <weight>50</weight>
+                     <italic>true</italic>
+                     <bold>false</bold>
                     </font>
                    </property>
                   </widget>
@@ -420,7 +481,7 @@
               <font>
                <family>MS Sans Serif</family>
                <pointsize>12</pointsize>
-               <italic>false</italic>
+               <italic>true</italic>
               </font>
              </property>
              <property name="text">
@@ -435,8 +496,11 @@
             <widget class="QLineEdit" name="lineEdit_iskalnikObveznosti">
              <property name="font">
               <font>
-               <family>MS Sans Serif</family>
+               <family>Arial</family>
                <pointsize>10</pointsize>
+               <weight>50</weight>
+               <italic>true</italic>
+               <bold>false</bold>
               </font>
              </property>
             </widget>
@@ -447,10 +511,11 @@
               <font>
                <family>MS Sans Serif</family>
                <pointsize>12</pointsize>
+               <italic>true</italic>
               </font>
              </property>
              <property name="text">
-              <string>Isci</string>
+              <string>Išči</string>
              </property>
             </widget>
            </item>
@@ -458,8 +523,11 @@
             <widget class="QTreeWidget" name="treeWidget_obveznosti">
              <property name="font">
               <font>
-               <family>MS Sans Serif</family>
+               <family>Arial</family>
                <pointsize>10</pointsize>
+               <weight>50</weight>
+               <italic>true</italic>
+               <bold>false</bold>
               </font>
              </property>
              <column>
@@ -484,12 +552,12 @@
              </column>
              <column>
               <property name="text">
-               <string>Znesek placila</string>
+               <string>Znesek plačila</string>
               </property>
              </column>
              <column>
               <property name="text">
-               <string>Datum placila</string>
+               <string>Datum plačila</string>
               </property>
              </column>
              <column>
@@ -501,6 +569,11 @@
            </item>
            <item>
             <widget class="QPushButton" name="pushButton">
+             <property name="font">
+              <font>
+               <italic>true</italic>
+              </font>
+             </property>
              <property name="text">
               <string>Vnos obveznosti</string>
              </property>
@@ -522,7 +595,7 @@
             <font>
              <family>MS Sans Serif</family>
              <pointsize>12</pointsize>
-             <italic>false</italic>
+             <italic>true</italic>
             </font>
            </property>
            <property name="text">
@@ -536,7 +609,7 @@
             <font>
              <family>MS Sans Serif</family>
              <pointsize>12</pointsize>
-             <italic>false</italic>
+             <italic>true</italic>
             </font>
            </property>
            <property name="text">
@@ -546,6 +619,11 @@
          </item>
          <item>
           <widget class="Line" name="line_7">
+           <property name="font">
+            <font>
+             <italic>true</italic>
+            </font>
+           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -558,7 +636,7 @@
              <family>MS Sans Serif</family>
              <pointsize>12</pointsize>
              <weight>75</weight>
-             <italic>false</italic>
+             <italic>true</italic>
              <bold>true</bold>
             </font>
            </property>
@@ -575,9 +653,11 @@
           <widget class="QLabel" name="label_skupajObveznosti">
            <property name="font">
             <font>
-             <family>MS Sans Serif</family>
+             <family>Arial</family>
              <pointsize>10</pointsize>
-             <italic>false</italic>
+             <weight>50</weight>
+             <italic>true</italic>
+             <bold>false</bold>
             </font>
            </property>
            <property name="text">
@@ -589,9 +669,11 @@
           <widget class="QLabel" name="label_skupajTerjatve">
            <property name="font">
             <font>
-             <family>MS Sans Serif</family>
+             <family>Arial</family>
              <pointsize>10</pointsize>
-             <italic>false</italic>
+             <weight>50</weight>
+             <italic>true</italic>
+             <bold>false</bold>
             </font>
            </property>
            <property name="text">
@@ -601,6 +683,11 @@
          </item>
          <item>
           <widget class="Line" name="line_8">
+           <property name="font">
+            <font>
+             <italic>true</italic>
+            </font>
+           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -610,10 +697,10 @@
           <widget class="QLabel" name="label_terjatve_obveznosti">
            <property name="font">
             <font>
-             <family>MS Sans Serif</family>
-             <pointsize>10</pointsize>
+             <family>Arial</family>
+             <pointsize>12</pointsize>
              <weight>75</weight>
-             <italic>false</italic>
+             <italic>true</italic>
              <bold>true</bold>
             </font>
            </property>
@@ -632,6 +719,7 @@
         <font>
          <family>MS Sans Serif</family>
          <pointsize>12</pointsize>
+         <italic>true</italic>
         </font>
        </property>
        <property name="text">
@@ -641,6 +729,11 @@
      </item>
      <item>
       <widget class="Line" name="line_6">
+       <property name="font">
+        <font>
+         <italic>true</italic>
+        </font>
+       </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -652,6 +745,7 @@
         <font>
          <family>MS Sans Serif</family>
          <pointsize>12</pointsize>
+         <italic>true</italic>
         </font>
        </property>
        <property name="text">

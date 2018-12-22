@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QIcon icon(":icon/icon.ico");
     this->setWindowIcon(icon);
     this->setWindowTitle("Glavni meni");
+    ui->pushButton->setFocus();
     MainWindow::setWindowIcon(icon);
 }
 

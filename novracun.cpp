@@ -3,7 +3,7 @@
 
 NovRacun::NovRacun(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::NovRacun), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/company_file.txt"), m_arhivNovRacun(m_currentDir + "/arhiv_novRacun.txt"), m_arhivStRacuna(m_currentDir + "/arhiv_stRacuna.txt"), m_arhivLogin(m_currentDir + "/arhiv_login.txt"), m_cNaziv(""), m_naslov(""), m_posta(""), m_ddv(""), m_email(""), m_numItems("1"), m_shrani(m_currentDir + "/settings.txt"), m_fileShrani(m_currentDir), m_count(true), m_total(0), m_itemsAdded(0), m_max_produktov(26), m_vrstic(0), m_sprememba(false)
+    ui(new Ui::NovRacun), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/company_file.txt"), m_arhivNovRacun(m_currentDir + "/arhiv_novRacun.txt"), m_arhivStRacuna(m_currentDir + "/arhiv_stRacuna.txt"), m_arhivLogin(m_currentDir + "/arhiv_login.txt"), m_cNaziv(""), m_naslov(""), m_posta(""), m_ddv(""), m_email(""), m_numItems("1"), m_shrani(m_currentDir + "/settings.txt"), m_fileShrani(m_currentDir), m_count(true), m_total(0), m_itemsAdded(0), m_max_produktov(21), m_sprememba(false)
 {
     ui->setupUi(this);
     QIcon icon(":/icons/icon.ico");
@@ -23,6 +23,15 @@ NovRacun::NovRacun(QWidget *parent) :
     ui->dateEdit->setMinimumDate(QDate(2016,1,1));
     ui->lineEdit_sklic->setMaxLength(35);
     ui->lineEdit->setMaxLength(60);
+    ui->comboBox_narocnik->setFocus();
+    QRegularExpression regealfabet("^[a-zA-Z0-9,@. -/&#čšžŠČŽ]*$");
+    QValidator *validatoralfabet = new QRegularExpressionValidator(regealfabet, this);
+    ui->lineEdit_sklic->setValidator(validatoralfabet);
+    ui->lineEdit_stRacuna->setValidator(validatoralfabet);
+    ui->lineEdit->setValidator(validatoralfabet);
+    QRegularExpression regenum("^[0123456789]*$");
+    QValidator *validatornum = new QRegularExpressionValidator(regenum, this);
+    ui->lineEdit_popust->setValidator(validatornum);
     QFile mFile(m_arhivStRacuna);
     if(!mFile.open(QFile::ReadOnly | QFile::Text))
     {
@@ -1052,7 +1061,7 @@ void NovRacun::MakeXML()
     }
 }
 
-void NovRacun::PopraviRacun(QString stranka, QString stevilka_racuna, QString vezni_dokument, QString datum, QString opomba, QString produkti, QString osnova, QString ddv, QString skupaj, QString popust)
+void NovRacun::PopraviRacun(QString stranka, QString stevilka_racuna, QString vezni_dokument, QString datum, QString opomba, QString produkti, QString osnova, QString popust)
 {
     ui->comboBox_narocnik->setCurrentText(stranka);
     ui->lineEdit_stRacuna->setText(stevilka_racuna);
@@ -1103,7 +1112,7 @@ void NovRacun::PopraviRacun(QString stranka, QString stevilka_racuna, QString ve
     double m_skupaj(0);
     double m_ddv;
     m_popust = m_total - (m_total * (m_pop / 100));
-    if(m_pop == 0)
+    if(m_pop == 0.0)
         ui->label_popust->setText("€" + QString::number(m_total));
     else
         ui->label_popust->setText("€" + QString::number(m_popust));
@@ -1119,14 +1128,6 @@ void NovRacun::PopraviRacun(QString stranka, QString stevilka_racuna, QString ve
         ui->label_skupaj->setText("€0");
     else
         ui->label_skupaj->setText("€" + QString::number(m_skupaj));
-    if(m_osnova != osnova.toDouble())
-        qDebug() << "Osnova off" << m_osnova << osnova;
-    if(m_pop != popust.toDouble())
-        qDebug() << "Popust off" << m_popust << popust;
-    if(m_skupaj != skupaj.toDouble())
-        qDebug() << "Skupaj off" << m_skupaj << skupaj;
-    if(m_ddv != ddv.toDouble())
-        qDebug() << "DDV off" << m_ddv << ddv;
     m_sprememba = true;
 }
 
@@ -1263,6 +1264,7 @@ void NovRacun::AddRoot(QString id, QString naziv, QString cena)
 
 void NovRacun::on_comboBox_narocnik_currentIndexChanged()
 {
+    m_itemsAdded = 0;
     m_cNaziv = "";
     m_naslov = "";
     m_posta = "";
@@ -1330,7 +1332,7 @@ QString NovRacun::CenaDDV(QString price, QString items)
         QString rep_produkt(price_list.at(0) + "." + price_list.at(1));
         price.replace(place_dot, rep_produkt);
     }
-    double dPrice = price.toFloat();
+    double dPrice = price.toDouble();
     int intItems = items.toInt();
     double sumPrice = dPrice * intItems;
     return QString::number(sumPrice);
@@ -1338,8 +1340,7 @@ QString NovRacun::CenaDDV(QString price, QString items)
 
 void NovRacun::on_treeWidget_seznam_doubleClicked()
 {
-    m_vrstic++;
-    if(m_vrstic > m_max_produktov) {
+    if(m_itemsAdded > m_max_produktov) {
         QMessageBox error_stringToLong;
         error_stringToLong.critical(this, "Napaka", "Racun vsebuje prevec produktov ali pa je ime produkta predolgo!");
         error_stringToLong.show();
@@ -1360,7 +1361,7 @@ void NovRacun::on_treeWidget_seznam_doubleClicked()
     ui->treeWidget_dodani->addTopLevelItem(itm);
     QColor color(210,210,210);
     QColor wcolor(250,250,250);
-    // m_count je member bool ce je tru je barva siva drugace bela
+    // m_count je member bool ce je true je barva siva drugace bela
     if(m_count)
     {
         itm->setBackgroundColor(0,color);
@@ -1401,10 +1402,10 @@ void NovRacun::CalcSkupaj(QString &price, QString &numOfItems, bool plus)
     }
 
     if(plus) {
-        m_total = m_total + (numOfItems.toInt() * price.toFloat());
+        m_total = m_total + (numOfItems.toInt() * price.toDouble());
     }
     else {
-        m_total = m_total - (numOfItems.toInt() * price.toFloat());
+        m_total = m_total - (numOfItems.toInt() * price.toDouble());
     }
 
     if(m_total < 0)
@@ -1414,7 +1415,7 @@ void NovRacun::CalcSkupaj(QString &price, QString &numOfItems, bool plus)
 
     double pop = ui->lineEdit_popust->text().toDouble();
     popust = m_total - (m_total * (pop / 100));
-    if(pop == 0)
+    if(pop == 0.0)
         ui->label_popust->setText("€" + QString::number(m_total));
     else
         ui->label_popust->setText("€" + QString::number(popust));
@@ -1434,13 +1435,11 @@ void NovRacun::CalcSkupaj(QString &price, QString &numOfItems, bool plus)
 
 void NovRacun::on_treeWidget_dodani_doubleClicked()
 {
-    m_vrstic--;
-    if(m_vrstic <= 0)
+    if(m_itemsAdded < 0)
     {
         QMessageBox error_stringToLong;
         error_stringToLong.critical(this, "Napaka", "V seznamu ni produktov!");
         error_stringToLong.show();
-        m_vrstic = 0;
         return;
     }
 
@@ -1590,7 +1589,10 @@ int NovRacun::creatPDF()
                      "</div>"
                      "</table>";
 
-    QString header = "<div align=center>"
+    QString header = "<font color=#ffffff size=0 align=center>"
+                        "prazno""<br>"
+                     "<font color=#000000>"
+                     "<div align=center>"
                         "<font color='#aa0000'>"
                             "<h1 width=100%>"
                                 "ELRA SETI D.O.O.<hr width=100%>"
@@ -1701,37 +1703,37 @@ int NovRacun::creatPDF()
 
         produkti.append("<tr>");
         produkti.append("<th>");
-        produkti.append("<div align=center>");
+        produkti.append("<div align=center>""<font size=4>");
         produkti.append(QString::number(i+1));
         produkti.append("</div>");
         produkti.append("</th>");
         produkti.append("<th>");
-        produkti.append("<div align=center>");
+        produkti.append("<div align=center>""<font size=4>");
         produkti.append(ui->treeWidget_dodani->topLevelItem(i)->text(0));
         produkti.append("</div>");
         produkti.append("</th>");
         produkti.append("<th>");
-        produkti.append("<div align=center>");
+        produkti.append("<div align=center>""<font size=4>");
         produkti.append(ui->treeWidget_dodani->topLevelItem(i)->text(1));
         produkti.append("</div>");
         produkti.append("</th>");
         produkti.append("<th>");
-        produkti.append("<div align=center>");
+        produkti.append("<div align=center>""<font size=4>");
         produkti.append(ui->treeWidget_dodani->topLevelItem(i)->text(3));
         produkti.append("</div>");
         produkti.append("</th>");
         produkti.append("<th>");
-        produkti.append("<div align=center>");
+        produkti.append("<div align=center>""<font size=4>");
         produkti.append(ui->treeWidget_dodani->topLevelItem(i)->text(2));
         produkti.append("</div>");
         produkti.append("</th>");
         produkti.append("<th>");
-        produkti.append("<div align=center>");
+        produkti.append("<div align=center>""<font size=4>");
         produkti.append("22%");
         produkti.append("</div>");
         produkti.append("</th>");
         produkti.append("<th>");
-        produkti.append("<div align=center>");
+        produkti.append("<div align=center>""<font size=4>");
         produkti.append("€" + ui->treeWidget_dodani->topLevelItem(i)->text(4));
         produkti.append("</div>");
         produkti.append("</th>");
@@ -1746,118 +1748,118 @@ int NovRacun::creatPDF()
 
         produkti_brezCen.append("<tr>");
         produkti_brezCen.append("<th>");
-        produkti_brezCen.append("<div align=center>");
+        produkti_brezCen.append("<div align=center>""<font size=4>");
         produkti_brezCen.append(QString::number(i+1));
         produkti_brezCen.append("</div>");
         produkti_brezCen.append("</th>");
         produkti_brezCen.append("<th>");
-        produkti_brezCen.append("<div align=center>");
+        produkti_brezCen.append("<div align=center>""<font size=4>");
         produkti_brezCen.append(ui->treeWidget_dodani->topLevelItem(i)->text(0));
         produkti_brezCen.append("</div>");
         produkti_brezCen.append("</th>");
         produkti_brezCen.append("<th>");
-        produkti_brezCen.append("<div align=center>");
+        produkti_brezCen.append("<div align=center>""<font size=4>");
         produkti_brezCen.append(ui->treeWidget_dodani->topLevelItem(i)->text(1));
         produkti_brezCen.append("</div>");
         produkti_brezCen.append("</th>");
         produkti_brezCen.append("<th>");
-        produkti_brezCen.append("<div align=center>");
+        produkti_brezCen.append("<div align=center>""<font size=4>");
         produkti_brezCen.append(ui->treeWidget_dodani->topLevelItem(i)->text(3));
         produkti_brezCen.append("</div>");
         produkti_brezCen.append("</th>");
         produkti_brezCen.append("<th>");
-        produkti_brezCen.append("<div align=center>");
+        produkti_brezCen.append("<div align=center>""<font size=4>");
         produkti_brezCen.append("");
         produkti_brezCen.append("</div>");
         produkti_brezCen.append("</th>");
         produkti_brezCen.append("<th>");
-        produkti_brezCen.append("<div align=center>");
+        produkti_brezCen.append("<div align=center>""<font size=4>");
         produkti_brezCen.append("");
         produkti_brezCen.append("</div>");
         produkti_brezCen.append("</th>");
         produkti_brezCen.append("<th>");
-        produkti_brezCen.append("<div align=center>");
+        produkti_brezCen.append("<div align=center>""<font size=4>");
         produkti_brezCen.append("");
         produkti_brezCen.append("</div>");
         produkti_brezCen.append("</th>");
         produkti_brezCen.append("</tr>");
     }
 
-    if(m_vrstic < m_max_produktov)
+    if(m_itemsAdded < m_max_produktov)
     {
-        for(int i(0); i <= (m_max_produktov - m_vrstic); i++)
+        for(int i(0); i <= (m_max_produktov - m_itemsAdded); i++)
         {
             produkti.append("<tr>");
             produkti.append("<th>");
-            produkti.append("<div align=center>");
-            produkti.append("");
+            produkti.append("<div align=center>""<font size=4 color=#ffffff>");
+            produkti.append("_");
             produkti.append("</div>");
             produkti.append("</th>");
             produkti.append("<th>");
-            produkti.append("<div align=center>");
-            produkti.append("");
+            produkti.append("<div align=center>""<font size=4 color=#ffffff>");
+            produkti.append("_");
             produkti.append("</div>");
             produkti.append("</th>");
             produkti.append("<th>");
-            produkti.append("<div align=center>");
-            produkti.append("");
+            produkti.append("<div align=center>""<font size=4 color=#ffffff>");
+            produkti.append("_");
             produkti.append("</div>");
             produkti.append("</th>");
             produkti.append("<th>");
-            produkti.append("<div align=center>");
-            produkti.append("");
+            produkti.append("<div align=center>""<font size=4 color=#ffffff>");
+            produkti.append("_");
             produkti.append("</div>");
             produkti.append("</th>");
             produkti.append("<th>");
-            produkti.append("<div align=center>");
-            produkti.append("");
+            produkti.append("<div align=center>""<font size=4 color=#ffffff>");
+            produkti.append("_");
             produkti.append("</div>");
             produkti.append("</th>");
             produkti.append("<th>");
-            produkti.append("<div align=center>");
-            produkti.append("");
+            produkti.append("<div align=center>""<font size=4 color=#ffffff>");
+            produkti.append("_");
             produkti.append("</div>");
             produkti.append("</th>");
             produkti.append("<th>");
-            produkti.append("<div align=center>");
-            produkti.append("");
+            produkti.append("<div align=center>""<font size=4 color=#ffffff>");
+            produkti.append("_");
             produkti.append("</div>");
             produkti.append("</th>");
             produkti.append("</tr>");
             produkti_brezCen.append("<tr>");
             produkti_brezCen.append("<th>");
-            produkti_brezCen.append("<div align=center>");
-            produkti_brezCen.append("");
+            produkti_brezCen.append("<div align=center>""<font size=4 color=#ffffff>");
+            produkti_brezCen.append("_");
             produkti_brezCen.append("</div>");
             produkti_brezCen.append("</th>");
             produkti_brezCen.append("<th>");
-            produkti_brezCen.append("<div align=center>");
-            produkti_brezCen.append("");
+            produkti_brezCen.append("<div align=center>""<font size=4 color=#ffffff>");
+            produkti_brezCen.append("_");
             produkti_brezCen.append("</div>");
             produkti_brezCen.append("</th>");
             produkti_brezCen.append("<th>");
-            produkti_brezCen.append("<div align=center>");
-            produkti_brezCen.append("");
+            produkti_brezCen.append("<div align=center>""<font size=4 color=#ffffff>");
+            produkti_brezCen.append("_");
             produkti_brezCen.append("</div>");
             produkti_brezCen.append("</th>");
             produkti_brezCen.append("<th>");
-            produkti_brezCen.append("<div align=center>");
-            produkti_brezCen.append("");
+            produkti_brezCen.append("<div align=center>""<font size=4 color=#ffffff>");
+            produkti_brezCen.append("_");
             produkti_brezCen.append("</div>");
             produkti_brezCen.append("</th>");
             produkti_brezCen.append("<th>");
-            produkti_brezCen.append("<div align=center>");
-            produkti_brezCen.append("");
+            produkti_brezCen.append("<div align=center>""<font size=4 color=#ffffff>");
+            produkti_brezCen.append("_");
             produkti_brezCen.append("</div>");
             produkti_brezCen.append("</th>");
             produkti_brezCen.append("<th>");
-            produkti_brezCen.append("<div align=center>");
-            produkti_brezCen.append("");
+            produkti_brezCen.append("<div align=center>""<font size=4 color=#ffffff>");
+            produkti_brezCen.append("_");
             produkti_brezCen.append("</div>");
             produkti_brezCen.append("</th>");
             produkti_brezCen.append("<th>");
-            produkti_brezCen.append("<div align=center>");
-            produkti_brezCen.append("");
+            produkti_brezCen.append("<div align=center>""<font size=4 color=#ffffff>");
+            produkti_brezCen.append("_");
             produkti_brezCen.append("</div>");
             produkti_brezCen.append("</th>");
             produkti_brezCen.append("</tr>");
@@ -1868,8 +1870,9 @@ int NovRacun::creatPDF()
     QStringList sklicList = sklic.split("-", QString::SkipEmptyParts);
     QString text_racun =
             /**************************** RACUN *********************************/
+            "<font color='#00000000' size=4>""_" +
             header +
-            "<table align=left width=100% height=100%>"
+            "<table align=right width=100% height=100%>"
                 "<tr>"
                     "<th>"
                         "<div align=left>"
@@ -1886,7 +1889,7 @@ int NovRacun::creatPDF()
                     "<th>"
                         "<font size=6>"
                             "<div align=left>"
-                                "<b>Št. računa:</b>"
+                                "<b>""Račun št.:""</b>"
                             "</div>"
                         "</font>"
                     "</th>"
@@ -1924,7 +1927,7 @@ int NovRacun::creatPDF()
                     "<th rowspan=2>"
                         "<div align=left>"
                             "<font size=6>"
-                                "<b><u>Naročnik:</u></b>"
+                                "<b>""<u>""Naročnik:""</u>""</b>"
                             "</font>"
                         "</div>"
                     "</th>"
@@ -2235,7 +2238,7 @@ int NovRacun::creatPDF()
 
     QString text_dobavnica =
             /**************************** DOBAVNICA *********************************/
-            "<font color=#ffffff>""prazno""<font color=#000000>"+
+            "<font color='#00000000' size=0>""_" +
             header +
             "<table align=left width=100% height=100%>"
                 "<tr>"
@@ -2254,7 +2257,7 @@ int NovRacun::creatPDF()
                     "<th>"
                         "<font size=6>"
                             "<div align=left>"
-                                "<b>Dobavnica št.:</b>"
+                                "<b>""Dobavnica št.:""</b>"
                             "</div>"
                         "</font>"
                     "</th>"
@@ -2292,7 +2295,7 @@ int NovRacun::creatPDF()
                     "<th rowspan=2>"
                         "<div align=left>"
                             "<font size=6>"
-                                "<b><u>Naročnik:</u></b>"
+                                "<b>""<u>""Naročnik:""</u>""</b>"
                             "</font>"
                         "</div>"
                     "</th>"
@@ -2591,6 +2594,10 @@ int NovRacun::creatPDF()
                         "</th>"
                     "</tr>"
                     "<tr>"
+                    "</tr>"
+                    "<tr>"
+                    "</tr>"
+                    "<tr>"
                         "<th>"
                             "<font size=5>"
                             "<font color=#ffffff>""prazno""</font>""<hr width=100% size=2>"
@@ -2654,7 +2661,7 @@ int NovRacun::creatPDF()
     paperSize.setWidth(printer->width());
     paperSize.setHeight(printer->height());
     document_racun.setPageSize(paperSize);
-    qreal left = 10, right = 10, top = 10, bottom = 10;
+    qreal left = 10, right = 10, top = 0, bottom = 5;
     printer->setPageMargins(left, top, right, bottom, QPrinter::Millimeter);
     document_racun.print(printer);
     QDesktopServices::openUrl(QUrl::fromLocalFile(output));  
@@ -2708,11 +2715,6 @@ void NovRacun::on_pushButton_dodajNovProdukt_clicked()
     produkt.setModal(true);
     produkt.exec();
     Read();
-}
-
-void NovRacun::on_pushButton_2_clicked()
-{
-    MakeXML();
 }
 
 void NovRacun::on_lineEdit_popust_textChanged()

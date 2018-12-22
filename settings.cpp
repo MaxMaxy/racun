@@ -8,6 +8,7 @@ Settings::Settings(QWidget *parent) :
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
     this->setWindowTitle("Nastavitve");
+    ui->pushButton_shraniV->setFocus();
 }
 
 Settings::~Settings()

@@ -24,13 +24,14 @@ Terjatve::Terjatve(QWidget *parent) :
     ui->treeWidget_obveznosti->setSortingEnabled(true);
     ui->treeWidget_terjatve->setSortingEnabled(true);
     AddItemsToComboBox();
-    ui->label_skupajTerjatve->setText(QString::number(m_totalTerjatve) + "€");
-    ui->label_skupajObveznosti->setText(QString::number(m_totalObveznosti) + "€");
+    ui->label_skupajTerjatve->setText("€" + QString::number(m_totalTerjatve));
+    ui->label_skupajObveznosti->setText("€" + QString::number(m_totalObveznosti));
     if(m_totalTerMinObv < 0)
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: red;}");
     else
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: green}");
-    ui->label_terjatve_obveznosti->setText(QString::number(m_totalTerMinObv) + "€");
+    ui->label_terjatve_obveznosti->setText("€" + QString::number(m_totalTerMinObv));
+    ui->comboBox_stranke->setFocus();
 }
 
 Terjatve::~Terjatve()
@@ -64,7 +65,6 @@ void Terjatve::AddItemsToComboBox()
     mFile.close();
 
     /* OBVEZNOSTI */
-
     ui->comboBox_upniki->clear();
     ui->comboBox_upniki->addItem("Vse obveznosti");
     QFile mFileUpniki(m_upnikiSeznam);
@@ -82,8 +82,7 @@ void Terjatve::AddItemsToComboBox()
         {
             mText = mFileUpniki.readLine();
             list = mText.split(exp, QString::SkipEmptyParts);
-            mText = list.at(0);
-            ui->comboBox_upniki->addItem(mText);
+            ui->comboBox_upniki->addItem(list.at(0));
         }
     }
     mFileUpniki.close();
@@ -109,16 +108,16 @@ void Terjatve::AddRootTerjatve(QStringList textList)
     list = znesek.split(exp, QString::SkipEmptyParts);
     znesek = list.at(1);
     znesek.remove('?');
-    m_totalTerjatve += znesek.toFloat();
-    znesek.append("€");
+    m_totalTerjatve += znesek.toDouble();
+    znesek.prepend("€");
     QString opomba = textList.at(12);
     list = opomba.split(exp, QString::SkipEmptyParts);
     opomba = list.at(1);
     QString placilo = textList.at(14);
     list = placilo.split(exp, QString::SkipEmptyParts);
     placilo = list.at(1);
-    m_totalTerjatve -= placilo.toFloat();
-    placilo.append("€");
+    m_totalTerjatve -= placilo.toDouble();
+    placilo.prepend("€");
     QString dat_placila = textList.at(15);
     list = dat_placila.split(exp, QString::SkipEmptyParts);
     dat_placila = list.at(1);
@@ -219,16 +218,16 @@ void Terjatve::AddRootObveznosti(QStringList textList)
     list = znesek.split(exp, QString::SkipEmptyParts);
     znesek = list.at(1);
     znesek.remove('?');
-    m_totalObveznosti += znesek.toFloat();
-    znesek.append("€");
+    m_totalObveznosti += znesek.toDouble();
+    znesek.prepend("€");
     QString dat_valute = textList.at(6);
     list = dat_valute.split(exp, QString::SkipEmptyParts);
     dat_valute = list.at(1);
     QString placilo = textList.at(7);
     list = placilo.split(exp, QString::SkipEmptyParts);
     placilo = list.at(1);
-    m_totalObveznosti -= placilo.toFloat();
-    placilo.append("€");
+    m_totalObveznosti -= placilo.toDouble();
+    placilo.prepend("€");
     QString dat_placila = textList.at(8);
     list = dat_placila.split(exp, QString::SkipEmptyParts);
     dat_placila = list.at(1);
@@ -386,13 +385,13 @@ void Terjatve::on_pushButton_clicked()
     ui->treeWidget_obveznosti->clear();
     AddItemsToComboBox();
     ReadObveznosti();
-    ui->label_skupajTerjatve->setText(QString::number(m_totalTerjatve) + "€");
-    ui->label_skupajObveznosti->setText(QString::number(m_totalObveznosti) + "€");
+    ui->label_skupajTerjatve->setText("€" + QString::number(m_totalTerjatve));
+    ui->label_skupajObveznosti->setText("€" + QString::number(m_totalObveznosti));
     if(m_totalTerMinObv < 0)
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: red;}");
     else
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: green}");
-    ui->label_terjatve_obveznosti->setText(QString::number(m_totalTerMinObv) + "€");
+    ui->label_terjatve_obveznosti->setText("€" + QString::number(m_totalTerMinObv));
 }
 
 void Terjatve::on_comboBox_upniki_currentIndexChanged()
@@ -437,13 +436,13 @@ void Terjatve::on_pushButton_2_clicked()
     racun.exec();
     AddItemsToComboBox();
     ReadTerjatve();
-    ui->label_skupajTerjatve->setText(QString::number(m_totalTerjatve) + "€");
-    ui->label_skupajObveznosti->setText(QString::number(m_totalObveznosti) + "€");
+    ui->label_skupajTerjatve->setText("€" + QString::number(m_totalTerjatve));
+    ui->label_skupajObveznosti->setText("€" + QString::number(m_totalObveznosti));
     if(m_totalTerMinObv < 0)
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: red;}");
     else
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: green}");
-    ui->label_terjatve_obveznosti->setText(QString::number(m_totalTerMinObv) + "€");
+    ui->label_terjatve_obveznosti->setText("€" + QString::number(m_totalTerMinObv));
 }
 
 void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
@@ -476,9 +475,9 @@ void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
         }
         else
         {
-            while(!mFile.atEnd())
+            while(!in.atEnd())
             {
-                text_stRacuna = mFile.readLine();
+                text_stRacuna = in.readLine();
                 list = text_stRacuna.split(exp, QString::SkipEmptyParts);
                 tmp = list.at(1);
                 tmp.remove(0,1);
@@ -504,6 +503,9 @@ void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
             tmp.replace(QString(tmp_list.at(14)), QString(" Placilo: " + placiloList.at(0)));
             tmp.replace(QString(tmp_list.at(15)), QString(" Dat_placila: " + placiloList.at(1)));
             tmp.replace(QString(tmp_list.at(12)), QString(" Opomba: " + placiloList.at(2)));
+            qDebug() << allText;
+            qDebug() << text_stRacuna;
+            qDebug() << tmp;
             allText.replace(text_stRacuna, tmp);
             mFile.close();
             if(!mFile.open(QFile::WriteOnly | QFile::Truncate | QFile::Text))
@@ -511,16 +513,6 @@ void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
                 qDebug() << "Error opening in treeWidget_terjatve_itemDoubleClicked";
                 return;
             }
-            /*else
-            {
-                mFile.flush();
-                mFile.close();
-            }
-            if(!mFile.open(QFile::WriteOnly | QFile::Text))
-            {
-                qDebug() << "Error opening file fore writing in treeWidget_terjatve_itemDoubleClicked";
-                return;
-            }*/
             else
             {
                 in << allText;
@@ -531,13 +523,13 @@ void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
     }
     AddItemsToComboBox();
     ReadTerjatve();
-    ui->label_skupajTerjatve->setText(QString::number(m_totalTerjatve) + "€");
-    ui->label_skupajObveznosti->setText(QString::number(m_totalObveznosti) + "€");
+    ui->label_skupajTerjatve->setText("€" + QString::number(m_totalTerjatve));
+    ui->label_skupajObveznosti->setText("€" + QString::number(m_totalObveznosti));
     if(m_totalTerMinObv < 0)
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: red;}");
     else
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: green}");
-    ui->label_terjatve_obveznosti->setText(QString::number(m_totalTerMinObv) + "€");
+    ui->label_terjatve_obveznosti->setText("€" + QString::number(m_totalTerMinObv));
 }
 
 void Terjatve::on_treeWidget_obveznosti_itemDoubleClicked(QTreeWidgetItem *item)
@@ -615,13 +607,13 @@ void Terjatve::on_treeWidget_obveznosti_itemDoubleClicked(QTreeWidgetItem *item)
     }
     AddItemsToComboBox();
     ReadObveznosti();
-    ui->label_skupajTerjatve->setText(QString::number(m_totalTerjatve) + "€");
-    ui->label_skupajObveznosti->setText(QString::number(m_totalObveznosti) + "€");
+    ui->label_skupajTerjatve->setText("€" + QString::number(m_totalTerjatve));
+    ui->label_skupajObveznosti->setText("€" + QString::number(m_totalObveznosti));
     if(m_totalTerMinObv < 0)
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: red;}");
     else
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: green}");
-    ui->label_terjatve_obveznosti->setText(QString::number(m_totalTerMinObv) + "€");
+    ui->label_terjatve_obveznosti->setText("€" + QString::number(m_totalTerMinObv));
 }
 
 void Terjatve::on_pushButton_statistika_clicked()
