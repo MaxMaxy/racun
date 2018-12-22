@@ -18,4 +18,5 @@ Dodano ; 20.12.2018 ; 10:16:59.301 ; PETEZE d.o.o. ; PETEZE d.o.o. ; Jama 15 ; 1
 Dodano ; 20.12.2018 ; 10:17:58.974 ; U3p, Irena Huš s.p. ; U3p, Irena Huš s.p. ; Kreševa ulica 8 ; 2380 SLOVENJ GRADEC ; SI27572684 ; u3p@amis.net ; Rajh !?!
 Dodano ; 20.12.2018 ; 10:18:47.109 ; EPROS d.o.o. ; EPROS d.o.o. ; Parižlje 35 ; 3314 BRASLOVCE ; SI56619898 ; info@epros.si ; Rajh !?!
 Dodano ; 20.12.2018 ; 10:19:44.717 ; OPTIPRINT d.o.o. ; OPTIPRINT d.o.o. ; Kranjceva ulica 20 ; 1000 LJUBLJANA ; SI10180630 ; banka@optiprint.si ; Rajh !?!
-Dodano ; 20.12.2018 ; 10:20:31.860 ; SIP STROJNA INDUSTRIJA d.d. ; SIP STROJNA INDUSTRIJA d.d. ; Juhartova ulica 2 ; 3311 ŠEMPETER ; SI24049174 ; dejan.divjak@sip.si ; Rajh !?!Popravljeno ; 22.12.2018 ; 15:39:26.698 ; ABACO d.o.o. ; ABACO d.o.o. ; Partizanska cesta 82 ; 6210 SEŽANA ; SI20584849 ; vrabec.igor@siol.net ; Rajh !?!
+Dodano ; 20.12.2018 ; 10:20:31.860 ; SIP STROJNA INDUSTRIJA d.d. ; SIP STROJNA INDUSTRIJA d.d. ; Juhartova ulica 2 ; 3311 ŠEMPETER ; SI24049174 ; dejan.divjak@sip.si ; Rajh !?!
+Popravljeno ; 22.12.2018 ; 15:39:26.698 ; ABACO d.o.o. ; ABACO d.o.o. ; Partizanska cesta 82 ; 6210 SEŽANA ; SI20584849 ; vrabec.igor@siol.net ; Rajh !?!
