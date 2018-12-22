@@ -10,6 +10,13 @@
     <height>132</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>MS Sans Serif</family>
+    <pointsize>10</pointsize>
+    <italic>true</italic>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
@@ -53,7 +60,7 @@
         <widget class="QLineEdit" name="lineEdit_login">
          <property name="font">
           <font>
-           <family>Arial</family>
+           <family>MS Sans Serif</family>
            <pointsize>10</pointsize>
            <italic>true</italic>
           </font>
@@ -112,8 +119,8 @@
  </widget>
  <tabstops>
   <tabstop>lineEdit_login</tabstop>
-  <tabstop>pushButton_prijava</tabstop>
   <tabstop>pushButton</tabstop>
+  <tabstop>pushButton_prijava</tabstop>
  </tabstops>
  <resources/>
  <connections/>

@@ -12,6 +12,7 @@ PlaciloRacuna::PlaciloRacuna(QWidget *parent) :
     ui->dateEdit->setDate(QDate::currentDate());
     ui->lineEdit->setFocus();
     this->setWindowTitle("Placilo");
+    this->setWindowFlags(Qt::Window);
     QRegularExpression regex("^[.0123456789]*$");
     QValidator *validator = new QRegularExpressionValidator(regex, this);
     ui->lineEdit->setValidator(validator);

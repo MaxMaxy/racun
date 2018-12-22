@@ -7,9 +7,9 @@ DodajPodjetje::DodajPodjetje(QWidget *parent) :
     ui->setupUi(this);
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
+    this->setWindowFlags(Qt::Window);
     ui->treeWidget->setColumnCount(2);
     ui->treeWidget->setColumnWidth(0,40);
-    ui->lineEdit_kNaziv->setFocus();
     QRegularExpression regex("^[a-zA-Z0-9,@. -/&#čšžŠČŽ]*$");
     QValidator *validator = new QRegularExpressionValidator(regex, this);
     ui->lineEdit_kNaziv->setValidator(validator);

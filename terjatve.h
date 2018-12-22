@@ -24,7 +24,7 @@ class Terjatve : public QDialog
     Q_OBJECT
 
 public:
-    explicit Terjatve(QWidget *parent = 0);
+    explicit Terjatve(QWidget *parent = nullptr);
     ~Terjatve();
 
     void AddItemsToComboBox();
@@ -39,16 +39,16 @@ private slots:
     void on_comboBox_stranke_currentIndexChanged();
     void on_dateEdit_terjatveOd_editingFinished();
     void on_dateEdit_terjatveDo_editingFinished();
-    void on_lineEdit_iskalnikTerjatve_editingFinished();
     void on_pushButton_clicked();
     void on_comboBox_upniki_currentIndexChanged();
     void on_dateEdit_obveznostiOd_editingFinished();
     void on_dateEdit_obveznostiDo_editingFinished();
-    void on_lineEdit_iskalnikObveznosti_editingFinished();
     void on_pushButton_2_clicked();
     void on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *);
     void on_treeWidget_obveznosti_itemDoubleClicked(QTreeWidgetItem *);
     void on_pushButton_statistika_clicked();
+    void on_lineEdit_iskalnikTerjatve_textChanged();
+    void on_lineEdit_iskalnikObveznosti_textChanged();
 
 private:
     Ui::Terjatve *ui;

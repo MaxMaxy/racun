@@ -18,7 +18,7 @@ class Statistic : public QDialog
     Q_OBJECT
 
 public:
-    explicit Statistic(QWidget *parent = 0);
+    explicit Statistic(QWidget *parent = nullptr);
     ~Statistic();
     void AddToComboBox(QString);
     void AddToTableWidget(QString);
@@ -26,8 +26,7 @@ public:
     void GetData(QVector<double>*, int, QString);
 
 private slots:
-    void on_pushButton_izpis_clicked();
-    void on_comboBox_podjetja_currentTextChanged();
+    void on_pushButton_isci_clicked();
 
 private:
     Ui::Statistic *ui;

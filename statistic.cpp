@@ -8,6 +8,7 @@ Statistic::Statistic(QWidget *parent) :
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
     this->setWindowTitle("Statistika");
+    this->setWindowFlags(Qt::Window);
     int color;
     for(int i(0); i < 150; i++)
     {
@@ -16,6 +17,9 @@ Statistic::Statistic(QWidget *parent) :
     }
     QHeaderView *h_header_brez = ui->tableWidget_brez->horizontalHeader();
     QHeaderView *v_header_brez = ui->tableWidget_brez->verticalHeader();
+    ui->dateEdit->setDisplayFormat("yyyy");
+    ui->dateEdit->setMinimumDate(QDate(2018,1,1));
+    ui->dateEdit->setDate(QDate(QDate::currentDate()));
     h_header_brez->setSectionResizeMode(QHeaderView::Stretch);
     v_header_brez->setSectionResizeMode(QHeaderView::Fixed);
     v_header_brez->setDefaultSectionSize(21);
@@ -28,9 +32,10 @@ Statistic::Statistic(QWidget *parent) :
     AddToTableWidget(m_fileRacun);
     ui->tableWidget_vse->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableWidget_brez->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->plot->legend->setWrap(6);
     ui->plot->clearPlottables();
-    ui->comboBox_podjetja->setFocus();
     Plot();
+    ui->pushButton_isci->setFocus();
 }
 
 Statistic::~Statistic()
@@ -96,6 +101,7 @@ void Statistic::AddToTableWidget(QString fileName)
         double mSumSkupaj(0);
         double mSumDDV(0);
         double mSumOsnova(0);
+        QString date = QString::number(ui->dateEdit->date().year());
         QString num("");
         QString tmp("");
         while(!mText.atEnd())
@@ -110,1225 +116,2443 @@ void Statistic::AddToTableWidget(QString fileName)
 
             mLine = mText.readLine();
             mList = mLine.split(exp, QString::SkipEmptyParts);
-            if(ui->comboBox_podjetja->currentText() == "Vse terjatve")
+            tmp = mList.at(7);
+            tmp.remove("Narocnik: ");
+            if(ui->comboBox_podjetja->currentIndex() == 0)
             {
                 tmp = mList.at(5);
-                tmp.remove("Dat_izdaje: ");
-                tmp.remove(-6,6);
-                tmpList = tmp.split(exp_dot, QString::SkipEmptyParts);
-                tmp = tmpList.at(1);
-
-                switch (tmp.toInt()) {
-                case 1:
-                {
-                    // OSNOVA
-                    tmp = mList.at(9);
-                    tmp.remove("Sum_osnova: ");
-                    num = ui->tableWidget_vse->item(0,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumOsnova += tmp.toDouble();
-                    itm_setOsnova->setText(QString::number(mSumOsnova) + " €");
-                    ui->tableWidget_vse->setItem(0,0,itm_setOsnova);
-
-                    // DDV
-                    num = ui->tableWidget_vse->item(0,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumDDV = mSumOsnova * 0.22;
-                    itm_setDDV->setText(QString::number(mSumDDV) + " €");
-                    ui->tableWidget_vse->setItem(0,1,itm_setDDV);
-
-                    // SKUPAJ
-                    num = ui->tableWidget_vse->item(0,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_vse->item(0,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    itm_setSkupaj->setText(QString::number(mSumSkupaj) + " €");
-                    ui->tableWidget_vse->setItem(0,2,itm_setSkupaj);
-
-                    // OSNOVA BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
+                if(tmp.endsWith(date)) {
+                    tmp.remove("Dat_izdaje: ");
+                    tmp.remove(-6,6);
+                    tmpList = tmp.split(exp_dot, QString::SkipEmptyParts);
+                    tmp = tmpList.at(1);
+                    switch (tmp.toInt()) {
+                    case 1:
                     {
+                        // OSNOVA
+                        tmp = mList.at(9);
+                        tmp.remove("Sum_osnova: ");
+                        num = ui->tableWidget_vse->item(0,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumOsnova += tmp.toDouble();
+                        itm_setOsnova->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(0,0,itm_setOsnova);
+
+                        // DDV
+                        num = ui->tableWidget_vse->item(0,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€" + QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(0,1,itm_setDDV);
+
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(0,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(0,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(0,2,itm_setSkupaj);
+
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(0,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(0,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(0,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(0,0,itm_setOsnovaBrezIF);
+                        }
+
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(0,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(0,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(0,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(0,1,itm_setDDVBrezIF);
+                        }
+
+                        // SKUPAJ BREZ
                         num = ui->tableWidget_brez->item(0,0)->text();
-                        num.remove(-1,2);
-                        mSumOsnova = num.toDouble();
-                        mSumOsnova -= tmp.toDouble();
-                        if(mSumOsnova < 0)
-                            mSumOsnova = 0;
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(0,0,itm_setOsnovaBrezIF);
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(0,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(0,2,itm_setSkupajBrezIF);
+                        break;
                     }
-                    else
+                    case 2:
                     {
+                        // OSNOVA
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
+                        num = ui->tableWidget_vse->item(1,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumOsnova += tmp.toDouble();
+                        itm_setOsnova->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(1,0,itm_setOsnova);
+
+                        // DDV
+                        num = ui->tableWidget_vse->item(1,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€" + QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(1,1,itm_setDDV);
+
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(1,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(1,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(1,2,itm_setSkupaj);
+
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(1,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(1,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(1,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(1,0,itm_setOsnovaBrezIF);
+                        }
+
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(1,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(1,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(1,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(1,1,itm_setDDVBrezIF);
+                        }
+
+                        // SKUPAJ BREZ
+                        num = ui->tableWidget_brez->item(1,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(1,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(1,2,itm_setSkupajBrezIF);
+                        break;
+                    }
+                    case 3:
+                    {
+                        // OSNOVA
+                        tmp = mList.at(9);
+                        tmp.remove("Sum_osnova: ");
+                        num = ui->tableWidget_vse->item(2,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumOsnova += tmp.toDouble();
+                        itm_setOsnova->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(2,0,itm_setOsnova);
+
+                        // DDV
+                        num = ui->tableWidget_vse->item(2,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€" + QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(2,1,itm_setDDV);
+
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(2,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(2,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(2,2,itm_setSkupaj);
+
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(2,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+
+                            ui->tableWidget_brez->setItem(2,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(2,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(2,0,itm_setOsnovaBrezIF);
+                        }
+
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(2,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(2,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(2,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(2,1,itm_setDDVBrezIF);
+                        }
+
+                        // SKUPAJ BREZ
+                        num = ui->tableWidget_brez->item(2,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(2,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(2,2,itm_setSkupajBrezIF);
+                        break;
+                    }
+                    case 4:
+                    {
+                        // OSNOVA
+                        tmp = mList.at(9);
+                        tmp.remove("Sum_osnova: ");
+                        num = ui->tableWidget_vse->item(3,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumOsnova += tmp.toDouble();
+                        itm_setOsnova->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(3,0,itm_setOsnova);
+
+                        // DDV
+                        num = ui->tableWidget_vse->item(3,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€" + QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(3,1,itm_setDDV);
+
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(3,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(3,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(3,2,itm_setSkupaj);
+
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(3,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(3,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(3,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(3,0,itm_setOsnovaBrezIF);
+                        }
+
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(3,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(3,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(3,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(3,1,itm_setDDVBrezIF);
+                        }
+
+                        // SKUPAJ BREZ
+                        num = ui->tableWidget_brez->item(3,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(3,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(3,2,itm_setSkupajBrezIF);
+                        break;
+                    }
+                    case 5:
+                    {
+                        // OSNOVA
+                        tmp = mList.at(9);
+                        tmp.remove("Sum_osnova: ");
+                        num = ui->tableWidget_vse->item(4,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumOsnova += tmp.toDouble();
+                        itm_setOsnova->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(4,0,itm_setOsnova);
+
+                        // DDV
+                        num = ui->tableWidget_vse->item(4,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€" + QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(4,1,itm_setDDV);
+
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(4,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(4,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(4,2,itm_setSkupaj);
+
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(4,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(4,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(4,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(4,0,itm_setOsnovaBrezIF);
+                        }
+
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(4,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(4,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(4,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(4,1,itm_setDDVBrezIF);
+                        }
+
+                        // SKUPAJ BREZ
+                        num = ui->tableWidget_brez->item(4,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(4,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(4,2,itm_setSkupajBrezIF);
+                        break;
+                    }
+                    case 6:
+                    {
+                        // OSNOVA
+                        tmp = mList.at(9);
+                        tmp.remove("Sum_osnova: ");
+                        num = ui->tableWidget_vse->item(5,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumOsnova += tmp.toDouble();
+                        itm_setOsnova->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(5,0,itm_setOsnova);
+
+                        // DDV
+                        num = ui->tableWidget_vse->item(5,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€" + QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(5,1,itm_setDDV);
+
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(5,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(5,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(5,2,itm_setSkupaj);
+
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(5,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(5,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(5,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(5,0,itm_setOsnovaBrezIF);
+                        }
+
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(5,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(5,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(5,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(5,1,itm_setDDVBrezIF);
+                        }
+
+                        // SKUPAJ BREZ
+                        num = ui->tableWidget_brez->item(5,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(5,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(5,2,itm_setSkupajBrezIF);
+                        break;
+                    }
+                    case 7:
+                    {
+                        // OSNOVA
+                        tmp = mList.at(9);
+                        tmp.remove("Sum_osnova: ");
+                        num = ui->tableWidget_vse->item(6,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumOsnova += tmp.toDouble();
+                        itm_setOsnova->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(6,0,itm_setOsnova);
+
+                        // DDV
+                        num = ui->tableWidget_vse->item(6,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€" + QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(6,1,itm_setDDV);
+
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(6,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(6,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(6,2,itm_setSkupaj);
+
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(6,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(6,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(6,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(6,0,itm_setOsnovaBrezIF);
+                        }
+
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(6,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(6,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(6,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(6,1,itm_setDDVBrezIF);
+                        }
+
+                        // SKUPAJ BREZ
+                        num = ui->tableWidget_brez->item(6,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(6,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(6,2,itm_setSkupajBrezIF);
+                        break;
+                    }
+                    case 8:
+                    {
+                        // OSNOVA
+                        tmp = mList.at(9);
+                        tmp.remove("Sum_osnova: ");
+                        num = ui->tableWidget_vse->item(7,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumOsnova += tmp.toDouble();
+                        itm_setOsnova->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(7,0,itm_setOsnova);
+
+                        // DDV
+                        num = ui->tableWidget_vse->item(7,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€" + QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(7,1,itm_setDDV);
+
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(7,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(7,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(7,2,itm_setSkupaj);
+
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(7,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(7,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(7,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(7,0,itm_setOsnovaBrezIF);
+                        }
+
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(7,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(7,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(7,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(7,1,itm_setDDVBrezIF);
+                        }
+
+                        // SKUPAJ BREZ
+                        num = ui->tableWidget_brez->item(7,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(7,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(7,2,itm_setSkupajBrezIF);
+                        break;
+                    }
+                    case 9:
+                    {
+                        // OSNOVA
+                        tmp = mList.at(9);
+                        tmp.remove("Sum_osnova: ");
+                        num = ui->tableWidget_vse->item(8,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumOsnova += tmp.toDouble();
+                        itm_setOsnova->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(8,0,itm_setOsnova);
+
+                        // DDV
+                        num = ui->tableWidget_vse->item(8,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(8,1,itm_setDDV);
+
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(8,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(8,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(8,2,itm_setSkupaj);
+
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(8,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(8,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(8,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(8,0,itm_setOsnovaBrezIF);
+                        }
+
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(8,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(8,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(8,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(8,1,itm_setDDVBrezIF);
+                        }
+
+                        // SKUPAJ BREZ
+                        num = ui->tableWidget_brez->item(8,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(8,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(8,2,itm_setSkupajBrezIF);
+                        break;
+                    }
+                    case 10:
+                    {
+                        // OSNOVA
+                        tmp = mList.at(9);
+                        tmp.remove("Sum_osnova: ");
+                        num = ui->tableWidget_vse->item(9,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumOsnova += tmp.toDouble();
+                        itm_setOsnova->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(9,0,itm_setOsnova);
+
+                        // DDV
+                        num = ui->tableWidget_vse->item(9,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(9,1,itm_setDDV);
+
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(9,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(9,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(9,2,itm_setSkupaj);
+
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(9,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(9,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(9,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(9,0,itm_setOsnovaBrezIF);
+                        }
+
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(9,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(9,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(9,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(9,1,itm_setDDVBrezIF);
+                        }
+
+                        // SKUPAJ BREZ
+                        num = ui->tableWidget_brez->item(9,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(9,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(9,2,itm_setSkupajBrezIF);
+                        break;
+                    }
+                    case 11:
+                    {
+                        // OSNOVA
+                        tmp = mList.at(9);
+                        tmp.remove("Sum_osnova: ");
+                        num = ui->tableWidget_vse->item(10,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumOsnova += tmp.toDouble();
+                        itm_setOsnova->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(10,0,itm_setOsnova);
+
+                        // DDV
+                        num = ui->tableWidget_vse->item(10,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(10,1,itm_setDDV);
+
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(10,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(10,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(10,2,itm_setSkupaj);
+
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(10,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(10,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(10,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(10,0,itm_setOsnovaBrezIF);
+                        }
+
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(10,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(10,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(10,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(10,1,itm_setDDVBrezIF);
+                        }
+
+                        // SKUPAJ BREZ
+                        num = ui->tableWidget_brez->item(10,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(10,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(10,2,itm_setSkupajBrezIF);
+                        break;
+                    }
+                    case 12:
+                    {
+                        // OSNOVA
+                        tmp = mList.at(9);
+                        tmp.remove("Sum_osnova: ");
+                        num = ui->tableWidget_vse->item(11,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumOsnova += tmp.toDouble();
+                        itm_setOsnova->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(11,0,itm_setOsnova);
+
+                        // DDV
+                        num = ui->tableWidget_vse->item(11,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(11,1,itm_setDDV);
+
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(11,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(11,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(11,2,itm_setSkupaj);
+
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(11,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(11,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(11,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(11,0,itm_setOsnovaBrezIF);
+                        }
+
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(11,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(11,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(11,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(11,1,itm_setDDVBrezIF);
+                        }
+
+                        // SKUPAJ BREZ
+                        num = ui->tableWidget_brez->item(11,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(11,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(11,2,itm_setSkupajBrezIF);
+                        break;
+                    }
+                    default:
+                        break;
+                    }
+                } else {
+                    continue;
+                }
+            } else if(tmp == ui->comboBox_podjetja->currentText()) {
+                tmp = mList.at(5);
+                if(tmp.endsWith(date)) {
+                    tmp.remove("Dat_izdaje: ");
+                    tmp.remove(-6,6);
+                    tmpList = tmp.split(exp_dot, QString::SkipEmptyParts);
+                    tmp = tmpList.at(1);
+                    switch (tmp.toInt()) {
+                    case 1:
+                    {
+                        // OSNOVA
+                        tmp = mList.at(9);
+                        tmp.remove("Sum_osnova: ");
+                        num = ui->tableWidget_vse->item(0,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumOsnova += tmp.toDouble();
+                        itm_setOsnova->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(0,0,itm_setOsnova);
+
+                        // DDV
+                        num = ui->tableWidget_vse->item(0,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€" + QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(0,1,itm_setDDV);
+
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(0,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(0,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(0,2,itm_setSkupaj);
+
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(0,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(0,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(0,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(0,0,itm_setOsnovaBrezIF);
+                        }
+
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(0,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(0,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(0,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(0,1,itm_setDDVBrezIF);
+                        }
+
+                        // SKUPAJ BREZ
                         num = ui->tableWidget_brez->item(0,0)->text();
-                        num.remove(-1,2);
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(0,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(0,2,itm_setSkupajBrezIF);
+                        break;
+                    }
+                    case 2:
+                    {
+                        // OSNOVA
+                        tmp = mList.at(9);
+                        tmp.remove("Sum_osnova: ");
+                        num = ui->tableWidget_vse->item(1,0)->text();
+                        num.remove("€");
                         mSumOsnova = num.toDouble();
                         mSumOsnova += tmp.toDouble();
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(0,0,itm_setOsnovaBrezIF);
-                    }
+                        itm_setOsnova->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(1,0,itm_setOsnova);
 
-                    // DDV BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
-                        num = ui->tableWidget_brez->item(0,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        mSumDDV = num.toDouble() - mSumDDV;
-                        if(mSumDDV < 0)
-                            mSumSkupaj = 0;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(0,1,itm_setDDVBrezIF);
-                    }
-                    else
-                    {
-                        num = ui->tableWidget_brez->item(0,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(0,1,itm_setDDVBrezIF);
-                    }
+                        // DDV
+                        num = ui->tableWidget_vse->item(1,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€" + QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(1,1,itm_setDDV);
 
-                    // SKUPAJ BREZ
-                    num = ui->tableWidget_brez->item(0,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_brez->item(0,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    if(mSumSkupaj < 0)
-                        mSumSkupaj = 0;
-                    itm_setSkupajBrezIF->setText(QString::number(mSumSkupaj) + " €");
-                    if(mSumSkupaj > 0)
-                        itm_setSkupajBrezIF->setTextColor(QColor("green"));
-                    ui->tableWidget_brez->setItem(0,2,itm_setSkupajBrezIF);
-                    break;
-                }
-                case 2:
-                {
-                    // OSNOVA
-                    tmp = mList.at(9);
-                    tmp.remove("Sum_osnova: ");
-                    num = ui->tableWidget_vse->item(1,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumOsnova += tmp.toDouble();
-                    itm_setOsnova->setText(QString::number(mSumOsnova) + " €");
-                    ui->tableWidget_vse->setItem(1,0,itm_setOsnova);
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(1,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(1,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(1,2,itm_setSkupaj);
 
-                    // DDV
-                    num = ui->tableWidget_vse->item(1,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumDDV = mSumOsnova * 0.22;
-                    itm_setDDV->setText(QString::number(mSumDDV) + " €");
-                    ui->tableWidget_vse->setItem(1,1,itm_setDDV);
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(1,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(1,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(1,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(1,0,itm_setOsnovaBrezIF);
+                        }
 
-                    // SKUPAJ
-                    num = ui->tableWidget_vse->item(1,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_vse->item(1,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    itm_setSkupaj->setText(QString::number(mSumSkupaj) + " €");
-                    ui->tableWidget_vse->setItem(1,2,itm_setSkupaj);
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(1,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(1,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(1,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(1,1,itm_setDDVBrezIF);
+                        }
 
-                    // OSNOVA BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
+                        // SKUPAJ BREZ
                         num = ui->tableWidget_brez->item(1,0)->text();
-                        num.remove(-1,2);
-                        mSumOsnova = num.toDouble();
-                        mSumOsnova -= tmp.toDouble();
-                        if(mSumOsnova < 0)
-                            mSumOsnova = 0;
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(1,0,itm_setOsnovaBrezIF);
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(1,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(1,2,itm_setSkupajBrezIF);
+                        break;
                     }
-                    else
+                    case 3:
                     {
+                        // OSNOVA
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
-                        num = ui->tableWidget_brez->item(1,0)->text();
-                        num.remove(-1,2);
+                        num = ui->tableWidget_vse->item(2,0)->text();
+                        num.remove("€");
                         mSumOsnova = num.toDouble();
                         mSumOsnova += tmp.toDouble();
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(1,0,itm_setOsnovaBrezIF);
-                    }
+                        itm_setOsnova->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(2,0,itm_setOsnova);
 
-                    // DDV BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
-                        num = ui->tableWidget_brez->item(1,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        mSumDDV = num.toDouble() - mSumDDV;
-                        if(mSumDDV < 0)
-                            mSumSkupaj = 0;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(1,1,itm_setDDVBrezIF);
-                    }
-                    else
-                    {
-                        num = ui->tableWidget_brez->item(1,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(1,1,itm_setDDVBrezIF);
-                    }
+                        // DDV
+                        num = ui->tableWidget_vse->item(2,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€" + QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(2,1,itm_setDDV);
 
-                    // SKUPAJ BREZ
-                    num = ui->tableWidget_brez->item(1,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_brez->item(1,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    if(mSumSkupaj < 0)
-                        mSumSkupaj = 0;
-                    itm_setSkupajBrezIF->setText(QString::number(mSumSkupaj) + " €");
-                    if(mSumSkupaj > 0)
-                        itm_setSkupajBrezIF->setTextColor(QColor("green"));
-                    ui->tableWidget_brez->setItem(1,2,itm_setSkupajBrezIF);
-                    break;
-                }
-                case 3:
-                {
-                    // OSNOVA
-                    tmp = mList.at(9);
-                    tmp.remove("Sum_osnova: ");
-                    num = ui->tableWidget_vse->item(2,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumOsnova += tmp.toDouble();
-                    itm_setOsnova->setText(QString::number(mSumOsnova) + " €");
-                    ui->tableWidget_vse->setItem(2,0,itm_setOsnova);
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(2,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(2,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(2,2,itm_setSkupaj);
 
-                    // DDV
-                    num = ui->tableWidget_vse->item(2,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumDDV = mSumOsnova * 0.22;
-                    itm_setDDV->setText(QString::number(mSumDDV) + " €");
-                    ui->tableWidget_vse->setItem(2,1,itm_setDDV);
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(2,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
 
-                    // SKUPAJ
-                    num = ui->tableWidget_vse->item(2,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_vse->item(2,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    itm_setSkupaj->setText(QString::number(mSumSkupaj) + " €");
-                    ui->tableWidget_vse->setItem(2,2,itm_setSkupaj);
+                            ui->tableWidget_brez->setItem(2,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(2,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(2,0,itm_setOsnovaBrezIF);
+                        }
 
-                    // OSNOVA BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(2,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(2,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(2,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(2,1,itm_setDDVBrezIF);
+                        }
+
+                        // SKUPAJ BREZ
                         num = ui->tableWidget_brez->item(2,0)->text();
-                        num.remove(-1,2);
-                        mSumOsnova = num.toDouble();
-                        mSumOsnova -= tmp.toDouble();
-                        if(mSumOsnova < 0)
-                            mSumOsnova = 0;
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-
-                        ui->tableWidget_brez->setItem(2,0,itm_setOsnovaBrezIF);
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(2,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(2,2,itm_setSkupajBrezIF);
+                        break;
                     }
-                    else
+                    case 4:
                     {
+                        // OSNOVA
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
-                        num = ui->tableWidget_brez->item(2,0)->text();
-                        num.remove(-1,2);
+                        num = ui->tableWidget_vse->item(3,0)->text();
+                        num.remove("€");
                         mSumOsnova = num.toDouble();
                         mSumOsnova += tmp.toDouble();
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(2,0,itm_setOsnovaBrezIF);
-                    }
+                        itm_setOsnova->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(3,0,itm_setOsnova);
 
-                    // DDV BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
-                        num = ui->tableWidget_brez->item(2,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        mSumDDV = num.toDouble() - mSumDDV;
-                        if(mSumDDV < 0)
-                            mSumSkupaj = 0;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(2,1,itm_setDDVBrezIF);
-                    }
-                    else
-                    {
-                        num = ui->tableWidget_brez->item(2,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(2,1,itm_setDDVBrezIF);
-                    }
+                        // DDV
+                        num = ui->tableWidget_vse->item(3,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€" + QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(3,1,itm_setDDV);
 
-                    // SKUPAJ BREZ
-                    num = ui->tableWidget_brez->item(2,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_brez->item(2,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    if(mSumSkupaj < 0)
-                        mSumSkupaj = 0;
-                    itm_setSkupajBrezIF->setText(QString::number(mSumSkupaj) + " €");
-                    if(mSumSkupaj > 0)
-                        itm_setSkupajBrezIF->setTextColor(QColor("green"));
-                    ui->tableWidget_brez->setItem(2,2,itm_setSkupajBrezIF);
-                    break;
-                }
-                case 4:
-                {
-                    // OSNOVA
-                    tmp = mList.at(9);
-                    tmp.remove("Sum_osnova: ");
-                    num = ui->tableWidget_vse->item(3,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumOsnova += tmp.toDouble();
-                    itm_setOsnova->setText(QString::number(mSumOsnova) + " €");
-                    ui->tableWidget_vse->setItem(3,0,itm_setOsnova);
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(3,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(3,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(3,2,itm_setSkupaj);
 
-                    // DDV
-                    num = ui->tableWidget_vse->item(3,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumDDV = mSumOsnova * 0.22;
-                    itm_setDDV->setText(QString::number(mSumDDV) + " €");
-                    ui->tableWidget_vse->setItem(3,1,itm_setDDV);
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(3,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(3,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(3,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(3,0,itm_setOsnovaBrezIF);
+                        }
 
-                    // SKUPAJ
-                    num = ui->tableWidget_vse->item(3,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_vse->item(3,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    itm_setSkupaj->setText(QString::number(mSumSkupaj) + " €");
-                    ui->tableWidget_vse->setItem(3,2,itm_setSkupaj);
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(3,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(3,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(3,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(3,1,itm_setDDVBrezIF);
+                        }
 
-                    // OSNOVA BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
+                        // SKUPAJ BREZ
                         num = ui->tableWidget_brez->item(3,0)->text();
-                        num.remove(-1,2);
-                        mSumOsnova = num.toDouble();
-                        mSumOsnova -= tmp.toDouble();
-                        if(mSumOsnova < 0)
-                            mSumOsnova = 0;
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(3,0,itm_setOsnovaBrezIF);
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(3,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(3,2,itm_setSkupajBrezIF);
+                        break;
                     }
-                    else
+                    case 5:
                     {
+                        // OSNOVA
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
-                        num = ui->tableWidget_brez->item(3,0)->text();
-                        num.remove(-1,2);
+                        num = ui->tableWidget_vse->item(4,0)->text();
+                        num.remove("€");
                         mSumOsnova = num.toDouble();
                         mSumOsnova += tmp.toDouble();
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(3,0,itm_setOsnovaBrezIF);
-                    }
+                        itm_setOsnova->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(4,0,itm_setOsnova);
 
-                    // DDV BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
-                        num = ui->tableWidget_brez->item(3,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        mSumDDV = num.toDouble() - mSumDDV;
-                        if(mSumDDV < 0)
-                            mSumSkupaj = 0;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(3,1,itm_setDDVBrezIF);
-                    }
-                    else
-                    {
-                        num = ui->tableWidget_brez->item(3,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(3,1,itm_setDDVBrezIF);
-                    }
+                        // DDV
+                        num = ui->tableWidget_vse->item(4,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€" + QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(4,1,itm_setDDV);
 
-                    // SKUPAJ BREZ
-                    num = ui->tableWidget_brez->item(3,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_brez->item(3,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    if(mSumSkupaj < 0)
-                        mSumSkupaj = 0;
-                    itm_setSkupajBrezIF->setText(QString::number(mSumSkupaj) + " €");
-                    if(mSumSkupaj > 0)
-                        itm_setSkupajBrezIF->setTextColor(QColor("green"));
-                    ui->tableWidget_brez->setItem(3,2,itm_setSkupajBrezIF);
-                    break;
-                }
-                case 5:
-                {
-                    // OSNOVA
-                    tmp = mList.at(9);
-                    tmp.remove("Sum_osnova: ");
-                    num = ui->tableWidget_vse->item(4,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumOsnova += tmp.toDouble();
-                    itm_setOsnova->setText(QString::number(mSumOsnova) + " €");
-                    ui->tableWidget_vse->setItem(4,0,itm_setOsnova);
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(4,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(4,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(4,2,itm_setSkupaj);
 
-                    // DDV
-                    num = ui->tableWidget_vse->item(4,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumDDV = mSumOsnova * 0.22;
-                    itm_setDDV->setText(QString::number(mSumDDV) + " €");
-                    ui->tableWidget_vse->setItem(4,1,itm_setDDV);
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(4,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(4,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(4,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(4,0,itm_setOsnovaBrezIF);
+                        }
 
-                    // SKUPAJ
-                    num = ui->tableWidget_vse->item(4,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_vse->item(4,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    itm_setSkupaj->setText(QString::number(mSumSkupaj) + " €");
-                    ui->tableWidget_vse->setItem(4,2,itm_setSkupaj);
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(4,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(4,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(4,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(4,1,itm_setDDVBrezIF);
+                        }
 
-                    // OSNOVA BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
+                        // SKUPAJ BREZ
                         num = ui->tableWidget_brez->item(4,0)->text();
-                        num.remove(-1,2);
-                        mSumOsnova = num.toDouble();
-                        mSumOsnova -= tmp.toDouble();
-                        if(mSumOsnova < 0)
-                            mSumOsnova = 0;
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(4,0,itm_setOsnovaBrezIF);
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(4,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(4,2,itm_setSkupajBrezIF);
+                        break;
                     }
-                    else
+                    case 6:
                     {
+                        // OSNOVA
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
-                        num = ui->tableWidget_brez->item(4,0)->text();
-                        num.remove(-1,2);
+                        num = ui->tableWidget_vse->item(5,0)->text();
+                        num.remove("€");
                         mSumOsnova = num.toDouble();
                         mSumOsnova += tmp.toDouble();
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(4,0,itm_setOsnovaBrezIF);
-                    }
+                        itm_setOsnova->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(5,0,itm_setOsnova);
 
-                    // DDV BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
-                        num = ui->tableWidget_brez->item(4,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        mSumDDV = num.toDouble() - mSumDDV;
-                        if(mSumDDV < 0)
-                            mSumSkupaj = 0;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(4,1,itm_setDDVBrezIF);
-                    }
-                    else
-                    {
-                        num = ui->tableWidget_brez->item(4,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(4,1,itm_setDDVBrezIF);
-                    }
+                        // DDV
+                        num = ui->tableWidget_vse->item(5,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€" + QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(5,1,itm_setDDV);
 
-                    // SKUPAJ BREZ
-                    num = ui->tableWidget_brez->item(4,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_brez->item(4,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    if(mSumSkupaj < 0)
-                        mSumSkupaj = 0;
-                    itm_setSkupajBrezIF->setText(QString::number(mSumSkupaj) + " €");
-                    if(mSumSkupaj > 0)
-                        itm_setSkupajBrezIF->setTextColor(QColor("green"));
-                    ui->tableWidget_brez->setItem(4,2,itm_setSkupajBrezIF);
-                    break;
-                }
-                case 6:
-                {
-                    // OSNOVA
-                    tmp = mList.at(9);
-                    tmp.remove("Sum_osnova: ");
-                    num = ui->tableWidget_vse->item(5,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumOsnova += tmp.toDouble();
-                    itm_setOsnova->setText(QString::number(mSumOsnova) + " €");
-                    ui->tableWidget_vse->setItem(5,0,itm_setOsnova);
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(5,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(5,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(5,2,itm_setSkupaj);
 
-                    // DDV
-                    num = ui->tableWidget_vse->item(5,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumDDV = mSumOsnova * 0.22;
-                    itm_setDDV->setText(QString::number(mSumDDV) + " €");
-                    ui->tableWidget_vse->setItem(5,1,itm_setDDV);
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(5,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(5,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(5,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(5,0,itm_setOsnovaBrezIF);
+                        }
 
-                    // SKUPAJ
-                    num = ui->tableWidget_vse->item(5,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_vse->item(5,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    itm_setSkupaj->setText(QString::number(mSumSkupaj) + " €");
-                    ui->tableWidget_vse->setItem(5,2,itm_setSkupaj);
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(5,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(5,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(5,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(5,1,itm_setDDVBrezIF);
+                        }
 
-                    // OSNOVA BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
+                        // SKUPAJ BREZ
                         num = ui->tableWidget_brez->item(5,0)->text();
-                        num.remove(-1,2);
-                        mSumOsnova = num.toDouble();
-                        mSumOsnova -= tmp.toDouble();
-                        if(mSumOsnova < 0)
-                            mSumOsnova = 0;
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(5,0,itm_setOsnovaBrezIF);
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(5,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(5,2,itm_setSkupajBrezIF);
+                        break;
                     }
-                    else
+                    case 7:
                     {
+                        // OSNOVA
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
-                        num = ui->tableWidget_brez->item(5,0)->text();
-                        num.remove(-1,2);
+                        num = ui->tableWidget_vse->item(6,0)->text();
+                        num.remove("€");
                         mSumOsnova = num.toDouble();
                         mSumOsnova += tmp.toDouble();
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(5,0,itm_setOsnovaBrezIF);
-                    }
+                        itm_setOsnova->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(6,0,itm_setOsnova);
 
-                    // DDV BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
-                        num = ui->tableWidget_brez->item(5,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        mSumDDV = num.toDouble() - mSumDDV;
-                        if(mSumDDV < 0)
-                            mSumSkupaj = 0;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(5,1,itm_setDDVBrezIF);
-                    }
-                    else
-                    {
-                        num = ui->tableWidget_brez->item(5,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(5,1,itm_setDDVBrezIF);
-                    }
+                        // DDV
+                        num = ui->tableWidget_vse->item(6,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€" + QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(6,1,itm_setDDV);
 
-                    // SKUPAJ BREZ
-                    num = ui->tableWidget_brez->item(5,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_brez->item(5,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    if(mSumSkupaj < 0)
-                        mSumSkupaj = 0;
-                    itm_setSkupajBrezIF->setText(QString::number(mSumSkupaj) + " €");
-                    if(mSumSkupaj > 0)
-                        itm_setSkupajBrezIF->setTextColor(QColor("green"));
-                    ui->tableWidget_brez->setItem(5,2,itm_setSkupajBrezIF);
-                    break;
-                }
-                case 7:
-                {
-                    // OSNOVA
-                    tmp = mList.at(9);
-                    tmp.remove("Sum_osnova: ");
-                    num = ui->tableWidget_vse->item(6,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumOsnova += tmp.toDouble();
-                    itm_setOsnova->setText(QString::number(mSumOsnova) + " €");
-                    ui->tableWidget_vse->setItem(6,0,itm_setOsnova);
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(6,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(6,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(6,2,itm_setSkupaj);
 
-                    // DDV
-                    num = ui->tableWidget_vse->item(6,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumDDV = mSumOsnova * 0.22;
-                    itm_setDDV->setText(QString::number(mSumDDV) + " €");
-                    ui->tableWidget_vse->setItem(6,1,itm_setDDV);
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(6,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(6,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(6,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(6,0,itm_setOsnovaBrezIF);
+                        }
 
-                    // SKUPAJ
-                    num = ui->tableWidget_vse->item(6,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_vse->item(6,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    itm_setSkupaj->setText(QString::number(mSumSkupaj) + " €");
-                    ui->tableWidget_vse->setItem(6,2,itm_setSkupaj);
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(6,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(6,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(6,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(6,1,itm_setDDVBrezIF);
+                        }
 
-                    // OSNOVA BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
+                        // SKUPAJ BREZ
                         num = ui->tableWidget_brez->item(6,0)->text();
-                        num.remove(-1,2);
-                        mSumOsnova = num.toDouble();
-                        mSumOsnova -= tmp.toDouble();
-                        if(mSumOsnova < 0)
-                            mSumOsnova = 0;
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(6,0,itm_setOsnovaBrezIF);
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(6,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(6,2,itm_setSkupajBrezIF);
+                        break;
                     }
-                    else
+                    case 8:
                     {
+                        // OSNOVA
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
-                        num = ui->tableWidget_brez->item(6,0)->text();
-                        num.remove(-1,2);
+                        num = ui->tableWidget_vse->item(7,0)->text();
+                        num.remove("€");
                         mSumOsnova = num.toDouble();
                         mSumOsnova += tmp.toDouble();
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(6,0,itm_setOsnovaBrezIF);
-                    }
+                        itm_setOsnova->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(7,0,itm_setOsnova);
 
-                    // DDV BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
-                        num = ui->tableWidget_brez->item(6,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        mSumDDV = num.toDouble() - mSumDDV;
-                        if(mSumDDV < 0)
-                            mSumSkupaj = 0;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(6,1,itm_setDDVBrezIF);
-                    }
-                    else
-                    {
-                        num = ui->tableWidget_brez->item(6,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(6,1,itm_setDDVBrezIF);
-                    }
+                        // DDV
+                        num = ui->tableWidget_vse->item(7,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€" + QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(7,1,itm_setDDV);
 
-                    // SKUPAJ BREZ
-                    num = ui->tableWidget_brez->item(6,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_brez->item(6,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    if(mSumSkupaj < 0)
-                        mSumSkupaj = 0;
-                    itm_setSkupajBrezIF->setText(QString::number(mSumSkupaj) + " €");
-                    if(mSumSkupaj > 0)
-                        itm_setSkupajBrezIF->setTextColor(QColor("green"));
-                    ui->tableWidget_brez->setItem(6,2,itm_setSkupajBrezIF);
-                    break;
-                }
-                case 8:
-                {
-                    // OSNOVA
-                    tmp = mList.at(9);
-                    tmp.remove("Sum_osnova: ");
-                    num = ui->tableWidget_vse->item(7,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumOsnova += tmp.toDouble();
-                    itm_setOsnova->setText(QString::number(mSumOsnova) + " €");
-                    ui->tableWidget_vse->setItem(7,0,itm_setOsnova);
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(7,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(7,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(7,2,itm_setSkupaj);
 
-                    // DDV
-                    num = ui->tableWidget_vse->item(7,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumDDV = mSumOsnova * 0.22;
-                    itm_setDDV->setText(QString::number(mSumDDV) + " €");
-                    ui->tableWidget_vse->setItem(7,1,itm_setDDV);
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(7,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(7,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(7,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(7,0,itm_setOsnovaBrezIF);
+                        }
 
-                    // SKUPAJ
-                    num = ui->tableWidget_vse->item(7,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_vse->item(7,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    itm_setSkupaj->setText(QString::number(mSumSkupaj) + " €");
-                    ui->tableWidget_vse->setItem(7,2,itm_setSkupaj);
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(7,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(7,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(7,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(7,1,itm_setDDVBrezIF);
+                        }
 
-                    // OSNOVA BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
+                        // SKUPAJ BREZ
                         num = ui->tableWidget_brez->item(7,0)->text();
-                        num.remove(-1,2);
-                        mSumOsnova = num.toDouble();
-                        mSumOsnova -= tmp.toDouble();
-                        if(mSumOsnova < 0)
-                            mSumOsnova = 0;
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(7,0,itm_setOsnovaBrezIF);
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(7,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(7,2,itm_setSkupajBrezIF);
+                        break;
                     }
-                    else
+                    case 9:
                     {
+                        // OSNOVA
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
-                        num = ui->tableWidget_brez->item(7,0)->text();
-                        num.remove(-1,2);
+                        num = ui->tableWidget_vse->item(8,0)->text();
+                        num.remove("€");
                         mSumOsnova = num.toDouble();
                         mSumOsnova += tmp.toDouble();
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(7,0,itm_setOsnovaBrezIF);
-                    }
+                        itm_setOsnova->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(8,0,itm_setOsnova);
 
-                    // DDV BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
-                        num = ui->tableWidget_brez->item(7,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        mSumDDV = num.toDouble() - mSumDDV;
-                        if(mSumDDV < 0)
-                            mSumSkupaj = 0;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(7,1,itm_setDDVBrezIF);
-                    }
-                    else
-                    {
-                        num = ui->tableWidget_brez->item(7,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(7,1,itm_setDDVBrezIF);
-                    }
+                        // DDV
+                        num = ui->tableWidget_vse->item(8,0)->text();
+                        num.remove("€");
+                        mSumOsnova = num.toDouble();
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(8,1,itm_setDDV);
 
-                    // SKUPAJ BREZ
-                    num = ui->tableWidget_brez->item(7,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_brez->item(7,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    if(mSumSkupaj < 0)
-                        mSumSkupaj = 0;
-                    itm_setSkupajBrezIF->setText(QString::number(mSumSkupaj) + " €");
-                    if(mSumSkupaj > 0)
-                        itm_setSkupajBrezIF->setTextColor(QColor("green"));
-                    ui->tableWidget_brez->setItem(7,2,itm_setSkupajBrezIF);
-                    break;
-                }
-                case 9:
-                {
-                    // OSNOVA
-                    tmp = mList.at(9);
-                    tmp.remove("Sum_osnova: ");
-                    num = ui->tableWidget_vse->item(8,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumOsnova += tmp.toDouble();
-                    itm_setOsnova->setText(QString::number(mSumOsnova) + " €");
-                    ui->tableWidget_vse->setItem(8,0,itm_setOsnova);
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(8,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(8,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(8,2,itm_setSkupaj);
 
-                    // DDV
-                    num = ui->tableWidget_vse->item(8,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumDDV = mSumOsnova * 0.22;
-                    itm_setDDV->setText(QString::number(mSumDDV) + " €");
-                    ui->tableWidget_vse->setItem(8,1,itm_setDDV);
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(8,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(8,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(8,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(8,0,itm_setOsnovaBrezIF);
+                        }
 
-                    // SKUPAJ
-                    num = ui->tableWidget_vse->item(8,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_vse->item(8,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    itm_setSkupaj->setText(QString::number(mSumSkupaj) + " €");
-                    ui->tableWidget_vse->setItem(8,2,itm_setSkupaj);
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(8,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(8,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(8,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(8,1,itm_setDDVBrezIF);
+                        }
 
-                    // OSNOVA BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
+                        // SKUPAJ BREZ
                         num = ui->tableWidget_brez->item(8,0)->text();
-                        num.remove(-1,2);
-                        mSumOsnova = num.toDouble();
-                        mSumOsnova -= tmp.toDouble();
-                        if(mSumOsnova < 0)
-                            mSumOsnova = 0;
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(8,0,itm_setOsnovaBrezIF);
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(8,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(8,2,itm_setSkupajBrezIF);
+                        break;
                     }
-                    else
+                    case 10:
                     {
+                        // OSNOVA
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
-                        num = ui->tableWidget_brez->item(8,0)->text();
-                        num.remove(-1,2);
+                        num = ui->tableWidget_vse->item(9,0)->text();
+                        num.remove("€");
                         mSumOsnova = num.toDouble();
                         mSumOsnova += tmp.toDouble();
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(8,0,itm_setOsnovaBrezIF);
-                    }
+                        itm_setOsnova->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(9,0,itm_setOsnova);
 
-                    // DDV BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
-                        num = ui->tableWidget_brez->item(8,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        mSumDDV = num.toDouble() - mSumDDV;
-                        if(mSumDDV < 0)
-                            mSumSkupaj = 0;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(8,1,itm_setDDVBrezIF);
-                    }
-                    else
-                    {
-                        num = ui->tableWidget_brez->item(8,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(8,1,itm_setDDVBrezIF);
-                    }
-
-                    // SKUPAJ BREZ
-                    num = ui->tableWidget_brez->item(8,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_brez->item(8,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    if(mSumSkupaj < 0)
-                        mSumSkupaj = 0;
-                    itm_setSkupajBrezIF->setText(QString::number(mSumSkupaj) + " €");
-                    if(mSumSkupaj > 0)
-                        itm_setSkupajBrezIF->setTextColor(QColor("green"));
-                    ui->tableWidget_brez->setItem(8,2,itm_setSkupajBrezIF);
-                    break;
-                }
-                case 10:
-                {
-                    // OSNOVA
-                    tmp = mList.at(9);
-                    tmp.remove("Sum_osnova: ");
-                    num = ui->tableWidget_vse->item(9,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumOsnova += tmp.toDouble();
-                    itm_setOsnova->setText(QString::number(mSumOsnova) + " €");
-                    ui->tableWidget_vse->setItem(9,0,itm_setOsnova);
-
-                    // DDV
-                    num = ui->tableWidget_vse->item(9,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumDDV = mSumOsnova * 0.22;
-                    itm_setDDV->setText(QString::number(mSumDDV) + " €");
-                    ui->tableWidget_vse->setItem(9,1,itm_setDDV);
-
-                    // SKUPAJ
-                    num = ui->tableWidget_vse->item(9,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_vse->item(9,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    itm_setSkupaj->setText(QString::number(mSumSkupaj) + " €");
-                    ui->tableWidget_vse->setItem(9,2,itm_setSkupaj);
-
-                    // OSNOVA BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
-                        num = ui->tableWidget_brez->item(9,0)->text();
-                        num.remove(-1,2);
+                        // DDV
+                        num = ui->tableWidget_vse->item(9,0)->text();
+                        num.remove("€");
                         mSumOsnova = num.toDouble();
-                        mSumOsnova -= tmp.toDouble();
-                        if(mSumOsnova < 0)
-                            mSumOsnova = 0;
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(9,0,itm_setOsnovaBrezIF);
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(9,1,itm_setDDV);
+
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(9,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(9,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(9,2,itm_setSkupaj);
+
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(9,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(9,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(9,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(9,0,itm_setOsnovaBrezIF);
+                        }
+
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(9,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(9,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(9,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(9,1,itm_setDDVBrezIF);
+                        }
+
+                        // SKUPAJ BREZ
+                        num = ui->tableWidget_brez->item(9,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(9,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(9,2,itm_setSkupajBrezIF);
+                        break;
                     }
-                    else
+                    case 11:
                     {
+                        // OSNOVA
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
-                        num = ui->tableWidget_brez->item(9,0)->text();
-                        num.remove(-1,2);
+                        num = ui->tableWidget_vse->item(10,0)->text();
+                        num.remove("€");
                         mSumOsnova = num.toDouble();
                         mSumOsnova += tmp.toDouble();
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(9,0,itm_setOsnovaBrezIF);
-                    }
+                        itm_setOsnova->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(10,0,itm_setOsnova);
 
-                    // DDV BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
-                        num = ui->tableWidget_brez->item(9,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        mSumDDV = num.toDouble() - mSumDDV;
-                        if(mSumDDV < 0)
-                            mSumSkupaj = 0;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(9,1,itm_setDDVBrezIF);
-                    }
-                    else
-                    {
-                        num = ui->tableWidget_brez->item(9,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(9,1,itm_setDDVBrezIF);
-                    }
-
-                    // SKUPAJ BREZ
-                    num = ui->tableWidget_brez->item(9,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_brez->item(9,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    if(mSumSkupaj < 0)
-                        mSumSkupaj = 0;
-                    itm_setSkupajBrezIF->setText(QString::number(mSumSkupaj) + " €");
-                    if(mSumSkupaj > 0)
-                        itm_setSkupajBrezIF->setTextColor(QColor("green"));
-                    ui->tableWidget_brez->setItem(9,2,itm_setSkupajBrezIF);
-                    break;
-                }
-                case 11:
-                {
-                    // OSNOVA
-                    tmp = mList.at(9);
-                    tmp.remove("Sum_osnova: ");
-                    num = ui->tableWidget_vse->item(10,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumOsnova += tmp.toDouble();
-                    itm_setOsnova->setText(QString::number(mSumOsnova) + " €");
-                    ui->tableWidget_vse->setItem(10,0,itm_setOsnova);
-
-                    // DDV
-                    num = ui->tableWidget_vse->item(10,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumDDV = mSumOsnova * 0.22;
-                    itm_setDDV->setText(QString::number(mSumDDV) + " €");
-                    ui->tableWidget_vse->setItem(10,1,itm_setDDV);
-
-                    // SKUPAJ
-                    num = ui->tableWidget_vse->item(10,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_vse->item(10,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    itm_setSkupaj->setText(QString::number(mSumSkupaj) + " €");
-                    ui->tableWidget_vse->setItem(10,2,itm_setSkupaj);
-
-                    // OSNOVA BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
-                        num = ui->tableWidget_brez->item(10,0)->text();
-                        num.remove(-1,2);
+                        // DDV
+                        num = ui->tableWidget_vse->item(10,0)->text();
+                        num.remove("€");
                         mSumOsnova = num.toDouble();
-                        mSumOsnova -= tmp.toDouble();
-                        if(mSumOsnova < 0)
-                            mSumOsnova = 0;
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(10,0,itm_setOsnovaBrezIF);
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(10,1,itm_setDDV);
+
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(10,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(10,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(10,2,itm_setSkupaj);
+
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(10,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(10,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(10,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(10,0,itm_setOsnovaBrezIF);
+                        }
+
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(10,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(10,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(10,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(10,1,itm_setDDVBrezIF);
+                        }
+
+                        // SKUPAJ BREZ
+                        num = ui->tableWidget_brez->item(10,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(10,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
+                            mSumSkupaj = 0;
+                        itm_setSkupajBrezIF->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(10,2,itm_setSkupajBrezIF);
+                        break;
                     }
-                    else
+                    case 12:
                     {
+                        // OSNOVA
                         tmp = mList.at(9);
                         tmp.remove("Sum_osnova: ");
-                        num = ui->tableWidget_brez->item(10,0)->text();
-                        num.remove(-1,2);
+                        num = ui->tableWidget_vse->item(11,0)->text();
+                        num.remove("€");
                         mSumOsnova = num.toDouble();
                         mSumOsnova += tmp.toDouble();
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(10,0,itm_setOsnovaBrezIF);
-                    }
+                        itm_setOsnova->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                        ui->tableWidget_vse->setItem(11,0,itm_setOsnova);
 
-                    // DDV BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
-                        num = ui->tableWidget_brez->item(10,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        mSumDDV = num.toDouble() - mSumDDV;
-                        if(mSumDDV < 0)
-                            mSumSkupaj = 0;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(10,1,itm_setDDVBrezIF);
-                    }
-                    else
-                    {
-                        num = ui->tableWidget_brez->item(10,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(10,1,itm_setDDVBrezIF);
-                    }
-
-                    // SKUPAJ BREZ
-                    num = ui->tableWidget_brez->item(10,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_brez->item(10,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    if(mSumSkupaj < 0)
-                        mSumSkupaj = 0;
-                    itm_setSkupajBrezIF->setText(QString::number(mSumSkupaj) + " €");
-                    if(mSumSkupaj > 0)
-                        itm_setSkupajBrezIF->setTextColor(QColor("green"));
-                    ui->tableWidget_brez->setItem(10,2,itm_setSkupajBrezIF);
-                    break;
-                }
-                case 12:
-                {
-                    // OSNOVA
-                    tmp = mList.at(9);
-                    tmp.remove("Sum_osnova: ");
-                    num = ui->tableWidget_vse->item(11,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumOsnova += tmp.toDouble();
-                    itm_setOsnova->setText(QString::number(mSumOsnova) + " €");
-                    ui->tableWidget_vse->setItem(11,0,itm_setOsnova);
-
-                    // DDV
-                    num = ui->tableWidget_vse->item(11,0)->text();
-                    num.remove(-1,2);
-                    mSumOsnova = num.toDouble();
-                    mSumDDV = mSumOsnova * 0.22;
-                    itm_setDDV->setText(QString::number(mSumDDV) + " €");
-                    ui->tableWidget_vse->setItem(11,1,itm_setDDV);
-
-                    // SKUPAJ
-                    num = ui->tableWidget_vse->item(11,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_vse->item(11,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    itm_setSkupaj->setText(QString::number(mSumSkupaj) + " €");
-                    ui->tableWidget_vse->setItem(11,2,itm_setSkupaj);
-
-                    // OSNOVA BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
-                        num = ui->tableWidget_brez->item(11,0)->text();
-                        num.remove(-1,2);
+                        // DDV
+                        num = ui->tableWidget_vse->item(11,0)->text();
+                        num.remove("€");
                         mSumOsnova = num.toDouble();
-                        mSumOsnova -= tmp.toDouble();
-                        if(mSumOsnova < 0)
-                            mSumOsnova = 0;
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(11,0,itm_setOsnovaBrezIF);
-                    }
-                    else
-                    {
-                        tmp = mList.at(9);
-                        tmp.remove("Sum_osnova: ");
-                        num = ui->tableWidget_brez->item(11,0)->text();
-                        num.remove(-1,2);
-                        mSumOsnova = num.toDouble();
-                        mSumOsnova += tmp.toDouble();
-                        itm_setOsnovaBrezIF->setText(QString::number(mSumOsnova) + " €");
-                        if(mSumOsnova > 0)
-                            itm_setOsnovaBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(11,0,itm_setOsnovaBrezIF);
-                    }
+                        mSumDDV = mSumOsnova * 0.22;
+                        itm_setDDV->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                        ui->tableWidget_vse->setItem(11,1,itm_setDDV);
 
-                    // DDV BREZ
-                    tmp = mList.at(14);
-                    tmp.remove("Placilo: ");
-                    if(tmp != "")
-                    {
+                        // SKUPAJ
+                        num = ui->tableWidget_vse->item(11,0)->text();
+                        num.remove("€");
+                        tmp = ui->tableWidget_vse->item(11,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        itm_setSkupaj->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
+                        ui->tableWidget_vse->setItem(11,2,itm_setSkupaj);
+
+                        // OSNOVA BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(11,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova -= tmp.toDouble();
+                            if(mSumOsnova < 0)
+                                mSumOsnova = 0;
+                            itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(11,0,itm_setOsnovaBrezIF);
+                        }
+                        else
+                        {
+                            tmp = mList.at(9);
+                            tmp.remove("Sum_osnova: ");
+                            num = ui->tableWidget_brez->item(11,0)->text();
+                            num.remove("€");
+                            mSumOsnova = num.toDouble();
+                            mSumOsnova += tmp.toDouble();
+                            itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
+                            if(mSumOsnova > 0)
+                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(11,0,itm_setOsnovaBrezIF);
+                        }
+
+                        // DDV BREZ
+                        tmp = mList.at(14);
+                        tmp.remove("Placilo: ");
+                        if(tmp != " ")
+                        {
+                            num = ui->tableWidget_brez->item(11,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            mSumDDV = num.toDouble() - mSumDDV;
+                            if(mSumDDV < 0)
+                                mSumSkupaj = 0;
+                            itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(11,1,itm_setDDVBrezIF);
+                        }
+                        else
+                        {
+                            num = ui->tableWidget_brez->item(11,0)->text();
+                            num.remove("€");
+                            mSumDDV = num.toDouble() * 0.22;
+                            itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
+                            if(mSumDDV > 0)
+                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                            ui->tableWidget_brez->setItem(11,1,itm_setDDVBrezIF);
+                        }
+
+                        // SKUPAJ BREZ
                         num = ui->tableWidget_brez->item(11,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        mSumDDV = num.toDouble() - mSumDDV;
-                        if(mSumDDV < 0)
+                        num.remove("€");
+                        tmp = ui->tableWidget_brez->item(11,1)->text();
+                        tmp.remove("€");
+                        mSumSkupaj = num.toDouble() + tmp.toDouble();
+                        if(mSumSkupaj < 0)
                             mSumSkupaj = 0;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(11,1,itm_setDDVBrezIF);
+                        itm_setSkupajBrezIF->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
+                        if(mSumSkupaj > 0)
+                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                        ui->tableWidget_brez->setItem(11,2,itm_setSkupajBrezIF);
+                        break;
                     }
-                    else
-                    {
-                        num = ui->tableWidget_brez->item(11,0)->text();
-                        num.remove(-1,2);
-                        mSumDDV = num.toDouble() * 0.22;
-                        itm_setDDVBrezIF->setText(QString::number(mSumDDV) + " €");
-                        if(mSumDDV > 0)
-                            itm_setDDVBrezIF->setTextColor(QColor("green"));
-                        ui->tableWidget_brez->setItem(11,1,itm_setDDVBrezIF);
+                    default:
+                        break;
                     }
-
-                    // SKUPAJ BREZ
-                    num = ui->tableWidget_brez->item(11,0)->text();
-                    num.remove(-1,2);
-                    tmp = ui->tableWidget_brez->item(11,1)->text();
-                    tmp.remove(-1,2);
-                    mSumSkupaj = num.toDouble() + tmp.toDouble();
-                    if(mSumSkupaj < 0)
-                        mSumSkupaj = 0;
-                    itm_setSkupajBrezIF->setText(QString::number(mSumSkupaj) + " €");
-                    if(mSumSkupaj > 0)
-                        itm_setSkupajBrezIF->setTextColor(QColor("green"));
-                    ui->tableWidget_brez->setItem(11,2,itm_setSkupajBrezIF);
-                    break;
+                } else {
+                    continue;
                 }
-                default:
-                    break;
-                }
-            }
-            else
-            {
-                qDebug() << "error";
             }
         }
     }
@@ -1336,6 +2560,7 @@ void Statistic::AddToTableWidget(QString fileName)
 
 void Statistic::Plot()
 {
+    ui->plot->clearPlottables();
     // set dark background gradient:
     QLinearGradient gradient(0, 0, 0, 400);
     gradient.setColorAt(0, QColor(180, 180, 180));
@@ -1383,7 +2608,7 @@ void Statistic::Plot()
     // prepare y axis:
     ui->plot->yAxis->setRange(0, 17500);
     ui->plot->yAxis->setPadding(1); // a bit more space to the left border
-    ui->plot->yAxis->setLabel("Promet po mesecih\nOSNOVA");
+    ui->plot->yAxis->setLabel("Promet po mesecih\nOSNOVA €");
     ui->plot->yAxis->setBasePen(QPen(Qt::black));
     ui->plot->yAxis->setTickPen(QPen(Qt::black));
     ui->plot->yAxis->setSubTickPen(QPen(Qt::black));
@@ -1429,7 +2654,6 @@ void Statistic::Plot()
     legendFont.setFamily("MS Sans Serif");
     legendFont.setItalic(true);
     ui->plot->legend->setFont(legendFont);
-    ui->plot->legend->setWrap(6);
     ui->plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
     ui->plot->replot();
     ui->plot->update();
@@ -1437,14 +2661,13 @@ void Statistic::Plot()
 
 void Statistic::GetData(QVector<double> *allData, int itr, QString name)
 {
+    QString date = QString::number(ui->dateEdit->date().year());
     QFile mFile(m_fileRacun);
     if(!mFile.open(QFile::ReadOnly | QFile::Text))
     {
         qDebug() << "Error opening file for reading in GetData in statistic.cpp";
         return;
-    }
-    else
-    {
+    } else {
         if(name == "Vse terjatve")
         {
             QTextStream in(&mFile);
@@ -1467,13 +2690,17 @@ void Statistic::GetData(QVector<double> *allData, int itr, QString name)
                     {
                         tmp = listText.at(5);
                         tmp.remove("Dat_izdaje: ");
-                        tmpList = tmp.split(expDot, QString::SkipEmptyParts);
-                        tmp = tmpList.at(1);
-                        if(tmp.toInt() == (itr_month+1))
-                        {
-                            tmp = listText.at(9);
-                            tmp.remove("Sum_osnova: ");
-                            sumPerMonth += tmp.toDouble();
+                        if(tmp.endsWith(date)) {
+                            tmpList = tmp.split(expDot, QString::SkipEmptyParts);
+                            tmp = tmpList.at(1);
+                            if(tmp.toInt() == (itr_month+1))
+                            {
+                                tmp = listText.at(9);
+                                tmp.remove("Sum_osnova: ");
+                                sumPerMonth += tmp.toDouble();
+                            }
+                        } else {
+                            continue;
                         }
                     }
                 }
@@ -1504,13 +2731,17 @@ void Statistic::GetData(QVector<double> *allData, int itr, QString name)
                     {
                         tmp = listText.at(5);
                         tmp.remove("Dat_izdaje: ");
-                        tmpList = tmp.split(expDot, QString::SkipEmptyParts);
-                        tmp = tmpList.at(1);
-                        if(tmp.toInt() == (itr_month+1))
-                        {
-                            tmp = listText.at(9);
-                            tmp.remove("Sum_osnova: ");
-                            sumPerMonth += tmp.toDouble();
+                        if(tmp.endsWith(date)) {
+                            tmpList = tmp.split(expDot, QString::SkipEmptyParts);
+                            tmp = tmpList.at(1);
+                            if(tmp.toInt() == (itr_month+1))
+                            {
+                                tmp = listText.at(9);
+                                tmp.remove("Sum_osnova: ");
+                                sumPerMonth += tmp.toDouble();
+                            }
+                        } else {
+                            continue;
                         }
                     }
                 }
@@ -1523,14 +2754,8 @@ void Statistic::GetData(QVector<double> *allData, int itr, QString name)
     }
 }
 
-void Statistic::on_pushButton_izpis_clicked()
+void Statistic::on_pushButton_isci_clicked()
 {
-    ui->plot->clearPlottables();
     Plot();
-}
-
-void Statistic::on_comboBox_podjetja_currentTextChanged()
-{
-    ui->plot->clearPlottables();
-    Plot();
+    AddToTableWidget(m_fileRacun);
 }

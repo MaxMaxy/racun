@@ -9,6 +9,7 @@ VnosObveznosti::VnosObveznosti(QWidget *parent) :
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
     this->setWindowTitle("Vnos obveznosti");
+    this->setWindowFlags(Qt::Window);
     ui->dateEdit_valute->setDisplayFormat("d. M. yyyy");
     ui->dateEdit_valute->setDate(QDate::currentDate());
     ui->lineEdit_listina->setFocus();

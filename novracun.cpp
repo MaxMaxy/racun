@@ -9,21 +9,23 @@ NovRacun::NovRacun(QWidget *parent) :
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
     this->setWindowTitle("Nov racun");
+    this->setWindowFlags(Qt::Window);
     ui->treeWidget_seznam->setColumnCount(3);
-    ui->treeWidget_seznam->setColumnWidth(0,80);
+    ui->treeWidget_seznam->setColumnWidth(0,70);
     ui->treeWidget_seznam->setColumnWidth(1,300);
     ui->treeWidget_dodani->setColumnCount(4);
-    ui->treeWidget_dodani->setColumnWidth(0,80);
-    ui->treeWidget_dodani->setColumnWidth(1,250);
+    ui->treeWidget_dodani->setColumnWidth(0,70);
+    ui->treeWidget_dodani->setColumnWidth(1,300);
     ui->treeWidget_dodani->setColumnWidth(2,50);
+    ui->treeWidget_seznam->setRootIsDecorated(false);
+    ui->treeWidget_dodani->setRootIsDecorated(false);
     ui->lineEdit_popust->setText("0");
-    ui->label_skupaj->setText("€0");
-    ui->label_ddv->setText("€0");
-    ui->label_osnova->setText("€0");
+    ui->label_skupaj->setText("€0.0");
+    ui->label_ddv->setText("€0.0");
+    ui->label_osnova->setText("€0.0");
     ui->dateEdit->setMinimumDate(QDate(2016,1,1));
     ui->lineEdit_sklic->setMaxLength(35);
     ui->lineEdit->setMaxLength(60);
-    ui->comboBox_narocnik->setFocus();
     QRegularExpression regealfabet("^[a-zA-Z0-9,@. -/&#čšžŠČŽ]*$");
     QValidator *validatoralfabet = new QRegularExpressionValidator(regealfabet, this);
     ui->lineEdit_sklic->setValidator(validatoralfabet);
@@ -33,6 +35,8 @@ NovRacun::NovRacun(QWidget *parent) :
     QValidator *validatornum = new QRegularExpressionValidator(regenum, this);
     ui->lineEdit_popust->setValidator(validatornum);
     QFile mFile(m_arhivStRacuna);
+    ui->pushButton_isci->setFocus();
+    ui->pushButton_isci->setVisible(false);
     if(!mFile.open(QFile::ReadOnly | QFile::Text))
     {
         qDebug() << "Error opening file for reading in Read() constructor";
@@ -687,12 +691,12 @@ void NovRacun::MakeXML()
         postavkaStruct.vrstaZneskaPostavke = document.createElement("VrstaZneskaPostavke");
         postavkaStruct.vrstaZneskaPostavke_text = document.createTextNode("203");
         postavkaStruct.znesekPostavke = document.createElement("ZnesekPostavke");
-        postavkaStruct.znesekPostavke_text = document.createTextNode(QString::number(znesekPostavke));
+        postavkaStruct.znesekPostavke_text = document.createTextNode(QString::number(znesekPostavke, 'f', 2));
         postavkaStruct.zneskiPostavke_1 = document.createElement("ZneskiPostavke");
         postavkaStruct.vrstaZneskaPostavke_1 = document.createElement("VrstaZneskaPostavke");
         postavkaStruct.vrstaZneskaPostavke_1_text = document.createTextNode("38");
         postavkaStruct.znesekPostavke_1 = document.createElement("ZnesekPostavke");
-        postavkaStruct.znesekPostavke_1_text = document.createTextNode(QString::number(skupnaCena));
+        postavkaStruct.znesekPostavke_1_text = document.createTextNode(QString::number(skupnaCena, 'f', 2));
         postavkaStruct.cenaPostavke = document.createElement("CenaPostavke");
         postavkaStruct.vrstaCene = document.createElement("VrstaCene");
         postavkaStruct.vrstaCene_text = document.createTextNode("AAA");
@@ -708,12 +712,12 @@ void NovRacun::MakeXML()
         postavkaStruct.vrstaZneskaDavkaPostavke = document.createElement("VrstaZneskaDavkaPostavke");
         postavkaStruct.vrstaZneskaDavkaPostavke_text = document.createTextNode("125");
         postavkaStruct.znesek = document.createElement("Znesek");
-        postavkaStruct.znesek_text = document.createTextNode(QString::number(znesekPostavke - popust));
+        postavkaStruct.znesek_text = document.createTextNode(QString::number(znesekPostavke - popust, 'f', 2));
         postavkaStruct.zneskiDavkovPostavke_1 = document.createElement("ZneskiDavkovPostavke");
         postavkaStruct.vrstaZneskaDavkaPostavke_1 = document.createElement("VrstaZneskaDavkaPostavke");
         postavkaStruct.vrstaZneskaDavkaPostavke_1_text = document.createTextNode("124");
         postavkaStruct.znesek_1 = document.createElement("Znesek");
-        postavkaStruct.znesek_1_text = document.createTextNode(QString::number((znesekPostavke - popust)*0.22));
+        postavkaStruct.znesek_1_text = document.createTextNode(QString::number((znesekPostavke - popust)*0.22, 'f', 2));
         postavkaStruct.odstotkiPostavk = document.createElement("OdstotkiPostavk");
         postavkaStruct.identifikator = document.createElement("Identifikator");
         postavkaStruct.identifikator_text = document.createTextNode("A");
@@ -724,7 +728,7 @@ void NovRacun::MakeXML()
         postavkaStruct.vrstaZneskaOdstotka = document.createElement("VrstaZneskaOdstotka");
         postavkaStruct.vrstaZneskaOdstotka_text = document.createTextNode("204");
         postavkaStruct.znesekOdstotka = document.createElement("ZnesekOdstotka");
-        postavkaStruct.znesekOdstotka_text = document.createTextNode(QString::number(popust));
+        postavkaStruct.znesekOdstotka_text = document.createTextNode(QString::number(popust, 'f', 2));
 
         postavkeVec.append(postavkaStruct);
         racun.appendChild(postavkeVec.at(i).postavkeRacuna);
@@ -906,7 +910,7 @@ void NovRacun::MakeXML()
     vrstaZneska_1.appendChild(vrstaZneska_1_text);
     zneskiRacuna_1.appendChild(vrstaZneska_1);
     QDomElement znesekRacuna_1 = document.createElement("ZnesekRacuna");
-    QDomText znesekRacuna_1_text = document.createTextNode(QString::number(m_total));
+    QDomText znesekRacuna_1_text = document.createTextNode(QString::number(m_total, 'f', 2));
     znesekRacuna_1.appendChild(znesekRacuna_1_text);
     zneskiRacuna_1.appendChild(znesekRacuna_1);
     QDomElement sklicZaPlacilo_1 = document.createElement("SklicZaPlacilo");
@@ -930,7 +934,7 @@ void NovRacun::MakeXML()
     vrstaZneska_2.appendChild(vrstaZneska_2_text);
     zneskiRacuna_2.appendChild(vrstaZneska_2);
     QDomElement znesekRacuna_2 = document.createElement("ZnesekRacuna");
-    QDomText znesekRacuna_2_text = document.createTextNode(QString::number(popust_total));
+    QDomText znesekRacuna_2_text = document.createTextNode(QString::number(popust_total, 'f', 2));
     znesekRacuna_2.appendChild(znesekRacuna_2_text);
     zneskiRacuna_2.appendChild(znesekRacuna_2);
     QDomElement sklicZaPlacilo_2 = document.createElement("SklicZaPlacilo");
@@ -954,7 +958,7 @@ void NovRacun::MakeXML()
     vrstaZneska_3.appendChild(vrstaZneska_3_text);
     zneskiRacuna_3.appendChild(vrstaZneska_3);
     QDomElement znesekRacuna_3 = document.createElement("ZnesekRacuna");
-    QDomText znesekRacuna_3_text = document.createTextNode(QString::number(m_total - popust_total));
+    QDomText znesekRacuna_3_text = document.createTextNode(QString::number(m_total - popust_total, 'f', 2));
     znesekRacuna_3.appendChild(znesekRacuna_3_text);
     zneskiRacuna_3.appendChild(znesekRacuna_3);
     QDomElement sklicZaPlacilo_3 = document.createElement("SklicZaPlacilo");
@@ -978,7 +982,7 @@ void NovRacun::MakeXML()
     vrstaZneska_4.appendChild(vrstaZneska_4_text);
     zneskiRacuna_4.appendChild(vrstaZneska_4);
     QDomElement znesekRacuna_4 = document.createElement("ZnesekRacuna");
-    QDomText znesekRacuna_4_text = document.createTextNode(QString::number((m_total - popust_total) * 0.22));
+    QDomText znesekRacuna_4_text = document.createTextNode(QString::number((m_total - popust_total) * 0.22, 'f', 2));
     znesekRacuna_4.appendChild(znesekRacuna_4_text);
     zneskiRacuna_4.appendChild(znesekRacuna_4);
     QDomElement sklicZaPlacilo_4 = document.createElement("SklicZaPlacilo");
@@ -1118,7 +1122,7 @@ void NovRacun::PopraviRacun(QString stranka, QString stevilka_racuna, QString ve
         }
     }
     qDebug() << m_osnova;
-    ui->label_osnova->setText("€" + QString::number(m_osnova));
+    ui->label_osnova->setText("€" + QString::number(m_osnova, 'f', 2));
     m_total = osnova.toDouble();
     double m_pop = ui->lineEdit_popust->text().toDouble();
     double m_popust(0);
@@ -1126,21 +1130,21 @@ void NovRacun::PopraviRacun(QString stranka, QString stevilka_racuna, QString ve
     double m_ddv;
     m_popust = m_total - (m_total * (m_pop / 100));
     if(m_pop == 0.0)
-        ui->label_popust->setText("€" + QString::number(m_total));
+        ui->label_popust->setText("€" + QString::number(m_total, 'f', 2));
     else
-        ui->label_popust->setText("€" + QString::number(m_popust));
+        ui->label_popust->setText("€" + QString::number(m_popust, 'f', 2));
 
     m_ddv = m_popust * 0.22;
     if(m_ddv < 0)
-        ui->label_ddv->setText("€0");
+        ui->label_ddv->setText("€0.0");
     else
-        ui->label_ddv->setText("€" + QString::number(m_ddv));
+        ui->label_ddv->setText("€" + QString::number(m_ddv, 'f', 2));
 
     m_skupaj = m_popust + m_ddv;
     if(m_skupaj < 0)
-        ui->label_skupaj->setText("€0");
+        ui->label_skupaj->setText("€0.0");
     else
-        ui->label_skupaj->setText("€" + QString::number(m_skupaj));
+        ui->label_skupaj->setText("€" + QString::number(m_skupaj, 'f', 2));
     m_sprememba = true;
 }
 
@@ -1253,8 +1257,10 @@ void NovRacun::AddRoot(QString id, QString naziv, QString cena)
     QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget_seznam);
     // nastavimo stevilko podjetja in ime podjetja v colom 0 in 1
     itm->setText(0, id);
+    itm->setTextAlignment(0, Qt::AlignHCenter);
     itm->setText(1, naziv);
     itm->setText(2, "€" + cena);
+    itm->setTextAlignment(2, Qt::AlignHCenter);
     // dodamo podjetje v treeWidget
     ui->treeWidget_seznam->addTopLevelItem(itm);
     // nastavimo barvo za vsako drugo podjetje
@@ -1323,9 +1329,9 @@ void NovRacun::on_comboBox_narocnik_currentIndexChanged()
     mFile.close();
     Read();
     ui->treeWidget_dodani->clear();
-    ui->label_skupaj->setText("€0");
-    ui->label_ddv->setText("€0");
-    ui->label_osnova->setText("€0");
+    ui->label_skupaj->setText("€0.0");
+    ui->label_ddv->setText("€0.0");
+    ui->label_osnova->setText("€0.0");
     ui->lineEdit_popust->setText("0");
     m_total = 0;
     m_itemsAdded = 0;
@@ -1348,7 +1354,7 @@ QString NovRacun::CenaDDV(QString price, QString items)
     double dPrice = price.toDouble();
     int intItems = items.toInt();
     double sumPrice = dPrice * intItems;
-    return QString::number(sumPrice);
+    return QString::number(sumPrice, 'f', 2);
 }
 
 void NovRacun::on_treeWidget_seznam_doubleClicked()
@@ -1367,9 +1373,12 @@ void NovRacun::on_treeWidget_seznam_doubleClicked()
     QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget_dodani);
     QString cenaDDV = CenaDDV(ui->treeWidget_seznam->currentItem()->text(2), m_numItems);
     itm->setText(0, ui->treeWidget_seznam->currentItem()->text(0));
+    itm->setTextAlignment(0, Qt::AlignHCenter);
     itm->setText(1, ui->treeWidget_seznam->currentItem()->text(1));
     itm->setText(2, ui->treeWidget_seznam->currentItem()->text(2));
+    itm->setTextAlignment(2, Qt::AlignHCenter);
     itm->setText(3, m_numItems);
+    itm->setTextAlignment(3, Qt::AlignHCenter);
     itm->setText(4, cenaDDV);
     ui->treeWidget_dodani->addTopLevelItem(itm);
     QColor color(210,210,210);
@@ -1398,9 +1407,9 @@ void NovRacun::on_treeWidget_seznam_doubleClicked()
 // sesteva v label skupaj
 void NovRacun::CalcSkupaj(QString &price, QString &numOfItems, bool plus)
 {
-    double popust(0);
-    double skupaj(0);
-    double ddv(0);
+    double popust(0.0);
+    double skupaj(0.0);
+    double ddv(0.0);
     QRegExp eur("[€]");
     QRegExp dot("[,]");
     QStringList price_list;
@@ -1424,26 +1433,26 @@ void NovRacun::CalcSkupaj(QString &price, QString &numOfItems, bool plus)
     if(m_total < 0)
         ui->label_osnova->setText("€0");
     else
-        ui->label_osnova->setText("€" + QString::number(m_total));
+        ui->label_osnova->setText("€" + QString::number(m_total, 'f', 2));
 
     double pop = ui->lineEdit_popust->text().toDouble();
     popust = m_total - (m_total * (pop / 100));
     if(pop == 0.0)
-        ui->label_popust->setText("€" + QString::number(m_total));
+        ui->label_popust->setText("€" + QString::number(m_total, 'f', 2));
     else
-        ui->label_popust->setText("€" + QString::number(popust));
+        ui->label_popust->setText("€" + QString::number(popust, 'f', 2));
 
     ddv = popust * 0.22;
     if(ddv < 0)
         ui->label_ddv->setText("€0");
     else
-        ui->label_ddv->setText("€" + QString::number(ddv));
+        ui->label_ddv->setText("€" + QString::number(ddv, 'f', 2));
 
     skupaj = popust + ddv;
     if(skupaj < 0)
         ui->label_skupaj->setText("€0");
     else
-        ui->label_skupaj->setText("€" + QString::number(skupaj));
+        ui->label_skupaj->setText("€" + QString::number(skupaj, 'f', 2));
 }
 
 void NovRacun::on_treeWidget_dodani_doubleClicked()
@@ -1498,18 +1507,6 @@ void NovRacun::Search(QString searchName)
     }
     // zapre file
     mFile.close();
-}
-
-void NovRacun::on_lineEdit_isci_editingFinished()
-{
-    QString search = ui->lineEdit_isci->text();
-    if(search == "")
-        Read();
-    else
-    {
-        ui->treeWidget_seznam->clear();
-        Search(search);
-    }
 }
 
 int NovRacun::creatPDF()
@@ -2739,25 +2736,37 @@ void NovRacun::on_lineEdit_popust_textChanged()
     double ddv = ui->label_ddv->text().toDouble();
     popust = m_total - (m_total * (pop / 100));
     if(pop == 0.0)
-        ui->label_popust->setText("€" + QString::number(m_total));
+        ui->label_popust->setText("€" + QString::number(m_total, 'f', 2));
     else
-        ui->label_popust->setText("€" + QString::number(popust));
+        ui->label_popust->setText("€" + QString::number(popust, 'f', 2));
 
     ddv = popust * 0.22;
     if(ddv < 0)
         ui->label_ddv->setText("€0");
     else
-        ui->label_ddv->setText("€" + QString::number(ddv));
+        ui->label_ddv->setText("€" + QString::number(ddv, 'f', 2));
 
     skupaj = popust + ddv;
     if(skupaj < 0)
         ui->label_skupaj->setText("€0");
     else
-        ui->label_skupaj->setText("€" + QString::number(skupaj));
+        ui->label_skupaj->setText("€" + QString::number(skupaj, 'f', 2));
 }
 
 void NovRacun::on_lineEdit_popust_editingFinished()
 {
     if(ui->lineEdit_popust->text() == "")
         ui->lineEdit_popust->setText("0");
+}
+
+void NovRacun::on_lineEdit_isci_textChanged()
+{
+    QString search = ui->lineEdit_isci->text();
+    if(search == "")
+        Read();
+    else
+    {
+        ui->treeWidget_seznam->clear();
+        Search(search);
+    }
 }

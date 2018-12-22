@@ -51,10 +51,10 @@ private slots:
     void on_comboBox_narocnik_currentIndexChanged();
     void on_treeWidget_seznam_doubleClicked();
     void on_treeWidget_dodani_doubleClicked();
-    void on_lineEdit_isci_editingFinished();
     void on_pushButton_dodajNovProdukt_clicked();
     void on_lineEdit_popust_textChanged();
     void on_lineEdit_popust_editingFinished();
+    void on_lineEdit_isci_textChanged();
 
 private:
     Ui::NovRacun *ui;

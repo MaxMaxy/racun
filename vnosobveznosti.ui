@@ -10,6 +10,13 @@
     <height>396</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>MS Sans Serif</family>
+    <pointsize>10</pointsize>
+    <italic>true</italic>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
@@ -71,7 +78,7 @@
       <widget class="QLineEdit" name="lineEdit_listina">
        <property name="font">
         <font>
-         <family>Arial</family>
+         <family>MS Sans Serif</family>
          <pointsize>10</pointsize>
          <italic>true</italic>
         </font>
@@ -105,7 +112,7 @@
       <widget class="QLineEdit" name="lineEdit_dobavitelj">
        <property name="font">
         <font>
-         <family>Arial</family>
+         <family>MS Sans Serif</family>
          <pointsize>10</pointsize>
          <italic>true</italic>
         </font>
@@ -139,7 +146,7 @@
       <widget class="QLineEdit" name="lineEdit_znesek">
        <property name="font">
         <font>
-         <family>Arial</family>
+         <family>MS Sans Serif</family>
          <pointsize>10</pointsize>
          <italic>true</italic>
         </font>
@@ -173,7 +180,7 @@
       <widget class="QDateEdit" name="dateEdit_valute">
        <property name="font">
         <font>
-         <family>Arial</family>
+         <family>MS Sans Serif</family>
          <pointsize>10</pointsize>
          <italic>true</italic>
         </font>
@@ -207,7 +214,7 @@
       <widget class="QLineEdit" name="lineEdit_opombe">
        <property name="font">
         <font>
-         <family>Arial</family>
+         <family>MS Sans Serif</family>
          <pointsize>10</pointsize>
          <italic>true</italic>
         </font>

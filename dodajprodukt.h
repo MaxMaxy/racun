@@ -32,7 +32,7 @@ private slots:
     void on_comboBox_podjetje_currentIndexChanged();
     void on_treeWidget_doubleClicked(const QModelIndex &index);
     void on_pushButton_popravi_clicked();
-    void on_lineEdit_isci_editingFinished();
+    void on_lineEdit_isci_textChanged();
 
 private:
     Ui::DodajProdukt *ui;

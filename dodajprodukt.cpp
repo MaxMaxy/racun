@@ -7,12 +7,12 @@ DodajProdukt::DodajProdukt(QWidget *parent) :
     ui->setupUi(this);
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
+    this->setWindowFlags(Qt::Window);
     ui->treeWidget->setColumnCount(3);
     ui->treeWidget->setColumnWidth(0,100);
     ui->treeWidget->setColumnWidth(1,450);
     ui->lineEdit_id->setMaxLength(7);
     ui->lineEdit_nazivProdukta->setMaxLength(64);
-    ui->comboBox_podjetje->setFocus();
     QRegularExpression regenum("^[0123456789]*$");
     QValidator *validatornum = new QRegularExpressionValidator(regenum, this);
     ui->lineEdit_id->setValidator(validatornum);
@@ -23,6 +23,8 @@ DodajProdukt::DodajProdukt(QWidget *parent) :
     QValidator *validatoralfabet = new QRegularExpressionValidator(regealfabet, this);
     ui->lineEdit_nazivProdukta->setValidator(validatoralfabet);
     this->setWindowTitle("Dodaj/popravi produkt");
+    ui->pushButton_isci->setFocus();
+    ui->pushButton_isci->setVisible(false);
     AddItemsToCombo();
     Read();
 }
@@ -57,7 +59,7 @@ void DodajProdukt::AddRoot(QString id, QString naziv, QString cena)
     // nastavimo stevilko podjetja in ime podjetja v colom 0 in 1
     itm->setText(0, id);
     itm->setText(1, naziv);
-    itm->setText(2, cena + "€");
+    itm->setText(2, "€" + cena);
     // dodamo podjetje v treeWidget
     ui->treeWidget->addTopLevelItem(itm);
     // nastavimo barvo za vsako drugo podjetje
@@ -200,6 +202,9 @@ void DodajProdukt::on_pushButton_dodaj_clicked()
     QString dodano = "Dodano";
     QString arhiv = dodano + " ; " + date.toString("dd.MM.yyyy ; hh:mm:ss.zzz") + " ; " + m_id + " ; " + m_naziv + " ; " + m_cena + " ; " + "Rajh" + " !?!";
     Arhiv(m_arhivProdukti, arhiv);
+    ui->lineEdit_id->clear();
+    ui->lineEdit_nazivProdukta->clear();
+    ui->lineEdit_cena->clear();
 }
 
 void DodajProdukt::on_comboBox_podjetje_currentIndexChanged()
@@ -299,6 +304,9 @@ void DodajProdukt::on_pushButton_popravi_clicked()
     QString popravljeno = "Popravljeno";
     QString arhiv = popravljeno + " ; " + date.toString("dd.MM.yyyy ; hh:mm:ss.zzz") + " ; " + m_id + " ; " + m_naziv + " ; " + m_cena + " ; " + "Rajh" + " !?!";
     Arhiv(m_arhivProdukti, arhiv);
+    ui->lineEdit_id->clear();
+    ui->lineEdit_nazivProdukta->clear();
+    ui->lineEdit_cena->clear();
 }
 
 
@@ -339,8 +347,7 @@ void DodajProdukt::Search(QString searchName)
     mFile.close();
 }
 
-
-void DodajProdukt::on_lineEdit_isci_editingFinished()
+void DodajProdukt::on_lineEdit_isci_textChanged()
 {
     QString search = ui->lineEdit_isci->text();
     if(search == "")

@@ -8,7 +8,9 @@ Arhiv::Arhiv(QWidget *parent) :
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
     this->setWindowTitle("Arhiv");
-    ui->comboBox->setFocus();
+    this->setWindowFlags(Qt::Window);
+    ui->pushButton_isci->setFocus();
+    ui->pushButton_isci->setVisible(false);
     AddItemsToCombo();
 }
 
@@ -193,18 +195,6 @@ void Arhiv::Search(QString searchName)
 }
 
 // radial button editing options
-void Arhiv::on_lineEdit_isci_editingFinished()
-{
-    QString search = ui->lineEdit_isci->text();
-    if(search == "")
-        Read();
-    else
-    {
-        ui->listWidget->clear();
-        Search(search);
-    }
-}
-
 void Arhiv::on_radioButton_uspesnaPrijava_toggled(bool checked)
 {
     ui->listWidget->clear();
@@ -287,4 +277,16 @@ void Arhiv::on_radioButton_spremenjeniRacuni_toggled(bool checked)
     ui->listWidget->clear();
     if(checked)
         Search("Sprememba racuna");
+}
+
+void Arhiv::on_lineEdit_isci_textChanged()
+{
+    QString search = ui->lineEdit_isci->text();
+    if(search == "")
+        Read();
+    else
+    {
+        ui->listWidget->clear();
+        Search(search);
+    }
 }

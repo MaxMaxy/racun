@@ -9,6 +9,7 @@ Terjatve::Terjatve(QWidget *parent) :
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
     this->setWindowTitle("Terjatve in obveznosti");
+    this->setWindowFlags(Qt::Window);
     ui->dateEdit_obveznostiOd->setDisplayFormat("d. M. yyyy");
     ui->dateEdit_obveznostiDo->setDisplayFormat("d. M. yyyy");
     ui->dateEdit_terjatveOd->setDisplayFormat("d. M. yyyy");
@@ -24,14 +25,14 @@ Terjatve::Terjatve(QWidget *parent) :
     ui->treeWidget_obveznosti->setSortingEnabled(true);
     ui->treeWidget_terjatve->setSortingEnabled(true);
     AddItemsToComboBox();
-    ui->label_skupajTerjatve->setText("€" + QString::number(m_totalTerjatve));
-    ui->label_skupajObveznosti->setText("€" + QString::number(m_totalObveznosti));
+    ui->label_skupajTerjatve->setText("€" + QString::number(m_totalTerjatve, 'f', 2));
+    ui->label_skupajObveznosti->setText("€" + QString::number(m_totalObveznosti, 'f', 2));
     if(m_totalTerMinObv < 0)
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: red;}");
     else
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: green}");
-    ui->label_terjatve_obveznosti->setText("€" + QString::number(m_totalTerMinObv));
-    ui->comboBox_stranke->setFocus();
+    ui->label_terjatve_obveznosti->setText("€" + QString::number(m_totalTerMinObv, 'f', 2));
+    ui->pushButton_isci->setFocus();
 }
 
 Terjatve::~Terjatve()
@@ -367,15 +368,6 @@ void Terjatve::on_dateEdit_terjatveDo_editingFinished()
      ReadTerjatve();
 }
 
-void Terjatve::on_lineEdit_iskalnikTerjatve_editingFinished()
-{
-    ui->dateEdit_terjatveOd->setDate(QDate(QDate::currentDate().year(),1,1));
-    ui->dateEdit_terjatveDo->setDate(QDate::currentDate());
-    ui->treeWidget_terjatve->clear();
-    QString search = ui->lineEdit_iskalnikTerjatve->text();
-    Search(search, m_terjatve, true);
-}
-
 // vnos obveznosti
 void Terjatve::on_pushButton_clicked()
 {
@@ -385,13 +377,13 @@ void Terjatve::on_pushButton_clicked()
     ui->treeWidget_obveznosti->clear();
     AddItemsToComboBox();
     ReadObveznosti();
-    ui->label_skupajTerjatve->setText("€" + QString::number(m_totalTerjatve));
-    ui->label_skupajObveznosti->setText("€" + QString::number(m_totalObveznosti));
+    ui->label_skupajTerjatve->setText("€" + QString::number(m_totalTerjatve, 'f', 2));
+    ui->label_skupajObveznosti->setText("€" + QString::number(m_totalObveznosti, 'f', 2));
     if(m_totalTerMinObv < 0)
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: red;}");
     else
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: green}");
-    ui->label_terjatve_obveznosti->setText("€" + QString::number(m_totalTerMinObv));
+    ui->label_terjatve_obveznosti->setText("€" + QString::number(m_totalTerMinObv, 'f', 2));
 }
 
 void Terjatve::on_comboBox_upniki_currentIndexChanged()
@@ -419,15 +411,6 @@ void Terjatve::on_dateEdit_obveznostiDo_editingFinished()
     ReadObveznosti();
 }
 
-void Terjatve::on_lineEdit_iskalnikObveznosti_editingFinished()
-{
-    ui->dateEdit_obveznostiOd->setDate(QDate(QDate::currentDate().year(),1,1));
-    ui->dateEdit_obveznostiDo->setDate(QDate::currentDate());
-    ui->treeWidget_obveznosti->clear();
-    QString search = ui->lineEdit_iskalnikObveznosti->text();
-    Search(search, m_obveznosti, false);
-}
-
 // vnos nov racun
 void Terjatve::on_pushButton_2_clicked()
 {
@@ -436,13 +419,13 @@ void Terjatve::on_pushButton_2_clicked()
     racun.exec();
     AddItemsToComboBox();
     ReadTerjatve();
-    ui->label_skupajTerjatve->setText("€" + QString::number(m_totalTerjatve));
-    ui->label_skupajObveznosti->setText("€" + QString::number(m_totalObveznosti));
+    ui->label_skupajTerjatve->setText("€" + QString::number(m_totalTerjatve, 'f', 2));
+    ui->label_skupajObveznosti->setText("€" + QString::number(m_totalObveznosti, 'f', 2));
     if(m_totalTerMinObv < 0)
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: red;}");
     else
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: green}");
-    ui->label_terjatve_obveznosti->setText("€" + QString::number(m_totalTerMinObv));
+    ui->label_terjatve_obveznosti->setText("€" + QString::number(m_totalTerMinObv, 'f', 2));
 }
 
 void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
@@ -522,13 +505,13 @@ void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
     }
     AddItemsToComboBox();
     ReadTerjatve();
-    ui->label_skupajTerjatve->setText("€" + QString::number(m_totalTerjatve));
-    ui->label_skupajObveznosti->setText("€" + QString::number(m_totalObveznosti));
+    ui->label_skupajTerjatve->setText("€" + QString::number(m_totalTerjatve, 'f', 2));
+    ui->label_skupajObveznosti->setText("€" + QString::number(m_totalObveznosti, 'f', 2));
     if(m_totalTerMinObv < 0)
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: red;}");
     else
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: green}");
-    ui->label_terjatve_obveznosti->setText("€" + QString::number(m_totalTerMinObv));
+    ui->label_terjatve_obveznosti->setText("€" + QString::number(m_totalTerMinObv, 'f', 2));
 }
 
 void Terjatve::on_treeWidget_obveznosti_itemDoubleClicked(QTreeWidgetItem *item)
@@ -606,13 +589,13 @@ void Terjatve::on_treeWidget_obveznosti_itemDoubleClicked(QTreeWidgetItem *item)
     }
     AddItemsToComboBox();
     ReadObveznosti();
-    ui->label_skupajTerjatve->setText("€" + QString::number(m_totalTerjatve));
-    ui->label_skupajObveznosti->setText("€" + QString::number(m_totalObveznosti));
+    ui->label_skupajTerjatve->setText("€" + QString::number(m_totalTerjatve, 'f', 2));
+    ui->label_skupajObveznosti->setText("€" + QString::number(m_totalObveznosti, 'f', 2));
     if(m_totalTerMinObv < 0)
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: red;}");
     else
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: green}");
-    ui->label_terjatve_obveznosti->setText("€" + QString::number(m_totalTerMinObv));
+    ui->label_terjatve_obveznosti->setText("€" + QString::number(m_totalTerMinObv, 'f', 2));
 }
 
 void Terjatve::on_pushButton_statistika_clicked()
@@ -620,4 +603,22 @@ void Terjatve::on_pushButton_statistika_clicked()
     Statistic statistika;
     statistika.setModal(true);
     statistika.exec();
+}
+
+void Terjatve::on_lineEdit_iskalnikTerjatve_textChanged()
+{
+    ui->dateEdit_terjatveOd->setDate(QDate(QDate::currentDate().year(),1,1));
+    ui->dateEdit_terjatveDo->setDate(QDate::currentDate());
+    ui->treeWidget_terjatve->clear();
+    QString search = ui->lineEdit_iskalnikTerjatve->text();
+    Search(search, m_terjatve, true);
+}
+
+void Terjatve::on_lineEdit_iskalnikObveznosti_textChanged()
+{
+    ui->dateEdit_obveznostiOd->setDate(QDate(QDate::currentDate().year(),1,1));
+    ui->dateEdit_obveznostiDo->setDate(QDate::currentDate());
+    ui->treeWidget_obveznosti->clear();
+    QString search = ui->lineEdit_iskalnikObveznosti->text();
+    Search(search, m_obveznosti, false);
 }

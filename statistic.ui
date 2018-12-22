@@ -10,6 +10,13 @@
     <height>941</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>MS Sans Serif</family>
+    <pointsize>10</pointsize>
+    <italic>true</italic>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
@@ -76,12 +83,15 @@
             <widget class="QComboBox" name="comboBox_podjetja">
              <property name="font">
               <font>
-               <family>Arial</family>
-               <pointsize>10</pointsize>
+               <family>MS Sans Serif</family>
+               <pointsize>12</pointsize>
                <italic>true</italic>
               </font>
              </property>
             </widget>
+           </item>
+           <item>
+            <widget class="QDateEdit" name="dateEdit"/>
            </item>
           </layout>
          </item>
@@ -106,16 +116,18 @@
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_3">
              <item>
-              <widget class="QPushButton" name="pushButton_izpis">
+              <widget class="QPushButton" name="pushButton_isci">
                <property name="font">
                 <font>
                  <family>MS Sans Serif</family>
-                 <pointsize>10</pointsize>
+                 <pointsize>12</pointsize>
+                 <weight>75</weight>
                  <italic>true</italic>
+                 <bold>true</bold>
                 </font>
                </property>
                <property name="text">
-                <string>Izpis</string>
+                <string>Posodobi</string>
                </property>
               </widget>
              </item>
@@ -471,8 +483,10 @@
   </customwidget>
  </customwidgets>
  <tabstops>
+  <tabstop>pushButton_isci</tabstop>
   <tabstop>comboBox_podjetja</tabstop>
-  <tabstop>pushButton_izpis</tabstop>
+  <tabstop>tableWidget_vse</tabstop>
+  <tabstop>tableWidget_brez</tabstop>
   <tabstop>pushButton_izhod</tabstop>
  </tabstops>
  <resources/>
@@ -484,8 +498,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>66</x>
-     <y>651</y>
+     <x>77</x>
+     <y>929</y>
     </hint>
     <hint type="destinationlabel">
      <x>377</x>

@@ -28,7 +28,6 @@ public:
 
 private slots:
     void on_comboBox_currentIndexChanged(const QString&);
-    void on_lineEdit_isci_editingFinished();
     void on_radioButton_uspesnaPrijava_toggled(bool);
     void on_radioButton_vse_toggled(bool);
     void on_radioButton_neuspesnaPrijava_toggled(bool);
@@ -37,10 +36,9 @@ private slots:
     void on_radioButton_dodaneStranke_toggled(bool);
     void on_radioButton_popravljeneStranke_toggled(bool);
     void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
-
     void on_radioButton_noviRacuni_toggled(bool checked);
-
     void on_radioButton_spremenjeniRacuni_toggled(bool checked);
+    void on_lineEdit_isci_textChanged();
 
 private:
     Ui::Arhiv *ui;

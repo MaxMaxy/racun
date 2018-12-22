@@ -16,6 +16,13 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
+  <property name="font">
+   <font>
+    <family>MS Sans Serif</family>
+    <pointsize>10</pointsize>
+    <italic>true</italic>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
@@ -75,7 +82,7 @@
         <bool>true</bool>
        </property>
        <property name="plainText">
-        <string>Trenutna verzija 0.9.9
+        <string>Trenutna verzija 0.9.9.1
 
 Avtor: Nejc Sedovnik
 Datum: november 2017
@@ -166,6 +173,9 @@ v0.9.9
     - stilski popravki racuna
     - pod testi deluje vse
 
+v0.9.9.1
+    - dograjena statistika
+
 TO_DO:
     - moznost posiljanja racuna po emailu strankam
     - printanje deluje preko AdobeReaderja
@@ -213,8 +223,8 @@ TO_DO:
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>265</x>
-     <y>341</y>
+     <x>275</x>
+     <y>326</y>
     </hint>
     <hint type="destinationlabel">
      <x>263</x>
