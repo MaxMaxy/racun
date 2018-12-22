@@ -43,7 +43,7 @@ public:
     void Arhiv(QString, QString);
     void Shrani();
     void MakeXML();
-    void PopraviRacun(QString, QString, QString, QString, QString, QString, QString, QString);
+    void PopraviRacun(QString, QString, QString, QString, QString, QString, QString, QString, QString, QString);
     QString CenaDDV(QString, QString);
 
 

@@ -497,15 +497,14 @@ void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
             QString datum = tmp_list.at(15);
             datum.remove("Dat_placila: ");
             datum.remove(0,1);
+            if(opomba == " ") opomba = "";
+            if(cena == " ") cena = "";
             placilo.setOpombe(opomba, cena, datum);
             placilo.exec();
             placiloList = placilo.on_pushButton_clicked();
             tmp.replace(QString(tmp_list.at(14)), QString(" Placilo: " + placiloList.at(0)));
             tmp.replace(QString(tmp_list.at(15)), QString(" Dat_placila: " + placiloList.at(1)));
             tmp.replace(QString(tmp_list.at(12)), QString(" Opomba: " + placiloList.at(2)));
-            qDebug() << allText;
-            qDebug() << text_stRacuna;
-            qDebug() << tmp;
             allText.replace(text_stRacuna, tmp);
             mFile.close();
             if(!mFile.open(QFile::WriteOnly | QFile::Truncate | QFile::Text))

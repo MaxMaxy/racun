@@ -1061,7 +1061,7 @@ void NovRacun::MakeXML()
     }
 }
 
-void NovRacun::PopraviRacun(QString stranka, QString stevilka_racuna, QString vezni_dokument, QString datum, QString opomba, QString produkti, QString osnova, QString popust)
+void NovRacun::PopraviRacun(QString stranka, QString stevilka_racuna, QString vezni_dokument, QString datum, QString opomba, QString produkti, QString osnova, QString ddv, QString skupaj, QString popust)
 {
     ui->comboBox_narocnik->setCurrentText(stranka);
     ui->lineEdit_stRacuna->setText(stevilka_racuna);
@@ -1072,7 +1072,6 @@ void NovRacun::PopraviRacun(QString stranka, QString stevilka_racuna, QString ve
     ui->lineEdit->setText(opomba);
     popust.remove("(end)");
     ui->lineEdit_popust->setText(popust);
-    QStringList produkti_list = produkti.split(" | ", QString::SkipEmptyParts);
     QStringList tmp_list;
     QString tmp_string;
     QString tmp_string1;
@@ -1080,31 +1079,45 @@ void NovRacun::PopraviRacun(QString stranka, QString stevilka_racuna, QString ve
     QString tmp_string3;
     QVector<QTreeWidgetItem*> itms;
     double m_osnova(0);
-    for(int i(0); i < produkti_list.length(); i++)
-    {
+    if(produkti == " ") {
         QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget_dodani);
-        tmp_string = produkti_list.at(i);
-        tmp_list = tmp_string.split(" - ", QString::SkipEmptyParts);
-        tmp_string = tmp_list.at(0);
-        tmp_string.remove("(");
-        tmp_string.remove(")");
-        tmp_string1 = tmp_list.at(1);
-        tmp_string2 = tmp_list.at(2);
-        tmp_string2.remove("(");
-        tmp_string2.remove(")");
-        tmp_string2.remove(-1,1);
-        tmp_string3 = tmp_list.at(3);
-        m_osnova += (tmp_string2.toDouble() * tmp_string3.toInt());
-        tmp_string2.prepend("€");
-        itm->setText(0, tmp_string);
-        itm->setText(1, tmp_string1);
-        itm->setText(2, tmp_string2);
-        itm->setText(3, tmp_string3);
+        itm->setText(0, "");
+        itm->setText(1, "");
+        itm->setText(2, "");
+        itm->setText(3, "");
         itms.append(itm);
-        ui->treeWidget_dodani->addTopLevelItem(itms.at(i));
-        tmp_list.clear();
-        m_itemsAdded++;
+        ui->treeWidget_dodani->addTopLevelItem(itms.at(0));
+        m_itemsAdded = 1;
+        delete ui->treeWidget_dodani->takeTopLevelItem(ui->treeWidget_dodani->indexOfTopLevelItem(itm));
+    } else {
+        QStringList produkti_list = produkti.split(" | ", QString::SkipEmptyParts);
+        for(int i(0); i < produkti_list.length(); i++)
+        {
+            QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget_dodani);
+            tmp_string = produkti_list.at(i);
+            tmp_list = tmp_string.split(" - ", QString::SkipEmptyParts);
+            tmp_string = tmp_list.at(0);
+            tmp_string.remove("(");
+            tmp_string.remove(")");
+            tmp_string1 = tmp_list.at(1);
+            tmp_string2 = tmp_list.at(2);
+            tmp_string2.remove("(");
+            tmp_string2.remove(")");
+            tmp_string3 = tmp_list.at(3);
+            m_osnova += (tmp_string2.toDouble() * tmp_string3.toInt());
+            qDebug() << tmp_string2;
+            tmp_string2.prepend("€");
+            itm->setText(0, tmp_string);
+            itm->setText(1, tmp_string1);
+            itm->setText(2, tmp_string2);
+            itm->setText(3, tmp_string3);
+            itms.append(itm);
+            ui->treeWidget_dodani->addTopLevelItem(itms.at(i));
+            tmp_list.clear();
+            m_itemsAdded++;
+        }
     }
+    qDebug() << m_osnova;
     ui->label_osnova->setText("€" + QString::number(m_osnova));
     m_total = osnova.toDouble();
     double m_pop = ui->lineEdit_popust->text().toDouble();
@@ -1504,7 +1517,7 @@ int NovRacun::creatPDF()
     // Arhivski del
     QDate inputDate = ui->dateEdit->date();
     QDateTime date = QDateTime::currentDateTime();
-    QString items;
+    QString items(" ");
     QString product;
     for(int i(0); i < m_itemsAdded; i++)
     {
@@ -1522,6 +1535,7 @@ int NovRacun::creatPDF()
         items.append(product);
         items.append(" | ");
     }
+    items.remove("€");
 
     QFile mFile(m_arhivLogin);
     if(!mFile.open(QFile::ReadOnly | QFile::Text))
@@ -1544,10 +1558,10 @@ int NovRacun::creatPDF()
     sum_osnova.remove("€");
     sum_ddv.remove("€");
     sum_skupaj.remove("€");
-    QString st_racuna("/");
-    QString st_sklic("/");
-    QString text_opomba("/");
-    QString nov_sprememba("");
+    QString st_racuna(" ");
+    QString st_sklic(" ");
+    QString text_opomba(" ");
+    QString nov_sprememba(" ");
     if(m_sprememba)
         nov_sprememba = "Sprememba racuna ; ";
     else
@@ -1570,7 +1584,7 @@ int NovRacun::creatPDF()
             + "Sum_skupaj: " + sum_skupaj + " ; "
             + "Opomba: " + text_opomba + " ; "
             + "Rac_napisal: " + mText + " ; "
-            + "Placilo: " + "" + " ; " + "Dat_placila: " + "" + " ; " + "Opomba: " + "" + " ; Popust: " + ui->lineEdit_popust->text() + "(end)" ;
+            + "Placilo: " + " " + " ; " + "Dat_placila: " + " " + " ; " + "Opomba: " + " " + " ; Popust: " + ui->lineEdit_popust->text() + " (end)" ;
     Arhiv(m_arhivNovRacun, arhiv);
     arhiv = ui->lineEdit_stRacuna->text();
     QStringList arhivLine = arhiv.split("-", QString::SkipEmptyParts);
