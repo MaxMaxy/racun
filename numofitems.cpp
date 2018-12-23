@@ -8,9 +8,11 @@ NumOfItems::NumOfItems(QWidget *parent) :
     ui->setupUi(this);
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
-    this->setWindowTitle("Stevilo kosov");
+    this->setWindowTitle("Število kosov");
     ui->lineEdit_steviloKosov->setFocus();
-    ui->lineEdit_steviloKosov->setValidator(new QIntValidator(0, 1000000, this));
+    QRegularExpression regex("^[.0123456789]*$");
+    QValidator *validator = new QRegularExpressionValidator(regex, this);
+    ui->lineEdit_steviloKosov->setValidator(validator);
 }
 
 NumOfItems::~NumOfItems()

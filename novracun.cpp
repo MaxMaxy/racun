@@ -8,7 +8,7 @@ NovRacun::NovRacun(QWidget *parent) :
     ui->setupUi(this);
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
-    this->setWindowTitle("Nov racun");
+    this->setWindowTitle("Nov račun");
     this->setWindowFlags(Qt::Window);
     ui->treeWidget_seznam->setColumnCount(3);
     ui->treeWidget_seznam->setColumnWidth(0,70);

@@ -22,7 +22,7 @@ DodajProdukt::DodajProdukt(QWidget *parent) :
     QRegularExpression regealfabet("^[a-zA-Z0-9,@. -/&#čšžŠČŽ]*$");
     QValidator *validatoralfabet = new QRegularExpressionValidator(regealfabet, this);
     ui->lineEdit_nazivProdukta->setValidator(validatoralfabet);
-    this->setWindowTitle("Dodaj/popravi produkt");
+    this->setWindowTitle("Dodaj - popravi produkt");
     ui->pushButton_isci->setFocus();
     ui->pushButton_isci->setVisible(false);
     ui->treeWidget->setRootIsDecorated(false);
@@ -82,7 +82,6 @@ void DodajProdukt::AddRoot(QString id, QString naziv, QString cena)
         m_count = true;
     }
 }
-
 
 // Preberi produkt iz file-a
 void DodajProdukt::Read()
@@ -312,7 +311,6 @@ void DodajProdukt::on_pushButton_popravi_clicked()
     ui->lineEdit_cena->clear();
 }
 
-
 void DodajProdukt::Search(QString searchName)
 {
     int izbPod = ui->comboBox_podjetje->currentIndex() + 1;
@@ -355,8 +353,7 @@ void DodajProdukt::on_lineEdit_isci_textChanged()
     QString search = ui->lineEdit_isci->text();
     if(search == "")
         Read();
-    else
-    {
+    else {
         ui->treeWidget->clear();
         Search(search);
     }

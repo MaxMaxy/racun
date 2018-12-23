@@ -18,7 +18,7 @@ DodajPodjetje::DodajPodjetje(QWidget *parent) :
     ui->lineEdit_posta->setValidator(validator);
     ui->lineEdit_ddv->setValidator(validator);
     ui->lineEdit_email->setValidator(validator);
-    this->setWindowTitle("Dodaj/popravi stranko");
+    this->setWindowTitle("Dodaj - popravi stranko");
     Read();
     TotalCompany();
 }

@@ -5,6 +5,9 @@
 #include <QFile>
 #include <QDir>
 #include <QDebug>
+#include <QTreeWidgetItem>
+#include <QString>
+#include "numofitems.h"
 
 namespace Ui {
 class Kalkulacija;
@@ -17,14 +20,33 @@ class Kalkulacija : public QDialog
 public:
     explicit Kalkulacija(QWidget *parent = nullptr);
     ~Kalkulacija();
-    void Read();
+    void Read(QString, QTreeWidget *);
     void AddItemsToCombo();
+    void AddRoot(QString, QString, QString, QTreeWidget *);
+    void Search(QString, QString, QTreeWidget *);
+
+private slots:
+    void on_lineEdit_iskalnik_textChanged(const QString &);
+    void on_treeWidget_material_itemDoubleClicked();
+    void on_treeWidget_materialProdukta_itemDoubleClicked();
+    void on_treeWidget_delo_itemDoubleClicked();
+    void on_treeWidget_deloProdukta_itemDoubleClicked();
+    void on_pushButton_dodajMaterial_clicked();
+    void on_pushButton_dodajOperacijo_clicked();
+    void on_lineEdit_kalo_textChanged();
+    void on_checkBox_popraviOperacijo_stateChanged();
+    void on_checkBox_popravekMateriala_stateChanged();
 
 private:
     Ui::Kalkulacija *ui;
     QString m_currentDir;
-    QString m_fileName;
+    QString m_companyFile;
+    QString m_material;
+    QString m_delavniProces;
     QString m_cNaziv;
+    double m_materialCena;
+    double m_deloCena;
+    bool m_count;
 };
 
 #endif // KALKULACIJA_H
