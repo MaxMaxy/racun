@@ -24,6 +24,8 @@ Terjatve::Terjatve(QWidget *parent) :
     ui->dateEdit_obveznostiDo->setDate(QDate::currentDate());
     ui->treeWidget_obveznosti->setSortingEnabled(true);
     ui->treeWidget_terjatve->setSortingEnabled(true);
+    ui->treeWidget_obveznosti->setRootIsDecorated(false);
+    ui->treeWidget_terjatve->setRootIsDecorated(false);
     AddItemsToComboBox();
     ui->label_skupajTerjatve->setText("€" + QString::number(m_totalTerjatve, 'f', 2));
     ui->label_skupajObveznosti->setText("€" + QString::number(m_totalObveznosti, 'f', 2));

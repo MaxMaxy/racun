@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>281</width>
-    <height>367</height>
+    <width>250</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -15,6 +15,18 @@
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>250</width>
+    <height>500</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>250</width>
+    <height>500</height>
+   </size>
   </property>
   <property name="font">
    <font>
@@ -33,6 +45,12 @@
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <widget class="QLabel" name="label_2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Maximum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="font">
        <font>
         <family>MS Sans Serif</family>
@@ -57,6 +75,12 @@
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QPushButton" name="pushButton_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="font">
          <font>
           <family>MS Sans Serif</family>
@@ -94,6 +118,12 @@
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_6">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="font">
          <font>
           <family>MS Sans Serif</family>
@@ -115,6 +145,12 @@
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_5">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="font">
          <font>
           <family>MS Sans Serif</family>
@@ -125,7 +161,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Terjatve / obveznosti</string>
+         <string>Terjatve - obveznosti</string>
         </property>
         <property name="icon">
          <iconset>
@@ -140,6 +176,12 @@
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_3">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="font">
          <font>
           <family>MS Sans Serif</family>
@@ -150,7 +192,7 @@
          </font>
         </property>
         <property name="text">
-         <string> Dodaj stranko</string>
+         <string> Dodaj - popravi stranko</string>
         </property>
         <property name="icon">
          <iconset>
@@ -164,6 +206,12 @@
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_4">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="font">
          <font>
           <family>MS Sans Serif</family>
@@ -174,7 +222,7 @@
          </font>
         </property>
         <property name="text">
-         <string> Dodaj / popravi produkt</string>
+         <string> Dodaj - popravi produkt</string>
         </property>
         <property name="icon">
          <iconset>
@@ -188,6 +236,12 @@
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_7">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="font">
          <font>
           <family>MS Sans Serif</family>
@@ -222,6 +276,12 @@
       </item>
       <item>
        <widget class="QPushButton" name="pushButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="font">
          <font>
           <family>MS Sans Serif</family>
@@ -295,8 +355,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>281</width>
-     <height>22</height>
+     <width>250</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuStart">

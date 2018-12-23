@@ -107,12 +107,18 @@ void Statistic::AddToTableWidget(QString fileName)
         while(!mText.atEnd())
         {
             QTableWidgetItem *itm_setSkupaj = new QTableWidgetItem();
+            itm_setSkupaj->setTextAlignment(Qt::AlignHCenter);
             QTableWidgetItem *itm_setDDV = new QTableWidgetItem();
+            itm_setDDV->setTextAlignment(Qt::AlignHCenter);
             QTableWidgetItem *itm_setOsnova = new QTableWidgetItem();
+            itm_setOsnova->setTextAlignment(Qt::AlignHCenter);
 
             QTableWidgetItem *itm_setSkupajBrezIF = new QTableWidgetItem();
+            itm_setSkupajBrezIF->setTextAlignment(Qt::AlignHCenter);
             QTableWidgetItem *itm_setDDVBrezIF = new QTableWidgetItem();
+            itm_setDDVBrezIF->setTextAlignment(Qt::AlignHCenter);
             QTableWidgetItem *itm_setOsnovaBrezIF = new QTableWidgetItem();
+            itm_setOsnovaBrezIF->setTextAlignment(Qt::AlignHCenter);
 
             mLine = mText.readLine();
             mList = mLine.split(exp, QString::SkipEmptyParts);
@@ -138,6 +144,7 @@ void Statistic::AddToTableWidget(QString fileName)
                         mSumOsnova += tmp.toDouble();
                         itm_setOsnova->setText("€" + QString::number(mSumOsnova, 'f', 2));
                         ui->tableWidget_vse->setItem(0,0,itm_setOsnova);
+
 
                         // DDV
                         num = ui->tableWidget_vse->item(0,0)->text();
