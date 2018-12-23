@@ -12,6 +12,7 @@
 #include "vnosobveznosti.h"
 #include "settings.h"
 #include "statistic.h"
+#include "kalkulacija.h"
 #include "testingdialog.h"
 
 namespace Ui {
@@ -23,7 +24,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:
@@ -40,14 +41,12 @@ private slots:
     void on_pushButton_5_clicked();
     void on_actionVnos_obveznosti_triggered();
     void on_pushButton_6_clicked();
-
     void on_actionNastavitve_triggered();
-
     void on_actionStatistika_triggered();
-
     void on_pushButton_7_clicked();
-
     void on_actionTesting_triggered();
+    void on_pushButton_8_clicked();
+    void on_actionKalkulacija_produkta_triggered();
 
 private:
     Ui::MainWindow *ui;

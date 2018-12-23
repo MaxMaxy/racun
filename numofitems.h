@@ -14,7 +14,7 @@ class NumOfItems : public QDialog
     Q_OBJECT
 
 public:
-    explicit NumOfItems(QWidget *parent = 0);
+    explicit NumOfItems(QWidget *parent = nullptr);
     ~NumOfItems();
     QString m_numKosov;
 

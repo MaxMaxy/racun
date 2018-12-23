@@ -15,7 +15,7 @@ class PlaciloRacuna : public QDialog
     Q_OBJECT
 
 public:
-    explicit PlaciloRacuna(QWidget *parent = 0);
+    explicit PlaciloRacuna(QWidget *parent = nullptr);
     ~PlaciloRacuna();
     void setOpombe(QString&, QString&, QString&);
 

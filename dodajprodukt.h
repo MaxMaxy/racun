@@ -19,7 +19,7 @@ class DodajProdukt : public QDialog
     Q_OBJECT
 
 public:
-    explicit DodajProdukt(QWidget *parent = 0);
+    explicit DodajProdukt(QWidget *parent = nullptr);
     ~DodajProdukt();
     void AddItemsToCombo();
     void AddRoot(QString, QString, QString);

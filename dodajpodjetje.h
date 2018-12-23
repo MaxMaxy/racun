@@ -20,7 +20,7 @@ class DodajPodjetje : public QDialog
     Q_OBJECT
 
 public:
-    explicit DodajPodjetje(QWidget *parent = 0);
+    explicit DodajPodjetje(QWidget *parent = nullptr);
     ~DodajPodjetje();
 
     void TotalCompany();

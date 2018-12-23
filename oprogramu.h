@@ -13,7 +13,7 @@ class Oprogramu : public QDialog
     Q_OBJECT
 
 public:
-    explicit Oprogramu(QWidget *parent = 0);
+    explicit Oprogramu(QWidget *parent = nullptr);
     ~Oprogramu();
 
 private:

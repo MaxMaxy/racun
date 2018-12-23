@@ -20,7 +20,7 @@ class Arhiv : public QDialog
     Q_OBJECT
 
 public:
-    explicit Arhiv(QWidget *parent = 0);
+    explicit Arhiv(QWidget *parent = nullptr);
     ~Arhiv();
     void Read();
     void AddItemsToCombo();

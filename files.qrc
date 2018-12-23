@@ -12,6 +12,7 @@
         <file>icon.ico</file>
         <file>statistic.png</file>
         <file>zig.png</file>
-	<file>podpis.png</file>
+        <file>podpis.png</file>
+        <file>calculation.png</file>
     </qresource>
 </RCC>

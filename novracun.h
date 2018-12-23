@@ -33,7 +33,7 @@ class NovRacun : public QDialog
     Q_OBJECT
 
 public:
-    explicit NovRacun(QWidget *parent = 0);
+    explicit NovRacun(QWidget *parent = nullptr);
     ~NovRacun();
     void Read();
     void AddItemsToCombo();

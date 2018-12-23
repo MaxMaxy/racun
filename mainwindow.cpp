@@ -115,6 +115,7 @@ void MainWindow::on_actionVnos_obveznosti_triggered()
     obveznost.exec();
 }
 
+// action nastavitve
 void MainWindow::on_actionNastavitve_triggered()
 {
     Settings settings;
@@ -122,6 +123,7 @@ void MainWindow::on_actionNastavitve_triggered()
     settings.exec();
 }
 
+// action statistika
 void MainWindow::on_actionStatistika_triggered()
 {
     Statistic statistika;
@@ -129,9 +131,26 @@ void MainWindow::on_actionStatistika_triggered()
     statistika.exec();
 }
 
+// action testing
 void MainWindow::on_actionTesting_triggered()
 {
     TestingDialog testing;
     testing.setModal(true);
     testing.exec();
+}
+
+// kalkulacija gumb
+void MainWindow::on_pushButton_8_clicked()
+{
+    Kalkulacija kalkulacija;
+    kalkulacija.setModal(true);
+    kalkulacija.exec();
+}
+
+// action kalkulacija
+void MainWindow::on_actionKalkulacija_produkta_triggered()
+{
+    Kalkulacija kalkulacija;
+    kalkulacija.setModal(true);
+    kalkulacija.exec();
 }

@@ -42,8 +42,8 @@
   <widget class="QLineEdit" name="lineEdit_stRacuna">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>30</y>
+     <x>30</x>
+     <y>50</y>
      <width>113</width>
      <height>23</height>
     </rect>

@@ -235,6 +235,36 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="pushButton_8">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Kalkulacija produkta</string>
+        </property>
+        <property name="icon">
+         <iconset resource="files.qrc">
+          <normaloff>:/icons/calculation.png</normaloff>:/icons/calculation.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="pushButton_7">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -368,6 +398,7 @@
     <addaction name="actionTerjatve_obveznosti"/>
     <addaction name="actionDodaj_podjetje"/>
     <addaction name="actionDodaj_produkt"/>
+    <addaction name="actionKalkulacija_produkta"/>
     <addaction name="actionStatistika"/>
     <addaction name="separator"/>
     <addaction name="actionArhiv"/>
@@ -475,7 +506,7 @@
     <string>Arhiv</string>
    </property>
    <property name="shortcut">
-    <string>F7</string>
+    <string>F8</string>
    </property>
   </action>
   <action name="actionTerjatve_obveznosti">
@@ -514,7 +545,7 @@
     <string>Nastavitve</string>
    </property>
    <property name="shortcut">
-    <string>F8</string>
+    <string>F9</string>
    </property>
   </action>
   <action name="actionStatistika">
@@ -527,7 +558,7 @@
     <string>Statistika</string>
    </property>
    <property name="shortcut">
-    <string>F6</string>
+    <string>F7</string>
    </property>
   </action>
   <action name="actionTesting">
@@ -536,6 +567,18 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+T</string>
+   </property>
+  </action>
+  <action name="actionKalkulacija_produkta">
+   <property name="icon">
+    <iconset resource="files.qrc">
+     <normaloff>:/icons/calculation.png</normaloff>:/icons/calculation.png</iconset>
+   </property>
+   <property name="text">
+    <string>Kalkulacija produkta</string>
+   </property>
+   <property name="shortcut">
+    <string>F6</string>
    </property>
   </action>
  </widget>

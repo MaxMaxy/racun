@@ -17,7 +17,7 @@ class VnosObveznosti : public QDialog
     Q_OBJECT
 
 public:
-    explicit VnosObveznosti(QWidget *parent = 0);
+    explicit VnosObveznosti(QWidget *parent = nullptr);
     ~VnosObveznosti();
     void VnosObv();
     void VnosUpnika();

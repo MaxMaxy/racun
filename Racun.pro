@@ -47,7 +47,8 @@ SOURCES += \
     settings.cpp \
     statistic.cpp \
     qcustomplot.cpp \
-    testingdialog.cpp
+    testingdialog.cpp \
+    kalkulacija.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -64,7 +65,8 @@ HEADERS += \
     settings.h \
     statistic.h \
     qcustomplot.h \
-    testingdialog.h
+    testingdialog.h \
+    kalkulacija.h
 
 FORMS += \
     mainwindow.ui \
@@ -80,7 +82,8 @@ FORMS += \
     placiloracuna.ui \
     settings.ui \
     statistic.ui \
-    testingdialog.ui
+    testingdialog.ui \
+    kalkulacija.ui
 
 RESOURCES += \
     files.qrc

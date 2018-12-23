@@ -16,7 +16,7 @@ class TestingDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit TestingDialog(QWidget *parent = 0);
+    explicit TestingDialog(QWidget *parent = nullptr);
     ~TestingDialog();
     void Test();
 
