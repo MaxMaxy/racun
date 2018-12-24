@@ -420,6 +420,9 @@
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
+               <property name="styleSheet">
+                <string notr="true">QHeaderView::section{padding:7px 15px}</string>
+               </property>
                <column>
                 <property name="text">
                  <string>Naziv materiala</string>
@@ -430,6 +433,9 @@
                   <pointsize>10</pointsize>
                   <italic>true</italic>
                  </font>
+                </property>
+                <property name="textAlignment">
+                 <set>AlignCenter</set>
                 </property>
                </column>
                <column>
@@ -506,6 +512,9 @@
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
+               <property name="styleSheet">
+                <string notr="true">QHeaderView::section{padding:7px 15px}</string>
+               </property>
                <column>
                 <property name="text">
                  <string>Naziv materiala</string>
@@ -516,6 +525,9 @@
                   <pointsize>10</pointsize>
                   <italic>true</italic>
                  </font>
+                </property>
+                <property name="textAlignment">
+                 <set>AlignCenter</set>
                 </property>
                </column>
                <column>
@@ -739,6 +751,9 @@
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
+               <property name="styleSheet">
+                <string notr="true">QHeaderView::section{padding:7px 15px}</string>
+               </property>
                <column>
                 <property name="text">
                  <string>Operacija</string>
@@ -749,6 +764,9 @@
                   <pointsize>10</pointsize>
                   <italic>true</italic>
                  </font>
+                </property>
+                <property name="textAlignment">
+                 <set>AlignCenter</set>
                 </property>
                </column>
                <column>
@@ -818,6 +836,9 @@
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
+               <property name="styleSheet">
+                <string notr="true">QHeaderView::section{padding:7px 15px}</string>
+               </property>
                <column>
                 <property name="text">
                  <string>Operacija</string>
@@ -828,6 +849,9 @@
                   <pointsize>10</pointsize>
                   <italic>true</italic>
                  </font>
+                </property>
+                <property name="textAlignment">
+                 <set>AlignCenter</set>
                 </property>
                </column>
                <column>

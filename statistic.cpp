@@ -21,12 +21,12 @@ Statistic::Statistic(QWidget *parent) :
     ui->dateEdit->setMinimumDate(QDate(2018,1,1));
     ui->dateEdit->setDate(QDate(QDate::currentDate()));
     h_header_brez->setSectionResizeMode(QHeaderView::Stretch);
-    v_header_brez->setSectionResizeMode(QHeaderView::Fixed);
+    v_header_brez->setSectionResizeMode(QHeaderView::Stretch);
     v_header_brez->setDefaultSectionSize(21);
     QHeaderView *h_header_vse = ui->tableWidget_vse->horizontalHeader();
     QHeaderView *v_header_vse = ui->tableWidget_vse->verticalHeader();
     h_header_vse->setSectionResizeMode(QHeaderView::Stretch);
-    v_header_vse->setSectionResizeMode(QHeaderView::Fixed);
+    v_header_vse->setSectionResizeMode(QHeaderView::Stretch);
     v_header_vse->setDefaultSectionSize(21);
     AddToComboBox(m_fileNameCompanys);
     AddToTableWidget(m_fileRacun);

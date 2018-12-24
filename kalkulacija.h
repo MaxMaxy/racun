@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QTreeWidgetItem>
 #include <QString>
+#include <QDateTime>
 #include "numofitems.h"
 
 namespace Ui {
@@ -24,6 +25,7 @@ public:
     void AddItemsToCombo();
     void AddRoot(QString, QString, QString, QTreeWidget *);
     void Search(QString, QString, QTreeWidget *);
+    void Arhiv(QString, QString);
 
 private slots:
     void on_lineEdit_iskalnik_textChanged(const QString &);
@@ -37,12 +39,15 @@ private slots:
     void on_checkBox_popraviOperacijo_stateChanged();
     void on_checkBox_popravekMateriala_stateChanged();
 
+    void on_pushButton_vnosProdukta_clicked();
+
 private:
     Ui::Kalkulacija *ui;
     QString m_currentDir;
     QString m_companyFile;
     QString m_material;
     QString m_delavniProces;
+    QString m_arhivProdukti;
     QString m_cNaziv;
     double m_materialCena;
     double m_deloCena;

@@ -3,7 +3,7 @@
 
 Kalkulacija::Kalkulacija(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::Kalkulacija), m_currentDir(QDir::currentPath()), m_companyFile(m_currentDir + "/company_file.txt"), m_material(m_currentDir + "/material.txt"), m_delavniProces(m_currentDir + "/delavni_proces.txt"), m_cNaziv(""), m_materialCena(0.0), m_deloCena(0.0), m_count(true)
+    ui(new Ui::Kalkulacija), m_currentDir(QDir::currentPath()), m_companyFile(m_currentDir + "/company_file.txt"), m_material(m_currentDir + "/material.txt"), m_delavniProces(m_currentDir + "/delavni_proces.txt"), m_arhivProdukti(m_currentDir + "/arhiv_produkti.txt"), m_cNaziv(""), m_materialCena(0.0), m_deloCena(0.0), m_count(true)
 {
     ui->setupUi(this);
     QIcon icon(":/icons/icon.ico");
@@ -19,16 +19,23 @@ Kalkulacija::Kalkulacija(QWidget *parent) :
     ui->treeWidget_delo->setRootIsDecorated(false);
     ui->treeWidget_deloProdukta->setRootIsDecorated(false);
     ui->treeWidget_material->setColumnCount(3);
-    ui->treeWidget_material->setColumnWidth(0,250);
-    ui->treeWidget_material->setColumnWidth(1,60);
-    ui->treeWidget_materialProdukta->setColumnCount(3);
-    ui->treeWidget_materialProdukta->setColumnWidth(0,250);
-    ui->treeWidget_materialProdukta->setColumnWidth(1,60);
+    ui->treeWidget_material->header()->setSectionResizeMode(0, QHeaderView::Stretch);
+    ui->treeWidget_material->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+    ui->treeWidget_material->header()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
+    ui->treeWidget_material->header()->setStretchLastSection(false);
+    ui->treeWidget_materialProdukta->header()->setSectionResizeMode(0, QHeaderView::Stretch);
+    ui->treeWidget_materialProdukta->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+    ui->treeWidget_materialProdukta->header()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
+    ui->treeWidget_materialProdukta->header()->setStretchLastSection(false);
     ui->treeWidget_delo->setColumnCount(2);
-    ui->treeWidget_delo->setColumnWidth(0,380);
+    ui->treeWidget_delo->header()->setSectionResizeMode(0, QHeaderView::Stretch);
+    ui->treeWidget_delo->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+    ui->treeWidget_delo->header()->setStretchLastSection(false);
     ui->treeWidget_deloProdukta->setColumnCount(3);
-    ui->treeWidget_deloProdukta->setColumnWidth(0,250);
-    ui->treeWidget_deloProdukta->setColumnWidth(1,60);
+    ui->treeWidget_deloProdukta->header()->setSectionResizeMode(0, QHeaderView::Stretch);
+    ui->treeWidget_deloProdukta->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+    ui->treeWidget_deloProdukta->header()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
+    ui->treeWidget_deloProdukta->header()->setStretchLastSection(false);
     ui->pushButton_isci->setVisible(false);
     QRegularExpression regex("^[a-zA-Z0-9,@. -/&#čšžŠČŽ]*$");
     QValidator *validator = new QRegularExpressionValidator(regex, this);
@@ -147,7 +154,7 @@ void Kalkulacija::Search(QString searchName, QString file, QTreeWidget *tree) {
             QRegExp rx("[;]");
             QStringList list;
             list = line.split(rx, QString::SkipEmptyParts);
-                AddRoot(list.at(0), list.at(1), list.at(2), tree);
+            AddRoot(list.at(0), list.at(1), list.at(2), tree);
         }
     }
     mFile.close();
@@ -195,8 +202,7 @@ void Kalkulacija::on_treeWidget_material_itemDoubleClicked() {
             m_count = true;
         }
         m_materialCena += (price.toDouble() * numMaterial.toDouble());
-        if(m_materialCena <= 0)
-            m_materialCena = 0;
+        if(m_materialCena <= 0) m_materialCena = 0;
         ui->label_cenaMateriala->setText("€" + QString::number((m_materialCena + ((m_materialCena * ui->lineEdit_kalo->text().toDouble())/100)) / 1000, 'f', 4));
         ui->treeWidget_materialProdukta->setUniformRowHeights(true);
         ui->label_cenaMaterialaDela->setText("€" + QString::number(ui->label_cenaMateriala->text().remove("€").toDouble() + ui->label_cenaDela->text().remove("€").toDouble(), 'f', 4));
@@ -209,8 +215,7 @@ void Kalkulacija::on_treeWidget_materialProdukta_itemDoubleClicked() {
     QString price = ui->treeWidget_materialProdukta->currentItem()->text(2);
     m_materialCena -= price.remove("€").toDouble();
     ui->label_cenaMateriala->setText("€" + QString::number((m_materialCena + ((m_materialCena * ui->lineEdit_kalo->text().toDouble())/100)) / 1000, 'f', 4));
-    if(m_materialCena <= 0)
-        m_materialCena = 0;
+    if(m_materialCena <= 0) m_materialCena = 0;
     delete ui->treeWidget_materialProdukta->takeTopLevelItem(ui->treeWidget_materialProdukta->currentIndex().row());
     ui->label_cenaMaterialaDela->setText("€" + QString::number(ui->label_cenaMateriala->text().remove("€").toDouble() + ui->label_cenaDela->text().remove("€").toDouble(), 'f', 4));
     ui->lineEdit_cenaProdukta->setText(ui->label_cenaMaterialaDela->text().remove("€"));
@@ -247,8 +252,7 @@ void Kalkulacija::on_treeWidget_delo_itemDoubleClicked() {
             m_count = true;
         }
         m_deloCena += (price.toDouble() * numMaterial.toDouble());
-        if(m_deloCena <= 0)
-            m_deloCena = 0;
+        if(m_deloCena <= 0) m_deloCena = 0;
         ui->label_cenaDela->setText("€" + QString::number(m_deloCena / 1000, 'f', 4));
         ui->treeWidget_deloProdukta->setUniformRowHeights(true);
         ui->label_cenaMaterialaDela->setText("€" + QString::number(ui->label_cenaMateriala->text().remove("€").toDouble() + ui->label_cenaDela->text().remove("€").toDouble(), 'f', 4));
@@ -408,4 +412,55 @@ void Kalkulacija::on_checkBox_popravekMateriala_stateChanged() {
     ui->lineEdit_cenaMateriala->clear();
     ui->lineEdit_nazivMateriala->clear();
     ui->lineEdit_kolicinaMateriala->clear();
+}
+
+// arhiv
+void Kalkulacija::Arhiv(QString arhiv_file, QString stream) {
+    QFile mFile(arhiv_file);
+    if(!mFile.open(QFile::WriteOnly | QFile::Append)) {
+        qDebug() << "Error pri odpiranju datoteke v Kalkulaciji v Arhiv()";
+        return;
+    }
+    QTextStream out(&mFile);
+    out << stream << "\n";
+    mFile.flush();
+    mFile.close();
+}
+
+// dodajanje produkta k stranki
+void Kalkulacija::on_pushButton_vnosProdukta_clicked() {
+    int izbPod = ui->comboBox_stranka->currentIndex() + 1;
+    QString podjetje = QString::number(izbPod) + ".txt";
+    QFile fileName(podjetje);
+    if(!fileName.open(QFile::WriteOnly | QFile::Append)) {
+        qDebug() << "Error odpiranje datoteke pri vnosu produkta Kalkulacija::on_pushButton_vnosProdukta_clicked()";
+        return;
+    }
+    QTextStream out(&fileName);
+    QString id = ui->lineEdit_ID->text();
+    if(id == "") id = "ni podatka";
+    QString naziv = ui->lineEdit_nazivProdukta->text();
+    if(naziv == "") naziv = "ni podatka";
+    QString cena = ui->lineEdit_cenaProdukta->text();
+    if(cena == "") cena = "ni podatka";
+    out << id << ";" << naziv << ";" << cena << ";" << "\n";
+    fileName.flush();
+    fileName.close();
+    QDateTime date = QDateTime::currentDateTime();
+    QString dodano = "Dodano";
+    QString arhiv = dodano + " ; " + date.toString("dd.MM.yyyy ; hh:mm:ss.zzz") + " ; " + id + " ; " + naziv + " ; " + cena + " ; " + "Rajh" + " !?!";
+    Arhiv(m_arhivProdukti, arhiv);
+    ui->lineEdit_ID->clear();
+    ui->lineEdit_nazivProdukta->clear();
+    ui->checkBox_popravekMateriala->setCheckState(Qt::CheckState(Qt::Unchecked));
+    ui->checkBox_popraviOperacijo->setCheckState(Qt::CheckState(Qt::Unchecked));
+    ui->treeWidget_materialProdukta->clear();
+    ui->treeWidget_deloProdukta->clear();
+    ui->label_cenaDela->setText("€0.00");
+    ui->label_cenaMateriala->setText("€0.00");
+    ui->label_cenaMaterialaDela->setText("€0.00");
+    ui->lineEdit_kalo->setText("5");
+    ui->lineEdit_cenaProdukta->setText("0.0");
+    m_deloCena = 0.0;
+    m_materialCena = 0.0;
 }

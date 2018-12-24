@@ -23,24 +23,20 @@ DodajPodjetje::DodajPodjetje(QWidget *parent) :
     TotalCompany();
 }
 
-DodajPodjetje::~DodajPodjetje()
-{
+DodajPodjetje::~DodajPodjetje() {
     delete ui;
 }
 
 // total companys(clients) function
-void DodajPodjetje::TotalCompany()
-{
+void DodajPodjetje::TotalCompany() {
     QFile mNum(m_numOfCompany);
-    if(!mNum.open(QFile::ReadOnly | QFile::Text))
-    {
+    if(!mNum.open(QFile::ReadOnly | QFile::Text)) {
         qDebug() << "Error opening file for reading in TotalCompany() function in dodajpodjetje.cpp";
         return;
     }
     QTextStream in(&mNum);
     QString number;
-    while(!in.atEnd())
-    {
+    while(!in.atEnd()) {
         number = in.readLine();
     }
     m_zapSt = number;
@@ -48,18 +44,14 @@ void DodajPodjetje::TotalCompany()
 }
 
 // add root to treeWidget
-void DodajPodjetje::AddRoot(QString name, QString num, QString cNaziv, QString naslov,QString posta, QString ddv, QString email)
-{
+void DodajPodjetje::AddRoot(QString name, QString num, QString cNaziv, QString naslov,QString posta, QString ddv, QString email) {
     QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
     itm->setText(0, num);
     itm->setText(1, name);
     ui->treeWidget->addTopLevelItem(itm);
-
-    // gray and white combo in treeWidget
     QColor color(210,210,210);
     QColor wcolor(250,250,250);
-    if(m_count)
-    {
+    if(m_count) {
         itm->setBackgroundColor(0,color);
         itm->setBackgroundColor(1,color);
         m_count = false;
@@ -68,7 +60,6 @@ void DodajPodjetje::AddRoot(QString name, QString num, QString cNaziv, QString n
         itm->setBackgroundColor(1,wcolor);
         m_count = true;
     }
-
     AddChild(itm, cNaziv);
     AddChild(itm, naslov);
     AddChild(itm, posta);
@@ -77,26 +68,20 @@ void DodajPodjetje::AddRoot(QString name, QString num, QString cNaziv, QString n
 }
 
 // add child to treeWidget
-void DodajPodjetje::AddChild(QTreeWidgetItem* parent, QString name)
-{
+void DodajPodjetje::AddChild(QTreeWidgetItem* parent, QString name) {
     QTreeWidgetItem *itm = new QTreeWidgetItem();
     itm->setText(1, name);
-
-    // font options
     QFont font;
     font.setBold(true);
     font.setItalic(true);
     itm->setFont(1,font);
-
     parent->addChild(itm);
 }
 
 // add to arhive
-void DodajPodjetje::Arhiv(QString arhiv_file, QString stream)
-{
+void DodajPodjetje::Arhiv(QString arhiv_file, QString stream) {
     QFile mFile(arhiv_file);
-    if(!mFile.open(QFile::WriteOnly | QFile::Append))
-    {
+    if(!mFile.open(QFile::WriteOnly | QFile::Append)) {
         qDebug() << "Error opening file for writing in Arhiv() function in dodajpodjetje.cpp";
         return;
     }
@@ -106,31 +91,25 @@ void DodajPodjetje::Arhiv(QString arhiv_file, QString stream)
     mFile.close();
 }
 
-// add new clien to file
-void DodajPodjetje::Write(QString file_podjetje, QString file_num)
-{
+// doda novo stranko
+void DodajPodjetje::Write(QString file_podjetje, QString file_num) {
     QFile mFile(file_podjetje);
-    if(!mFile.open(QFile::WriteOnly | QFile::Append))
-    {
+    if(!mFile.open(QFile::WriteOnly | QFile::Append)) {
         qDebug() << "Error opening file for writing in Write() function in dodajpodjetje.cpp (first opening)";
         return;
     }
     QFile mNum(file_num);
-    if(!mNum.open(QFile::ReadOnly | QFile::Text))
-    {
+    if(!mNum.open(QFile::ReadOnly | QFile::Text)) {
         qDebug() << "Error opening file for reading in Write() function in dodajpodjetje.cpp";
         return;
     }
     QTextStream in(&mNum);
     QString number;
-    while(!in.atEnd())
-    {
+    while(!in.atEnd()) {
         number = in.readLine();
     }
     m_zapSt = number;
     mNum.close();
-
-    // if one of vars don't have input
     QTextStream out(&mFile);
     m_kNaziv = ui->lineEdit_kNaziv->text();
     if(m_kNaziv == "")
@@ -150,14 +129,10 @@ void DodajPodjetje::Write(QString file_podjetje, QString file_num)
     m_email = ui->lineEdit_email->text();
     if(m_email == "")
         m_email = "ni podatka";
-
     out << number << ";" << m_kNaziv << ";" << m_cNaziv << ";" << m_naslov << ";" << m_posta << ";" << m_ddv << ";" << m_email << ";" << "\n";
     mFile.flush();
     mFile.close();
-
-    // incrise number of clients in num_company.txt
-    if(!mNum.open(QFile::WriteOnly | QFile::Append))
-    {
+    if(!mNum.open(QFile::WriteOnly | QFile::Append)) {
         qDebug() << "Error opening file for writing in Write() function in dodajpodjetje.cpp (second opening)";
         return;
     }
@@ -170,12 +145,10 @@ void DodajPodjetje::Write(QString file_podjetje, QString file_num)
 }
 
 // read function for treeWidget
-void DodajPodjetje::Read()
-{
+void DodajPodjetje::Read() {
     ui->treeWidget->clear();
     QFile mFile(m_fileName);
-    if(!mFile.open(QFile::ReadOnly | QFile::Text))
-    {
+    if(!mFile.open(QFile::ReadOnly | QFile::Text)) {
         qDebug() << "Error opening file for reading in Read() function in dodajpodjetje.cpp";
         return;
     }
@@ -184,39 +157,30 @@ void DodajPodjetje::Read()
     QString mText("");
     QRegExp rx("[;]");
     QStringList list;
-    while(!in.atEnd())
-    {
+    while(!in.atEnd()) {
         mText = in.readLine();
         list = mText.split(rx, QString::SkipEmptyParts);
-        if(mText == "")
-        {
+        if(mText == "") {
             continue;
-        }
-        else
-        {
+        } else {
             AddRoot(list.at(1), list.at(0), list.at(2), list.at(3), list.at(4), list.at(5), list.at(6));
             m_itr++;
         }
     }
     mFile.close();
-
     QFile mNum(m_numOfCompany);
-    if(!mNum.open(QFile::WriteOnly | QFile::Truncate))
-    {
+    if(!mNum.open(QFile::WriteOnly | QFile::Truncate)) {
         qDebug() << "Error opening file for writing in Read() function in dodajpodjetje.cpp";
         return;
     }
     mNum.flush();
     mNum.close();
-
-    if(!mNum.open(QFile::WriteOnly | QFile::Append))
-    {
+    if(!mNum.open(QFile::WriteOnly | QFile::Append)) {
         qDebug() << "Error opening file for writing in Read() function in dodajpodjetje.cpp #2";
         return;
     }
     QTextStream out(&mNum);
-    for(int i(1); i <= m_itr; i++)
-    {
+    for(int i(1); i <= m_itr; i++) {
         out << i << "\n";
     }
     mNum.flush();
@@ -224,13 +188,11 @@ void DodajPodjetje::Read()
 }
 
 // button for add new client
-void DodajPodjetje::on_pushButton_dodajPodjetje_clicked()
-{
+void DodajPodjetje::on_pushButton_dodajPodjetje_clicked() {
     Write(m_fileName, m_numOfCompany);
     QFile file;
     file.setFileName(m_zapSt + ".txt");
-    if(!file.open(QFile::WriteOnly | QFile::Text))
-    {
+    if(!file.open(QFile::WriteOnly | QFile::Text)) {
         qDebug() << "File not opened in pushButton_dodajPodjetje";
         return;
     }
@@ -247,35 +209,28 @@ void DodajPodjetje::on_pushButton_dodajPodjetje_clicked()
 }
 
 // button to fix already added clients
-void DodajPodjetje::on_pushButton_popraviPodatke_clicked()
-{
-    if(ui->treeWidget->currentItem() == nullptr)
-    {
+void DodajPodjetje::on_pushButton_popraviPodatke_clicked() {
+    if(ui->treeWidget->currentItem() == nullptr) {
         return;
     }
     QFile mFile(m_fileName);
-    if(!mFile.open(QFile::Text | QFile::ReadOnly))
-    {
+    if(!mFile.open(QFile::Text | QFile::ReadOnly)) {
         qDebug() << "Error opening file for reading in pushButton_popraviPodatke in dodajpodjetje.cpp";
         return;
     }
     QTextStream out(&mFile);
     QString allText = out.readAll();
     mFile.close();
-
     QRegularExpression stranka(m_stranka);
     QString rep_stranka(m_zapSt + ";" + ui->lineEdit_kNaziv->text() + ";" + ui->lineEdit_cNaziv->text() + ";" + ui->lineEdit_naslov->text() + ";" + ui->lineEdit_posta->text() + ";" + ui->lineEdit_ddv->text() + ";" + ui->lineEdit_email->text() + ";");
     allText.replace(stranka, rep_stranka);
-    if(!mFile.open(QFile::WriteOnly | QFile::Truncate))
-    {
+    if(!mFile.open(QFile::WriteOnly | QFile::Truncate)) {
         qDebug() << "Error opening mFile for truncate in pushButton_popraviPodatke in dodajpodjetje.cpp";
         return;
     }
     mFile.flush();
     mFile.close();
-
-    if(!mFile.open(QFile::WriteOnly | QFile::Text))
-    {
+    if(!mFile.open(QFile::WriteOnly | QFile::Text)) {
         qDebug() << "Error opening file for writing in pushButton_popraviPodatke in dodajpodjetje.cpp";
         return;
     }
@@ -290,22 +245,18 @@ void DodajPodjetje::on_pushButton_popraviPodatke_clicked()
 }
 
 // duble clicked treeWidget function
-void DodajPodjetje::on_treeWidget_doubleClicked(const QModelIndex &index)
-{
+void DodajPodjetje::on_treeWidget_doubleClicked(const QModelIndex &index) {
     ui->treeWidget->collapseAll();
-    if(index.parent().row() == -1)
-    {
+    if(index.parent().row() == -1) {
         QFile mFile(m_fileName);
-        if(!mFile.open(QFile::ReadOnly | QFile::Text))
-        {
+        if(!mFile.open(QFile::ReadOnly | QFile::Text)) {
             qDebug() << "Error opening file for reading in treeWidget_doubleClicked function in dodajpodjetje.cpp";
             return;
         }
         QTextStream in(&mFile);
         m_itr = -1;
         QString text("");
-        while(!(m_itr == index.row()))
-        {
+        while(!(m_itr == index.row())) {
             text = in.readLine();
             m_itr++;
             if(m_itr > 100) break;
@@ -319,7 +270,6 @@ void DodajPodjetje::on_treeWidget_doubleClicked(const QModelIndex &index)
         ui->lineEdit_posta->setText(list.at(4));
         ui->lineEdit_ddv->setText(list.at(5));
         ui->lineEdit_email->setText(list.at(6));
-
         m_zapSt = list.at(0);
         m_cNaziv = ui->lineEdit_cNaziv->text();
         m_kNaziv = ui->lineEdit_kNaziv->text();

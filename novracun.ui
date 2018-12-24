@@ -318,6 +318,9 @@
                          <bold>false</bold>
                         </font>
                        </property>
+                       <property name="styleSheet">
+                        <string notr="true">QHeaderView::section{padding:7px 15px}</string>
+                       </property>
                        <column>
                         <property name="text">
                          <string>ID</string>
@@ -434,6 +437,9 @@
                          <italic>true</italic>
                          <bold>false</bold>
                         </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QHeaderView::section{padding:7px 15px}</string>
                        </property>
                        <column>
                         <property name="text">

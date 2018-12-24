@@ -9,8 +9,10 @@ DodajProdukt::DodajProdukt(QWidget *parent) :
     this->setWindowIcon(icon);
     this->setWindowFlags(Qt::Window);
     ui->treeWidget->setColumnCount(3);
-    ui->treeWidget->setColumnWidth(0,100);
-    ui->treeWidget->setColumnWidth(1,450);
+    ui->treeWidget->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
+    ui->treeWidget->header()->setSectionResizeMode(1, QHeaderView::Stretch);
+    ui->treeWidget->header()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
+    ui->treeWidget->header()->setStretchLastSection(false);
     ui->lineEdit_id->setMaxLength(7);
     ui->lineEdit_nazivProdukta->setMaxLength(64);
     QRegularExpression regenum("^[0123456789]*$");

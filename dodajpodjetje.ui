@@ -36,7 +36,8 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">gridline-color: rgb(176, 176, 176);</string>
+      <string notr="true">gridline-color: rgb(176, 176, 176);
+QHeaderView::section{padding:7px 15px}</string>
      </property>
      <property name="midLineWidth">
       <number>0</number>
