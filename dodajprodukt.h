@@ -9,6 +9,8 @@
 #include <QDebug>
 #include <QDateTime>
 #include <QIcon>
+#include <QScrollArea>
+#include <QGroupBox>
 
 namespace Ui {
 class DodajProdukt;

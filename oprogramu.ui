@@ -82,7 +82,7 @@
         <bool>true</bool>
        </property>
        <property name="plainText">
-        <string>Trenutna verzija 0.9.9.1
+        <string>Trenutna verzija 0.9.9.2
 
 Avtor: Nejc Sedovnik
 Datum: november 2017
@@ -176,10 +176,17 @@ v0.9.9
 v0.9.9.1
     - dograjena statistika
 
+v0.9.9.2
+    - kalkulacija izdelana
+    - popravki v poziciji oken in dodan scroll v okna ki so prevelika (za ekrane ki so premajhni)
+    - vizualni popravki in notranji postavitvi
+
 TO_DO:
     - moznost posiljanja racuna po emailu strankam
     - printanje deluje preko AdobeReaderja
-    - v statistiki tabelo razdeli na dva dela in jo pozicijoniraj na levo ali desno
+    - XML na enkrat u pizdi materini ne dela (preveri!!!)
+    - pdf v laptopu nardi u pizdi postavitev (preveri!!!)
+    - preveri glede pisave, ali jo prilozis zraven, ker razni sistemi nimajo vseh pisav
     - itd.</string>
        </property>
       </widget>

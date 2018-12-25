@@ -9,9 +9,19 @@ Arhiv::Arhiv(QWidget *parent) :
     this->setWindowIcon(icon);
     this->setWindowTitle("Arhiv");
     this->setWindowFlags(Qt::Window);
+    this->showMaximized();
     ui->pushButton_isci->setFocus();
     ui->pushButton_isci->setVisible(false);
     AddItemsToCombo();
+    QScrollArea *scrollArea = new QScrollArea(this);
+    QGroupBox *groupBox = new QGroupBox(scrollArea);
+    groupBox->setLayout(ui->gridLayout);
+    scrollArea->setWidget(groupBox);
+    scrollArea->setWidgetResizable(true);
+    QHBoxLayout* layout = new QHBoxLayout(this);
+    layout->addWidget(scrollArea);
+    setLayout(layout);
+    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 Arhiv::~Arhiv()

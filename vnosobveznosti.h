@@ -7,6 +7,8 @@
 #include <QTextStream>
 #include <QDir>
 #include <QIcon>
+#include <QScrollArea>
+#include <QGroupBox>
 
 namespace Ui {
 class VnosObveznosti;

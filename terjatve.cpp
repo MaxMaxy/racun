@@ -10,6 +10,7 @@ Terjatve::Terjatve(QWidget *parent) :
     this->setWindowIcon(icon);
     this->setWindowTitle("Terjatve in obveznosti");
     this->setWindowFlags(Qt::Window);
+    this->showMaximized();
     ui->dateEdit_obveznostiOd->setDisplayFormat("d. M. yyyy");
     ui->dateEdit_obveznostiDo->setDisplayFormat("d. M. yyyy");
     ui->dateEdit_terjatveOd->setDisplayFormat("d. M. yyyy");
@@ -55,6 +56,15 @@ Terjatve::Terjatve(QWidget *parent) :
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: green}");
     ui->label_terjatve_obveznosti->setText("€" + QString::number(m_totalTerMinObv, 'f', 2));
     ui->pushButton_isci->setFocus();
+    QScrollArea *scrollArea = new QScrollArea(this);
+    QGroupBox *groupBox = new QGroupBox(scrollArea);
+    groupBox->setLayout(ui->gridLayout);
+    scrollArea->setWidget(groupBox);
+    scrollArea->setWidgetResizable(true);
+    QHBoxLayout* layout = new QHBoxLayout(this);
+    layout->addWidget(scrollArea);
+    setLayout(layout);
+    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 Terjatve::~Terjatve()

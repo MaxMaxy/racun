@@ -21,6 +21,8 @@
 #include <QXmlStreamWriter>
 #include <QPrintPreviewDialog>
 #include <QDesktopServices>
+#include <QScrollArea>
+#include <QGroupBox>
 #include "numofitems.h"
 #include "dodajprodukt.h"
 

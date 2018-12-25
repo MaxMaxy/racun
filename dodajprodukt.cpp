@@ -8,6 +8,7 @@ DodajProdukt::DodajProdukt(QWidget *parent) :
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
     this->setWindowFlags(Qt::Window);
+    this->showMaximized();
     ui->treeWidget->setColumnCount(3);
     ui->treeWidget->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     ui->treeWidget->header()->setSectionResizeMode(1, QHeaderView::Stretch);
@@ -30,6 +31,15 @@ DodajProdukt::DodajProdukt(QWidget *parent) :
     ui->treeWidget->setRootIsDecorated(false);
     AddItemsToCombo();
     Read();
+    QScrollArea *scrollArea = new QScrollArea(this);
+    QGroupBox *groupBox = new QGroupBox(scrollArea);
+    groupBox->setLayout(ui->gridLayout);
+    scrollArea->setWidget(groupBox);
+    scrollArea->setWidgetResizable(true);
+    QHBoxLayout* layout = new QHBoxLayout(this);
+    layout->addWidget(scrollArea);
+    setLayout(layout);
+    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 DodajProdukt::~DodajProdukt()

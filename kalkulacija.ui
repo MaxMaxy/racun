@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1181</width>
-    <height>1000</height>
+    <width>1067</width>
+    <height>1109</height>
    </rect>
   </property>
   <property name="font">
@@ -22,7 +22,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <layout class="QVBoxLayout" name="verticalLayout_17">
+    <layout class="QVBoxLayout" name="verticalLayout_1">
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_31">
        <item>
@@ -269,6 +269,20 @@
             </layout>
            </item>
            <item>
+            <widget class="QRadioButton" name="radioButton_meter">
+             <property name="text">
+              <string>meter</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="radioButton_kos">
+             <property name="text">
+              <string>kos</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <layout class="QVBoxLayout" name="verticalLayout_16">
              <item>
               <widget class="QLabel" name="label_17">
@@ -460,6 +474,21 @@
                 <property name="font">
                  <font>
                   <family>MS Sans Serif</family>
+                  <pointsize>10</pointsize>
+                  <italic>true</italic>
+                 </font>
+                </property>
+                <property name="textAlignment">
+                 <set>AlignCenter</set>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Enota</string>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Sans</family>
                   <pointsize>10</pointsize>
                   <italic>true</italic>
                  </font>

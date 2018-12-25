@@ -13,12 +13,22 @@ PlaciloRacuna::PlaciloRacuna(QWidget *parent) :
     ui->lineEdit->setFocus();
     this->setWindowTitle("Plačilo");
     this->setWindowFlags(Qt::Window);
+    this->showMaximized();
     QRegularExpression regex("^[.0123456789]*$");
     QValidator *validator = new QRegularExpressionValidator(regex, this);
     ui->lineEdit->setValidator(validator);
     QRegularExpression regealfabet("^[a-zA-Z0-9,@. -/&#čšžŠČŽ]*$");
     QValidator *validatoralfabet = new QRegularExpressionValidator(regealfabet, this);
     ui->lineEdit_opombe->setValidator(validatoralfabet);
+    QScrollArea *scrollArea = new QScrollArea(this);
+    QGroupBox *groupBox = new QGroupBox(scrollArea);
+    groupBox->setLayout(ui->gridLayout);
+    scrollArea->setWidget(groupBox);
+    scrollArea->setWidgetResizable(true);
+    QHBoxLayout* layout = new QHBoxLayout(this);
+    layout->addWidget(scrollArea);
+    setLayout(layout);
+    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 PlaciloRacuna::~PlaciloRacuna()

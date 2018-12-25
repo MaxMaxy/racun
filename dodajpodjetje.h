@@ -10,6 +10,8 @@
 #include <QDateTime>
 #include <QDebug>
 #include <QIcon>
+#include <QScrollArea>
+#include <QGroupBox>
 
 namespace Ui {
 class DodajPodjetje;

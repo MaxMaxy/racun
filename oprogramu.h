@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include <QIcon>
+#include <QScrollArea>
+#include <QGroupBox>
 
 namespace Ui {
 class Oprogramu;

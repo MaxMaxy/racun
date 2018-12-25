@@ -10,6 +10,8 @@
 #include <QDir>
 #include <QTextStream>
 #include <QIcon>
+#include <QScrollArea>
+#include <QGroupBox>
 #include "vnosobveznosti.h"
 #include "novracun.h"
 #include "placiloracuna.h"

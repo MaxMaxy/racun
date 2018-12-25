@@ -10,6 +10,7 @@ NovRacun::NovRacun(QWidget *parent) :
     this->setWindowIcon(icon);
     this->setWindowTitle("Nov račun");
     this->setWindowFlags(Qt::Window);
+    this->showMaximized();
     ui->treeWidget_seznam->setColumnCount(3);
     ui->treeWidget_seznam->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     ui->treeWidget_seznam->header()->setSectionResizeMode(1, QHeaderView::Stretch);
@@ -62,6 +63,15 @@ NovRacun::NovRacun(QWidget *parent) :
     AddItemsToCombo();
     Read();
     Shrani();
+    QScrollArea *scrollArea = new QScrollArea(this);
+    QGroupBox *groupBox = new QGroupBox(scrollArea);
+    groupBox->setLayout(ui->gridLayout);
+    scrollArea->setWidget(groupBox);
+    scrollArea->setWidgetResizable(true);
+    QHBoxLayout* layout = new QHBoxLayout(this);
+    layout->addWidget(scrollArea);
+    setLayout(layout);
+    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 NovRacun::~NovRacun()

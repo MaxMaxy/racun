@@ -8,6 +8,8 @@
 #include <QStringList>
 #include <QDebug>
 #include <QVector>
+#include <QScrollArea>
+#include <QGroupBox>
 
 namespace Ui {
 class Statistic;

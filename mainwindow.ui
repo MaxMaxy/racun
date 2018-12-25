@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>250</width>
+    <width>300</width>
     <height>500</height>
    </rect>
   </property>
@@ -18,13 +18,13 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>250</width>
+    <width>300</width>
     <height>500</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>250</width>
+    <width>300</width>
     <height>500</height>
    </size>
   </property>
@@ -353,7 +353,7 @@
          <enum>QFrame::Raised</enum>
         </property>
         <property name="text">
-         <string>v0.9.9.1</string>
+         <string>v0.9.9.2</string>
         </property>
         <property name="textFormat">
          <enum>Qt::AutoText</enum>
@@ -385,8 +385,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>250</width>
-     <height>21</height>
+     <width>300</width>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuStart">

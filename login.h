@@ -8,6 +8,8 @@
 #include <QDateTime>
 #include <QDir>
 #include <QIcon>
+#include <QScrollArea>
+#include <QGroupBox>
 
 namespace Ui {
 class Login;

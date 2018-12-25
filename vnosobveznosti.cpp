@@ -10,6 +10,7 @@ VnosObveznosti::VnosObveznosti(QWidget *parent) :
     this->setWindowIcon(icon);
     this->setWindowTitle("Vnos obveznosti");
     this->setWindowFlags(Qt::Window);
+    this->showMaximized();
     ui->dateEdit_valute->setDisplayFormat("d. M. yyyy");
     ui->dateEdit_valute->setDate(QDate::currentDate());
     ui->lineEdit_listina->setFocus();
@@ -21,6 +22,15 @@ VnosObveznosti::VnosObveznosti(QWidget *parent) :
     ui->lineEdit_opombe->setValidator(validatoralfabet);
     ui->lineEdit_listina->setValidator(validatoralfabet);
     ui->lineEdit_dobavitelj->setValidator(validatoralfabet);
+    QScrollArea *scrollArea = new QScrollArea(this);
+    QGroupBox *groupBox = new QGroupBox(scrollArea);
+    groupBox->setLayout(ui->gridLayout);
+    scrollArea->setWidget(groupBox);
+    scrollArea->setWidgetResizable(true);
+    QHBoxLayout* layout = new QHBoxLayout(this);
+    layout->addWidget(scrollArea);
+    setLayout(layout);
+    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 VnosObveznosti::~VnosObveznosti()

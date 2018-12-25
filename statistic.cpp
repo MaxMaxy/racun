@@ -9,6 +9,7 @@ Statistic::Statistic(QWidget *parent) :
     this->setWindowIcon(icon);
     this->setWindowTitle("Statistika");
     this->setWindowFlags(Qt::Window);
+    this->showMaximized();
     int color;
     for(int i(0); i < 150; i++)
     {
@@ -36,6 +37,15 @@ Statistic::Statistic(QWidget *parent) :
     ui->plot->clearPlottables();
     Plot();
     ui->pushButton_isci->setFocus();
+    QScrollArea *scrollArea = new QScrollArea(this);
+    QGroupBox *groupBox = new QGroupBox(scrollArea);
+    groupBox->setLayout(ui->gridLayout);
+    scrollArea->setWidget(groupBox);
+    scrollArea->setWidgetResizable(true);
+    QHBoxLayout* layout = new QHBoxLayout(this);
+    layout->addWidget(scrollArea);
+    setLayout(layout);
+    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 Statistic::~Statistic()

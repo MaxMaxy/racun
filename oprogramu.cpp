@@ -9,6 +9,16 @@ Oprogramu::Oprogramu(QWidget *parent) :
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
     this->setWindowTitle("O programu");
+    this->showMaximized();
+    QScrollArea *scrollArea = new QScrollArea(this);
+    QGroupBox *groupBox = new QGroupBox(scrollArea);
+    groupBox->setLayout(ui->gridLayout);
+    scrollArea->setWidget(groupBox);
+    scrollArea->setWidgetResizable(true);
+    QHBoxLayout* layout = new QHBoxLayout(this);
+    layout->addWidget(scrollArea);
+    setLayout(layout);
+    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 Oprogramu::~Oprogramu()
