@@ -8,9 +8,8 @@ DodajPodjetje::DodajPodjetje(QWidget *parent) :
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
     this->setWindowFlags(Qt::Window);
-    this->showMaximized();
     ui->treeWidget->setColumnCount(2);
-    ui->treeWidget->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
+    ui->treeWidget->setColumnWidth(0,40);
     QRegularExpression regex("^[a-zA-Z0-9,@. -/&#čšžŠČŽ]*$");
     QValidator *validator = new QRegularExpressionValidator(regex, this);
     ui->lineEdit_kNaziv->setValidator(validator);
@@ -22,15 +21,6 @@ DodajPodjetje::DodajPodjetje(QWidget *parent) :
     this->setWindowTitle("Dodaj - popravi stranko");
     Read();
     TotalCompany();
-    QScrollArea *scrollArea = new QScrollArea(this);
-    QGroupBox *groupBox = new QGroupBox(scrollArea);
-    groupBox->setLayout(ui->gridLayout);
-    scrollArea->setWidget(groupBox);
-    scrollArea->setWidgetResizable(true);
-    QHBoxLayout* layout = new QHBoxLayout(this);
-    layout->addWidget(scrollArea);
-    setLayout(layout);
-    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 DodajPodjetje::~DodajPodjetje() {

@@ -12,7 +12,7 @@
   </property>
   <property name="font">
    <font>
-    <family>Serif</family>
+    <family>MS Sans Serif</family>
     <pointsize>10</pointsize>
     <italic>true</italic>
    </font>
@@ -25,7 +25,7 @@
     <widget class="QLabel" name="label">
      <property name="font">
       <font>
-       <family>Serif</family>
+       <family>MS Sans Serif</family>
        <pointsize>10</pointsize>
        <italic>true</italic>
       </font>
@@ -42,7 +42,7 @@
     <widget class="Line" name="line">
      <property name="font">
       <font>
-       <family>Serif</family>
+       <family>MS Sans Serif</family>
        <italic>true</italic>
       </font>
      </property>
@@ -61,7 +61,7 @@
           <widget class="QRadioButton" name="radioButton_vse">
            <property name="font">
             <font>
-             <family>Serif</family>
+             <family>MS Sans Serif</family>
              <pointsize>10</pointsize>
              <italic>true</italic>
             </font>
@@ -75,7 +75,7 @@
           <widget class="QRadioButton" name="radioButton_noviRacuni">
            <property name="font">
             <font>
-             <family>Serif</family>
+             <family>MS Sans Serif</family>
              <pointsize>10</pointsize>
              <italic>true</italic>
             </font>
@@ -89,7 +89,7 @@
           <widget class="QRadioButton" name="radioButton_spremenjeniRacuni">
            <property name="font">
             <font>
-             <family>Serif</family>
+             <family>MS Sans Serif</family>
              <pointsize>10</pointsize>
              <italic>true</italic>
             </font>
@@ -103,7 +103,7 @@
           <widget class="QRadioButton" name="radioButton_dodaneStranke">
            <property name="font">
             <font>
-             <family>Serif</family>
+             <family>MS Sans Serif</family>
              <pointsize>10</pointsize>
              <italic>true</italic>
             </font>
@@ -117,7 +117,7 @@
           <widget class="QRadioButton" name="radioButton_popravljeneStranke">
            <property name="font">
             <font>
-             <family>Serif</family>
+             <family>MS Sans Serif</family>
              <pointsize>10</pointsize>
              <italic>true</italic>
             </font>
@@ -131,7 +131,7 @@
           <widget class="QRadioButton" name="radioButton_dodaniProdukti">
            <property name="font">
             <font>
-             <family>Serif</family>
+             <family>MS Sans Serif</family>
              <pointsize>10</pointsize>
              <italic>true</italic>
             </font>
@@ -145,7 +145,7 @@
           <widget class="QRadioButton" name="radioButton_popravljeniProdukti">
            <property name="font">
             <font>
-             <family>Serif</family>
+             <family>MS Sans Serif</family>
              <pointsize>10</pointsize>
              <italic>true</italic>
             </font>
@@ -159,7 +159,7 @@
           <widget class="QRadioButton" name="radioButton_uspesnaPrijava">
            <property name="font">
             <font>
-             <family>Serif</family>
+             <family>MS Sans Serif</family>
              <pointsize>10</pointsize>
              <italic>true</italic>
             </font>
@@ -173,7 +173,7 @@
           <widget class="QRadioButton" name="radioButton_neuspesnaPrijava">
            <property name="font">
             <font>
-             <family>Serif</family>
+             <family>MS Sans Serif</family>
              <pointsize>10</pointsize>
              <italic>true</italic>
             </font>
@@ -192,7 +192,7 @@
          </property>
          <property name="font">
           <font>
-           <family>Serif</family>
+           <family>MS Sans Serif</family>
            <pointsize>10</pointsize>
            <italic>true</italic>
           </font>
@@ -205,7 +205,7 @@
       <widget class="QPushButton" name="pushButton">
        <property name="font">
         <font>
-         <family>Serif</family>
+         <family>MS Sans Serif</family>
          <pointsize>12</pointsize>
          <italic>true</italic>
         </font>
@@ -221,7 +221,7 @@
     <widget class="QComboBox" name="comboBox">
      <property name="font">
       <font>
-       <family>Serif</family>
+       <family>MS Sans Serif</family>
        <pointsize>12</pointsize>
        <italic>true</italic>
       </font>
@@ -232,7 +232,7 @@
     <widget class="QLabel" name="label_2">
      <property name="font">
       <font>
-       <family>Serif</family>
+       <family>MS Sans Serif</family>
        <pointsize>18</pointsize>
        <weight>75</weight>
        <italic>true</italic>
@@ -248,7 +248,7 @@
     <widget class="QLineEdit" name="lineEdit_isci">
      <property name="font">
       <font>
-       <family>Serif</family>
+       <family>MS Sans Serif</family>
        <pointsize>10</pointsize>
        <italic>true</italic>
       </font>
@@ -262,11 +262,6 @@
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
-     </property>
-     <property name="font">
-      <font>
-       <family>Serif</family>
-      </font>
      </property>
      <property name="text">
       <string>Isci</string>

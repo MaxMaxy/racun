@@ -7,12 +7,12 @@
     <x>0</x>
     <y>0</y>
     <width>272</width>
-    <height>135</height>
+    <height>132</height>
    </rect>
   </property>
   <property name="font">
    <font>
-    <family>Serif</family>
+    <family>MS Sans Serif</family>
     <pointsize>10</pointsize>
     <italic>true</italic>
    </font>
@@ -29,7 +29,7 @@
         <widget class="QLabel" name="label">
          <property name="font">
           <font>
-           <family>Serif</family>
+           <family>MS Sans Serif</family>
            <pointsize>18</pointsize>
            <weight>75</weight>
            <italic>true</italic>
@@ -48,7 +48,6 @@
         <widget class="Line" name="line">
          <property name="font">
           <font>
-           <family>Serif</family>
            <italic>true</italic>
           </font>
          </property>
@@ -61,7 +60,7 @@
         <widget class="QLineEdit" name="lineEdit_login">
          <property name="font">
           <font>
-           <family>Serif</family>
+           <family>MS Sans Serif</family>
            <pointsize>10</pointsize>
            <italic>true</italic>
           </font>
@@ -74,7 +73,6 @@
       <widget class="Line" name="line_2">
        <property name="font">
         <font>
-         <family>Serif</family>
          <italic>true</italic>
         </font>
        </property>
@@ -89,7 +87,7 @@
         <widget class="QPushButton" name="pushButton">
          <property name="font">
           <font>
-           <family>Serif</family>
+           <family>MS Sans Serif</family>
            <pointsize>12</pointsize>
            <italic>true</italic>
           </font>
@@ -103,7 +101,7 @@
         <widget class="QPushButton" name="pushButton_prijava">
          <property name="font">
           <font>
-           <family>Serif</family>
+           <family>MS Sans Serif</family>
            <pointsize>12</pointsize>
            <italic>true</italic>
           </font>

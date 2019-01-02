@@ -10,7 +10,6 @@ NovRacun::NovRacun(QWidget *parent) :
     this->setWindowIcon(icon);
     this->setWindowTitle("Nov račun");
     this->setWindowFlags(Qt::Window);
-    this->showMaximized();
     ui->treeWidget_seznam->setColumnCount(3);
     ui->treeWidget_seznam->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     ui->treeWidget_seznam->header()->setSectionResizeMode(1, QHeaderView::Stretch);
@@ -63,15 +62,6 @@ NovRacun::NovRacun(QWidget *parent) :
     AddItemsToCombo();
     Read();
     Shrani();
-    QScrollArea *scrollArea = new QScrollArea(this);
-    QGroupBox *groupBox = new QGroupBox(scrollArea);
-    groupBox->setLayout(ui->gridLayout);
-    scrollArea->setWidget(groupBox);
-    scrollArea->setWidgetResizable(true);
-    QHBoxLayout* layout = new QHBoxLayout(this);
-    layout->addWidget(scrollArea);
-    setLayout(layout);
-    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 NovRacun::~NovRacun()
@@ -1384,40 +1374,38 @@ void NovRacun::on_treeWidget_seznam_doubleClicked()
     numItems.setModal(true);
     numItems.exec();
     m_numItems = numItems.m_numKosov;
-    if(m_numItems != "") {
-        QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget_dodani);
-        QString cenaDDV = CenaDDV(ui->treeWidget_seznam->currentItem()->text(2), m_numItems);
-        itm->setText(0, ui->treeWidget_seznam->currentItem()->text(0));
-        itm->setTextAlignment(0, Qt::AlignHCenter);
-        itm->setText(1, ui->treeWidget_seznam->currentItem()->text(1));
-        itm->setText(2, ui->treeWidget_seznam->currentItem()->text(2));
-        itm->setTextAlignment(2, Qt::AlignHCenter);
-        itm->setText(3, m_numItems);
-        itm->setTextAlignment(3, Qt::AlignHCenter);
-        itm->setText(4, cenaDDV);
-        ui->treeWidget_dodani->addTopLevelItem(itm);
-        QColor color(210,210,210);
-        QColor wcolor(250,250,250);
-        // m_count je member bool ce je true je barva siva drugace bela
-        if(m_count)
-        {
-            itm->setBackgroundColor(0,color);
-            itm->setBackgroundColor(1,color);
-            itm->setBackgroundColor(2,color);
-            itm->setBackgroundColor(3,color);
-            m_count = false;
-        } else {
-            itm->setBackgroundColor(0,wcolor);
-            itm->setBackgroundColor(1,wcolor);
-            itm->setBackgroundColor(2,wcolor);
-            itm->setBackgroundColor(3,wcolor);
-            m_count = true;
-        }
-        QString price = ui->treeWidget_seznam->currentItem()->text(2);
-        CalcSkupaj(price, m_numItems, true);
-        ui->treeWidget_dodani->setUniformRowHeights(true);
-        m_itemsAdded++;
+    QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget_dodani);
+    QString cenaDDV = CenaDDV(ui->treeWidget_seznam->currentItem()->text(2), m_numItems);
+    itm->setText(0, ui->treeWidget_seznam->currentItem()->text(0));
+    itm->setTextAlignment(0, Qt::AlignHCenter);
+    itm->setText(1, ui->treeWidget_seznam->currentItem()->text(1));
+    itm->setText(2, ui->treeWidget_seznam->currentItem()->text(2));
+    itm->setTextAlignment(2, Qt::AlignHCenter);
+    itm->setText(3, m_numItems);
+    itm->setTextAlignment(3, Qt::AlignHCenter);
+    itm->setText(4, cenaDDV);
+    ui->treeWidget_dodani->addTopLevelItem(itm);
+    QColor color(210,210,210);
+    QColor wcolor(250,250,250);
+    // m_count je member bool ce je true je barva siva drugace bela
+    if(m_count)
+    {
+        itm->setBackgroundColor(0,color);
+        itm->setBackgroundColor(1,color);
+        itm->setBackgroundColor(2,color);
+        itm->setBackgroundColor(3,color);
+        m_count = false;
+    } else {
+        itm->setBackgroundColor(0,wcolor);
+        itm->setBackgroundColor(1,wcolor);
+        itm->setBackgroundColor(2,wcolor);
+        itm->setBackgroundColor(3,wcolor);
+        m_count = true;
     }
+    QString price = ui->treeWidget_seznam->currentItem()->text(2);
+    CalcSkupaj(price, m_numItems, true);
+    ui->treeWidget_dodani->setUniformRowHeights(true);
+    m_itemsAdded++;
 }
 
 // sesteva v label skupaj
@@ -1616,7 +1604,7 @@ int NovRacun::creatPDF()
                      "</div>"
                      "</table>";
 
-    QString header = "<font face=sans-serif color=#ffffff size=0 align=center>"
+    QString header = "<font color=#ffffff size=0 align=center>"
                         "prazno""<br>"
                      "<font color=#000000>"
                      "<div align=center>"

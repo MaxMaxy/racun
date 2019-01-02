@@ -6,13 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1067</width>
-    <height>1113</height>
+    <width>1181</width>
+    <height>1000</height>
    </rect>
   </property>
   <property name="font">
    <font>
-    <family>Serif</family>
+    <family>MS Sans Serif</family>
     <pointsize>10</pointsize>
     <italic>true</italic>
    </font>
@@ -22,7 +22,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <layout class="QVBoxLayout" name="verticalLayout_1">
+    <layout class="QVBoxLayout" name="verticalLayout_17">
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_31">
        <item>
@@ -31,7 +31,7 @@
           <widget class="QLabel" name="label">
            <property name="font">
             <font>
-             <family>Serif</family>
+             <family>MS Sans Serif</family>
              <pointsize>18</pointsize>
              <weight>75</weight>
              <italic>true</italic>
@@ -48,11 +48,6 @@
          </item>
          <item>
           <widget class="Line" name="line">
-           <property name="font">
-            <font>
-             <family>Serif</family>
-            </font>
-           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -66,7 +61,6 @@
           <widget class="QLabel" name="label_3">
            <property name="font">
             <font>
-             <family>Serif</family>
              <pointsize>10</pointsize>
              <weight>75</weight>
              <bold>true</bold>
@@ -87,7 +81,6 @@
           <widget class="QComboBox" name="comboBox_stranka">
            <property name="font">
             <font>
-             <family>Serif</family>
              <pointsize>12</pointsize>
             </font>
            </property>
@@ -101,7 +94,6 @@
           <widget class="QLabel" name="label_2">
            <property name="font">
             <font>
-             <family>Serif</family>
              <pointsize>10</pointsize>
              <weight>75</weight>
              <bold>true</bold>
@@ -122,7 +114,6 @@
           <widget class="QLineEdit" name="lineEdit_ID">
            <property name="font">
             <font>
-             <family>Serif</family>
              <pointsize>10</pointsize>
             </font>
            </property>
@@ -136,7 +127,6 @@
           <widget class="QLabel" name="label_4">
            <property name="font">
             <font>
-             <family>Serif</family>
              <pointsize>10</pointsize>
              <weight>75</weight>
              <bold>true</bold>
@@ -157,7 +147,6 @@
           <widget class="QLineEdit" name="lineEdit_nazivProdukta">
            <property name="font">
             <font>
-             <family>Serif</family>
              <pointsize>10</pointsize>
             </font>
            </property>
@@ -169,11 +158,6 @@
      </item>
      <item>
       <widget class="Line" name="line_9">
-       <property name="font">
-        <font>
-         <family>Serif</family>
-        </font>
-       </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -189,7 +173,6 @@
             <widget class="QLabel" name="label_20">
              <property name="font">
               <font>
-               <family>Serif</family>
                <weight>75</weight>
                <bold>true</bold>
               </font>
@@ -201,11 +184,6 @@
            </item>
            <item>
             <widget class="Line" name="line_12">
-             <property name="font">
-              <font>
-               <family>Serif</family>
-              </font>
-             </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -218,11 +196,6 @@
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <family>Serif</family>
-              </font>
              </property>
              <property name="text">
               <string>Popravi materiala</string>
@@ -238,11 +211,6 @@
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Serif</family>
-                </font>
                </property>
                <property name="frameShadow">
                 <enum>QFrame::Raised</enum>
@@ -263,11 +231,6 @@
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <property name="font">
-                <font>
-                 <family>Serif</family>
-                </font>
-               </property>
               </widget>
              </item>
             </layout>
@@ -281,11 +244,6 @@
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Serif</family>
-                </font>
                </property>
                <property name="frameShadow">
                 <enum>QFrame::Raised</enum>
@@ -306,38 +264,9 @@
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <property name="font">
-                <font>
-                 <family>Serif</family>
-                </font>
-               </property>
               </widget>
              </item>
             </layout>
-           </item>
-           <item>
-            <widget class="QRadioButton" name="radioButton_meter">
-             <property name="font">
-              <font>
-               <family>Serif</family>
-              </font>
-             </property>
-             <property name="text">
-              <string>meter</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QRadioButton" name="radioButton_kos">
-             <property name="font">
-              <font>
-               <family>Serif</family>
-              </font>
-             </property>
-             <property name="text">
-              <string>kos</string>
-             </property>
-            </widget>
            </item>
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_16">
@@ -348,11 +277,6 @@
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Serif</family>
-                </font>
                </property>
                <property name="frameShadow">
                 <enum>QFrame::Raised</enum>
@@ -373,11 +297,6 @@
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <property name="font">
-                <font>
-                 <family>Serif</family>
-                </font>
-               </property>
               </widget>
              </item>
             </layout>
@@ -390,11 +309,6 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="font">
-              <font>
-               <family>Serif</family>
-              </font>
-             </property>
              <property name="text">
               <string>Dodaj/popravi material</string>
              </property>
@@ -402,11 +316,6 @@
            </item>
            <item>
             <widget class="Line" name="line_2">
-             <property name="font">
-              <font>
-               <family>Serif</family>
-              </font>
-             </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -419,11 +328,6 @@
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <family>Serif</family>
-              </font>
              </property>
              <property name="text">
               <string>Isci</string>
@@ -440,7 +344,6 @@
              </property>
              <property name="font">
               <font>
-               <family>Serif</family>
                <weight>50</weight>
                <bold>false</bold>
               </font>
@@ -461,20 +364,10 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="font">
-              <font>
-               <family>Serif</family>
-              </font>
-             </property>
             </widget>
            </item>
            <item>
             <spacer name="verticalSpacer_2">
-             <property name="font">
-              <font>
-               <family>Serif</family>
-              </font>
-             </property>
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -496,7 +389,6 @@
               <widget class="QLabel" name="label_5">
                <property name="font">
                 <font>
-                 <family>Serif</family>
                  <pointsize>10</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
@@ -508,9 +400,6 @@
                <property name="text">
                 <string>Ves material:</string>
                </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
                <property name="buddy">
                 <cstring>treeWidget_material</cstring>
                </property>
@@ -518,11 +407,6 @@
              </item>
              <item>
               <widget class="Line" name="line_7">
-               <property name="font">
-                <font>
-                 <family>Serif</family>
-                </font>
-               </property>
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
@@ -535,11 +419,6 @@
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Serif</family>
-                </font>
                </property>
                <property name="styleSheet">
                 <string notr="true">QHeaderView::section{padding:7px 15px}</string>
@@ -576,26 +455,11 @@
                </column>
                <column>
                 <property name="text">
-                 <string>Kolicina/€</string>
+                 <string>Kolicina materiala v ceni</string>
                 </property>
                 <property name="font">
                  <font>
                   <family>MS Sans Serif</family>
-                  <pointsize>10</pointsize>
-                  <italic>true</italic>
-                 </font>
-                </property>
-                <property name="textAlignment">
-                 <set>AlignCenter</set>
-                </property>
-               </column>
-               <column>
-                <property name="text">
-                 <string>Enota</string>
-                </property>
-                <property name="font">
-                 <font>
-                  <family>Sans</family>
                   <pointsize>10</pointsize>
                   <italic>true</italic>
                  </font>
@@ -617,7 +481,6 @@
               <widget class="QLabel" name="label_6">
                <property name="font">
                 <font>
-                 <family>Serif</family>
                  <pointsize>10</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
@@ -629,9 +492,6 @@
                <property name="text">
                 <string>Material v produktu:</string>
                </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
                <property name="buddy">
                 <cstring>treeWidget_materialProdukta</cstring>
                </property>
@@ -639,11 +499,6 @@
              </item>
              <item>
               <widget class="Line" name="line_6">
-               <property name="font">
-                <font>
-                 <family>Serif</family>
-                </font>
-               </property>
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
@@ -656,11 +511,6 @@
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Serif</family>
-                </font>
                </property>
                <property name="styleSheet">
                 <string notr="true">QHeaderView::section{padding:7px 15px}</string>
@@ -720,11 +570,6 @@
        </item>
        <item>
         <widget class="Line" name="line_10">
-         <property name="font">
-          <font>
-           <family>Serif</family>
-          </font>
-         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -738,7 +583,6 @@
             <widget class="QLabel" name="label_19">
              <property name="font">
               <font>
-               <family>Serif</family>
                <weight>75</weight>
                <bold>true</bold>
               </font>
@@ -750,11 +594,6 @@
            </item>
            <item>
             <widget class="Line" name="line_13">
-             <property name="font">
-              <font>
-               <family>Serif</family>
-              </font>
-             </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -767,11 +606,6 @@
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <family>Serif</family>
-              </font>
              </property>
              <property name="text">
               <string>Popravi operacijo</string>
@@ -787,11 +621,6 @@
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Serif</family>
-                </font>
                </property>
                <property name="frameShadow">
                 <enum>QFrame::Raised</enum>
@@ -812,11 +641,6 @@
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <property name="font">
-                <font>
-                 <family>Serif</family>
-                </font>
-               </property>
               </widget>
              </item>
             </layout>
@@ -830,11 +654,6 @@
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Serif</family>
-                </font>
                </property>
                <property name="frameShadow">
                 <enum>QFrame::Raised</enum>
@@ -855,11 +674,6 @@
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <property name="font">
-                <font>
-                 <family>Serif</family>
-                </font>
-               </property>
               </widget>
              </item>
             </layout>
@@ -872,11 +686,6 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="font">
-              <font>
-               <family>Serif</family>
-              </font>
-             </property>
              <property name="text">
               <string>Dodaj/popravi operacijo</string>
              </property>
@@ -884,11 +693,6 @@
            </item>
            <item>
             <spacer name="verticalSpacer">
-             <property name="font">
-              <font>
-               <family>Serif</family>
-              </font>
-             </property>
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -916,7 +720,6 @@
                </property>
                <property name="font">
                 <font>
-                 <family>Serif</family>
                  <pointsize>10</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
@@ -928,9 +731,6 @@
                <property name="text">
                 <string>Vse operacije:</string>
                </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
                <property name="buddy">
                 <cstring>treeWidget_delo</cstring>
                </property>
@@ -938,11 +738,6 @@
              </item>
              <item>
               <widget class="Line" name="line_8">
-               <property name="font">
-                <font>
-                 <family>Serif</family>
-                </font>
-               </property>
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
@@ -955,11 +750,6 @@
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Serif</family>
-                </font>
                </property>
                <property name="styleSheet">
                 <string notr="true">QHeaderView::section{padding:7px 15px}</string>
@@ -1015,7 +805,6 @@
                </property>
                <property name="font">
                 <font>
-                 <family>Serif</family>
                  <pointsize>10</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
@@ -1027,9 +816,6 @@
                <property name="text">
                 <string>Delo v produktu:</string>
                </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
                <property name="buddy">
                 <cstring>treeWidget_deloProdukta</cstring>
                </property>
@@ -1037,11 +823,6 @@
              </item>
              <item>
               <widget class="Line" name="line_5">
-               <property name="font">
-                <font>
-                 <family>Serif</family>
-                </font>
-               </property>
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
@@ -1054,11 +835,6 @@
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Serif</family>
-                </font>
                </property>
                <property name="styleSheet">
                 <string notr="true">QHeaderView::section{padding:7px 15px}</string>
@@ -1120,11 +896,6 @@
      </item>
      <item>
       <widget class="Line" name="line_11">
-       <property name="font">
-        <font>
-         <family>Serif</family>
-        </font>
-       </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -1148,7 +919,6 @@
                </property>
                <property name="font">
                 <font>
-                 <family>Serif</family>
                  <weight>75</weight>
                  <bold>true</bold>
                 </font>
@@ -1174,7 +944,6 @@
                </property>
                <property name="font">
                 <font>
-                 <family>Serif</family>
                  <pointsize>10</pointsize>
                 </font>
                </property>
@@ -1194,7 +963,6 @@
                </property>
                <property name="font">
                 <font>
-                 <family>Serif</family>
                  <pointsize>10</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
@@ -1218,7 +986,6 @@
                </property>
                <property name="font">
                 <font>
-                 <family>Serif</family>
                  <pointsize>10</pointsize>
                 </font>
                </property>
@@ -1247,7 +1014,6 @@
                </property>
                <property name="font">
                 <font>
-                 <family>Serif</family>
                  <pointsize>10</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
@@ -1271,7 +1037,6 @@
                </property>
                <property name="font">
                 <font>
-                 <family>Serif</family>
                  <pointsize>10</pointsize>
                 </font>
                </property>
@@ -1300,7 +1065,6 @@
                </property>
                <property name="font">
                 <font>
-                 <family>Serif</family>
                  <pointsize>10</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
@@ -1324,7 +1088,6 @@
                </property>
                <property name="font">
                 <font>
-                 <family>Serif</family>
                  <pointsize>10</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
@@ -1349,11 +1112,6 @@
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
             <widget class="Line" name="line_3">
-             <property name="font">
-              <font>
-               <family>Serif</family>
-              </font>
-             </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -1363,7 +1121,6 @@
             <widget class="QLabel" name="label_cenaProdukta">
              <property name="font">
               <font>
-               <family>Serif</family>
                <pointsize>12</pointsize>
                <weight>75</weight>
                <bold>true</bold>
@@ -1384,7 +1141,6 @@
             <widget class="QLineEdit" name="lineEdit_cenaProdukta">
              <property name="font">
               <font>
-               <family>Serif</family>
                <pointsize>12</pointsize>
                <weight>75</weight>
                <bold>true</bold>
@@ -1403,11 +1159,6 @@
         <layout class="QVBoxLayout" name="verticalLayout_7">
          <item>
           <widget class="Line" name="line_4">
-           <property name="font">
-            <font>
-             <family>Serif</family>
-            </font>
-           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -1417,7 +1168,6 @@
           <widget class="QPushButton" name="pushButton_vnosProdukta">
            <property name="font">
             <font>
-             <family>Serif</family>
              <pointsize>12</pointsize>
              <weight>75</weight>
              <bold>true</bold>
@@ -1432,7 +1182,6 @@
           <widget class="QPushButton" name="pushButton_izhod">
            <property name="font">
             <font>
-             <family>Serif</family>
              <pointsize>12</pointsize>
              <weight>75</weight>
              <bold>true</bold>

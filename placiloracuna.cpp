@@ -19,15 +19,6 @@ PlaciloRacuna::PlaciloRacuna(QWidget *parent) :
     QRegularExpression regealfabet("^[a-zA-Z0-9,@. -/&#čšžŠČŽ]*$");
     QValidator *validatoralfabet = new QRegularExpressionValidator(regealfabet, this);
     ui->lineEdit_opombe->setValidator(validatoralfabet);
-    QScrollArea *scrollArea = new QScrollArea(this);
-    QGroupBox *groupBox = new QGroupBox(scrollArea);
-    groupBox->setLayout(ui->gridLayout);
-    scrollArea->setWidget(groupBox);
-    scrollArea->setWidgetResizable(true);
-    QHBoxLayout* layout = new QHBoxLayout(this);
-    layout->addWidget(scrollArea);
-    setLayout(layout);
-    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 PlaciloRacuna::~PlaciloRacuna()
@@ -44,9 +35,9 @@ void PlaciloRacuna::setOpombe(QString &opomba, QString &cena, QString &datum)
 
 QStringList PlaciloRacuna::on_pushButton_clicked()
 {
-    close();
     m_list.append(ui->lineEdit->text());
     m_list.append(ui->dateEdit->text());
     m_list.append(ui->lineEdit_opombe->text());
+    PlaciloRacuna::close();
     return m_list;
 }

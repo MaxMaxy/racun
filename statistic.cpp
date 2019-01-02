@@ -9,7 +9,6 @@ Statistic::Statistic(QWidget *parent) :
     this->setWindowIcon(icon);
     this->setWindowTitle("Statistika");
     this->setWindowFlags(Qt::Window);
-    this->showMaximized();
     int color;
     for(int i(0); i < 150; i++)
     {
@@ -27,7 +26,7 @@ Statistic::Statistic(QWidget *parent) :
     QHeaderView *h_header_vse = ui->tableWidget_vse->horizontalHeader();
     QHeaderView *v_header_vse = ui->tableWidget_vse->verticalHeader();
     h_header_vse->setSectionResizeMode(QHeaderView::Stretch);
-    v_header_vse->setSectionResizeMode(QHeaderView::Stretch);
+    v_header_vse->setSectionResizeMode(QHeaderView::Interactive);
     v_header_vse->setDefaultSectionSize(21);
     AddToComboBox(m_fileNameCompanys);
     AddToTableWidget(m_fileRacun);
@@ -37,15 +36,6 @@ Statistic::Statistic(QWidget *parent) :
     ui->plot->clearPlottables();
     Plot();
     ui->pushButton_isci->setFocus();
-    QScrollArea *scrollArea = new QScrollArea(this);
-    QGroupBox *groupBox = new QGroupBox(scrollArea);
-    groupBox->setLayout(ui->gridLayout);
-    scrollArea->setWidget(groupBox);
-    scrollArea->setWidgetResizable(true);
-    QHBoxLayout* layout = new QHBoxLayout(this);
-    layout->addWidget(scrollArea);
-    setLayout(layout);
-    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 Statistic::~Statistic()

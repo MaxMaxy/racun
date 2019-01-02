@@ -11,14 +11,6 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setWindowTitle("Glavni meni");
     ui->pushButton->setFocus();
     MainWindow::setWindowIcon(icon);
-    this->setGeometry(
-        QStyle::alignedRect(
-            Qt::LeftToRight,
-            Qt::AlignCenter,
-            this->size(),
-            qApp->desktop()->availableGeometry()
-        )
-    );
 }
 
 MainWindow::~MainWindow()

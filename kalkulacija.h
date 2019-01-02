@@ -8,10 +8,7 @@
 #include <QTreeWidgetItem>
 #include <QString>
 #include <QDateTime>
-#include <QScrollArea>
-#include <QGroupBox>
-#include "numofitemskalk.h"
-#include "numofhours.h"
+#include "numofitems.h"
 
 namespace Ui {
 class Kalkulacija;
@@ -26,7 +23,7 @@ public:
     ~Kalkulacija();
     void Read(QString, QTreeWidget *);
     void AddItemsToCombo();
-    void AddRoot(QString, QString, QString, QString, QTreeWidget *);
+    void AddRoot(QString, QString, QString, QTreeWidget *);
     void Search(QString, QString, QTreeWidget *);
     void Arhiv(QString, QString);
 
@@ -41,6 +38,7 @@ private slots:
     void on_lineEdit_kalo_textChanged();
     void on_checkBox_popraviOperacijo_stateChanged();
     void on_checkBox_popravekMateriala_stateChanged();
+
     void on_pushButton_vnosProdukta_clicked();
 
 private:

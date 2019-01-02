@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>350</width>
-    <height>550</height>
+    <width>250</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,14 +18,14 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>350</width>
-    <height>550</height>
+    <width>250</width>
+    <height>500</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>350</width>
-    <height>550</height>
+    <width>250</width>
+    <height>500</height>
    </size>
   </property>
   <property name="font">
@@ -53,7 +53,7 @@
       </property>
       <property name="font">
        <font>
-        <family>Sans</family>
+        <family>MS Sans Serif</family>
         <pointsize>18</pointsize>
         <weight>75</weight>
         <italic>true</italic>
@@ -83,7 +83,7 @@
         </property>
         <property name="font">
          <font>
-          <family>Waree</family>
+          <family>MS Sans Serif</family>
           <pointsize>12</pointsize>
           <weight>75</weight>
           <italic>true</italic>
@@ -93,9 +93,6 @@
         </property>
         <property name="layoutDirection">
          <enum>Qt::LeftToRight</enum>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">margin: 3%</string>
         </property>
         <property name="text">
          <string> Nov račun</string>
@@ -129,15 +126,12 @@
         </property>
         <property name="font">
          <font>
-          <family>Sans Serif</family>
+          <family>MS Sans Serif</family>
           <pointsize>12</pointsize>
           <weight>75</weight>
           <italic>true</italic>
           <bold>true</bold>
          </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">margin: 3%</string>
         </property>
         <property name="text">
          <string>Vnos obveznosti</string>
@@ -159,15 +153,12 @@
         </property>
         <property name="font">
          <font>
-          <family>Sans Serif</family>
+          <family>MS Sans Serif</family>
           <pointsize>12</pointsize>
           <weight>75</weight>
           <italic>true</italic>
           <bold>true</bold>
          </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">margin: 3%</string>
         </property>
         <property name="text">
          <string>Terjatve - obveznosti</string>
@@ -193,15 +184,12 @@
         </property>
         <property name="font">
          <font>
-          <family>Sans Serif</family>
+          <family>MS Sans Serif</family>
           <pointsize>12</pointsize>
           <weight>75</weight>
           <italic>true</italic>
           <bold>true</bold>
          </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">margin: 3%</string>
         </property>
         <property name="text">
          <string> Dodaj - popravi stranko</string>
@@ -226,15 +214,12 @@
         </property>
         <property name="font">
          <font>
-          <family>Sans Serif</family>
+          <family>MS Sans Serif</family>
           <pointsize>12</pointsize>
           <weight>75</weight>
           <italic>true</italic>
           <bold>true</bold>
          </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">margin: 3%</string>
         </property>
         <property name="text">
          <string> Dodaj - popravi produkt</string>
@@ -259,14 +244,10 @@
         </property>
         <property name="font">
          <font>
-          <family>Sans Serif</family>
           <pointsize>12</pointsize>
           <weight>75</weight>
           <bold>true</bold>
          </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">margin: 3%</string>
         </property>
         <property name="text">
          <string>Kalkulacija produkta</string>
@@ -277,12 +258,9 @@
         </property>
         <property name="iconSize">
          <size>
-          <width>28</width>
-          <height>28</height>
+          <width>22</width>
+          <height>22</height>
          </size>
-        </property>
-        <property name="shortcut">
-         <string>F6</string>
         </property>
        </widget>
       </item>
@@ -296,15 +274,12 @@
         </property>
         <property name="font">
          <font>
-          <family>Sans Serif</family>
+          <family>MS Sans Serif</family>
           <pointsize>12</pointsize>
           <weight>75</weight>
           <italic>true</italic>
           <bold>true</bold>
          </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">margin: 3%</string>
         </property>
         <property name="text">
          <string>Statistika</string>
@@ -339,15 +314,12 @@
         </property>
         <property name="font">
          <font>
-          <family>Sans Serif</family>
+          <family>MS Sans Serif</family>
           <pointsize>12</pointsize>
           <weight>75</weight>
           <italic>true</italic>
           <bold>true</bold>
          </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">margin: 3%</string>
         </property>
         <property name="text">
          <string> Izhod</string>
@@ -374,9 +346,6 @@
         <property name="layoutDirection">
          <enum>Qt::LeftToRight</enum>
         </property>
-        <property name="styleSheet">
-         <string notr="true">margin: 2%</string>
-        </property>
         <property name="frameShape">
          <enum>QFrame::NoFrame</enum>
         </property>
@@ -384,7 +353,7 @@
          <enum>QFrame::Raised</enum>
         </property>
         <property name="text">
-         <string>v0.9.9.2</string>
+         <string>v0.9.9.3</string>
         </property>
         <property name="textFormat">
          <enum>Qt::AutoText</enum>
@@ -416,8 +385,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>350</width>
-     <height>25</height>
+     <width>250</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuStart">
@@ -459,8 +428,8 @@
    </property>
    <property name="font">
     <font>
-     <family>Sans Serif</family>
-     <pointsize>12</pointsize>
+     <family>MS Sans Serif</family>
+     <pointsize>10</pointsize>
      <italic>true</italic>
     </font>
    </property>
@@ -477,11 +446,6 @@
    <property name="text">
     <string>Dodaj stranko</string>
    </property>
-   <property name="font">
-    <font>
-     <family>Sans Serif</family>
-    </font>
-   </property>
    <property name="shortcut">
     <string>F4</string>
    </property>
@@ -495,11 +459,6 @@
    <property name="text">
     <string>Dodaj produkt</string>
    </property>
-   <property name="font">
-    <font>
-     <family>Sans Serif</family>
-    </font>
-   </property>
    <property name="shortcut">
     <string>F5</string>
    </property>
@@ -512,11 +471,6 @@
    </property>
    <property name="text">
     <string>Izhod</string>
-   </property>
-   <property name="font">
-    <font>
-     <family>Sans Serif</family>
-    </font>
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
@@ -533,8 +487,8 @@
    </property>
    <property name="font">
     <font>
-     <family>Sans Serif</family>
-     <pointsize>12</pointsize>
+     <family>MS Sans Serif</family>
+     <pointsize>10</pointsize>
      <italic>true</italic>
     </font>
    </property>
@@ -551,11 +505,6 @@
    <property name="text">
     <string>Arhiv</string>
    </property>
-   <property name="font">
-    <font>
-     <family>Sans Serif</family>
-    </font>
-   </property>
    <property name="shortcut">
     <string>F8</string>
    </property>
@@ -568,11 +517,6 @@
    </property>
    <property name="text">
     <string>Terjatve / obveznosti</string>
-   </property>
-   <property name="font">
-    <font>
-     <family>Sans Serif</family>
-    </font>
    </property>
    <property name="shortcut">
     <string>F3</string>
@@ -587,11 +531,6 @@
    <property name="text">
     <string>Vnos obveznosti</string>
    </property>
-   <property name="font">
-    <font>
-     <family>Sans Serif</family>
-    </font>
-   </property>
    <property name="shortcut">
     <string>F2</string>
    </property>
@@ -604,11 +543,6 @@
    </property>
    <property name="text">
     <string>Nastavitve</string>
-   </property>
-   <property name="font">
-    <font>
-     <family>Sans Serif</family>
-    </font>
    </property>
    <property name="shortcut">
     <string>F9</string>
@@ -623,11 +557,6 @@
    <property name="text">
     <string>Statistika</string>
    </property>
-   <property name="font">
-    <font>
-     <family>Sans Serif</family>
-    </font>
-   </property>
    <property name="shortcut">
     <string>F7</string>
    </property>
@@ -635,11 +564,6 @@
   <action name="actionTesting">
    <property name="text">
     <string>Testing</string>
-   </property>
-   <property name="font">
-    <font>
-     <family>Sans Serif</family>
-    </font>
    </property>
    <property name="shortcut">
     <string>Ctrl+T</string>

@@ -3,8 +3,6 @@
 
 #include <QMainWindow>
 #include <QIcon>
-#include <QStyle>
-#include <QDesktopWidget>
 #include "novracun.h"
 #include "dodajpodjetje.h"
 #include "dodajprodukt.h"

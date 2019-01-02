@@ -9,8 +9,6 @@
 #include <QTextStream>
 #include <QListWidgetItem>
 #include <QButtonGroup>
-#include <QScrollArea>
-#include <QGroupBox>
 #include "novracun.h"
 
 namespace Ui {

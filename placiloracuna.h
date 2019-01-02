@@ -5,8 +5,6 @@
 #include <QDate>
 #include <QStringList>
 #include <QIcon>
-#include <QScrollArea>
-#include <QGroupBox>
 
 namespace Ui {
 class PlaciloRacuna;

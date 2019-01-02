@@ -48,9 +48,7 @@ SOURCES += \
     statistic.cpp \
     qcustomplot.cpp \
     testingdialog.cpp \
-    kalkulacija.cpp \
-    numofitemskalk.cpp \
-    numofhours.cpp
+    kalkulacija.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -68,9 +66,7 @@ HEADERS += \
     statistic.h \
     qcustomplot.h \
     testingdialog.h \
-    kalkulacija.h \
-    numofitemskalk.h \
-    numofhours.h
+    kalkulacija.h
 
 FORMS += \
     mainwindow.ui \
@@ -87,13 +83,10 @@ FORMS += \
     settings.ui \
     statistic.ui \
     testingdialog.ui \
-    kalkulacija.ui \
-    numofitemskalk.ui \
-    numofhours.ui
+    kalkulacija.ui
 
 RESOURCES += \
-    files.qrc \
-    font.qrc
+    files.qrc
 
 DISTFILES += \
     arhiv_files.txt \
