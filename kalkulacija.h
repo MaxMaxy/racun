@@ -11,6 +11,7 @@
 #include <QScrollArea>
 #include <QGroupBox>
 #include "numofitemskalk.h"
+#include "numofhours.h"
 
 namespace Ui {
 class Kalkulacija;

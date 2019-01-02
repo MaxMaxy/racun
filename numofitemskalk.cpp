@@ -2,8 +2,8 @@
 #include "ui_numofitemskalk.h"
 
 numOfItemsKalk::numOfItemsKalk(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::numOfItemsKalk), m_kolicina("")
+    QDialog(parent), m_kolicina(""),
+    ui(new Ui::numOfItemsKalk)
 {
     ui->setupUi(this);
     QIcon icon(":/icons/icon.ico");

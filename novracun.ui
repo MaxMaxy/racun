@@ -12,9 +12,9 @@
   </property>
   <property name="font">
    <font>
-    <family>MS Sans Serif</family>
+    <family>Serif</family>
     <pointsize>10</pointsize>
-    <italic>true</italic>
+    <italic>false</italic>
    </font>
   </property>
   <property name="windowTitle">
@@ -47,7 +47,7 @@
                      </property>
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <pointsize>18</pointsize>
                        <weight>75</weight>
                        <italic>true</italic>
@@ -63,7 +63,7 @@
                     <widget class="Line" name="line_2">
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <italic>true</italic>
                       </font>
                      </property>
@@ -80,7 +80,7 @@
                     <widget class="QLabel" name="label_4">
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <pointsize>10</pointsize>
                        <weight>75</weight>
                        <italic>true</italic>
@@ -99,8 +99,8 @@
                     <widget class="QComboBox" name="comboBox_narocnik">
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>12</pointsize>
+                       <family>Serif</family>
+                       <pointsize>10</pointsize>
                        <weight>50</weight>
                        <italic>true</italic>
                        <bold>false</bold>
@@ -116,7 +116,7 @@
                     <widget class="QLabel" name="label_3">
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <pointsize>10</pointsize>
                        <weight>75</weight>
                        <italic>true</italic>
@@ -135,7 +135,7 @@
                     <widget class="QLineEdit" name="lineEdit_stRacuna">
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <pointsize>10</pointsize>
                        <weight>50</weight>
                        <italic>true</italic>
@@ -152,7 +152,7 @@
                     <widget class="QLabel" name="label_7">
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <pointsize>10</pointsize>
                        <weight>75</weight>
                        <italic>true</italic>
@@ -171,7 +171,7 @@
                     <widget class="QLineEdit" name="lineEdit_sklic">
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <pointsize>10</pointsize>
                        <weight>50</weight>
                        <italic>true</italic>
@@ -188,7 +188,7 @@
                     <widget class="QLabel" name="label_2">
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <pointsize>10</pointsize>
                        <weight>75</weight>
                        <italic>true</italic>
@@ -207,7 +207,7 @@
                     <widget class="QDateEdit" name="dateEdit">
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <pointsize>10</pointsize>
                        <weight>50</weight>
                        <italic>true</italic>
@@ -234,7 +234,7 @@
                     <widget class="QLabel" name="label_13">
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <pointsize>10</pointsize>
                        <weight>75</weight>
                        <italic>true</italic>
@@ -253,7 +253,7 @@
                     <widget class="QLineEdit" name="lineEdit">
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <pointsize>10</pointsize>
                        <weight>50</weight>
                        <italic>true</italic>
@@ -268,6 +268,11 @@
                </item>
                <item>
                 <widget class="Line" name="line_5">
+                 <property name="font">
+                  <font>
+                   <family>Serif</family>
+                  </font>
+                 </property>
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
                  </property>
@@ -283,7 +288,7 @@
                       <widget class="QLabel" name="label_5">
                        <property name="font">
                         <font>
-                         <family>MS Sans Serif</family>
+                         <family>Serif</family>
                          <pointsize>10</pointsize>
                          <weight>75</weight>
                          <italic>true</italic>
@@ -311,10 +316,10 @@
                        </property>
                        <property name="font">
                         <font>
-                         <family>MS Sans Serif</family>
+                         <family>Serif</family>
                          <pointsize>10</pointsize>
                          <weight>50</weight>
-                         <italic>true</italic>
+                         <italic>false</italic>
                          <bold>false</bold>
                         </font>
                        </property>
@@ -374,7 +379,7 @@
                     <widget class="Line" name="line_3">
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <italic>true</italic>
                       </font>
                      </property>
@@ -385,6 +390,11 @@
                    </item>
                    <item>
                     <widget class="Line" name="line_9">
+                     <property name="font">
+                      <font>
+                       <family>Serif</family>
+                      </font>
+                     </property>
                      <property name="orientation">
                       <enum>Qt::Vertical</enum>
                      </property>
@@ -392,6 +402,11 @@
                    </item>
                    <item>
                     <widget class="Line" name="line_10">
+                     <property name="font">
+                      <font>
+                       <family>Serif</family>
+                      </font>
+                     </property>
                      <property name="orientation">
                       <enum>Qt::Vertical</enum>
                      </property>
@@ -403,7 +418,7 @@
                       <widget class="QLabel" name="label_6">
                        <property name="font">
                         <font>
-                         <family>MS Sans Serif</family>
+                         <family>Serif</family>
                          <pointsize>10</pointsize>
                          <weight>75</weight>
                          <italic>true</italic>
@@ -431,10 +446,10 @@
                        </property>
                        <property name="font">
                         <font>
-                         <family>MS Sans Serif</family>
+                         <family>Serif</family>
                          <pointsize>10</pointsize>
                          <weight>50</weight>
-                         <italic>true</italic>
+                         <italic>false</italic>
                          <bold>false</bold>
                         </font>
                        </property>
@@ -515,7 +530,7 @@
               <widget class="Line" name="line_4">
                <property name="font">
                 <font>
-                 <family>MS Sans Serif</family>
+                 <family>Serif</family>
                  <italic>true</italic>
                 </font>
                </property>
@@ -540,7 +555,7 @@
                      </property>
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <pointsize>10</pointsize>
                        <weight>75</weight>
                        <italic>true</italic>
@@ -565,7 +580,7 @@
                      </property>
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <pointsize>12</pointsize>
                        <weight>50</weight>
                        <italic>true</italic>
@@ -594,7 +609,7 @@
                      </property>
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <pointsize>12</pointsize>
                        <weight>50</weight>
                        <italic>true</italic>
@@ -608,6 +623,11 @@
                    </item>
                    <item>
                     <widget class="QLabel" name="label_17">
+                     <property name="font">
+                      <font>
+                       <family>Serif</family>
+                      </font>
+                     </property>
                      <property name="text">
                       <string/>
                      </property>
@@ -619,6 +639,11 @@
                </item>
                <item>
                 <widget class="Line" name="line_7">
+                 <property name="font">
+                  <font>
+                   <family>Serif</family>
+                  </font>
+                 </property>
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
                  </property>
@@ -626,6 +651,11 @@
                </item>
                <item>
                 <widget class="Line" name="line_8">
+                 <property name="font">
+                  <font>
+                   <family>Serif</family>
+                  </font>
+                 </property>
                  <property name="orientation">
                   <enum>Qt::Vertical</enum>
                  </property>
@@ -633,6 +663,11 @@
                </item>
                <item>
                 <widget class="Line" name="line_11">
+                 <property name="font">
+                  <font>
+                   <family>Serif</family>
+                  </font>
+                 </property>
                  <property name="orientation">
                   <enum>Qt::Vertical</enum>
                  </property>
@@ -652,7 +687,7 @@
                      </property>
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <pointsize>12</pointsize>
                        <weight>75</weight>
                        <italic>true</italic>
@@ -677,7 +712,7 @@
                      </property>
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <pointsize>12</pointsize>
                        <weight>75</weight>
                        <italic>true</italic>
@@ -712,7 +747,7 @@
                      </property>
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <pointsize>10</pointsize>
                        <weight>50</weight>
                        <italic>true</italic>
@@ -740,7 +775,7 @@
                      </property>
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <pointsize>10</pointsize>
                        <weight>50</weight>
                        <italic>true</italic>
@@ -766,7 +801,7 @@
                      </property>
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <pointsize>10</pointsize>
                        <weight>50</weight>
                        <italic>true</italic>
@@ -791,7 +826,7 @@
                      </property>
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <pointsize>10</pointsize>
                        <weight>50</weight>
                        <italic>true</italic>
@@ -826,7 +861,7 @@
                      </property>
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <pointsize>10</pointsize>
                        <weight>50</weight>
                        <italic>true</italic>
@@ -851,7 +886,7 @@
                      </property>
                      <property name="font">
                       <font>
-                       <family>MS Sans Serif</family>
+                       <family>Serif</family>
                        <pointsize>10</pointsize>
                        <weight>50</weight>
                        <italic>true</italic>
@@ -880,6 +915,11 @@
              </item>
              <item>
               <widget class="QPushButton" name="pushButton_isci">
+               <property name="font">
+                <font>
+                 <family>Serif</family>
+                </font>
+               </property>
                <property name="text">
                 <string>Isci</string>
                </property>
@@ -889,6 +929,11 @@
            </item>
            <item>
             <widget class="Line" name="line_6">
+             <property name="font">
+              <font>
+               <family>Serif</family>
+              </font>
+             </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -903,6 +948,11 @@
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Serif</family>
+                </font>
                </property>
                <property name="text">
                 <string/>
@@ -921,7 +971,7 @@
                  </property>
                  <property name="font">
                   <font>
-                   <family>MS Sans Serif</family>
+                   <family>Serif</family>
                    <pointsize>12</pointsize>
                    <weight>75</weight>
                    <italic>true</italic>
@@ -949,7 +999,7 @@
                  </property>
                  <property name="font">
                   <font>
-                   <family>MS Sans Serif</family>
+                   <family>Serif</family>
                    <pointsize>12</pointsize>
                    <weight>75</weight>
                    <italic>true</italic>
@@ -989,7 +1039,7 @@
           <widget class="Line" name="line">
            <property name="font">
             <font>
-             <family>MS Sans Serif</family>
+             <family>Serif</family>
              <italic>true</italic>
             </font>
            </property>
@@ -1004,7 +1054,7 @@
         <widget class="QPushButton" name="pushButton_natisniRacun">
          <property name="font">
           <font>
-           <family>MS Sans Serif</family>
+           <family>Serif</family>
            <pointsize>12</pointsize>
            <weight>75</weight>
            <italic>true</italic>
@@ -1030,7 +1080,7 @@
          </property>
          <property name="font">
           <font>
-           <family>MS Sans Serif</family>
+           <family>Serif</family>
            <pointsize>12</pointsize>
            <italic>true</italic>
           </font>

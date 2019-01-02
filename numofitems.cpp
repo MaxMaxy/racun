@@ -2,8 +2,7 @@
 #include "ui_numofitems.h"
 
 NumOfItems::NumOfItems(QWidget *parent) :
-    QDialog(parent),
-    m_numKosov("1"), ui(new Ui::NumOfItems)
+    QDialog(parent), m_numKosov(""), ui(new Ui::NumOfItems)
 {
     ui->setupUi(this);
     QIcon icon(":/icons/icon.ico");
@@ -20,8 +19,7 @@ NumOfItems::~NumOfItems()
     delete ui;
 }
 
-void NumOfItems::on_pushButton_vnos_clicked()
-{
+void NumOfItems::on_pushButton_vnos_clicked() {
     close();
     if(ui->lineEdit_steviloKosov->text() == "")
         m_numKosov = "1";

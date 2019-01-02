@@ -121,8 +121,7 @@ void Terjatve::AddItemsToComboBox()
     mFileUpniki.close();
 }
 
-void Terjatve::AddRootTerjatve(QStringList textList)
-{
+void Terjatve::AddRootTerjatve(QStringList textList) {
     QStringList list;
     QRegularExpression exp(":");
     QString st_rac = textList.at(3);
@@ -159,7 +158,6 @@ void Terjatve::AddRootTerjatve(QStringList textList)
     itemDatum.remove(-1,1);
     itemDatum.append(textList.at(2));
     itemDatum.remove(-1,1);
-
     QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget_terjatve);
     itm->setText(0, st_rac);
     itm->setText(1, stranka);
@@ -170,23 +168,18 @@ void Terjatve::AddRootTerjatve(QStringList textList)
     itm->setText(5, placilo);
     itm->setText(6, dat_placila);
     itm->setText(8, itemDatum);
-
-    if(znesek.remove("€").toDouble() > placilo.remove("€").toDouble())
-    {
+    if(znesek.remove("€").toDouble() > placilo.remove("€").toDouble()) {
         for(int i(0); i < itm->columnCount(); i++)
             itm->setTextColor(i, QColor("red"));
     }
-    else if(znesek.remove("€").toDouble() < placilo.remove("€").toDouble())
-    {
+    else if(znesek.remove("€").toDouble() < placilo.remove("€").toDouble()) {
         for(int i(0); i < itm->columnCount(); i++)
             itm->setBackgroundColor(i, QColor("red"));
     }
-    else
-    {
+    else {
         for(int i(0); i < itm->columnCount(); i++)
             itm->setTextColor(i, QColor("green"));
     }
-
     ui->treeWidget_terjatve->addTopLevelItem(itm);
 }
 
@@ -269,7 +262,6 @@ void Terjatve::AddRootObveznosti(QStringList textList)
     opomba = list.at(1);
     QString ident = textList.at(1) + textList.at(2);
     ident.remove(-1,1);
-
     QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget_obveznosti);
     itm->setText(0, listina);
     itm->setText(1, stranka);
@@ -279,19 +271,15 @@ void Terjatve::AddRootObveznosti(QStringList textList)
     itm->setText(5, dat_placila);
     itm->setText(6, opomba);
     itm->setText(7, ident);
-
-    if(znesek.remove("€").toDouble() > placilo.remove("€").toDouble())
-    {
+    if(znesek.remove("€").toDouble() > placilo.remove("€").toDouble()) {
         for(int i(0); i < itm->columnCount(); i++)
             itm->setTextColor(i, QColor("red"));
     }
-    else if(znesek.remove("€").toDouble() < placilo.remove("€").toDouble())
-    {
+    else if(znesek.remove("€").toDouble() < placilo.remove("€").toDouble()) {
         for(int i(0); i < itm->columnCount(); i++)
             itm->setBackgroundColor(i, QColor("red"));
     }
-    else
-    {
+    else {
         for(int i(0); i < itm->columnCount(); i++)
             itm->setTextColor(i, QColor("green"));
     }
@@ -462,6 +450,7 @@ void Terjatve::on_pushButton_2_clicked()
 
 void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
 {
+    qDebug() << item;
     QString itemDatum = item->text(8);
     QFile mFile(m_terjatve);
     if(!mFile.open(QFile::ReadOnly | QFile::Text))
@@ -517,21 +506,23 @@ void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
             placilo.setOpombe(opomba, cena, datum);
             placilo.exec();
             placiloList = placilo.on_pushButton_clicked();
-            tmp.replace(QString(tmp_list.at(14)), QString(" Placilo: " + placiloList.at(0)));
-            tmp.replace(QString(tmp_list.at(15)), QString(" Dat_placila: " + placiloList.at(1)));
-            tmp.replace(QString(tmp_list.at(12)), QString(" Opomba: " + placiloList.at(2)));
-            allText.replace(text_stRacuna, tmp);
-            mFile.close();
-            if(!mFile.open(QFile::WriteOnly | QFile::Truncate | QFile::Text))
-            {
-                qDebug() << "Error opening in treeWidget_terjatve_itemDoubleClicked";
-                return;
-            }
-            else
-            {
-                in << allText;
-                mFile.flush();
+            if(placiloList.at(0) != "") {
+                tmp.replace(QString(tmp_list.at(14)), QString(" Placilo: " + placiloList.at(0)));
+                tmp.replace(QString(tmp_list.at(15)), QString(" Dat_placila: " + placiloList.at(1)));
+                tmp.replace(QString(tmp_list.at(12)), QString(" Opomba: " + placiloList.at(2)));
+                allText.replace(text_stRacuna, tmp);
                 mFile.close();
+                if(!mFile.open(QFile::WriteOnly | QFile::Truncate | QFile::Text))
+                {
+                    qDebug() << "Error opening in treeWidget_terjatve_itemDoubleClicked";
+                    return;
+                }
+                else
+                {
+                    in << allText;
+                    mFile.flush();
+                    mFile.close();
+                }
             }
         }
     }
@@ -546,18 +537,15 @@ void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
     ui->label_terjatve_obveznosti->setText("€" + QString::number(m_totalTerMinObv, 'f', 2));
 }
 
-void Terjatve::on_treeWidget_obveznosti_itemDoubleClicked(QTreeWidgetItem *item)
-{
+void Terjatve::on_treeWidget_obveznosti_itemDoubleClicked(QTreeWidgetItem *item) {
+    qDebug() << item;
+    item->backgroundColor(0).setGreen(1);
     QString itemDatum = item->text(7);
-
     QFile mFile(m_obveznosti);
-    if(!mFile.open(QFile::ReadOnly | QFile::Text))
-    {
+    if(!mFile.open(QFile::ReadOnly | QFile::Text)) {
         qDebug() << "Error opening in treeWidget_terjatve_itemDoubleClicked";
         return;
-    }
-    else
-    {
+    } else {
         QTextStream in(&mFile);
         QString allText("");
         QString text_obveznost("");
@@ -569,16 +557,11 @@ void Terjatve::on_treeWidget_obveznosti_itemDoubleClicked(QTreeWidgetItem *item)
         QStringList tmp_list;
         allText = in.readAll();
         mFile.close();
-
-        if(!mFile.open(QFile::ReadOnly | QFile::Text))
-        {
+        if(!mFile.open(QFile::ReadOnly | QFile::Text)) {
             qDebug() << "Error opening in treeWidget_terjatve_itemDoubleClicked";
             return;
-        }
-        else
-        {
-            while(!in.atEnd())
-            {
+        } else {
+            while(!in.atEnd()) {
                 text_obveznost = in.readLine();
                 list = text_obveznost.split(exp, QString::SkipEmptyParts);
                 tmp = list.at(1) + list.at(2);
@@ -601,21 +584,20 @@ void Terjatve::on_treeWidget_obveznosti_itemDoubleClicked(QTreeWidgetItem *item)
             placilo.setOpombe(opomba, cena, datum);
             placilo.exec();
             placiloList = placilo.on_pushButton_clicked();
-            tmp.replace(QString(tmp_list.at(7)), QString(" Placilo: " + placiloList.at(0)));
-            tmp.replace(QString(tmp_list.at(8)), QString(" Dat_placila: " + placiloList.at(1)));
-            tmp.replace(QString(tmp_list.at(9)), QString(" Opombe: " + placiloList.at(2)));
-            allText.replace(text_obveznost, tmp);
-            mFile.close();
-            if(!mFile.open(QFile::WriteOnly | QFile::Truncate | QFile::Text))
-            {
-                qDebug() << "Error opening in treeWidget_terjatve_itemDoubleClicked";
-                return;
-            }
-            else
-            {
-                in << allText;
-                mFile.flush();
+            if(placiloList.at(0) != "") {
+                tmp.replace(QString(tmp_list.at(7)), QString(" Placilo: " + placiloList.at(0)));
+                tmp.replace(QString(tmp_list.at(8)), QString(" Dat_placila: " + placiloList.at(1)));
+                tmp.replace(QString(tmp_list.at(9)), QString(" Opombe: " + placiloList.at(2)));
+                allText.replace(text_obveznost, tmp);
                 mFile.close();
+                if(!mFile.open(QFile::WriteOnly | QFile::Truncate | QFile::Text)) {
+                    qDebug() << "Error opening in treeWidget_terjatve_itemDoubleClicked";
+                    return;
+                } else {
+                    in << allText;
+                    mFile.flush();
+                    mFile.close();
+                }
             }
         }
     }

@@ -12,7 +12,7 @@
   </property>
   <property name="font">
    <font>
-    <family>MS Sans Serif</family>
+    <family>Serif</family>
     <pointsize>10</pointsize>
     <italic>true</italic>
    </font>
@@ -33,7 +33,7 @@
             <widget class="QLabel" name="label">
              <property name="font">
               <font>
-               <family>MS Sans Serif</family>
+               <family>Serif</family>
                <pointsize>18</pointsize>
                <weight>75</weight>
                <italic>true</italic>
@@ -49,6 +49,7 @@
             <widget class="Line" name="line">
              <property name="font">
               <font>
+               <family>Serif</family>
                <italic>true</italic>
               </font>
              </property>
@@ -64,7 +65,7 @@
             <widget class="QLabel" name="label_4">
              <property name="font">
               <font>
-               <family>MS Sans Serif</family>
+               <family>Serif</family>
                <pointsize>10</pointsize>
                <weight>75</weight>
                <italic>true</italic>
@@ -83,7 +84,7 @@
             <widget class="QComboBox" name="comboBox_podjetja">
              <property name="font">
               <font>
-               <family>MS Sans Serif</family>
+               <family>Serif</family>
                <pointsize>12</pointsize>
                <italic>true</italic>
               </font>
@@ -91,7 +92,13 @@
             </widget>
            </item>
            <item>
-            <widget class="QDateEdit" name="dateEdit"/>
+            <widget class="QDateEdit" name="dateEdit">
+             <property name="font">
+              <font>
+               <family>Serif</family>
+              </font>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -103,6 +110,7 @@
           <widget class="Line" name="line_3">
            <property name="font">
             <font>
+             <family>Serif</family>
              <italic>true</italic>
             </font>
            </property>
@@ -119,7 +127,7 @@
               <widget class="QPushButton" name="pushButton_isci">
                <property name="font">
                 <font>
-                 <family>MS Sans Serif</family>
+                 <family>Serif</family>
                  <pointsize>12</pointsize>
                  <weight>75</weight>
                  <italic>true</italic>
@@ -135,6 +143,7 @@
               <widget class="Line" name="line_6">
                <property name="font">
                 <font>
+                 <family>Serif</family>
                  <italic>true</italic>
                 </font>
                </property>
@@ -155,7 +164,7 @@
                   <widget class="QLabel" name="label_3">
                    <property name="font">
                     <font>
-                     <family>MS Sans Serif</family>
+                     <family>Serif</family>
                      <pointsize>10</pointsize>
                      <weight>75</weight>
                      <italic>true</italic>
@@ -180,7 +189,7 @@
                    </property>
                    <property name="font">
                     <font>
-                     <family>MS Sans Serif</family>
+                     <family>Serif</family>
                      <pointsize>8</pointsize>
                      <italic>true</italic>
                     </font>
@@ -270,6 +279,7 @@
                   <widget class="Line" name="line_7">
                    <property name="font">
                     <font>
+                     <family>Serif</family>
                      <italic>true</italic>
                     </font>
                    </property>
@@ -282,6 +292,7 @@
                   <widget class="Line" name="line_4">
                    <property name="font">
                     <font>
+                     <family>Serif</family>
                      <italic>true</italic>
                     </font>
                    </property>
@@ -300,7 +311,7 @@
                 <widget class="QLabel" name="label_2">
                  <property name="font">
                   <font>
-                   <family>MS Sans Serif</family>
+                   <family>Serif</family>
                    <pointsize>10</pointsize>
                    <weight>75</weight>
                    <italic>true</italic>
@@ -325,7 +336,7 @@
                  </property>
                  <property name="font">
                   <font>
-                   <family>MS Sans Serif</family>
+                   <family>Serif</family>
                    <pointsize>8</pointsize>
                    <italic>true</italic>
                   </font>
@@ -433,7 +444,7 @@
        </property>
        <property name="font">
         <font>
-         <family>MS Sans Serif</family>
+         <family>Serif</family>
          <pointsize>10</pointsize>
          <italic>true</italic>
         </font>
@@ -446,6 +457,7 @@
         <widget class="Line" name="line_2">
          <property name="font">
           <font>
+           <family>Serif</family>
            <italic>true</italic>
           </font>
          </property>
@@ -458,7 +470,7 @@
         <widget class="QPushButton" name="pushButton_izhod">
          <property name="font">
           <font>
-           <family>MS Sans Serif</family>
+           <family>Serif</family>
            <pointsize>12</pointsize>
            <italic>true</italic>
           </font>

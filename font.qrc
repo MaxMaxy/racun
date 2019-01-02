@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/font">
+        <file>average_sans_regular.ttf</file>
+    </qresource>
+</RCC>

@@ -186,12 +186,15 @@ void Kalkulacija::on_lineEdit_iskalnik_textChanged(const QString &searchName) {
     }
 }
 
-// dodajanje materiala
+// dodajanje materiala v material v produktu
 void Kalkulacija::on_treeWidget_material_itemDoubleClicked() {
     if(ui->checkBox_popravekMateriala->isChecked()) {
         ui->lineEdit_nazivMateriala->setText(ui->treeWidget_material->currentItem()->text(0));
         ui->lineEdit_cenaMateriala->setText(ui->treeWidget_material->currentItem()->text(1).remove("€").remove(" "));
         ui->lineEdit_kolicinaMateriala->setText(ui->treeWidget_material->currentItem()->text(2).remove(" "));
+        ui->radioButton_meter->setChecked(true);
+        if(ui->treeWidget_material->currentItem()->text(3) == "kos")
+            ui->radioButton_kos->setChecked(true);
     } else {
         bool dolzina(false);
         if(ui->treeWidget_material->currentItem()->text(3) == "meter")
@@ -201,36 +204,38 @@ void Kalkulacija::on_treeWidget_material_itemDoubleClicked() {
         numItems.setModal(true);
         numItems.exec();
         QString numMaterial = numItems.m_kolicina;
-        QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget_materialProdukta);
-        itm->setText(0, ui->treeWidget_material->currentItem()->text(0));
-        itm->setText(1, numMaterial);
-        itm->setTextAlignment(1, Qt::AlignHCenter);
-        QString price = QString::number((ui->treeWidget_material->currentItem()->text(1).remove("€").toDouble() / ui->treeWidget_material->currentItem()->text(2).toDouble()), 'f', 4);
-        itm->setText(2, "€" + QString::number((price.toDouble() * numMaterial.toDouble()), 'f', 4));
-        itm->setTextAlignment(2, Qt::AlignHCenter);
-        QColor color(210,210,210);
-        QColor wcolor(250,250,250);
-        if(m_count) {
-            itm->setBackgroundColor(0,color);
-            itm->setBackgroundColor(1,color);
-            itm->setBackgroundColor(2,color);
-            m_count = false;
-        } else {
-            itm->setBackgroundColor(0,wcolor);
-            itm->setBackgroundColor(1,wcolor);
-            itm->setBackgroundColor(2,wcolor);
-            m_count = true;
+        if(numMaterial != "") {
+            QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget_materialProdukta);
+            itm->setText(0, ui->treeWidget_material->currentItem()->text(0));
+            itm->setText(1, numMaterial);
+            itm->setTextAlignment(1, Qt::AlignHCenter);
+            QString price = QString::number((ui->treeWidget_material->currentItem()->text(1).remove("€").toDouble() / ui->treeWidget_material->currentItem()->text(2).toDouble()), 'f', 4);
+            itm->setText(2, "€" + QString::number((price.toDouble() * numMaterial.toDouble()), 'f', 4));
+            itm->setTextAlignment(2, Qt::AlignHCenter);
+            QColor color(210,210,210);
+            QColor wcolor(250,250,250);
+            if(m_count) {
+                itm->setBackgroundColor(0,color);
+                itm->setBackgroundColor(1,color);
+                itm->setBackgroundColor(2,color);
+                m_count = false;
+            } else {
+                itm->setBackgroundColor(0,wcolor);
+                itm->setBackgroundColor(1,wcolor);
+                itm->setBackgroundColor(2,wcolor);
+                m_count = true;
+            }
+            m_materialCena += (price.toDouble() * numMaterial.toDouble());
+            if(m_materialCena <= 0) m_materialCena = 0;
+            ui->label_cenaMateriala->setText("€" + QString::number((m_materialCena + ((m_materialCena * ui->lineEdit_kalo->text().toDouble())/100)), 'f', 4));
+            ui->treeWidget_materialProdukta->setUniformRowHeights(true);
+            ui->label_cenaMaterialaDela->setText("€" + QString::number(ui->label_cenaMateriala->text().remove("€").toDouble() + ui->label_cenaDela->text().remove("€").toDouble(), 'f', 4));
+            ui->lineEdit_cenaProdukta->setText(ui->label_cenaMaterialaDela->text().remove("€"));
         }
-        m_materialCena += (price.toDouble() * numMaterial.toDouble());
-        if(m_materialCena <= 0) m_materialCena = 0;
-        ui->label_cenaMateriala->setText("€" + QString::number((m_materialCena + ((m_materialCena * ui->lineEdit_kalo->text().toDouble())/100)), 'f', 4));
-        ui->treeWidget_materialProdukta->setUniformRowHeights(true);
-        ui->label_cenaMaterialaDela->setText("€" + QString::number(ui->label_cenaMateriala->text().remove("€").toDouble() + ui->label_cenaDela->text().remove("€").toDouble(), 'f', 4));
-        ui->lineEdit_cenaProdukta->setText(ui->label_cenaMaterialaDela->text().remove("€"));
     }
 }
 
-// odstrani material
+// odstrani material iz materiala v produktu
 void Kalkulacija::on_treeWidget_materialProdukta_itemDoubleClicked() {
     QString price = ui->treeWidget_materialProdukta->currentItem()->text(2);
     m_materialCena -= price.remove("€").toDouble();
@@ -241,46 +246,48 @@ void Kalkulacija::on_treeWidget_materialProdukta_itemDoubleClicked() {
     ui->lineEdit_cenaProdukta->setText(ui->label_cenaMaterialaDela->text().remove("€"));
 }
 
-// doda delo
+// doda delo k delo v produktu
 void Kalkulacija::on_treeWidget_delo_itemDoubleClicked() {
     if(ui->checkBox_popraviOperacijo->isChecked()) {
         ui->lineEdit_operacija->setText(ui->treeWidget_delo->currentItem()->text(0));
         ui->lineEdit_cenaOperacije->setText(ui->treeWidget_delo->currentItem()->text(1).remove("€").remove(" "));
     } else {
-        numOfItemsKalk numItems;
+        NumOfHours numItems;
         numItems.setModal(true);
         numItems.exec();
-        QString numMaterial = numItems.m_kolicina;
-        QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget_deloProdukta);
-        itm->setText(0, ui->treeWidget_delo->currentItem()->text(0));
-        itm->setText(1, numMaterial);
-        itm->setTextAlignment(1, Qt::AlignHCenter);
-        QString price = ui->treeWidget_delo->currentItem()->text(1);
-        itm->setText(2, "€" + QString::number((price.remove("€").toDouble() * numMaterial.toDouble()), 'f', 4));
-        itm->setTextAlignment(2, Qt::AlignHCenter);
-        QColor color(210,210,210);
-        QColor wcolor(250,250,250);
-        if(m_count) {
-            itm->setBackgroundColor(0,color);
-            itm->setBackgroundColor(1,color);
-            itm->setBackgroundColor(2,color);
-            m_count = false;
-        } else {
-            itm->setBackgroundColor(0,wcolor);
-            itm->setBackgroundColor(1,wcolor);
-            itm->setBackgroundColor(2,wcolor);
-            m_count = true;
+        QString numMaterial = numItems.m_numOfHours;
+        if(numMaterial != "") {
+            QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget_deloProdukta);
+            itm->setText(0, ui->treeWidget_delo->currentItem()->text(0));
+            itm->setText(1, numMaterial);
+            itm->setTextAlignment(1, Qt::AlignHCenter);
+            QString price = ui->treeWidget_delo->currentItem()->text(1);
+            itm->setText(2, "€" + QString::number((price.remove("€").toDouble() * numMaterial.toDouble()), 'f', 4));
+            itm->setTextAlignment(2, Qt::AlignHCenter);
+            QColor color(210,210,210);
+            QColor wcolor(250,250,250);
+            if(m_count) {
+                itm->setBackgroundColor(0,color);
+                itm->setBackgroundColor(1,color);
+                itm->setBackgroundColor(2,color);
+                m_count = false;
+            } else {
+                itm->setBackgroundColor(0,wcolor);
+                itm->setBackgroundColor(1,wcolor);
+                itm->setBackgroundColor(2,wcolor);
+                m_count = true;
+            }
+            m_deloCena += (price.toDouble() * numMaterial.toDouble());
+            if(m_deloCena <= 0) m_deloCena = 0;
+            ui->label_cenaDela->setText("€" + QString::number(m_deloCena / 1000, 'f', 4));
+            ui->treeWidget_deloProdukta->setUniformRowHeights(true);
+            ui->label_cenaMaterialaDela->setText("€" + QString::number(ui->label_cenaMateriala->text().remove("€").toDouble() + ui->label_cenaDela->text().remove("€").toDouble(), 'f', 4));
+            ui->lineEdit_cenaProdukta->setText(ui->label_cenaMaterialaDela->text().remove("€"));
         }
-        m_deloCena += (price.toDouble() * numMaterial.toDouble());
-        if(m_deloCena <= 0) m_deloCena = 0;
-        ui->label_cenaDela->setText("€" + QString::number(m_deloCena / 1000, 'f', 4));
-        ui->treeWidget_deloProdukta->setUniformRowHeights(true);
-        ui->label_cenaMaterialaDela->setText("€" + QString::number(ui->label_cenaMateriala->text().remove("€").toDouble() + ui->label_cenaDela->text().remove("€").toDouble(), 'f', 4));
-        ui->lineEdit_cenaProdukta->setText(ui->label_cenaMaterialaDela->text().remove("€"));
     }
 }
 
-// odstrani delo
+// odstrani delo iz seznama delo v produktu
 void Kalkulacija::on_treeWidget_deloProdukta_itemDoubleClicked() {
     QString price = ui->treeWidget_deloProdukta->currentItem()->text(2);
     m_deloCena -= price.remove("€").toDouble();
@@ -311,10 +318,11 @@ void Kalkulacija::on_pushButton_dodajMaterial_clicked()
         QString kolicinaProdukta = ui->lineEdit_kolicinaMateriala->text();
         if(kolicinaProdukta == "") kolicinaProdukta = "0";
         QString vrstaMateriala("meter");
-        if(ui->radioButton_kos->isEnabled())
+        if(ui->radioButton_kos->isChecked()) {
             vrstaMateriala = "kos";
-        QRegularExpression trenutniMaterial(ui->treeWidget_material->currentItem()->text(0) + ";" + ui->treeWidget_material->currentItem()->text(1).remove("€") + ";" + ui->treeWidget_material->currentItem()->text(2) + ";", QRegularExpression::CaseInsensitiveOption);
-        QString popravljenMaterial = nazivProdukta + ";" + cenaProdukta + ";" + kolicinaProdukta + ";" + vrstaMateriala;
+        }
+        QRegularExpression trenutniMaterial(ui->treeWidget_material->currentItem()->text(0) + ";" + ui->treeWidget_material->currentItem()->text(1).remove("€") + ";" + ui->treeWidget_material->currentItem()->text(2) + ";" + ui->treeWidget_material->currentItem()->text(3) + ";", QRegularExpression::CaseInsensitiveOption);
+        QString popravljenMaterial = nazivProdukta + ";" + cenaProdukta + ";" + kolicinaProdukta + ";" + vrstaMateriala + ";";
         allText.replace(trenutniMaterial, popravljenMaterial);
         if(!fileName.open(QFile::WriteOnly | QFile::Truncate)) {
             qDebug() << "Error pri odpiranju datoteke material.txt v Kalkulaciji v if() pri zamenjavi texta";
@@ -348,7 +356,7 @@ void Kalkulacija::on_pushButton_dodajMaterial_clicked()
         QString kolicinaProdukta = ui->lineEdit_kolicinaMateriala->text();
         if(kolicinaProdukta == "") kolicinaProdukta = "0";
         QString vrstaMateriala("meter");
-        if(ui->radioButton_kos->isEnabled())
+        if(ui->radioButton_kos->isChecked())
             vrstaMateriala = "kos";
         out << nazivProdukta << ";" << cenaProdukta << ";" << kolicinaProdukta << ";" << vrstaMateriala << "\n";
         fileName.flush();
@@ -376,10 +384,8 @@ void Kalkulacija::on_pushButton_dodajOperacijo_clicked()
         if(operacija == "") operacija = "ni podatka";
         QString cenaOperacije = ui->lineEdit_cenaOperacije->text();
         if(cenaOperacije == "") cenaOperacije = "0.00";
-        QString praznaCelica = " ";
-        if(praznaCelica == "") praznaCelica = " ";
-        QRegularExpression trenutnaOperacija(ui->treeWidget_delo->currentItem()->text(0) + ";" + ui->treeWidget_delo->currentItem()->text(1).remove("€") + ";" + ui->treeWidget_delo->currentItem()->text(2) + ";", QRegularExpression::CaseInsensitiveOption);
-        QString popravljenaOperacija = operacija + ";" + cenaOperacije + ";" + praznaCelica + ";";
+        QRegularExpression trenutnaOperacija(ui->treeWidget_delo->currentItem()->text(0) + ";" + ui->treeWidget_delo->currentItem()->text(1).remove("€") + ";" + " ;" + " ;", QRegularExpression::CaseInsensitiveOption);
+        QString popravljenaOperacija = operacija + ";" + cenaOperacije + ";" + " ;" + " ;";
         allText.replace(trenutnaOperacija, popravljenaOperacija);
         if(!fileName.open(QFile::WriteOnly | QFile::Truncate)) {
             qDebug() << "Error pri odpiranju datoteke delavni_proces.txt v Kalkulaciji v if() pri zamenjavi texta";
@@ -387,8 +393,7 @@ void Kalkulacija::on_pushButton_dodajOperacijo_clicked()
         }
         fileName.flush();
         fileName.close();
-        if(!fileName.open(QFile::WriteOnly | QFile::Text))
-        {
+        if(!fileName.open(QFile::WriteOnly | QFile::Text)) {
             qDebug() << "Error pri odpiranju datoteke delavni_proces.txt v Kalkulaciji v if() pri zamenjavi texta";
             return;
         }
@@ -411,7 +416,7 @@ void Kalkulacija::on_pushButton_dodajOperacijo_clicked()
         if(cenaOperacije == "") cenaOperacije = "0.00";
         QString praznaCelica = " ";
         if(praznaCelica == "") praznaCelica = " ";
-        out << operacija << ";" << cenaOperacije << ";" << praznaCelica << ";" << "\n";
+        out << operacija << ";" << cenaOperacije << ";" << " ;" << " ;" << "\n";
         fileName.flush();
         fileName.close();
         Read(m_delavniProces, ui->treeWidget_delo);

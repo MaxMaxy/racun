@@ -24,7 +24,7 @@
   </property>
   <property name="font">
    <font>
-    <family>Sans</family>
+    <family>Serif</family>
     <pointsize>10</pointsize>
    </font>
   </property>
@@ -40,7 +40,7 @@
         <widget class="QLabel" name="label">
          <property name="font">
           <font>
-           <family>Sans</family>
+           <family>Serif</family>
            <pointsize>18</pointsize>
            <weight>75</weight>
            <italic>true</italic>
@@ -54,6 +54,11 @@
        </item>
        <item>
         <widget class="Line" name="line">
+         <property name="font">
+          <font>
+           <family>Serif</family>
+          </font>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -65,26 +70,53 @@
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <widget class="QLabel" name="label_2">
+         <property name="font">
+          <font>
+           <family>Serif</family>
+          </font>
+         </property>
          <property name="text">
           <string>Vstavi dolžino v milimetrih:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_dolzina"/>
+        <widget class="QLineEdit" name="lineEdit_dolzina">
+         <property name="font">
+          <font>
+           <family>Serif</family>
+          </font>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QLabel" name="label_3">
+         <property name="font">
+          <font>
+           <family>Serif</family>
+          </font>
+         </property>
          <property name="text">
           <string>Vstavi količino v kosih:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_kos"/>
+        <widget class="QLineEdit" name="lineEdit_kos">
+         <property name="font">
+          <font>
+           <family>Serif</family>
+          </font>
+         </property>
+        </widget>
        </item>
        <item>
         <spacer name="verticalSpacer">
+         <property name="font">
+          <font>
+           <family>Serif</family>
+          </font>
+         </property>
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -102,6 +134,7 @@
       <widget class="QPushButton" name="pushButton_vstavi">
        <property name="font">
         <font>
+         <family>Serif</family>
          <weight>75</weight>
          <italic>true</italic>
          <bold>true</bold>

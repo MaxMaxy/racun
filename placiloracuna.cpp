@@ -13,7 +13,6 @@ PlaciloRacuna::PlaciloRacuna(QWidget *parent) :
     ui->lineEdit->setFocus();
     this->setWindowTitle("Plačilo");
     this->setWindowFlags(Qt::Window);
-    this->showMaximized();
     QRegularExpression regex("^[.0123456789]*$");
     QValidator *validator = new QRegularExpressionValidator(regex, this);
     ui->lineEdit->setValidator(validator);
@@ -45,9 +44,9 @@ void PlaciloRacuna::setOpombe(QString &opomba, QString &cena, QString &datum)
 
 QStringList PlaciloRacuna::on_pushButton_clicked()
 {
+    close();
     m_list.append(ui->lineEdit->text());
     m_list.append(ui->dateEdit->text());
     m_list.append(ui->lineEdit_opombe->text());
-    PlaciloRacuna::close();
     return m_list;
 }

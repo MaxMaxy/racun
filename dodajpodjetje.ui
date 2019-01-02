@@ -12,7 +12,7 @@
   </property>
   <property name="font">
    <font>
-    <family>MS Sans Serif</family>
+    <family>Serif</family>
     <pointsize>10</pointsize>
     <weight>50</weight>
     <italic>true</italic>
@@ -30,9 +30,11 @@
     <widget class="QTreeWidget" name="treeWidget">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
+       <family>Serif</family>
        <pointsize>10</pointsize>
+       <weight>50</weight>
        <italic>true</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="styleSheet">
@@ -81,7 +83,7 @@ QHeaderView::section{padding:7px 15px}</string>
     <widget class="QLabel" name="label_7">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
+       <family>Serif</family>
        <pointsize>10</pointsize>
        <weight>75</weight>
        <italic>true</italic>
@@ -100,7 +102,7 @@ QHeaderView::section{padding:7px 15px}</string>
     <widget class="QLineEdit" name="lineEdit_posta">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
+       <family>Serif</family>
        <pointsize>10</pointsize>
        <italic>true</italic>
       </font>
@@ -111,7 +113,7 @@ QHeaderView::section{padding:7px 15px}</string>
     <widget class="Line" name="line_3">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
+       <family>Serif</family>
        <italic>true</italic>
       </font>
      </property>
@@ -124,7 +126,7 @@ QHeaderView::section{padding:7px 15px}</string>
     <widget class="QLabel" name="label">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
+       <family>Serif</family>
        <pointsize>18</pointsize>
        <weight>75</weight>
        <italic>true</italic>
@@ -140,7 +142,7 @@ QHeaderView::section{padding:7px 15px}</string>
     <widget class="QLabel" name="label_3">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
+       <family>Serif</family>
        <pointsize>10</pointsize>
        <weight>75</weight>
        <italic>true</italic>
@@ -159,7 +161,7 @@ QHeaderView::section{padding:7px 15px}</string>
     <widget class="QLineEdit" name="lineEdit_kNaziv">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
+       <family>Serif</family>
        <pointsize>10</pointsize>
        <italic>true</italic>
       </font>
@@ -170,7 +172,7 @@ QHeaderView::section{padding:7px 15px}</string>
     <widget class="QLineEdit" name="lineEdit_naslov">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
+       <family>Serif</family>
        <pointsize>10</pointsize>
        <italic>true</italic>
       </font>
@@ -181,7 +183,7 @@ QHeaderView::section{padding:7px 15px}</string>
     <widget class="QLineEdit" name="lineEdit_ddv">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
+       <family>Serif</family>
        <pointsize>10</pointsize>
        <italic>true</italic>
       </font>
@@ -192,7 +194,7 @@ QHeaderView::section{padding:7px 15px}</string>
     <widget class="QLabel" name="label_4">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
+       <family>Serif</family>
        <pointsize>10</pointsize>
        <weight>75</weight>
        <italic>true</italic>
@@ -211,7 +213,7 @@ QHeaderView::section{padding:7px 15px}</string>
     <widget class="QLabel" name="label_6">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
+       <family>Serif</family>
        <pointsize>10</pointsize>
        <weight>75</weight>
        <italic>true</italic>
@@ -230,7 +232,7 @@ QHeaderView::section{padding:7px 15px}</string>
     <widget class="QLineEdit" name="lineEdit_cNaziv">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
+       <family>Serif</family>
        <pointsize>10</pointsize>
        <italic>true</italic>
       </font>
@@ -241,7 +243,7 @@ QHeaderView::section{padding:7px 15px}</string>
     <widget class="QLabel" name="label_2">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
+       <family>Serif</family>
        <pointsize>10</pointsize>
        <weight>75</weight>
        <italic>true</italic>
@@ -260,7 +262,7 @@ QHeaderView::section{padding:7px 15px}</string>
     <widget class="QLabel" name="label_5">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
+       <family>Serif</family>
        <pointsize>10</pointsize>
        <weight>75</weight>
        <italic>true</italic>
@@ -279,7 +281,7 @@ QHeaderView::section{padding:7px 15px}</string>
     <widget class="QLineEdit" name="lineEdit_email">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
+       <family>Serif</family>
        <pointsize>10</pointsize>
        <italic>true</italic>
       </font>
@@ -290,7 +292,7 @@ QHeaderView::section{padding:7px 15px}</string>
     <widget class="Line" name="line">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
+       <family>Serif</family>
        <italic>true</italic>
       </font>
      </property>
@@ -303,7 +305,7 @@ QHeaderView::section{padding:7px 15px}</string>
     <widget class="QPushButton" name="pushButton_dodajPodjetje">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
+       <family>Serif</family>
        <pointsize>12</pointsize>
        <italic>true</italic>
       </font>
@@ -317,7 +319,7 @@ QHeaderView::section{padding:7px 15px}</string>
     <widget class="QPushButton" name="pushButton_popraviPodatke">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
+       <family>Serif</family>
        <pointsize>12</pointsize>
        <italic>true</italic>
       </font>
@@ -331,7 +333,7 @@ QHeaderView::section{padding:7px 15px}</string>
     <widget class="Line" name="line_4">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
+       <family>Serif</family>
        <italic>true</italic>
       </font>
      </property>
@@ -344,7 +346,7 @@ QHeaderView::section{padding:7px 15px}</string>
     <widget class="QPushButton" name="pushButton_izhod">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
+       <family>Serif</family>
        <pointsize>12</pointsize>
        <italic>true</italic>
       </font>
@@ -358,7 +360,7 @@ QHeaderView::section{padding:7px 15px}</string>
     <widget class="Line" name="line_2">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
+       <family>Serif</family>
        <italic>true</italic>
       </font>
      </property>
