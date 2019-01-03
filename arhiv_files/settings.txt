@@ -1,4 +1,5 @@
-Shrani v: ; C:/Users/Nejc/Documents/Testni racuni ;
+Shrani v: ; C:/Users/Nejc/Desktop ;
+
 
 
 

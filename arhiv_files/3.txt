@@ -1,1 +1,14 @@
 Dodano: ;ALPFRIGO d.o.o. - 19.12.2018 ; 13:34:35.029 ;
+1200001;Prikljucni kabel 3x1,50 3m euro R004;2.900;
+1200002;Kabel kompre orja pozitivni  z vodnikoma;2.200;
+1200003;Kabel kompre orja negativni z vodnikoma;2.000;
+1200004;Kabel luc 2x0,50 HT105 L=800;1.100;
+1200005;Kabel di play 2x0,50 HT105 L=800;0.800;
+1200006;Kabel  led o vetlitve 2x0,22 z vodnikoma;1.600;
+1200007;Ozemljilo SF 1,00 L=450;0.250;
+1200008;Ozemljilo PF 1,00 L=400;0.270;
+1200009;Šcitnik PA 66  za F 6,3;0.010;
+1200010;Set vodnikov 2T;10.000;
+1200012;Dvodelni kabel led o vetlitve;1.250;
+1200011;Set vodnikov Uniequip;9.400;
+/;Stroški prevoza ALPFRIGO;39.600;
