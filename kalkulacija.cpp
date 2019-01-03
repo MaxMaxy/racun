@@ -43,8 +43,10 @@ Kalkulacija::Kalkulacija(QWidget *parent) :
     ui->lineEdit_operacija->setValidator(validator);
     ui->lineEdit_nazivMateriala->setValidator(validator);
     QRegularExpression regenum("^[0123456789]*$");
+    QRegularExpression regenumID("^[0123456789/]*$");
     QValidator *validatornum = new QRegularExpressionValidator(regenum, this);
-    ui->lineEdit_ID->setValidator(validatornum);
+    QValidator *validatorID = new QRegularExpressionValidator(regenumID, this);
+    ui->lineEdit_ID->setValidator(validatorID);
     ui->lineEdit_kalo->setValidator(validatornum);
     ui->lineEdit_kolicinaMateriala->setValidator(validatornum);
     ui->lineEdit_ID->setMaxLength(7);

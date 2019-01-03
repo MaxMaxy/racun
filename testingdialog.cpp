@@ -517,7 +517,78 @@ void TestingDialog::Test()
     }
 }
 
+void TestingDialog::ReadFile() {
+    QFile inputFile("C:\\Users\\Nejc\\Documents\\racun.txt");
+    int cmpInt(0);
+    QString companyName("");
+    QString line("");
+    QString naziv("");
+    QString cena("");
+    QString id("");
+    QStringList list;
+    QFile file;
+    if (inputFile.open(QIODevice::ReadOnly)) {
+        QTextStream in(&inputFile);
+        bool fileEnd(false);
+        while (!in.atEnd()) {
+            if(!fileEnd) {
+                file.setFileName(QString::number(cmpInt) + ".txt");
+                if(!file.open(QFile::WriteOnly | QFile::Text)) {
+                    qDebug() << "File not opened failed";
+                    return;
+                }
+                fileEnd = true;
+            }
+            QTextStream stream(&file);
+            line = in.readLine();
+            QRegExp rx("\t");
+            list = line.split(rx, QString::SkipEmptyParts);
+            if(list.size() == 5) {
+                if(list.at(0) == "")
+                    naziv = "ni podatka";
+                else
+                    naziv = list.at(0);
+                if(list.at(1) == "")
+                    cena = "0.0";
+                else {
+                    cena = list.at(1);
+                }
+                if(list.at(4) == "")
+                    id = "/";
+                else
+                    id = list.at(4);
+                QRegExp whitespace("s+");
+                naziv.replace(whitespace, " ");
+                if(naziv.size() > 64) {
+                    qDebug() << naziv.remove(64,(naziv.length() - 64));
+                }
+                stream << id << ";" << naziv.remove(";") << ";" << cena.remove(" €") << ";\n";
+            }
+            else if(list.size() == 4) {
+                if(list.at(0) == "")
+                    naziv = "ni podatka";
+                else
+                    naziv = list.at(0);
+                if(list.at(1) == "")
+                    cena = "0.0";
+                else {
+                    cena = list.at(1);
+                }
+                id = "/";
+                stream << id << ";" << naziv.remove(";") << ";" << cena.remove(" €") << ";\n";
+            }
+            else if(list.size() == 0) {
+                file.flush();
+                file.close();
+                cmpInt++;
+                fileEnd = false;
+            }
+        }
+        inputFile.close();
+    }
+}
+
 void TestingDialog::on_pushButton_2_clicked()
 {
-    Test();
+    ReadFile();
 }

@@ -15,7 +15,7 @@ DodajProdukt::DodajProdukt(QWidget *parent) :
     ui->treeWidget->header()->setStretchLastSection(false);
     ui->lineEdit_id->setMaxLength(7);
     ui->lineEdit_nazivProdukta->setMaxLength(64);
-    QRegularExpression regenum("^[0123456789]*$");
+    QRegularExpression regenum("^[0123456789/]*$");
     QValidator *validatornum = new QRegularExpressionValidator(regenum, this);
     ui->lineEdit_id->setValidator(validatornum);
     QRegularExpression regex("^[.0123456789]*$");

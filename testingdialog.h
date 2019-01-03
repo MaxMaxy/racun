@@ -19,6 +19,7 @@ public:
     explicit TestingDialog(QWidget *parent = nullptr);
     ~TestingDialog();
     void Test();
+    void ReadFile();
 
 private slots:
     void on_pushButton_2_clicked();
