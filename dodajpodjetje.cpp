@@ -279,3 +279,105 @@ void DodajPodjetje::on_treeWidget_doubleClicked(const QModelIndex &index) {
         m_email = ui->lineEdit_email->text();
     }
 }
+
+void DodajPodjetje::on_lineEdit_kNaziv_textChanged(const QString &arg1)
+{
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_kNaziv->backspace();
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+        ui->lineEdit_kNaziv->backspace();
+        ui->lineEdit_kNaziv->backspace();
+        ui->lineEdit_kNaziv->insert(".");
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+        ui->lineEdit_kNaziv->backspace();
+        ui->lineEdit_kNaziv->backspace();
+        ui->lineEdit_kNaziv->insert(",");
+    }
+}
+
+void DodajPodjetje::on_lineEdit_cNaziv_textChanged(const QString &arg1)
+{
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_cNaziv->backspace();
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+        ui->lineEdit_cNaziv->backspace();
+        ui->lineEdit_cNaziv->backspace();
+        ui->lineEdit_cNaziv->insert(".");
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+        ui->lineEdit_cNaziv->backspace();
+        ui->lineEdit_cNaziv->backspace();
+        ui->lineEdit_cNaziv->insert(",");
+    }
+}
+
+void DodajPodjetje::on_lineEdit_naslov_textChanged(const QString &arg1)
+{
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_naslov->backspace();
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+        ui->lineEdit_naslov->backspace();
+        ui->lineEdit_naslov->backspace();
+        ui->lineEdit_naslov->insert(".");
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+        ui->lineEdit_naslov->backspace();
+        ui->lineEdit_naslov->backspace();
+        ui->lineEdit_naslov->insert(",");
+    }
+}
+
+void DodajPodjetje::on_lineEdit_posta_textChanged(const QString &arg1)
+{
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_posta->backspace();
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+        ui->lineEdit_posta->backspace();
+        ui->lineEdit_posta->backspace();
+        ui->lineEdit_posta->insert(".");
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+        ui->lineEdit_posta->backspace();
+        ui->lineEdit_posta->backspace();
+        ui->lineEdit_posta->insert(",");
+    }
+}
+
+void DodajPodjetje::on_lineEdit_ddv_textChanged(const QString &arg1)
+{
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_ddv->backspace();
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+        ui->lineEdit_ddv->backspace();
+        ui->lineEdit_ddv->backspace();
+        ui->lineEdit_ddv->insert(".");
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+        ui->lineEdit_ddv->backspace();
+        ui->lineEdit_ddv->backspace();
+        ui->lineEdit_ddv->insert(",");
+    }
+}
+
+void DodajPodjetje::on_lineEdit_email_textChanged(const QString &arg1)
+{
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_email->backspace();
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+        ui->lineEdit_email->backspace();
+        ui->lineEdit_email->backspace();
+        ui->lineEdit_email->insert(".");
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+        ui->lineEdit_email->backspace();
+        ui->lineEdit_email->backspace();
+        ui->lineEdit_email->insert(",");
+    }
+}

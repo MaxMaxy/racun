@@ -28,6 +28,7 @@ NovRacun::NovRacun(QWidget *parent) :
     ui->label_ddv->setText("€0.0");
     ui->label_osnova->setText("€0.0");
     ui->dateEdit->setMinimumDate(QDate(2016,1,1));
+    ui->dateEdit->setDate(QDate::currentDate());
     ui->lineEdit_sklic->setMaxLength(35);
     ui->lineEdit->setMaxLength(60);
     QRegularExpression regealfabet("^[a-zA-Z0-9,@. -/&#čšžŠČŽ]*$");
@@ -54,11 +55,15 @@ NovRacun::NovRacun(QWidget *parent) :
     }
     mFile.close();
     int stRacuna = mText.toInt() + 1;
-    mText = QString::number(stRacuna);
+    if(stRacuna < 10)
+        mText = "00" + QString::number(stRacuna);
+    else if(stRacuna < 100)
+        mText = "0" + QString::number(stRacuna);
+    else
+        mText = QString::number(stRacuna);
     ui->dateEdit->setDisplayFormat("yyyy");
     ui->lineEdit_stRacuna->setText(mText + "-" + ui->dateEdit->text());
     ui->dateEdit->setDisplayFormat("d. M. yyyy");
-    ui->dateEdit->setDate(QDate::currentDate());
     AddItemsToCombo();
     Read();
     Shrani();

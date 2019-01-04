@@ -34,6 +34,14 @@ private slots:
     void on_pushButton_dodajPodjetje_clicked();
     void on_pushButton_popraviPodatke_clicked();
     void on_treeWidget_doubleClicked(const QModelIndex &index);
+    void on_lineEdit_kNaziv_textChanged(const QString &arg1);
+    void on_lineEdit_cNaziv_textChanged(const QString &arg1);
+    void on_lineEdit_naslov_textChanged(const QString &arg1);
+    void on_lineEdit_posta_textChanged(const QString &arg1);
+
+    void on_lineEdit_ddv_textChanged(const QString &arg1);
+
+    void on_lineEdit_email_textChanged(const QString &arg1);
 
 private:
     Ui::DodajPodjetje *ui;
