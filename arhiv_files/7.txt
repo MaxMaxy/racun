@@ -1,5 +1,5 @@
-Dodano: ;INDATA d.o.o. - 19.12.2018 ; 13:38:23.580 ;
+﻿Dodano: ;INDATA d.o.o. - 19.12.2018 ; 13:38:23.580 ;
 1700477;Kabel Liyy 2x0,50 Cu/Sn D=4,8 L=500mm, A= 60/2xvotlica B=11/2xpoc.3 mm;0.220;
 1700479;Kabel Liyy 2x0,50 Cu/Sn D=4,8 L=3m, A=60/2xvotlica B=11/2xpoc.3 mm;1.200;
 1700478;Kabel Liyy 2x0,50 Cu/Sn D=4,8;0.180;
-/;Stro�ki prevoza INDATA;26.600;
+/;Stroški prevoza INDATA;26.600;

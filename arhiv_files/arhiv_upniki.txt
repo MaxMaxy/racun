@@ -1,2 +1,1 @@
-Nova obveznost ; 22. 12. 2018 ; 11:46:40.344 ; Listina: DDV ; Dobavitelj: DURS ; Znesek: 100.5 ; Dat_valute: 22. 12. 2018 ; Placilo: 100.5 ; Dat_placila: 22. 12. 2018 ; Opombe: ni opomb ; (end)
-Nova obveznost ; 22. 12. 2018 ; 11:55:11.385 ; Listina: DDV ; Dobavitelj: DARS ; Znesek: 100 ; Dat_valute: 22. 12. 2018 ; Placilo: 100 ; Dat_placila: 22. 12. 2018 ; Opombe:  ; (end)
+﻿DURS;

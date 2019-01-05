@@ -1,4 +1,4 @@
-Dodano: ;VIMOSA d.o.o. - 20.12.2018 ; 10:13:49.142 ;
+﻿Dodano: ;VIMOSA d.o.o. - 20.12.2018 ; 10:13:49.142 ;
 25000001;Konfekcioniranje vodnika AWG 14/Ni PTFE 128/6/17 crn A: zaklju;0.108;
 25000002;Konfekcioniranje vodnika AWG 14/Ni PTFE 158/6/17 crn A: zaklju;0.108;
 25000003;Konfekcioniranje vodnika AWG 14/Ni PTFE 128/6/17 rdec A: zaklj;0.108;
@@ -7,4 +7,4 @@ Dodano: ;VIMOSA d.o.o. - 20.12.2018 ; 10:13:49.142 ;
 25000006;Konfekcioniranje vodnika AWG 14/Ni PTFE 247/6/17 moder, rdec A;0.108;
 25000007;Konfekcioniranje vodnika 1,5mm2 STS 220/10/17 A: ferula B Ino;0.128;
 /;Modulirna patrica in matrica;400.000;
-/;Stro�ki prevoza VIMOSA;3.800;
+/;Stroški prevoza VIMOSA;3.800;

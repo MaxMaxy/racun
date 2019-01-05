@@ -1,4 +1,4 @@
-Dodano: ;DOORSON d.o.o. - 19.12.2018 ; 13:36:37.573 ;
+﻿Dodano: ;DOORSON d.o.o. - 19.12.2018 ; 13:36:37.573 ;
 1303131;Kabel prikljucni kljucavnice El 4 L=1700;3.140;
 1303139;Kabel prikljucni kljucavnice El 4 L=900;2.800;
 1303132;Kabel BU3-EC3 PL 2x1,5 L=410;0.710;
@@ -10,4 +10,4 @@ Dodano: ;DOORSON d.o.o. - 19.12.2018 ; 13:36:37.573 ;
 1303137;Kabel OS-EC3, SL200 L=130;0.530;
 1303445;Kabel TU3-EC3 PL 2x1,5 L=870;1.000;
 1303138;Kabel BU3-EC3 PL 2x1,5 L=850;1.000;
-/;Stro�ki prevoza DOORSON;30.000;
+/;Stroški prevoza DOORSON;30.000;
