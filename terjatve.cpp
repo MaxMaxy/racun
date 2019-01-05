@@ -63,51 +63,52 @@ Terjatve::~Terjatve()
 
 void Terjatve::AddItemsToComboBox()
 {
-    ui->comboBox_stranke->clear();
-    /* TERJATVE */
-    ui->comboBox_stranke->addItem("Vse terjatve");
-    QFile mFile(m_stranke);
-    if(!mFile.open(QFile::ReadOnly | QFile::Text))
-    {
+
+    /* OBVEZNOSTI */
+    //ui->comboBox_upniki->clear();
+    //ui->comboBox_upniki->addItem(QString::fromUtf8("Vse obveznosti"));
+    ui->comboBox->clear();
+    ui->comboBox->addItem(QString::fromUtf8("Vse obveznosti"));
+    QFile mFileUpniki(m_upnikiSeznam);
+    if(!mFileUpniki.open(QFile::ReadOnly | QFile::Text)) {
         qDebug() << "Error opening file for reading in Terjatve AddItemsToComboBox";
         return;
-    }
-    else
-    {
+    } else {
+        QTextStream in(&mFileUpniki);
+        in.setCodec("UTF-8");
         QString mText("");
         QRegularExpression exp(";");
         QStringList list;
-        while(!mFile.atEnd())
-        {
-            mText = mFile.readLine();
+        while(!in.atEnd()) {
+            mText = in.readLine();
+            list = mText.split(exp, QString::SkipEmptyParts);
+            qDebug() << list;
+            //ui->comboBox_upniki->addItems(list);
+            ui->comboBox->addItems(list);
+        }
+    }
+    mFileUpniki.close();
+
+    /* TERJATVE */
+    ui->comboBox_stranke->clear();
+    ui->comboBox_stranke->addItem(QString::fromUtf8("Vse terjatve"));
+    QFile mFile(m_stranke);
+    if(!mFile.open(QFile::ReadOnly | QFile::Text)) {
+        qDebug() << "Error opening file for reading in Terjatve AddItemsToComboBox";
+        return;
+    } else {
+        QTextStream in(&mFile);
+        in.setCodec("UTF-8");
+        QString mText("");
+        QRegularExpression exp(";");
+        QStringList list;
+        while(!in.atEnd()) {
+            mText = in.readLine();
             list = mText.split(exp, QString::SkipEmptyParts);
             ui->comboBox_stranke->addItem(list.at(1));
         }
     }
     mFile.close();
-
-    /* OBVEZNOSTI */
-    ui->comboBox_upniki->clear();
-    ui->comboBox_upniki->addItem("Vse obveznosti");
-    QFile mFileUpniki(m_upnikiSeznam);
-    if(!mFileUpniki.open(QFile::ReadOnly | QFile::Text))
-    {
-        qDebug() << "Error opening file for reading in Terjatve AddItemsToComboBox";
-        return;
-    }
-    else
-    {
-        QString mText("");
-        QRegularExpression exp(";");
-        QStringList list;
-        while(!mFileUpniki.atEnd())
-        {
-            mText = mFileUpniki.readLine();
-            list = mText.split(exp, QString::SkipEmptyParts);
-            ui->comboBox_upniki->addItem(list.at(0));
-        }
-    }
-    mFileUpniki.close();
 }
 
 void Terjatve::AddRootTerjatve(QStringList textList)
@@ -315,12 +316,12 @@ void Terjatve::ReadObveznosti()
             date = textList.at(1);
             date.remove(-1,1);
             date_Od_Do = date_Od_Do.fromString(date, "d. M. yyyy");
-            if(ui->comboBox_upniki->currentText() == "Vse obveznosti" && date_Od_Do >= ui->dateEdit_obveznostiOd->date() && date_Od_Do <= ui->dateEdit_obveznostiDo->date())
+            if(ui->comboBox->currentText() == "Vse obveznosti" && date_Od_Do >= ui->dateEdit_obveznostiOd->date() && date_Od_Do <= ui->dateEdit_obveznostiDo->date())
             {
                 AddRootObveznosti(textList);
                 continue;
             }
-            else if(stranka == ui->comboBox_upniki->currentText() && date_Od_Do >= ui->dateEdit_obveznostiOd->date() && date_Od_Do <= ui->dateEdit_obveznostiDo->date())
+            else if(stranka == ui->comboBox->currentText() && date_Od_Do >= ui->dateEdit_obveznostiOd->date() && date_Od_Do <= ui->dateEdit_obveznostiDo->date())
                 AddRootObveznosti(textList);
         }
     }
@@ -340,6 +341,7 @@ void Terjatve::Search(QString searchName, QString file, bool ter_obv)
     }
     // stream za shranit text fila
     QTextStream out(&mFile);
+    out.setCodec("UTF-8");
     // prebere celoten dokument in shrani v var
     QString line;
     while(!out.atEnd()){
@@ -404,9 +406,9 @@ void Terjatve::on_pushButton_clicked()
     ui->label_terjatve_obveznosti->setText("€" + QString::number(m_totalTerMinObv, 'f', 2));
 }
 
-void Terjatve::on_comboBox_upniki_currentIndexChanged()
+void Terjatve::on_comboBox_currentIndexChanged()
 {
-    if(ui->comboBox_upniki->currentText() == "Vse obveznosti")
+    if(ui->comboBox->currentText() == "Vse obveznosti")
     {
         ui->lineEdit_iskalnikObveznosti->setEnabled(true);
         ui->lineEdit_iskalnikObveznosti->clear();
@@ -459,6 +461,7 @@ void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
     else
     {
         QTextStream in(&mFile);
+        in.setCodec("UTF-8");
         QString allText("");
         QString text_stRacuna("");
         QString tmp("");
@@ -545,6 +548,7 @@ void Terjatve::on_treeWidget_obveznosti_itemDoubleClicked(QTreeWidgetItem *item)
     else
     {
         QTextStream in(&mFile);
+        in.setCodec("UTF-8");
         QString allText("");
         QString text_obveznost("");
         QString tmp("");

@@ -30,6 +30,7 @@ void Login::Arhiv(QString arhiv_file, QString stream)
     }
     // stream za num file
     QTextStream out(&mFile);
+    out.setCodec("UTF-8");
     out << stream << "\n";
     mFile.flush();
     mFile.close();
@@ -51,6 +52,7 @@ void Login::on_pushButton_prijava_clicked()
         return;
     }
     QTextStream in(&fileName);
+    in.setCodec("UTF-8");
     QString name;
     while(!in.atEnd())
     {

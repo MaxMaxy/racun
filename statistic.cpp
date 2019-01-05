@@ -55,6 +55,7 @@ void Statistic::AddToComboBox(QString mFileName)
     else
     {
         QTextStream mText(&mFile);
+        mText.setCodec("UTF-8");
         QString mLine("");
         QStringList mList;
         QRegularExpression exp(" ; ");
@@ -93,6 +94,7 @@ void Statistic::AddToTableWidget(QString fileName)
     else
     {
         QTextStream mText(&mFile);
+        mText.setCodec("UTF-8");
         QString mLine("");
         QStringList mList;
         QRegularExpression exp(" ; ");
@@ -2678,6 +2680,7 @@ void Statistic::GetData(QVector<double> *allData, int itr, QString name)
         if(name == "Vse terjatve")
         {
             QTextStream in(&mFile);
+            in.setCodec("UTF-8");
             QString lineText("");
             QString tmp("");
             QStringList listText;
@@ -2719,6 +2722,7 @@ void Statistic::GetData(QVector<double> *allData, int itr, QString name)
         else
         {
             QTextStream in(&mFile);
+            in.setCodec("UTF-8");
             QString lineText("");
             QString tmp("");
             QStringList listText;

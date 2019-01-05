@@ -128,6 +128,7 @@ void Arhiv::Read()
         return;
     }
     QTextStream in(&fileName);
+    in.setCodec("UTF-8");
     QString mText("");
     while(!in.atEnd())
     {
@@ -155,6 +156,7 @@ void Arhiv::AddItemsToCombo()
         return;
     }
     QTextStream in(&mFile);
+    in.setCodec("UTF-8");
     QString mText("");
     while(!in.atEnd())
     {
@@ -184,6 +186,7 @@ void Arhiv::Search(QString searchName)
         return;
     }
     QTextStream out(&mFile);
+    out.setCodec("UTF-8");
     QString line;
     while(!out.atEnd()){
         line = out.readLine();

@@ -39,6 +39,7 @@ void VnosObveznosti::VnosUpnika()
     else
     {
         QTextStream in(&mFile);
+        in.setCodec("UTF-8");
         QString mText("");
         QStringList list;
         QRegularExpression exp(";");
@@ -66,6 +67,7 @@ void VnosObveznosti::VnosUpnika()
             {
                 QString novUpnik = ui->lineEdit_dobavitelj->text();
                 QTextStream out(&mFile);
+                out.setCodec("UTF-8");
                 out << novUpnik << "; \n";
                 mFile.flush();
                 mFile.close();
@@ -85,6 +87,7 @@ void VnosObveznosti::VnosObv()
     else
     {
         QTextStream out(&mFile);
+        out.setCodec("UTF-8");
         QDateTime date = QDateTime::currentDateTime();
         QString mText = "Nova obveznost ; " +
                         date.toString("d. M. yyyy ; hh:mm:ss.zzz") +
@@ -107,4 +110,74 @@ void VnosObveznosti::on_pushButton_vnos_clicked()
     VnosObv();
     VnosUpnika();
     VnosObveznosti::close();
+}
+
+void VnosObveznosti::on_lineEdit_listina_textChanged(const QString &arg1)
+{
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_listina->backspace();
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+        ui->lineEdit_listina->backspace();
+        ui->lineEdit_listina->backspace();
+        ui->lineEdit_listina->insert(".");
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+        ui->lineEdit_listina->backspace();
+        ui->lineEdit_listina->backspace();
+        ui->lineEdit_listina->insert(",");
+    }
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_listina->backspace();
+    }
+}
+
+void VnosObveznosti::on_lineEdit_dobavitelj_textChanged(const QString &arg1)
+{
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_dobavitelj->backspace();
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+        ui->lineEdit_dobavitelj->backspace();
+        ui->lineEdit_dobavitelj->backspace();
+        ui->lineEdit_dobavitelj->insert(".");
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+        ui->lineEdit_dobavitelj->backspace();
+        ui->lineEdit_dobavitelj->backspace();
+        ui->lineEdit_dobavitelj->insert(",");
+    }
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_dobavitelj->backspace();
+    }
+}
+
+void VnosObveznosti::on_lineEdit_znesek_textChanged(const QString &arg1)
+{
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == ".") {
+        ui->lineEdit_znesek->backspace();
+    }
+    if(arg1.contains("..")) {
+        ui->lineEdit_znesek->backspace();
+    }
+}
+
+void VnosObveznosti::on_lineEdit_opombe_textChanged(const QString &arg1)
+{
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_opombe->backspace();
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+        ui->lineEdit_opombe->backspace();
+        ui->lineEdit_opombe->backspace();
+        ui->lineEdit_opombe->insert(".");
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+        ui->lineEdit_opombe->backspace();
+        ui->lineEdit_opombe->backspace();
+        ui->lineEdit_opombe->insert(",");
+    }
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_opombe->backspace();
+    }
 }

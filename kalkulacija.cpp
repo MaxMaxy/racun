@@ -47,7 +47,8 @@ Kalkulacija::Kalkulacija(QWidget *parent) :
     QValidator *validatornum = new QRegularExpressionValidator(regenum, this);
     QValidator *validatorID = new QRegularExpressionValidator(regenumID, this);
     ui->lineEdit_ID->setValidator(validatorID);
-    ui->lineEdit_kalo->setValidator(validatornum);
+    QIntValidator *intvalidator = new QIntValidator(0, 100, this);
+    ui->lineEdit_kalo->setValidator(intvalidator);
     ui->lineEdit_kolicinaMateriala->setValidator(validatornum);
     ui->lineEdit_ID->setMaxLength(7);
     QRegularExpression regenumDot("^[0123456789.]*$");
@@ -73,6 +74,7 @@ void Kalkulacija::AddItemsToCombo() {
         return;
     }
     QTextStream in(&mFile);
+    in.setCodec("UTF-8");
     QString mText("");
     QRegExp rx("[;]");
     QStringList list;
@@ -126,6 +128,7 @@ void Kalkulacija::Read(QString file, QTreeWidget *tree) {
         return;
     }
     QTextStream in(&mFile);
+    in.setCodec("UTF-8");
     QString mText("");
     QRegExp rx("[;]");
     QStringList list;
@@ -149,6 +152,7 @@ void Kalkulacija::Search(QString searchName, QString file, QTreeWidget *tree) {
         return;
     }
     QTextStream out(&mFile);
+    out.setCodec("UTF-8");
     QString line("");
     while(!out.atEnd()) {
         line = out.readLine();
@@ -284,6 +288,7 @@ void Kalkulacija::on_pushButton_dodajMaterial_clicked()
             return;
         }
         QTextStream out(&fileName);
+        out.setCodec("UTF-8");
         QString allText = out.readAll();
         fileName.close();
         QString nazivProdukta = ui->lineEdit_nazivMateriala->text();
@@ -320,6 +325,7 @@ void Kalkulacija::on_pushButton_dodajMaterial_clicked()
             return;
         }
         QTextStream out(&fileName);
+        out.setCodec("UTF-8");
         QString nazivProdukta = ui->lineEdit_nazivMateriala->text();
         if(nazivProdukta == "") nazivProdukta = "ni podatka";
         QString cenaProdukta = ui->lineEdit_cenaMateriala->text();
@@ -346,6 +352,7 @@ void Kalkulacija::on_pushButton_dodajOperacijo_clicked()
             return;
         }
         QTextStream out(&fileName);
+        out.setCodec("UTF-8");
         QString allText = out.readAll();
         fileName.close();
         QString operacija = ui->lineEdit_operacija->text();
@@ -381,6 +388,7 @@ void Kalkulacija::on_pushButton_dodajOperacijo_clicked()
             return;
         }
         QTextStream out(&fileName);
+        out.setCodec("UTF-8");
         QString operacija = ui->lineEdit_operacija->text();
         if(operacija == "") operacija = "ni podatka";
         QString cenaOperacije = ui->lineEdit_cenaOperacije->text();
@@ -424,6 +432,7 @@ void Kalkulacija::Arhiv(QString arhiv_file, QString stream) {
         return;
     }
     QTextStream out(&mFile);
+    out.setCodec("UTF-8");
     out << stream << "\n";
     mFile.flush();
     mFile.close();
@@ -439,6 +448,7 @@ void Kalkulacija::on_pushButton_vnosProdukta_clicked() {
         return;
     }
     QTextStream out(&fileName);
+    out.setCodec("UTF-8");
     QString id = ui->lineEdit_ID->text();
     if(id == "") id = "ni podatka";
     QString naziv = ui->lineEdit_nazivProdukta->text();
@@ -465,4 +475,94 @@ void Kalkulacija::on_pushButton_vnosProdukta_clicked() {
     ui->lineEdit_cenaProdukta->setText("0.0");
     m_deloCena = 0.0;
     m_materialCena = 0.0;
+}
+
+void Kalkulacija::on_lineEdit_nazivProdukta_textChanged(const QString &arg1)
+{
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_nazivProdukta->backspace();
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+        ui->lineEdit_nazivProdukta->backspace();
+        ui->lineEdit_nazivProdukta->backspace();
+        ui->lineEdit_nazivProdukta->insert(".");
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+        ui->lineEdit_nazivProdukta->backspace();
+        ui->lineEdit_nazivProdukta->backspace();
+        ui->lineEdit_nazivProdukta->insert(",");
+    }
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_nazivProdukta->backspace();
+    }
+}
+
+void Kalkulacija::on_lineEdit_nazivMateriala_textChanged(const QString &arg1)
+{
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_nazivMateriala->backspace();
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+        ui->lineEdit_nazivMateriala->backspace();
+        ui->lineEdit_nazivMateriala->backspace();
+        ui->lineEdit_nazivMateriala->insert(".");
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+        ui->lineEdit_nazivMateriala->backspace();
+        ui->lineEdit_nazivMateriala->backspace();
+        ui->lineEdit_nazivMateriala->insert(",");
+    }
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_nazivMateriala->backspace();
+    }
+}
+
+void Kalkulacija::on_lineEdit_cenaMateriala_textChanged(const QString &arg1)
+{
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == ".") {
+        ui->lineEdit_cenaMateriala->backspace();
+    }
+    if(arg1.contains("..")) {
+        ui->lineEdit_cenaMateriala->backspace();
+    }
+}
+
+void Kalkulacija::on_lineEdit_operacija_textChanged(const QString &arg1)
+{
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_operacija->backspace();
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+        ui->lineEdit_operacija->backspace();
+        ui->lineEdit_operacija->backspace();
+        ui->lineEdit_operacija->insert(".");
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+        ui->lineEdit_operacija->backspace();
+        ui->lineEdit_operacija->backspace();
+        ui->lineEdit_operacija->insert(",");
+    }
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_operacija->backspace();
+    }
+}
+
+void Kalkulacija::on_lineEdit_cenaOperacije_textChanged(const QString &arg1)
+{
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == ".") {
+        ui->lineEdit_cenaOperacije->backspace();
+    }
+    if(arg1.contains("..")) {
+        ui->lineEdit_cenaOperacije->backspace();
+    }
+}
+
+void Kalkulacija::on_lineEdit_cenaProdukta_textChanged(const QString &arg1)
+{
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == ".") {
+        ui->lineEdit_cenaProdukta->backspace();
+    }
+    if(arg1.contains("..")) {
+        ui->lineEdit_cenaProdukta->backspace();
+    }
 }

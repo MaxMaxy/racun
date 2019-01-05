@@ -41,6 +41,18 @@ private slots:
 
     void on_pushButton_vnosProdukta_clicked();
 
+    void on_lineEdit_nazivProdukta_textChanged(const QString &arg1);
+
+    void on_lineEdit_nazivMateriala_textChanged(const QString &arg1);
+
+    void on_lineEdit_cenaMateriala_textChanged(const QString &arg1);
+
+    void on_lineEdit_operacija_textChanged(const QString &arg1);
+
+    void on_lineEdit_cenaOperacije_textChanged(const QString &arg1);
+
+    void on_lineEdit_cenaProdukta_textChanged(const QString &arg1);
+
 private:
     Ui::Kalkulacija *ui;
     QString m_currentDir;

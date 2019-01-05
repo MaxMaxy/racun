@@ -49,9 +49,15 @@ void DodajProdukt::Arhiv(QString arhiv_file, QString stream)
     }
     // stream za num file
     QTextStream out(&mFile);
+    out.setCodec("UTF-8");
     out << stream << "\n";
     mFile.flush();
     mFile.close();
+}
+
+void DodajProdukt::SetIndex(int index)
+{
+    ui->comboBox_podjetje->setCurrentIndex(index);
 }
 
 // dodat root v treeWidget
@@ -102,6 +108,7 @@ void DodajProdukt::Read()
     }
     // stream za branje fila
     QTextStream in(&fileName);
+    in.setCodec("UTF-8");
     // preberi vsako vrstico ce je prazna izpusti drugace dodaj vrstico v listWidget
     QString mText("");
     // locilo med podatki podjetja v filu ime_podjetja;naslov;ddv;email itd itd
@@ -149,6 +156,7 @@ void DodajProdukt::AddItemsToCombo()
     }
     // stream za branje fila
     QTextStream in(&mFile);
+    in.setCodec("UTF-8");
     // preberi vsako vrstico ce je prazna izpusti drugace dodaj vrstico v combo box
     QString mText("");
     // locilo med podatki podjetja v filu ime_podjetja;naslov;ddv;email itd itd
@@ -189,6 +197,7 @@ void DodajProdukt::on_pushButton_dodaj_clicked()
         return;
     }
     QTextStream out(&fileName);
+    out.setCodec("UTF-8");
     m_id = ui->lineEdit_id->text();
     if(m_id == "")
         m_id = "ni podatka";
@@ -230,6 +239,7 @@ void DodajProdukt::on_treeWidget_doubleClicked(const QModelIndex &index)
     }
     // stream za file
     QTextStream in(&mFile);
+    in.setCodec("UTF-8");
     // itr nastavimo na -1 da prebere 0-to vrstico v filu
     m_itr = -2;
     // var za text
@@ -275,6 +285,7 @@ void DodajProdukt::on_pushButton_popravi_clicked()
     }
     // stream za shranit text fila
     QTextStream out(&mFile);
+    out.setCodec("UTF-8");
     // prebere celoten dokument in shrani v var
     QString allText = out.readAll();
     // zapre file
@@ -327,6 +338,7 @@ void DodajProdukt::Search(QString searchName)
     }
     // stream za shranit text fila
     QTextStream out(&mFile);
+    out.setCodec("UTF-8");
     // prebere celoten dokument in shrani v var
     QString line;
     while(!out.atEnd()){
@@ -358,5 +370,34 @@ void DodajProdukt::on_lineEdit_isci_textChanged()
     else {
         ui->treeWidget->clear();
         Search(search);
+    }
+}
+
+
+void DodajProdukt::on_lineEdit_nazivProdukta_textChanged(const QString &arg1) {
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_nazivProdukta->backspace();
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+        ui->lineEdit_nazivProdukta->backspace();
+        ui->lineEdit_nazivProdukta->backspace();
+        ui->lineEdit_nazivProdukta->insert(".");
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+        ui->lineEdit_nazivProdukta->backspace();
+        ui->lineEdit_nazivProdukta->backspace();
+        ui->lineEdit_nazivProdukta->insert(",");
+    }
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_nazivProdukta->backspace();
+    }
+}
+
+void DodajProdukt::on_lineEdit_cena_textChanged(const QString &arg1) {
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == ".") {
+        ui->lineEdit_cena->backspace();
+    }
+    if(arg1.contains("..")) {
+        ui->lineEdit_cena->backspace();
     }
 }

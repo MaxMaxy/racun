@@ -40,7 +40,7 @@ private slots:
     void on_dateEdit_terjatveOd_editingFinished();
     void on_dateEdit_terjatveDo_editingFinished();
     void on_pushButton_clicked();
-    void on_comboBox_upniki_currentIndexChanged();
+    void on_comboBox_currentIndexChanged();
     void on_dateEdit_obveznostiOd_editingFinished();
     void on_dateEdit_obveznostiDo_editingFinished();
     void on_pushButton_2_clicked();

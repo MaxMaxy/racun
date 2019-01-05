@@ -36,9 +36,8 @@ NovRacun::NovRacun(QWidget *parent) :
     ui->lineEdit_sklic->setValidator(validatoralfabet);
     ui->lineEdit_stRacuna->setValidator(validatoralfabet);
     ui->lineEdit->setValidator(validatoralfabet);
-    QRegularExpression regenum("^[0123456789]*$");
-    QValidator *validatornum = new QRegularExpressionValidator(regenum, this);
-    ui->lineEdit_popust->setValidator(validatornum);
+    QIntValidator *intvalidator = new QIntValidator(0, 100, this);
+    ui->lineEdit_popust->setValidator(intvalidator);
     QFile mFile(m_arhivStRacuna);
     ui->pushButton_isci->setFocus();
     ui->pushButton_isci->setVisible(false);
@@ -48,6 +47,7 @@ NovRacun::NovRacun(QWidget *parent) :
         return;
     }
     QTextStream in(&mFile);
+    in.setCodec("UTF-8");
     QString mText("");
     while(!in.atEnd())
     {
@@ -86,6 +86,7 @@ void NovRacun::Arhiv(QString arhiv_file, QString stream)
     }
     // stream za num file
     QTextStream out(&mFile);
+    out.setCodec("UTF-8");
     out << stream << "\n";
     mFile.flush();
     mFile.close();
@@ -164,6 +165,7 @@ void NovRacun::Shrani()
 {
     QFile mFile(m_shrani);
     QTextStream in(&mFile);
+    in.setCodec("UTF-8");
     QRegularExpression exp(" ;");
     QString mLine("");
     QStringList mList;
@@ -1174,6 +1176,7 @@ void NovRacun::Read()
     }
     // stream za branje fila
     QTextStream in(&fileName);
+    in.setCodec("UTF-8");
     // preberi vsako vrstico ce je  izpusti drugace dodaj vrstico v listWidget
     QString mText("");
     // locilo med podatki podjetja v filu ime_podjetja;naslov;ddv;email itd itd
@@ -1221,6 +1224,7 @@ void NovRacun::AddItemsToCombo()
     }
     // stream za branje fila
     QTextStream in(&mFile);
+    in.setCodec("UTF-8");
     // preberi vsako vrstico ce je  izpusti drugace dodaj vrstico v combo box
     QString mText("");
     // locilo med podatki podjetja v filu ime_podjetja;naslov;ddv;email itd itd
@@ -1307,6 +1311,7 @@ void NovRacun::on_comboBox_narocnik_currentIndexChanged()
     }
     // stream za branje fila
     QTextStream in(&mFile);
+    in.setCodec("UTF-8");
     // preberi vsako vrstico ce je  izpusti drugace dodaj vrstico v combo box
     QString mText("");
     // locilo med podatki podjetja v filu ime_podjetja;naslov;ddv;email itd itd
@@ -1495,6 +1500,7 @@ void NovRacun::Search(QString searchName)
     }
     // stream za shranit text fila
     QTextStream out(&mFile);
+    out.setCodec("UTF-8");
     // prebere celoten dokument in shrani v var
     QString line;
     while(!out.atEnd()){
@@ -1550,6 +1556,7 @@ int NovRacun::creatPDF()
         return 1;
     }
     QTextStream in(&mFile);
+    in.setCodec("UTF-8");
     QString mText("");
     while(!in.atEnd())
     {
@@ -2733,6 +2740,7 @@ void NovRacun::on_pushButton_dodajNovProdukt_clicked()
 {
     DodajProdukt produkt;
     produkt.setModal(true);
+    produkt.SetIndex(ui->comboBox_narocnik->currentIndex());
     produkt.exec();
     Read();
 }
@@ -2777,5 +2785,65 @@ void NovRacun::on_lineEdit_isci_textChanged()
     {
         ui->treeWidget_seznam->clear();
         Search(search);
+    }
+}
+
+void NovRacun::on_lineEdit_stRacuna_textChanged(const QString &arg1)
+{
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_stRacuna->backspace();
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+        ui->lineEdit_stRacuna->backspace();
+        ui->lineEdit_stRacuna->backspace();
+        ui->lineEdit_stRacuna->insert(".");
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+        ui->lineEdit_stRacuna->backspace();
+        ui->lineEdit_stRacuna->backspace();
+        ui->lineEdit_stRacuna->insert(",");
+    }
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_stRacuna->backspace();
+    }
+}
+
+void NovRacun::on_lineEdit_sklic_textChanged(const QString &arg1)
+{
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_sklic->backspace();
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+        ui->lineEdit_sklic->backspace();
+        ui->lineEdit_sklic->backspace();
+        ui->lineEdit_sklic->insert(".");
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+        ui->lineEdit_sklic->backspace();
+        ui->lineEdit_sklic->backspace();
+        ui->lineEdit_sklic->insert(",");
+    }
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_sklic->backspace();
+    }
+}
+
+void NovRacun::on_lineEdit_textChanged(const QString &arg1)
+{
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit->backspace();
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+        ui->lineEdit->backspace();
+        ui->lineEdit->backspace();
+        ui->lineEdit->insert(".");
+    }
+    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+        ui->lineEdit->backspace();
+        ui->lineEdit->backspace();
+        ui->lineEdit->insert(",");
+    }
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit->backspace();
     }
 }

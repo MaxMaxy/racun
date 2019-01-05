@@ -19,6 +19,7 @@ void Settings::on_pushButton_shraniV_clicked()
 {
     QFile mFile(m_fileName);
     QTextStream in(&mFile);
+    in.setCodec("UTF-8");
     QString mTextAll("");
     if(!mFile.open(QFile::ReadOnly | QFile::Text))
     {

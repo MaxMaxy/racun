@@ -6,6 +6,7 @@ TestingDialog::TestingDialog(QWidget *parent) :
     ui(new Ui::TestingDialog), m_num_of_products(5)
 {
     ui->setupUi(this);
+    AddItemsToCombo();
 }
 
 TestingDialog::~TestingDialog()
@@ -13,7 +14,28 @@ TestingDialog::~TestingDialog()
     delete ui;
 }
 
-void TestingDialog::Test()
+void TestingDialog::AddItemsToCombo() {
+    ui->comboBox->clear();
+    QFile mFile("C:\\Users\\Nejc\\Desktop\\qt_unicode.txt");
+    if(!mFile.open(QFile::ReadOnly | QFile::Text)) {
+        qDebug() << "Error opening file for reading in Read()";
+        return;
+    }
+    QTextStream in(&mFile);
+    in.setCodec("UTF-8");
+    QString mText("");
+    while(!in.atEnd()) {
+        mText = in.readLine();
+        if(mText == "") {
+            continue;
+        } else {
+            ui->comboBox->addItem(mText);
+        }
+    }
+    mFile.close();
+}
+
+void TestingDialog::QML()
 {
     QDomDocument document;
 
@@ -40,7 +62,7 @@ void TestingDialog::Test()
     QDomElement kodaNamena = document.createElement("KodaNamena");
     QDomText vrstaRacunaText = document.createTextNode("380");
     vrstaRacuna.appendChild(vrstaRacunaText);
-    QDomText stevilkaRacunaText = document.createTextNode(ui->lineEdit_stRacuna->text());
+    QDomText stevilkaRacunaText = document.createTextNode(ui->lineEdit->text());
     stevilkaRacuna.appendChild(stevilkaRacunaText);
     QDomText funkcijaRacunaText = document.createTextNode("9");
     funkcijaRacuna.appendChild(funkcijaRacunaText);
@@ -105,7 +127,7 @@ void TestingDialog::Test()
     besediloTekst_1_1.appendChild(text_za_tekst_1_1);
     QDomElement besediloTekst_1_2 = document.createElement("Tekst2");
     besedilo_1.appendChild(besediloTekst_1_2);
-    QDomText text_za_tekst_1_2 = document.createTextNode("Ra&#269un:" + ui->lineEdit_stRacuna->text());
+    QDomText text_za_tekst_1_2 = document.createTextNode("Ra&#269un:" + ui->lineEdit->text());
     besediloTekst_1_2.appendChild(text_za_tekst_1_2);
 
     // POLJUBNO BESEDILO 2
@@ -588,7 +610,38 @@ void TestingDialog::ReadFile() {
     }
 }
 
-void TestingDialog::on_pushButton_2_clicked()
-{
-    ReadFile();
+void TestingDialog::WriteUnicode() {
+    QString unicodeString = QString::fromUtf8("Some Unicode string čšžŠČŽ");
+    QFile fileOut("C:\\Users\\Nejc\\Desktop\\qt_unicode.txt");
+    if (!fileOut.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        return;
+    }
+    QTextStream streamFileOut(&fileOut);
+    streamFileOut.setCodec("UTF-8");
+    streamFileOut << unicodeString;
+    streamFileOut.flush();
+    fileOut.close();
+}
+
+void TestingDialog::WriteASCII() {
+    QString ASCIIString = "Some Unicode string čšžŠČŽ";
+    QFile fileName("C:\\Users\\Nejc\\Desktop\\qt_NOunicode.txt");
+    if(!fileName.open(QFile::WriteOnly | QIODevice::Text)) {
+        qDebug() << "Error opening fileName for writing in dodaj produkt gumb";
+        return;
+    }
+    QTextStream out(&fileName);
+    out << ASCIIString << "\n";
+    fileName.flush();
+    fileName.close();
+}
+
+void TestingDialog::on_pushButton_Test_clicked() {
+    WriteUnicode();
+    AddItemsToCombo();
+}
+
+void TestingDialog::on_pushButton_Test2_clicked() {
+    WriteASCII();
+    AddItemsToCombo();
 }

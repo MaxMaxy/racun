@@ -355,51 +355,41 @@
                 </widget>
                </item>
                <item>
+                <widget class="Line" name="line_3">
+                 <property name="font">
+                  <font>
+                   <italic>true</italic>
+                  </font>
+                 </property>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_14">
+                 <property name="font">
+                  <font>
+                   <family>MS Sans Serif</family>
+                   <pointsize>12</pointsize>
+                   <italic>true</italic>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Upnik:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
                 <layout class="QVBoxLayout" name="verticalLayout_8">
                  <item>
-                  <widget class="Line" name="line_3">
+                  <widget class="QComboBox" name="comboBox">
                    <property name="font">
                     <font>
-                     <italic>true</italic>
-                    </font>
-                   </property>
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="label_14">
-                   <property name="font">
-                    <font>
-                     <family>MS Sans Serif</family>
                      <pointsize>12</pointsize>
-                     <italic>true</italic>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>Upnik:</string>
-                   </property>
-                   <property name="buddy">
-                    <cstring>comboBox_upniki</cstring>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QComboBox" name="comboBox_upniki">
-                   <property name="font">
-                    <font>
-                     <family>MS Sans Serif</family>
-                     <pointsize>12</pointsize>
-                     <weight>50</weight>
-                     <italic>true</italic>
-                     <bold>false</bold>
                     </font>
                    </property>
                   </widget>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_3"/>
                  </item>
                 </layout>
                </item>
@@ -760,7 +750,6 @@
  <tabstops>
   <tabstop>pushButton_isci</tabstop>
   <tabstop>comboBox_stranke</tabstop>
-  <tabstop>comboBox_upniki</tabstop>
   <tabstop>dateEdit_terjatveOd</tabstop>
   <tabstop>dateEdit_terjatveDo</tabstop>
   <tabstop>dateEdit_obveznostiOd</tabstop>

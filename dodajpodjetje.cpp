@@ -35,6 +35,7 @@ void DodajPodjetje::TotalCompany() {
         return;
     }
     QTextStream in(&mNum);
+    in.setCodec("UTF-8");
     QString number;
     while(!in.atEnd()) {
         number = in.readLine();
@@ -86,6 +87,7 @@ void DodajPodjetje::Arhiv(QString arhiv_file, QString stream) {
         return;
     }
     QTextStream out(&mFile);
+    out.setCodec("UTF-8");
     out << stream << "\n";
     mFile.flush();
     mFile.close();
@@ -104,6 +106,7 @@ void DodajPodjetje::Write(QString file_podjetje, QString file_num) {
         return;
     }
     QTextStream in(&mNum);
+    in.setCodec("UTF-8");
     QString number;
     while(!in.atEnd()) {
         number = in.readLine();
@@ -111,6 +114,7 @@ void DodajPodjetje::Write(QString file_podjetje, QString file_num) {
     m_zapSt = number;
     mNum.close();
     QTextStream out(&mFile);
+    out.setCodec("UTF-8");
     m_kNaziv = ui->lineEdit_kNaziv->text();
     if(m_kNaziv == "")
         m_kNaziv = "ni podatka";
@@ -153,6 +157,7 @@ void DodajPodjetje::Read() {
         return;
     }
     QTextStream in(&mFile);
+    in.setCodec("UTF-8");
     m_itr = 1;
     QString mText("");
     QRegExp rx("[;]");
@@ -180,6 +185,7 @@ void DodajPodjetje::Read() {
         return;
     }
     QTextStream out(&mNum);
+    out.setCodec("UTF-8");
     for(int i(1); i <= m_itr; i++) {
         out << i << "\n";
     }
@@ -198,6 +204,7 @@ void DodajPodjetje::on_pushButton_dodajPodjetje_clicked() {
     }
     QDateTime date = QDateTime::currentDateTime();
     QTextStream stream(&file);
+    stream.setCodec("UTF-8");
     stream << "Dodano: ;" << m_kNaziv << " - " << date.toString("dd.MM.yyyy ; hh:mm:ss.zzz ;") << "\n";
     file.flush();
     file.close();
@@ -219,6 +226,7 @@ void DodajPodjetje::on_pushButton_popraviPodatke_clicked() {
         return;
     }
     QTextStream out(&mFile);
+    out.setCodec("UTF-8");
     QString allText = out.readAll();
     mFile.close();
     QRegularExpression stranka(m_stranka);
@@ -254,6 +262,7 @@ void DodajPodjetje::on_treeWidget_doubleClicked(const QModelIndex &index) {
             return;
         }
         QTextStream in(&mFile);
+        in.setCodec("UTF-8");
         m_itr = -1;
         QString text("");
         while(!(m_itr == index.row())) {
@@ -295,6 +304,9 @@ void DodajPodjetje::on_lineEdit_kNaziv_textChanged(const QString &arg1)
         ui->lineEdit_kNaziv->backspace();
         ui->lineEdit_kNaziv->insert(",");
     }
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_kNaziv->backspace();
+    }
 }
 
 void DodajPodjetje::on_lineEdit_cNaziv_textChanged(const QString &arg1)
@@ -311,6 +323,9 @@ void DodajPodjetje::on_lineEdit_cNaziv_textChanged(const QString &arg1)
         ui->lineEdit_cNaziv->backspace();
         ui->lineEdit_cNaziv->backspace();
         ui->lineEdit_cNaziv->insert(",");
+    }
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_cNaziv->backspace();
     }
 }
 
@@ -329,6 +344,9 @@ void DodajPodjetje::on_lineEdit_naslov_textChanged(const QString &arg1)
         ui->lineEdit_naslov->backspace();
         ui->lineEdit_naslov->insert(",");
     }
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_naslov->backspace();
+    }
 }
 
 void DodajPodjetje::on_lineEdit_posta_textChanged(const QString &arg1)
@@ -345,6 +363,9 @@ void DodajPodjetje::on_lineEdit_posta_textChanged(const QString &arg1)
         ui->lineEdit_posta->backspace();
         ui->lineEdit_posta->backspace();
         ui->lineEdit_posta->insert(",");
+    }
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_posta->backspace();
     }
 }
 
@@ -363,6 +384,9 @@ void DodajPodjetje::on_lineEdit_ddv_textChanged(const QString &arg1)
         ui->lineEdit_ddv->backspace();
         ui->lineEdit_ddv->insert(",");
     }
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_ddv->backspace();
+    }
 }
 
 void DodajPodjetje::on_lineEdit_email_textChanged(const QString &arg1)
@@ -379,5 +403,8 @@ void DodajPodjetje::on_lineEdit_email_textChanged(const QString &arg1)
         ui->lineEdit_email->backspace();
         ui->lineEdit_email->backspace();
         ui->lineEdit_email->insert(",");
+    }
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+        ui->lineEdit_email->backspace();
     }
 }

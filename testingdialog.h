@@ -18,11 +18,15 @@ class TestingDialog : public QDialog
 public:
     explicit TestingDialog(QWidget *parent = nullptr);
     ~TestingDialog();
-    void Test();
+    void AddItemsToCombo();
+    void QML();
     void ReadFile();
+    void WriteUnicode();
+    void WriteASCII();
 
 private slots:
-    void on_pushButton_2_clicked();
+    void on_pushButton_Test_clicked();
+    void on_pushButton_Test2_clicked();
 
 private:
     Ui::TestingDialog *ui;
