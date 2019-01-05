@@ -22,7 +22,6 @@ class DodajPodjetje : public QDialog
 public:
     explicit DodajPodjetje(QWidget *parent = nullptr);
     ~DodajPodjetje();
-
     void TotalCompany();
     void Write(QString, QString);
     void Read();
@@ -38,9 +37,7 @@ private slots:
     void on_lineEdit_cNaziv_textChanged(const QString &arg1);
     void on_lineEdit_naslov_textChanged(const QString &arg1);
     void on_lineEdit_posta_textChanged(const QString &arg1);
-
     void on_lineEdit_ddv_textChanged(const QString &arg1);
-
     void on_lineEdit_email_textChanged(const QString &arg1);
 
 private:

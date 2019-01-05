@@ -26,7 +26,6 @@ class Terjatve : public QDialog
 public:
     explicit Terjatve(QWidget *parent = nullptr);
     ~Terjatve();
-
     void AddItemsToComboBox();
     void ReadTerjatve();
     void ReadObveznosti();

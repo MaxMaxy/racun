@@ -35,7 +35,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Število kosov:</string>
+        <string>Število kosov</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

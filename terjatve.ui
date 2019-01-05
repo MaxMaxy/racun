@@ -69,7 +69,9 @@
                 <font>
                  <family>MS Sans Serif</family>
                  <pointsize>12</pointsize>
+                 <weight>75</weight>
                  <italic>true</italic>
+                 <bold>true</bold>
                 </font>
                </property>
                <property name="text">
@@ -97,8 +99,10 @@
                <property name="font">
                 <font>
                  <family>MS Sans Serif</family>
-                 <pointsize>12</pointsize>
+                 <pointsize>10</pointsize>
+                 <weight>75</weight>
                  <italic>true</italic>
+                 <bold>true</bold>
                 </font>
                </property>
                <property name="text">
@@ -137,8 +141,10 @@
                  <property name="font">
                   <font>
                    <family>MS Sans Serif</family>
-                   <pointsize>12</pointsize>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
                    <italic>true</italic>
+                   <bold>true</bold>
                   </font>
                  </property>
                  <property name="text">
@@ -171,8 +177,10 @@
                  <property name="font">
                   <font>
                    <family>MS Sans Serif</family>
-                   <pointsize>12</pointsize>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
                    <italic>true</italic>
+                   <bold>true</bold>
                   </font>
                  </property>
                  <property name="text">
@@ -212,8 +220,10 @@
              <property name="font">
               <font>
                <family>MS Sans Serif</family>
-               <pointsize>12</pointsize>
+               <pointsize>10</pointsize>
+               <weight>75</weight>
                <italic>true</italic>
+               <bold>true</bold>
               </font>
              </property>
              <property name="text">
@@ -297,11 +307,12 @@
             <widget class="QPushButton" name="pushButton_2">
              <property name="font">
               <font>
+               <pointsize>12</pointsize>
                <italic>true</italic>
               </font>
              </property>
              <property name="text">
-              <string>Nov račun</string>
+              <string>Vnesi nov račun</string>
              </property>
             </widget>
            </item>
@@ -343,7 +354,9 @@
                   <font>
                    <family>MS Sans Serif</family>
                    <pointsize>12</pointsize>
+                   <weight>75</weight>
                    <italic>true</italic>
+                   <bold>true</bold>
                   </font>
                  </property>
                  <property name="text">
@@ -371,8 +384,10 @@
                  <property name="font">
                   <font>
                    <family>MS Sans Serif</family>
-                   <pointsize>12</pointsize>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
                    <italic>true</italic>
+                   <bold>true</bold>
                   </font>
                  </property>
                  <property name="text">
@@ -404,8 +419,10 @@
                    <property name="font">
                     <font>
                      <family>MS Sans Serif</family>
-                     <pointsize>12</pointsize>
+                     <pointsize>10</pointsize>
+                     <weight>75</weight>
                      <italic>true</italic>
+                     <bold>true</bold>
                     </font>
                    </property>
                    <property name="text">
@@ -438,8 +455,10 @@
                    <property name="font">
                     <font>
                      <family>MS Sans Serif</family>
-                     <pointsize>12</pointsize>
+                     <pointsize>10</pointsize>
+                     <weight>75</weight>
                      <italic>true</italic>
+                     <bold>true</bold>
                     </font>
                    </property>
                    <property name="text">
@@ -481,8 +500,10 @@
              <property name="font">
               <font>
                <family>MS Sans Serif</family>
-               <pointsize>12</pointsize>
+               <pointsize>10</pointsize>
+               <weight>75</weight>
                <italic>true</italic>
+               <bold>true</bold>
               </font>
              </property>
              <property name="text">
@@ -561,11 +582,12 @@
             <widget class="QPushButton" name="pushButton">
              <property name="font">
               <font>
+               <pointsize>12</pointsize>
                <italic>true</italic>
               </font>
              </property>
              <property name="text">
-              <string>Vnos obveznosti</string>
+              <string>Vnesi novo obveznost</string>
              </property>
             </widget>
            </item>
@@ -585,11 +607,16 @@
             <font>
              <family>MS Sans Serif</family>
              <pointsize>12</pointsize>
+             <weight>75</weight>
              <italic>true</italic>
+             <bold>true</bold>
             </font>
            </property>
            <property name="text">
             <string>Skupaj obveznosti:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
@@ -599,11 +626,16 @@
             <font>
              <family>MS Sans Serif</family>
              <pointsize>12</pointsize>
+             <weight>75</weight>
              <italic>true</italic>
+             <bold>true</bold>
             </font>
            </property>
            <property name="text">
             <string>Skupaj terjatve:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
@@ -624,7 +656,7 @@
            <property name="font">
             <font>
              <family>MS Sans Serif</family>
-             <pointsize>12</pointsize>
+             <pointsize>14</pointsize>
              <weight>75</weight>
              <italic>true</italic>
              <bold>true</bold>
@@ -632,6 +664,9 @@
            </property>
            <property name="text">
             <string>Terjatve - obveznosti:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
@@ -644,10 +679,10 @@
            <property name="font">
             <font>
              <family>MS Sans Serif</family>
-             <pointsize>10</pointsize>
-             <weight>50</weight>
+             <pointsize>12</pointsize>
+             <weight>75</weight>
              <italic>true</italic>
-             <bold>false</bold>
+             <bold>true</bold>
             </font>
            </property>
            <property name="text">
@@ -660,10 +695,10 @@
            <property name="font">
             <font>
              <family>MS Sans Serif</family>
-             <pointsize>10</pointsize>
-             <weight>50</weight>
+             <pointsize>12</pointsize>
+             <weight>75</weight>
              <italic>true</italic>
-             <bold>false</bold>
+             <bold>true</bold>
             </font>
            </property>
            <property name="text">
@@ -688,7 +723,7 @@
            <property name="font">
             <font>
              <family>MS Sans Serif</family>
-             <pointsize>12</pointsize>
+             <pointsize>14</pointsize>
              <weight>75</weight>
              <italic>true</italic>
              <bold>true</bold>
@@ -752,13 +787,15 @@
   <tabstop>comboBox_stranke</tabstop>
   <tabstop>dateEdit_terjatveOd</tabstop>
   <tabstop>dateEdit_terjatveDo</tabstop>
+  <tabstop>lineEdit_iskalnikTerjatve</tabstop>
+  <tabstop>treeWidget_terjatve</tabstop>
+  <tabstop>pushButton_2</tabstop>
+  <tabstop>pushButton_3</tabstop>
+  <tabstop>comboBox</tabstop>
   <tabstop>dateEdit_obveznostiOd</tabstop>
   <tabstop>dateEdit_obveznostiDo</tabstop>
-  <tabstop>lineEdit_iskalnikTerjatve</tabstop>
   <tabstop>lineEdit_iskalnikObveznosti</tabstop>
-  <tabstop>treeWidget_terjatve</tabstop>
   <tabstop>treeWidget_obveznosti</tabstop>
-  <tabstop>pushButton_2</tabstop>
   <tabstop>pushButton</tabstop>
   <tabstop>pushButton_statistika</tabstop>
   <tabstop>pushButton_izhod</tabstop>

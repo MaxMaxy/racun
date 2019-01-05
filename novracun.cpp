@@ -1651,7 +1651,7 @@ int NovRacun::creatPDF()
                                             "</th>"
                                             "<th>"
                                                 "<div align=center>""<font size=4>"
-                                                    "<hr width=100% size=1> Cena - DDV "
+                                                    "<hr width=100% size=1> Cena "
                                                 "</div>"
                                             "</th>"
                                             "<th>"
@@ -1661,7 +1661,7 @@ int NovRacun::creatPDF()
                                             "</th>"
                                             "<th>"
                                                 "<div align=center>""<font size=4>"
-                                                    "<hr width=100% size=1> Vrednost - DDV"
+                                                    "<hr width=100% size=1> Vrednost "
                                                 "</div>"
                                             "</th>"
                                         "</tr>";

@@ -55,11 +55,8 @@ private slots:
     void on_lineEdit_popust_textChanged();
     void on_lineEdit_popust_editingFinished();
     void on_lineEdit_isci_textChanged();
-
     void on_lineEdit_stRacuna_textChanged(const QString &arg1);
-
     void on_lineEdit_sklic_textChanged(const QString &arg1);
-
     void on_lineEdit_textChanged(const QString &arg1);
 
 private:

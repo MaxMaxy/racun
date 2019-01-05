@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>272</width>
-    <height>132</height>
+    <height>164</height>
    </rect>
   </property>
   <property name="font">
@@ -84,26 +84,14 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QPushButton" name="pushButton">
-         <property name="font">
-          <font>
-           <family>MS Sans Serif</family>
-           <pointsize>12</pointsize>
-           <italic>true</italic>
-          </font>
-         </property>
-         <property name="text">
-          <string>Izhod</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="pushButton_prijava">
          <property name="font">
           <font>
            <family>MS Sans Serif</family>
            <pointsize>12</pointsize>
+           <weight>75</weight>
            <italic>true</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
@@ -115,11 +103,24 @@
      </item>
     </layout>
    </item>
+   <item row="1" column="0">
+    <widget class="QPushButton" name="pushButton">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>12</pointsize>
+       <italic>true</italic>
+      </font>
+     </property>
+     <property name="text">
+      <string>Izhod</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <tabstops>
   <tabstop>lineEdit_login</tabstop>
-  <tabstop>pushButton</tabstop>
   <tabstop>pushButton_prijava</tabstop>
  </tabstops>
  <resources/>

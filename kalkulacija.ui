@@ -178,7 +178,7 @@
               </font>
              </property>
              <property name="text">
-              <string>Dodaj - popravi material:</string>
+              <string>Dodaj/popravi material:</string>
              </property>
             </widget>
            </item>
@@ -197,6 +197,12 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
              <property name="text">
               <string>Popravi materiala</string>
              </property>
@@ -211,6 +217,12 @@
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
                </property>
                <property name="frameShadow">
                 <enum>QFrame::Raised</enum>
@@ -245,6 +257,12 @@
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
                <property name="frameShadow">
                 <enum>QFrame::Raised</enum>
                </property>
@@ -277,6 +295,12 @@
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
                </property>
                <property name="frameShadow">
                 <enum>QFrame::Raised</enum>
@@ -344,8 +368,8 @@
              </property>
              <property name="font">
               <font>
-               <weight>50</weight>
-               <bold>false</bold>
+               <weight>75</weight>
+               <bold>true</bold>
               </font>
              </property>
              <property name="text">
@@ -588,7 +612,7 @@
               </font>
              </property>
              <property name="text">
-              <string>Dodaj - popravi operacijo:</string>
+              <string>Dodaj/popravi operacijo:</string>
              </property>
             </widget>
            </item>
@@ -607,6 +631,12 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
              <property name="text">
               <string>Popravi operacijo</string>
              </property>
@@ -621,6 +651,12 @@
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
                </property>
                <property name="frameShadow">
                 <enum>QFrame::Raised</enum>
@@ -654,6 +690,12 @@
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
                </property>
                <property name="frameShadow">
                 <enum>QFrame::Raised</enum>
@@ -1183,8 +1225,8 @@
            <property name="font">
             <font>
              <pointsize>12</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
+             <weight>50</weight>
+             <bold>false</bold>
             </font>
            </property>
            <property name="text">
@@ -1204,19 +1246,21 @@
   <tabstop>comboBox_stranka</tabstop>
   <tabstop>lineEdit_ID</tabstop>
   <tabstop>lineEdit_nazivProdukta</tabstop>
-  <tabstop>treeWidget_material</tabstop>
-  <tabstop>treeWidget_materialProdukta</tabstop>
-  <tabstop>treeWidget_delo</tabstop>
-  <tabstop>treeWidget_deloProdukta</tabstop>
-  <tabstop>checkBox_popraviOperacijo</tabstop>
-  <tabstop>lineEdit_operacija</tabstop>
-  <tabstop>lineEdit_cenaOperacije</tabstop>
-  <tabstop>pushButton_dodajOperacijo</tabstop>
   <tabstop>checkBox_popravekMateriala</tabstop>
   <tabstop>lineEdit_nazivMateriala</tabstop>
   <tabstop>lineEdit_cenaMateriala</tabstop>
   <tabstop>lineEdit_kolicinaMateriala</tabstop>
   <tabstop>pushButton_dodajMaterial</tabstop>
+  <tabstop>pushButton_isci</tabstop>
+  <tabstop>lineEdit_iskalnik</tabstop>
+  <tabstop>treeWidget_material</tabstop>
+  <tabstop>treeWidget_materialProdukta</tabstop>
+  <tabstop>checkBox_popraviOperacijo</tabstop>
+  <tabstop>lineEdit_operacija</tabstop>
+  <tabstop>lineEdit_cenaOperacije</tabstop>
+  <tabstop>pushButton_dodajOperacijo</tabstop>
+  <tabstop>treeWidget_delo</tabstop>
+  <tabstop>treeWidget_deloProdukta</tabstop>
   <tabstop>lineEdit_kalo</tabstop>
   <tabstop>lineEdit_cenaProdukta</tabstop>
   <tabstop>pushButton_vnosProdukta</tabstop>

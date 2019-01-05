@@ -229,7 +229,9 @@
       <font>
        <family>MS Sans Serif</family>
        <pointsize>12</pointsize>
+       <weight>75</weight>
        <italic>true</italic>
+       <bold>true</bold>
       </font>
      </property>
      <property name="text">

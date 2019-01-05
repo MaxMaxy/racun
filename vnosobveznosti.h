@@ -24,13 +24,9 @@ public:
 
 private slots:
     void on_pushButton_vnos_clicked();
-
     void on_lineEdit_listina_textChanged(const QString &arg1);
-
     void on_lineEdit_dobavitelj_textChanged(const QString &arg1);
-
     void on_lineEdit_znesek_textChanged(const QString &arg1);
-
     void on_lineEdit_opombe_textChanged(const QString &arg1);
 
 private:

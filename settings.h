@@ -23,7 +23,6 @@ public:
 
 private slots:
     void on_pushButton_shraniV_clicked();
-
     void on_pushButton_nastaviShrani_clicked();
 
 private:

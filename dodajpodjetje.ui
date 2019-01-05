@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>458</width>
-    <height>632</height>
+    <height>862</height>
    </rect>
   </property>
   <property name="font">
@@ -340,20 +340,6 @@ QHeaderView::section{padding:7px 15px}</string>
      </property>
     </widget>
    </item>
-   <item row="21" column="2">
-    <widget class="QPushButton" name="pushButton_izhod">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <pointsize>12</pointsize>
-       <italic>true</italic>
-      </font>
-     </property>
-     <property name="text">
-      <string>Izhod</string>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="1" colspan="2">
     <widget class="Line" name="line_2">
      <property name="font">
@@ -364,6 +350,20 @@ QHeaderView::section{padding:7px 15px}</string>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="21" column="1" colspan="2">
+    <widget class="QPushButton" name="pushButton_izhod">
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>12</pointsize>
+       <italic>true</italic>
+      </font>
+     </property>
+     <property name="text">
+      <string>Izhod</string>
      </property>
     </widget>
    </item>

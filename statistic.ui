@@ -485,6 +485,7 @@
  <tabstops>
   <tabstop>pushButton_isci</tabstop>
   <tabstop>comboBox_podjetja</tabstop>
+  <tabstop>dateEdit</tabstop>
   <tabstop>tableWidget_vse</tabstop>
   <tabstop>tableWidget_brez</tabstop>
   <tabstop>pushButton_izhod</tabstop>

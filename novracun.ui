@@ -602,7 +602,7 @@
                       </font>
                      </property>
                      <property name="text">
-                      <string>Dodaj nov produkt</string>
+                      <string>Dodaj/popravi produkt</string>
                      </property>
                     </widget>
                    </item>
@@ -1047,6 +1047,7 @@
   </layout>
  </widget>
  <tabstops>
+  <tabstop>pushButton_isci</tabstop>
   <tabstop>comboBox_narocnik</tabstop>
   <tabstop>lineEdit_stRacuna</tabstop>
   <tabstop>lineEdit_sklic</tabstop>
@@ -1101,8 +1102,8 @@
    <slot>Search()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>254</x>
-     <y>614</y>
+     <x>271</x>
+     <y>589</y>
     </hint>
     <hint type="destinationlabel">
      <x>247</x>
