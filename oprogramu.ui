@@ -82,7 +82,7 @@
         <bool>true</bool>
        </property>
        <property name="plainText">
-        <string>Trenutna verzija 0.9.9.3
+        <string>Trenutna verzija 0.9.9.5
 
 Avtor: Nejc Sedovnik
 Datum: november 2017
@@ -178,6 +178,12 @@ v0.9.9.1
 
 v0.9.9.3
     - tehnicni popravki
+
+v0.9.9.5
+    - moznost izbrisa racuna in terjatve
+    - stilski popravki
+    - popravki na kalkulaciji (netestirano)
+    - razni tehnicni popravki (utf-8)
 
 TO_DO:
     - moznost posiljanja racuna po emailu strankam

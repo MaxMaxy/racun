@@ -8,13 +8,14 @@
 #include <QStringList>
 #include <QDebug>
 #include <QVector>
+#include <QTableWidgetItem>
+#include "terjatve.h"
 
 namespace Ui {
-class Statistic;
+    class Statistic;
 }
 
-class Statistic : public QDialog
-{
+class Statistic : public QDialog {
     Q_OBJECT
 
 public:
@@ -27,12 +28,15 @@ public:
 
 private slots:
     void on_pushButton_isci_clicked();
+    void on_tableWidget_vse_itemDoubleClicked(QTableWidgetItem *item);
+    void on_tableWidget_brez_itemDoubleClicked(QTableWidgetItem *item);
 
 private:
     Ui::Statistic *ui;
     QString m_currentDir;
     QString m_fileNameCompanys;
     QString m_fileRacun;
+    QString m_upnikiSeznam;
     int m_numInCombo;
     int m_colorArray[150];
 };

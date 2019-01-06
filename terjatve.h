@@ -13,10 +13,9 @@
 #include "vnosobveznosti.h"
 #include "novracun.h"
 #include "placiloracuna.h"
-#include "statistic.h"
 
 namespace Ui {
-class Terjatve;
+    class Terjatve;
 }
 
 class Terjatve : public QDialog
@@ -27,12 +26,14 @@ public:
     explicit Terjatve(QWidget *parent = nullptr);
     ~Terjatve();
     void AddItemsToComboBox();
-    void ReadTerjatve();
-    void ReadObveznosti();
+    void ReadTerjatve(bool);
+    void ReadObveznosti(bool);
     void AddRootTerjatve(QStringList);
     void AddRootObveznosti(QStringList);
     void Search(QString, QString, bool);
     void SumTerjatve();
+    void SetStatisticParameterTerjatve(int, QDate, QDate);
+    void SetStatisticParameterObveznosti(int, QDate, QDate);
 
 private slots:
     void on_comboBox_stranke_currentIndexChanged();
@@ -45,9 +46,16 @@ private slots:
     void on_pushButton_2_clicked();
     void on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *);
     void on_treeWidget_obveznosti_itemDoubleClicked(QTreeWidgetItem *);
-    void on_pushButton_statistika_clicked();
     void on_lineEdit_iskalnikTerjatve_textChanged();
     void on_lineEdit_iskalnikObveznosti_textChanged();
+    void on_comboBox_stranke_currentIndexChanged(int index);
+    void on_comboBox_currentIndexChanged(int index);
+    void on_dateEdit_terjatveOd_dateChanged(const QDate &date);
+    void on_dateEdit_terjatveDo_dateChanged(const QDate &date);
+    void on_dateEdit_obveznostiOd_dateChanged(const QDate &date);
+    void on_dateEdit_obveznostiDo_dateChanged(const QDate &date);
+    void on_checkBox_neplacaneTerjatve_stateChanged(int arg1);
+    void on_checkBox_neplacaneObveznosti_stateChanged(int arg1);
 
 private:
     Ui::Terjatve *ui;

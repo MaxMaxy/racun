@@ -33,5 +33,10 @@ void numOfItemsKalk::on_pushButton_vstavi_clicked()
     else if(ui->lineEdit_kos->isEnabled() && ui->lineEdit_kos->text() != "")
         m_kolicina = ui->lineEdit_kos->text();
     else
-        m_kolicina = "1";
+        m_kolicina = "0";
+}
+
+void numOfItemsKalk::reject() {
+    m_kolicina = "0";
+    QDialog::reject();
 }

@@ -20,6 +20,7 @@ public:
 
 private slots:
     void on_pushButton_vnos_clicked();
+    void reject();
 
 private:
     Ui::NumOfItems *ui;

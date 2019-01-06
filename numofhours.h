@@ -2,6 +2,7 @@
 #define NUMOFHOURS_H
 
 #include <QDialog>
+#include <QRegularExpressionValidator>
 
 namespace Ui {
 class NumOfHours;
@@ -18,6 +19,7 @@ public:
 
 private slots:
     void on_pushButton_clicked();
+    void reject();
 
 private:
     Ui::NumOfHours *ui;

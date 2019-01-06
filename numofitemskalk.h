@@ -2,6 +2,7 @@
 #define NUMOFITEMSKALK_H
 
 #include <QDialog>
+#include <QRegularExpressionValidator>
 
 namespace Ui {
 class numOfItemsKalk;
@@ -19,6 +20,7 @@ public:
 
 private slots:
     void on_pushButton_vstavi_clicked();
+    void reject();
 
 private:
     Ui::numOfItemsKalk *ui;
