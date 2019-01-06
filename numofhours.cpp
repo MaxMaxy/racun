@@ -21,7 +21,12 @@ NumOfHours::~NumOfHours() {
 void NumOfHours::on_pushButton_clicked() {
     close();
     if(ui->lineEdit->text() == "")
-        m_numOfHours = "1";
+        m_numOfHours = "0";
     else
         m_numOfHours = ui->lineEdit->text();
+}
+
+void NumOfHours::reject() {
+    m_numOfHours = "0";
+    QDialog::reject();
 }

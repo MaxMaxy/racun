@@ -68,10 +68,11 @@ void DodajProdukt::AddRoot(QString id, QString naziv, QString cena)
     QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
     // nastavimo stevilko podjetja in ime podjetja v colom 0 in 1
     itm->setText(0, id);
-    itm->setTextAlignment(0, Qt::AlignHCenter);
+    itm->setTextAlignment(0, Qt::AlignLeading);
     itm->setText(1, naziv);
+    itm->setTextAlignment(1, Qt::AlignLeading);
     itm->setText(2, "€" + cena);
-    itm->setTextAlignment(2, Qt::AlignHCenter);
+    itm->setTextAlignment(2, Qt::AlignLeading);
     // dodamo podjetje v treeWidget
     ui->treeWidget->addTopLevelItem(itm);
     // nastavimo barvo za vsako drugo podjetje
