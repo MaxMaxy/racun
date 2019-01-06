@@ -61,12 +61,8 @@ Terjatve::~Terjatve()
     delete ui;
 }
 
-void Terjatve::AddItemsToComboBox()
-{
-
+void Terjatve::AddItemsToComboBox() {
     /* OBVEZNOSTI */
-    //ui->comboBox_upniki->clear();
-    //ui->comboBox_upniki->addItem(QString::fromUtf8("Vse obveznosti"));
     ui->comboBox->clear();
     ui->comboBox->addItem(QString::fromUtf8("Vse obveznosti"));
     QFile mFileUpniki(m_upnikiSeznam);
@@ -82,8 +78,6 @@ void Terjatve::AddItemsToComboBox()
         while(!in.atEnd()) {
             mText = in.readLine();
             list = mText.split(exp, QString::SkipEmptyParts);
-            qDebug() << list;
-            //ui->comboBox_upniki->addItems(list);
             ui->comboBox->addItems(list);
         }
     }
@@ -179,7 +173,7 @@ void Terjatve::AddRootTerjatve(QStringList textList)
     ui->treeWidget_terjatve->addTopLevelItem(itm);
 }
 
-void Terjatve::ReadTerjatve()
+void Terjatve::ReadTerjatve(bool neplacani)
 {
     ui->treeWidget_terjatve->clear();
     m_totalTerjatve = 0;
@@ -191,6 +185,9 @@ void Terjatve::ReadTerjatve()
     QStringList tmp;
     QString stranka("");
     QString date("");
+    QString opomba("");
+    QString placano("");
+    QString cena("");
     QDate date_Od_Do;
     if(!mFile.open(QFile::ReadOnly | QFile::Text))
     {
@@ -212,17 +209,43 @@ void Terjatve::ReadTerjatve()
             date = tmp.at(1);
             date.remove(-1,1);
             date_Od_Do = date_Od_Do.fromString(date, "d. M. yyyy");
-            if(ui->comboBox_stranke->currentText() == "Vse terjatve" && date_Od_Do >= ui->dateEdit_terjatveOd->date() && date_Od_Do <= ui->dateEdit_terjatveDo->date())
-            {
-                AddRootTerjatve(textList);
+            opomba = textList.at(12);
+            placano = textList.at(14);
+            placano.remove("Placilo: ");
+            cena = textList.at(11);
+            cena.remove(" Sum_skupaj:");
+            if(opomba == " Opomba: racun_je_bil_spremenjen!!!???? " || opomba == " Opomba: racun_je_bil_odstranjen!!!???? ") {
                 continue;
             }
-            else if(stranka == ui->comboBox_stranke->currentText() && date_Od_Do >= ui->dateEdit_terjatveOd->date() && date_Od_Do <= ui->dateEdit_terjatveDo->date())
-                AddRootTerjatve(textList);
+            else if(ui->comboBox_stranke->currentText() == "Vse terjatve" && date_Od_Do >= ui->dateEdit_terjatveOd->date() && date_Od_Do <= ui->dateEdit_terjatveDo->date())
+            {
+                if(neplacani) {
+                    AddRootTerjatve(textList);
+                    continue;
+                } else {
+                    if(QString::number(placano.toDouble(), 'f', 2) != QString::number(cena.toDouble(), 'f', 2)) {
+                        AddRootTerjatve(textList);
+                        continue;
+                    } else {
+                        continue;
+                    }
+                }
+            }
+            else if(stranka == ui->comboBox_stranke->currentText() && date_Od_Do >= ui->dateEdit_terjatveOd->date() && date_Od_Do <= ui->dateEdit_terjatveDo->date()) {
+                if(neplacani) {
+                    AddRootTerjatve(textList);
+                } else {
+                    if(QString::number(placano.toDouble(), 'f', 2) != QString::number(cena.toDouble(), 'f', 2)) {
+                        AddRootTerjatve(textList);
+                    } else {
+                        continue;
+                    }
+                }
+            }
         }
     }
     mFile.close();
-    ui->treeWidget_terjatve->sortByColumn(3, Qt::DescendingOrder);
+    ui->treeWidget_terjatve->sortByColumn(0, Qt::AscendingOrder);
     m_totalTerMinObv = m_totalTerjatve - m_totalObveznosti;
 }
 
@@ -260,7 +283,9 @@ void Terjatve::AddRootObveznosti(QStringList textList)
     ident.remove(-1,1);
     QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget_obveznosti);
     itm->setText(0, listina);
+    itm->setTextAlignment(0, Qt::AlignLeading);
     itm->setText(1, stranka);
+    itm->setTextAlignment(0, Qt::AlignCenter);
     itm->setText(2, znesek);
     itm->setText(3, dat_valute);
     itm->setText(4, placilo);
@@ -285,7 +310,7 @@ void Terjatve::AddRootObveznosti(QStringList textList)
     ui->treeWidget_obveznosti->addTopLevelItem(itm);
 }
 
-void Terjatve::ReadObveznosti()
+void Terjatve::ReadObveznosti(bool neplacani)
 {
     ui->treeWidget_obveznosti->clear();
     m_totalObveznosti = 0;
@@ -297,6 +322,9 @@ void Terjatve::ReadObveznosti()
     QStringList tmp;
     QString stranka("");
     QString date("");
+    QString opomba("");
+    QString placano("");
+    QString cena("");
     QDate date_Od_Do;
     if(!mFile.open(QFile::ReadOnly | QFile::Text))
     {
@@ -316,13 +344,39 @@ void Terjatve::ReadObveznosti()
             date = textList.at(1);
             date.remove(-1,1);
             date_Od_Do = date_Od_Do.fromString(date, "d. M. yyyy");
-            if(ui->comboBox->currentText() == "Vse obveznosti" && date_Od_Do >= ui->dateEdit_obveznostiOd->date() && date_Od_Do <= ui->dateEdit_obveznostiDo->date())
-            {
-                AddRootObveznosti(textList);
+            opomba = textList.at(9);
+            placano = textList.at(7);
+            placano.remove("Placilo: ");
+            cena = textList.at(5);
+            cena.remove("Znesek: ");
+            if(opomba == "Opombe: terjatev_je_bila_odstranjena!!!???? ") {
                 continue;
             }
-            else if(stranka == ui->comboBox->currentText() && date_Od_Do >= ui->dateEdit_obveznostiOd->date() && date_Od_Do <= ui->dateEdit_obveznostiDo->date())
+            else if(ui->comboBox->currentText() == "Vse obveznosti" && date_Od_Do >= ui->dateEdit_obveznostiOd->date() && date_Od_Do <= ui->dateEdit_obveznostiDo->date()) {
+                if(neplacani) {
+                    AddRootObveznosti(textList);
+                    continue;
+                } else {
+                    if(QString::number(placano.toDouble(), 'f', 2) != QString::number(cena.toDouble(), 'f', 2)) {
+                        AddRootObveznosti(textList);
+                        continue;
+                    } else {
+                        continue;
+                    }
+                }
+            }
+            else if(stranka == ui->comboBox->currentText() && date_Od_Do >= ui->dateEdit_obveznostiOd->date() && date_Od_Do <= ui->dateEdit_obveznostiDo->date()) {
                 AddRootObveznosti(textList);
+                if(neplacani) {
+                    AddRootObveznosti(textList);
+                } else {
+                    if(QString::number(placano.toDouble(), 'f', 2) != QString::number(cena.toDouble(), 'f', 2)) {
+                        AddRootObveznosti(textList);
+                    } else {
+                        continue;
+                    }
+                }
+            }
         }
     }
     mFile.close();
@@ -363,6 +417,18 @@ void Terjatve::Search(QString searchName, QString file, bool ter_obv)
     mFile.close();
 }
 
+void Terjatve::SetStatisticParameterTerjatve(int comboIndex, QDate dateOd, QDate dateDo) {
+    ui->comboBox_stranke->setCurrentIndex(comboIndex);
+    ui->dateEdit_terjatveOd->setDate(dateOd);
+    ui->dateEdit_terjatveDo->setDate(dateDo);
+}
+
+void Terjatve::SetStatisticParameterObveznosti(int comboIndex, QDate dateOd, QDate dateDo) {
+    ui->comboBox->setCurrentIndex(comboIndex);
+    ui->dateEdit_obveznostiOd->setDate(dateOd);
+    ui->dateEdit_obveznostiDo->setDate(dateDo);
+}
+
 void Terjatve::on_comboBox_stranke_currentIndexChanged()
 {
     if(ui->comboBox_stranke->currentText() == "Vse terjatve")
@@ -375,17 +441,17 @@ void Terjatve::on_comboBox_stranke_currentIndexChanged()
         ui->lineEdit_iskalnikTerjatve->setEnabled(false);
         ui->lineEdit_iskalnikTerjatve->clear();
     }
-    ReadTerjatve();
+    ReadTerjatve(true);
 }
 
 void Terjatve::on_dateEdit_terjatveOd_editingFinished()
 {
-    ReadTerjatve();
+    ReadTerjatve(true);
 }
 
 void Terjatve::on_dateEdit_terjatveDo_editingFinished()
 {
-     ReadTerjatve();
+     ReadTerjatve(true);
 }
 
 // vnos obveznosti
@@ -396,7 +462,7 @@ void Terjatve::on_pushButton_clicked()
     vnos.exec();
     ui->treeWidget_obveznosti->clear();
     AddItemsToComboBox();
-    ReadObveznosti();
+    ReadObveznosti(true);
     ui->label_skupajTerjatve->setText("€" + QString::number(m_totalTerjatve, 'f', 2));
     ui->label_skupajObveznosti->setText("€" + QString::number(m_totalObveznosti, 'f', 2));
     if(m_totalTerMinObv < 0)
@@ -418,17 +484,17 @@ void Terjatve::on_comboBox_currentIndexChanged()
         ui->lineEdit_iskalnikObveznosti->setEnabled(false);
         ui->lineEdit_iskalnikObveznosti->clear();
     }
-    ReadObveznosti();
+    ReadObveznosti(true);
 }
 
 void Terjatve::on_dateEdit_obveznostiOd_editingFinished()
 {
-    ReadObveznosti();
+    ReadObveznosti(true);
 }
 
 void Terjatve::on_dateEdit_obveznostiDo_editingFinished()
 {
-    ReadObveznosti();
+    ReadObveznosti(true);
 }
 
 // vnos nov racun
@@ -438,7 +504,7 @@ void Terjatve::on_pushButton_2_clicked()
     racun.setModal(true);
     racun.exec();
     AddItemsToComboBox();
-    ReadTerjatve();
+    ReadTerjatve(true);
     ui->label_skupajTerjatve->setText("€" + QString::number(m_totalTerjatve, 'f', 2));
     ui->label_skupajObveznosti->setText("€" + QString::number(m_totalObveznosti, 'f', 2));
     if(m_totalTerMinObv < 0)
@@ -450,7 +516,6 @@ void Terjatve::on_pushButton_2_clicked()
 
 void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
 {
-    qDebug() << item;
     QString itemDatum = item->text(8);
     QFile mFile(m_terjatve);
     if(!mFile.open(QFile::ReadOnly | QFile::Text))
@@ -503,29 +568,60 @@ void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
             datum.remove(0,1);
             if(opomba == " ") opomba = "";
             if(cena == " ") cena = "";
-            placilo.setOpombe(opomba, cena, datum);
+            placilo.setOpombe(opomba, cena, datum, false);
             placilo.exec();
-            placiloList = placilo.on_pushButton_clicked();
-            tmp.replace(QString(tmp_list.at(14)), QString(" Placilo: " + placiloList.at(0)));
-            tmp.replace(QString(tmp_list.at(15)), QString(" Dat_placila: " + placiloList.at(1)));
-            tmp.replace(QString(tmp_list.at(12)), QString(" Opomba: " + placiloList.at(2)));
-            allText.replace(text_stRacuna, tmp);
-            mFile.close();
-            if(!mFile.open(QFile::WriteOnly | QFile::Truncate | QFile::Text))
-            {
-                qDebug() << "Error opening in treeWidget_terjatve_itemDoubleClicked";
-                return;
-            }
-            else
-            {
-                in << allText;
-                mFile.flush();
-                mFile.close();
+            if(!placilo.m_quit) {
+                if(placilo.deleteRacun) {
+                    QFile mFile(m_terjatve);
+                    if(!mFile.open(QFile::Text | QFile::ReadOnly)) {
+                        qDebug() << "Error opening mFile for reading in popravi button";
+                        return;
+                    }
+                    QTextStream in(&mFile);
+                    in.setCodec("UTF-8");
+                    QString allText = in.readAll();
+                    mFile.close();
+                    QString produkt_star = text_stRacuna;
+                    QString opomba = tmp_list.at(12);
+                    QString produkt_nov = text_stRacuna.replace(opomba, " Opomba: racun_je_bil_odstranjen!!!????");
+                    allText.replace(produkt_star, produkt_nov);
+                    if(!mFile.open(QFile::WriteOnly | QFile::Truncate)) {
+                        qDebug() << "Error opening mFile for truncate in popravi button";
+                        return;
+                    }
+                    mFile.flush();
+                    mFile.close();
+                    if(!mFile.open(QFile::WriteOnly | QFile::Text)) {
+                        qDebug() << "Error opening mFile for writing in popravi button";
+                        return;
+                    }
+                    in << allText;
+                    mFile.flush();
+                    mFile.close();
+                } else {
+                    placiloList = placilo.on_pushButton_clicked();
+                    tmp.replace(QString(tmp_list.at(14)), QString(" Placilo: " + placiloList.at(0)));
+                    tmp.replace(QString(tmp_list.at(15)), QString(" Dat_placila: " + placiloList.at(1)));
+                    tmp.replace(QString(tmp_list.at(12)), QString(" Opomba: " + placiloList.at(2)));
+                    allText.replace(text_stRacuna, tmp);
+                    mFile.close();
+                    if(!mFile.open(QFile::WriteOnly | QFile::Truncate | QFile::Text))
+                    {
+                        qDebug() << "Error opening in treeWidget_terjatve_itemDoubleClicked";
+                        return;
+                    }
+                    else
+                    {
+                        in << allText;
+                        mFile.flush();
+                        mFile.close();
+                    }
+                }
             }
         }
     }
     AddItemsToComboBox();
-    ReadTerjatve();
+    ReadTerjatve(true);
     ui->label_skupajTerjatve->setText("€" + QString::number(m_totalTerjatve, 'f', 2));
     ui->label_skupajObveznosti->setText("€" + QString::number(m_totalObveznosti, 'f', 2));
     if(m_totalTerMinObv < 0)
@@ -537,7 +633,6 @@ void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
 
 void Terjatve::on_treeWidget_obveznosti_itemDoubleClicked(QTreeWidgetItem *item)
 {
-    qDebug() << item;
     QString itemDatum = item->text(7);
     QFile mFile(m_obveznosti);
     if(!mFile.open(QFile::ReadOnly | QFile::Text))
@@ -559,7 +654,6 @@ void Terjatve::on_treeWidget_obveznosti_itemDoubleClicked(QTreeWidgetItem *item)
         QStringList tmp_list;
         allText = in.readAll();
         mFile.close();
-
         if(!mFile.open(QFile::ReadOnly | QFile::Text))
         {
             qDebug() << "Error opening in treeWidget_terjatve_itemDoubleClicked";
@@ -588,29 +682,60 @@ void Terjatve::on_treeWidget_obveznosti_itemDoubleClicked(QTreeWidgetItem *item)
             QString datum = tmp_list.at(8);
             datum.remove("Dat_placila: ");
             datum.remove(0,1);
-            placilo.setOpombe(opomba, cena, datum);
+            placilo.setOpombe(opomba, cena, datum, true);
             placilo.exec();
-            placiloList = placilo.on_pushButton_clicked();
-            tmp.replace(QString(tmp_list.at(7)), QString(" Placilo: " + placiloList.at(0)));
-            tmp.replace(QString(tmp_list.at(8)), QString(" Dat_placila: " + placiloList.at(1)));
-            tmp.replace(QString(tmp_list.at(9)), QString(" Opombe: " + placiloList.at(2)));
-            allText.replace(text_obveznost, tmp);
-            mFile.close();
-            if(!mFile.open(QFile::WriteOnly | QFile::Truncate | QFile::Text))
-            {
-                qDebug() << "Error opening in treeWidget_terjatve_itemDoubleClicked";
-                return;
-            }
-            else
-            {
-                in << allText;
-                mFile.flush();
-                mFile.close();
+            if(!placilo.m_quit) {
+                if(placilo.deleteRacun) {
+                    QFile mFile(m_obveznosti);
+                    if(!mFile.open(QFile::Text | QFile::ReadOnly)) {
+                        qDebug() << "Error opening mFile for reading in popravi button";
+                        return;
+                    }
+                    QTextStream in(&mFile);
+                    in.setCodec("UTF-8");
+                    QString allText = in.readAll();
+                    mFile.close();
+                    QString produkt_star = text_obveznost;
+                    QString opomba = tmp_list.at(9);
+                    QString produkt_nov = text_obveznost.replace(opomba, " Opombe: terjatev_je_bila_odstranjena!!!????");
+                    allText.replace(produkt_star, produkt_nov);
+                    if(!mFile.open(QFile::WriteOnly | QFile::Truncate)) {
+                        qDebug() << "Error opening mFile for truncate in popravi button";
+                        return;
+                    }
+                    mFile.flush();
+                    mFile.close();
+                    if(!mFile.open(QFile::WriteOnly | QFile::Text)) {
+                        qDebug() << "Error opening mFile for writing in popravi button";
+                        return;
+                    }
+                    in << allText;
+                    mFile.flush();
+                    mFile.close();
+                } else {
+                    placiloList = placilo.on_pushButton_clicked();
+                    tmp.replace(QString(tmp_list.at(7)), QString(" Placilo: " + placiloList.at(0)));
+                    tmp.replace(QString(tmp_list.at(8)), QString(" Dat_placila: " + placiloList.at(1)));
+                    tmp.replace(QString(tmp_list.at(9)), QString(" Opombe: " + placiloList.at(2)));
+                    allText.replace(text_obveznost, tmp);
+                    mFile.close();
+                    if(!mFile.open(QFile::WriteOnly | QFile::Truncate | QFile::Text))
+                    {
+                        qDebug() << "Error opening in treeWidget_terjatve_itemDoubleClicked";
+                        return;
+                    }
+                    else
+                    {
+                        in << allText;
+                        mFile.flush();
+                        mFile.close();
+                    }
+                }
             }
         }
     }
     AddItemsToComboBox();
-    ReadObveznosti();
+    ReadObveznosti(true);
     ui->label_skupajTerjatve->setText("€" + QString::number(m_totalTerjatve, 'f', 2));
     ui->label_skupajObveznosti->setText("€" + QString::number(m_totalObveznosti, 'f', 2));
     if(m_totalTerMinObv < 0)
@@ -618,13 +743,6 @@ void Terjatve::on_treeWidget_obveznosti_itemDoubleClicked(QTreeWidgetItem *item)
     else
         ui->label_terjatve_obveznosti->setStyleSheet("QLabel {color: green}");
     ui->label_terjatve_obveznosti->setText("€" + QString::number(m_totalTerMinObv, 'f', 2));
-}
-
-void Terjatve::on_pushButton_statistika_clicked()
-{
-    Statistic statistika;
-    statistika.setModal(true);
-    statistika.exec();
 }
 
 void Terjatve::on_lineEdit_iskalnikTerjatve_textChanged()
@@ -643,4 +761,52 @@ void Terjatve::on_lineEdit_iskalnikObveznosti_textChanged()
     ui->treeWidget_obveznosti->clear();
     QString search = ui->lineEdit_iskalnikObveznosti->text();
     Search(search, m_obveznosti, false);
+}
+
+void Terjatve::on_comboBox_stranke_currentIndexChanged(int index) {
+    qDebug() << index;
+    ReadTerjatve(true);
+}
+
+void Terjatve::on_comboBox_currentIndexChanged(int index) {
+    qDebug() << index;
+    ReadObveznosti(true);
+}
+
+void Terjatve::on_dateEdit_terjatveOd_dateChanged(const QDate &date) {
+    qDebug() << date;
+    ReadTerjatve(true);
+}
+
+void Terjatve::on_dateEdit_terjatveDo_dateChanged(const QDate &date) {
+    qDebug() << date;
+    ReadTerjatve(true);
+}
+
+void Terjatve::on_dateEdit_obveznostiOd_dateChanged(const QDate &date) {
+    qDebug() << date;
+    ReadObveznosti(true);
+}
+
+void Terjatve::on_dateEdit_obveznostiDo_dateChanged(const QDate &date) {
+    qDebug() << date;
+    ReadObveznosti(true);
+}
+
+void Terjatve::on_checkBox_neplacaneTerjatve_stateChanged(int arg1) {
+    qDebug() << arg1;
+    if(ui->checkBox_neplacaneTerjatve->isChecked()) {
+        ReadTerjatve(false);
+    } else {
+        ReadTerjatve(true);
+    }
+}
+
+void Terjatve::on_checkBox_neplacaneObveznosti_stateChanged(int arg1) {
+    qDebug() << arg1;
+    if(ui->checkBox_neplacaneObveznosti->isChecked()) {
+        ReadObveznosti(false);
+    } else {
+        ReadObveznosti(true);
+    }
 }

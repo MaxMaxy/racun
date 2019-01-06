@@ -65,10 +65,10 @@ void VnosObveznosti::VnosUpnika()
             }
             else
             {
-                QString novUpnik = ui->lineEdit_dobavitelj->text();
+                QString novUpnik = ui->lineEdit_dobavitelj->text().toUpper();
                 QTextStream out(&mFile);
                 out.setCodec("UTF-8");
-                out << novUpnik << "; \n";
+                out << novUpnik << ";\n";
                 mFile.flush();
                 mFile.close();
             }
@@ -91,8 +91,8 @@ void VnosObveznosti::VnosObv()
         QDateTime date = QDateTime::currentDateTime();
         QString mText = "Nova obveznost ; " +
                         date.toString("d. M. yyyy ; hh:mm:ss.zzz") +
-                        " ; Listina: " + ui->lineEdit_listina->text() +
-                        " ; Dobavitelj: " + ui->lineEdit_dobavitelj->text() +
+                        " ; Listina: " + ui->lineEdit_listina->text().toUpper() +
+                        " ; Dobavitelj: " + ui->lineEdit_dobavitelj->text().toUpper() +
                         " ; Znesek: " + ui->lineEdit_znesek->text() +
                         " ; Dat_valute: " + ui->dateEdit_valute->text() +
                         " ; Placilo: " +

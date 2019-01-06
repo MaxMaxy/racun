@@ -10,7 +10,7 @@
 #include <QRegularExpression>
 
 namespace Ui {
-class Settings;
+    class Settings;
 }
 
 class Settings : public QDialog

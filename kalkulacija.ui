@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1181</width>
-    <height>1000</height>
+    <height>1065</height>
    </rect>
   </property>
   <property name="font">
@@ -289,6 +289,33 @@
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_16">
              <item>
+              <widget class="QLabel" name="label_21">
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Vrsta materiala:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="radioButton_meter">
+               <property name="text">
+                <string>meter</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="radioButton_kos">
+               <property name="text">
+                <string>kos</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QLabel" name="label_17">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -422,7 +449,10 @@
                 <enum>QFrame::Raised</enum>
                </property>
                <property name="text">
-                <string>Ves material:</string>
+                <string>Vsi materiali:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
                <property name="buddy">
                 <cstring>treeWidget_material</cstring>
@@ -492,6 +522,21 @@
                  <set>AlignCenter</set>
                 </property>
                </column>
+               <column>
+                <property name="text">
+                 <string>Vrsta materiala</string>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>MS Sans Serif</family>
+                  <pointsize>10</pointsize>
+                  <italic>true</italic>
+                 </font>
+                </property>
+                <property name="textAlignment">
+                 <set>AlignCenter</set>
+                </property>
+               </column>
               </widget>
              </item>
              <item>
@@ -515,6 +560,9 @@
                </property>
                <property name="text">
                 <string>Material v produktu:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
                <property name="buddy">
                 <cstring>treeWidget_materialProdukta</cstring>
@@ -571,7 +619,7 @@
                </column>
                <column>
                 <property name="text">
-                 <string>Cena € za 1000 kosov</string>
+                 <string>Cena € za kos</string>
                 </property>
                 <property name="font">
                  <font>
@@ -773,6 +821,9 @@
                <property name="text">
                 <string>Vse operacije:</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
                <property name="buddy">
                 <cstring>treeWidget_delo</cstring>
                </property>
@@ -857,6 +908,9 @@
                </property>
                <property name="text">
                 <string>Delo v produktu:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
                <property name="buddy">
                 <cstring>treeWidget_deloProdukta</cstring>
@@ -971,6 +1025,9 @@
                <property name="text">
                 <string>Kalo %:</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
                <property name="buddy">
                 <cstring>lineEdit_kalo</cstring>
                </property>
@@ -1015,6 +1072,9 @@
                </property>
                <property name="text">
                 <string>Cena materiala na kos:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -1067,6 +1127,9 @@
                <property name="text">
                 <string>Cena dela na kos:</string>
                </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
               </widget>
              </item>
              <item>
@@ -1117,6 +1180,9 @@
                </property>
                <property name="text">
                 <string>Predvidena cena produkta na kos:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -1173,6 +1239,9 @@
              </property>
              <property name="text">
               <string>Cena produkta na kos:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
              </property>
              <property name="buddy">
               <cstring>lineEdit_cenaProdukta</cstring>

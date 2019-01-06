@@ -115,19 +115,27 @@ void DodajPodjetje::Write(QString file_podjetje, QString file_num) {
     mNum.close();
     QTextStream out(&mFile);
     out.setCodec("UTF-8");
-    m_kNaziv = ui->lineEdit_kNaziv->text();
+    m_kNaziv = ui->lineEdit_kNaziv->text().toUpper();
     if(m_kNaziv == "")
         m_kNaziv = "ni podatka";
-    m_cNaziv = ui->lineEdit_cNaziv->text();
+    m_kNaziv.replace("D.O.O.", "d.o.o.");
+    m_kNaziv.replace("D.O.O", "d.o.o.");
+    m_kNaziv.replace("S.P.", "s.p.");
+    m_kNaziv.replace("D.D.", "d.d.");
+    m_cNaziv = ui->lineEdit_cNaziv->text().toUpper();
     if(m_cNaziv == "")
         m_cNaziv = "ni podatka";
+    m_cNaziv.replace("D.O.O.", "d.o.o.");
+    m_cNaziv.replace("D.O.O", "d.o.o.");
+    m_cNaziv.replace("S.P.", "s.p.");
+    m_cNaziv.replace("D.D.", "d.d.");
     m_naslov = ui->lineEdit_naslov->text();
     if(m_naslov == "")
         m_naslov = "ni podatka";
-    m_posta = ui->lineEdit_posta->text();
+    m_posta = ui->lineEdit_posta->text().toUpper();
     if(m_posta == "")
         m_posta = "ni podatka";
-    m_ddv = ui->lineEdit_ddv->text();
+    m_ddv = ui->lineEdit_ddv->text().toUpper();
     if(m_ddv == "")
         m_ddv = "ni podatka";
     m_email = ui->lineEdit_email->text();

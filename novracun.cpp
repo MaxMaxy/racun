@@ -1078,6 +1078,7 @@ void NovRacun::MakeXML()
 
 void NovRacun::PopraviRacun(QString stranka, QString stevilka_racuna, QString vezni_dokument, QString datum, QString opomba, QString produkti, QString osnova, QString ddv, QString skupaj, QString popust)
 {
+    qDebug() << skupaj << ddv;
     ui->comboBox_narocnik->setCurrentText(stranka);
     ui->lineEdit_stRacuna->setText(stevilka_racuna);
     ui->lineEdit_sklic->setText(vezni_dokument);
@@ -1120,7 +1121,6 @@ void NovRacun::PopraviRacun(QString stranka, QString stevilka_racuna, QString ve
             tmp_string2.remove(")");
             tmp_string3 = tmp_list.at(3);
             m_osnova += (tmp_string2.toDouble() * tmp_string3.toInt());
-            qDebug() << tmp_string2;
             tmp_string2.prepend("€");
             itm->setText(0, tmp_string);
             itm->setText(1, tmp_string1);
@@ -1132,7 +1132,6 @@ void NovRacun::PopraviRacun(QString stranka, QString stevilka_racuna, QString ve
             m_itemsAdded++;
         }
     }
-    qDebug() << m_osnova;
     ui->label_osnova->setText("€" + QString::number(m_osnova, 'f', 2));
     m_total = osnova.toDouble();
     double m_pop = ui->lineEdit_popust->text().toDouble();
@@ -1270,10 +1269,11 @@ void NovRacun::AddRoot(QString id, QString naziv, QString cena)
     QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget_seznam);
     // nastavimo stevilko podjetja in ime podjetja v colom 0 in 1
     itm->setText(0, id);
-    itm->setTextAlignment(0, Qt::AlignHCenter);
+    itm->setTextAlignment(0, Qt::AlignLeading);
     itm->setText(1, naziv);
+    itm->setTextAlignment(1, Qt::AlignLeading);
     itm->setText(2, "€" + cena);
-    itm->setTextAlignment(2, Qt::AlignHCenter);
+    itm->setTextAlignment(2, Qt::AlignLeading);
     // dodamo podjetje v treeWidget
     ui->treeWidget_seznam->addTopLevelItem(itm);
     // nastavimo barvo za vsako drugo podjetje
@@ -1379,43 +1379,49 @@ void NovRacun::on_treeWidget_seznam_doubleClicked()
         error_stringToLong.show();
         return;
     }
-
     NumOfItems numItems;
     numItems.setModal(true);
     numItems.exec();
     m_numItems = numItems.m_numKosov;
-    QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget_dodani);
-    QString cenaDDV = CenaDDV(ui->treeWidget_seznam->currentItem()->text(2), m_numItems);
-    itm->setText(0, ui->treeWidget_seznam->currentItem()->text(0));
-    itm->setTextAlignment(0, Qt::AlignHCenter);
-    itm->setText(1, ui->treeWidget_seznam->currentItem()->text(1));
-    itm->setText(2, ui->treeWidget_seznam->currentItem()->text(2));
-    itm->setTextAlignment(2, Qt::AlignHCenter);
-    itm->setText(3, m_numItems);
-    itm->setTextAlignment(3, Qt::AlignHCenter);
-    itm->setText(4, cenaDDV);
-    ui->treeWidget_dodani->addTopLevelItem(itm);
-    QColor color(210,210,210);
-    QColor wcolor(250,250,250);
-    // m_count je member bool ce je true je barva siva drugace bela
-    if(m_count)
-    {
-        itm->setBackgroundColor(0,color);
-        itm->setBackgroundColor(1,color);
-        itm->setBackgroundColor(2,color);
-        itm->setBackgroundColor(3,color);
-        m_count = false;
-    } else {
-        itm->setBackgroundColor(0,wcolor);
-        itm->setBackgroundColor(1,wcolor);
-        itm->setBackgroundColor(2,wcolor);
-        itm->setBackgroundColor(3,wcolor);
-        m_count = true;
+    bool insertCorrect(true);
+    if(m_numItems == "0")
+        insertCorrect = false;
+    while(insertCorrect) {
+        QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget_dodani);
+        QString cenaDDV = CenaDDV(ui->treeWidget_seznam->currentItem()->text(2), m_numItems);
+        itm->setText(0, ui->treeWidget_seznam->currentItem()->text(0));
+        itm->setTextAlignment(0, Qt::AlignLeading);
+        itm->setText(1, ui->treeWidget_seznam->currentItem()->text(1));
+        itm->setTextAlignment(1, Qt::AlignLeading);
+        itm->setText(2, ui->treeWidget_seznam->currentItem()->text(2));
+        itm->setTextAlignment(2, Qt::AlignLeading);
+        itm->setText(3, m_numItems);
+        itm->setTextAlignment(3, Qt::AlignHCenter);
+        itm->setText(4, cenaDDV);
+        ui->treeWidget_dodani->addTopLevelItem(itm);
+        QColor color(210,210,210);
+        QColor wcolor(250,250,250);
+        // m_count je member bool ce je true je barva siva drugace bela
+        if(m_count)
+        {
+            itm->setBackgroundColor(0,color);
+            itm->setBackgroundColor(1,color);
+            itm->setBackgroundColor(2,color);
+            itm->setBackgroundColor(3,color);
+            m_count = false;
+        } else {
+            itm->setBackgroundColor(0,wcolor);
+            itm->setBackgroundColor(1,wcolor);
+            itm->setBackgroundColor(2,wcolor);
+            itm->setBackgroundColor(3,wcolor);
+            m_count = true;
+        }
+        QString price = ui->treeWidget_seznam->currentItem()->text(2);
+        CalcSkupaj(price, m_numItems, true);
+        ui->treeWidget_dodani->setUniformRowHeights(true);
+        m_itemsAdded++;
+        insertCorrect = false;
     }
-    QString price = ui->treeWidget_seznam->currentItem()->text(2);
-    CalcSkupaj(price, m_numItems, true);
-    ui->treeWidget_dodani->setUniformRowHeights(true);
-    m_itemsAdded++;
 }
 
 // sesteva v label skupaj
@@ -1548,7 +1554,6 @@ int NovRacun::creatPDF()
         items.append(" | ");
     }
     items.remove("€");
-
     QFile mFile(m_arhivLogin);
     if(!mFile.open(QFile::ReadOnly | QFile::Text))
     {
@@ -1575,16 +1580,16 @@ int NovRacun::creatPDF()
     QString st_sklic(" ");
     QString text_opomba(" ");
     QString nov_sprememba(" ");
-    if(m_sprememba)
-        nov_sprememba = "Sprememba racuna ; ";
-    else
-        nov_sprememba = "Nov racun ; ";
     if(ui->lineEdit_stRacuna->text() != "")
         st_racuna = ui->lineEdit_stRacuna->text();
     if(ui->lineEdit_sklic->text() != "")
         st_sklic = ui->lineEdit_sklic->text();
     if(ui->lineEdit->text() != "")
         text_opomba = ui->lineEdit->text();
+    if(m_sprememba)
+        nov_sprememba = "Sprememba racuna ; ";
+    else
+        nov_sprememba = "Nov racun ; ";
     QString arhiv = nov_sprememba + date.toString("dd.MM.yyyy ; hh:mm:ss.zzz") + " ; "
             + "St_rac: " + st_racuna + " ; "
             + "Vezni_dok: " + st_sklic + " ; "
@@ -2665,9 +2670,7 @@ int NovRacun::creatPDF()
     blockFormat.setPageBreakPolicy(QTextFormat::PageBreak_AlwaysBefore);
     cursor.insertBlock(blockFormat);
     cursor.insertHtml(text_dobavnica);
-
     QPrinter* printer = new QPrinter(QPrinter::ScreenResolution);
-
     printer->setPaperSize(QPrinter::A4);
     printer->setOutputFormat(QPrinter::PdfFormat);
 
@@ -2730,9 +2733,9 @@ int NovRacun::creatPDF()
         QDesktopServices::openUrl(QUrl::fromLocalFile(output));
     }
     */
-    //NovRacun::close();
     if(ui->comboBox_narocnik->currentText() == "KRONOTERM d.o.o.")
         MakeXML();
+    NovRacun::close();
     return 0;
 }
 

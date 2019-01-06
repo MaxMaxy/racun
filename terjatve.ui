@@ -248,6 +248,19 @@
             </widget>
            </item>
            <item>
+            <widget class="QCheckBox" name="checkBox_neplacaneTerjatve">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Neplačane terjatve</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QTreeWidget" name="treeWidget_terjatve">
              <property name="font">
               <font>
@@ -265,40 +278,64 @@
               <property name="text">
                <string>Račun št.</string>
               </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
              </column>
              <column>
               <property name="text">
                <string>Stranka</string>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
               </property>
              </column>
              <column>
               <property name="text">
                <string>Datum izdaje</string>
               </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
              </column>
              <column>
               <property name="text">
                <string>Datum valute</string>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
               </property>
              </column>
              <column>
               <property name="text">
                <string>Znesek</string>
               </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
              </column>
              <column>
               <property name="text">
                <string>Plačilo</string>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
               </property>
              </column>
              <column>
               <property name="text">
                <string>Datum plačila</string>
               </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
              </column>
              <column>
               <property name="text">
                <string>Opomba</string>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
               </property>
              </column>
             </widget>
@@ -528,6 +565,19 @@
             </widget>
            </item>
            <item>
+            <widget class="QCheckBox" name="checkBox_neplacaneObveznosti">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Neplačane obveznosti</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QTreeWidget" name="treeWidget_obveznosti">
              <property name="font">
               <font>
@@ -545,35 +595,56 @@
               <property name="text">
                <string>Listina</string>
               </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
              </column>
              <column>
               <property name="text">
                <string>Dobavitelj</string>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
               </property>
              </column>
              <column>
               <property name="text">
                <string>Znesek</string>
               </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
              </column>
              <column>
               <property name="text">
                <string>Datum valute</string>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
               </property>
              </column>
              <column>
               <property name="text">
                <string>Znesek plačila</string>
               </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
              </column>
              <column>
               <property name="text">
                <string>Datum plačila</string>
               </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
              </column>
              <column>
               <property name="text">
                <string>Opombe</string>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
               </property>
              </column>
             </widget>
@@ -739,20 +810,6 @@
       </layout>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_statistika">
-       <property name="font">
-        <font>
-         <family>MS Sans Serif</family>
-         <pointsize>12</pointsize>
-         <italic>true</italic>
-        </font>
-       </property>
-       <property name="text">
-        <string>Statistika</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="Line" name="line_6">
        <property name="font">
         <font>
@@ -797,7 +854,6 @@
   <tabstop>lineEdit_iskalnikObveznosti</tabstop>
   <tabstop>treeWidget_obveznosti</tabstop>
   <tabstop>pushButton</tabstop>
-  <tabstop>pushButton_statistika</tabstop>
   <tabstop>pushButton_izhod</tabstop>
  </tabstops>
  <resources/>
