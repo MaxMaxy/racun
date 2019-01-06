@@ -10,7 +10,7 @@ NumOfItems::NumOfItems(QWidget *parent) :
     this->setWindowIcon(icon);
     this->setWindowTitle("Število kosov");
     ui->lineEdit_steviloKosov->setFocus();
-    QRegularExpression regex("^[.0123456789]*$");
+    QRegularExpression regex("^[0123456789]*$");
     QValidator *validator = new QRegularExpressionValidator(regex, this);
     ui->lineEdit_steviloKosov->setValidator(validator);
 }
@@ -27,4 +27,9 @@ void NumOfItems::on_pushButton_vnos_clicked()
         m_numKosov = "1";
     else
         m_numKosov = ui->lineEdit_steviloKosov->text();
+}
+
+void NumOfItems::reject() {
+    m_numKosov = "0";
+    QDialog::reject();
 }

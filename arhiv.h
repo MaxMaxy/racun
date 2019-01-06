@@ -9,6 +9,7 @@
 #include <QTextStream>
 #include <QListWidgetItem>
 #include <QButtonGroup>
+#include <QRegularExpression>
 #include "novracun.h"
 
 namespace Ui {
@@ -44,6 +45,7 @@ private:
     Ui::Arhiv *ui;
     QString m_currentDir;
     QString m_fileName;
+    QString m_arhivRacun;
 
 };
 

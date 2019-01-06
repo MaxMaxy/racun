@@ -2,7 +2,7 @@
 #include "ui_arhiv.h"
 
 Arhiv::Arhiv(QWidget *parent) :
-    QDialog(parent), ui(new Ui::Arhiv), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/arhiv_files.txt")
+    QDialog(parent), ui(new Ui::Arhiv), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/arhiv_files.txt"), m_arhivRacun(m_currentDir + "/arhiv_novRacun.txt")
 {
     ui->setupUi(this);
     QIcon icon(":/icons/icon.ico");
@@ -261,6 +261,32 @@ void Arhiv::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
         }
         NovRacun racun;
         racun.setModal(true);
+        QFile mFile(m_arhivRacun);
+        if(!mFile.open(QFile::Text | QFile::ReadOnly)) {
+            qDebug() << "Error opening mFile for reading in popravi button";
+            return;
+        }
+        QTextStream in(&mFile);
+        in.setCodec("UTF-8");
+        QString allText = in.readAll();
+        mFile.close();
+        QString produkt_star = item->text();
+        QString opomba = list.at(12);
+        QString produkt_nov = item->text().replace(opomba, "Opomba: racun_je_bil_spremenjen!!!????");
+        allText.replace(produkt_star, produkt_nov);
+        if(!mFile.open(QFile::WriteOnly | QFile::Truncate)) {
+            qDebug() << "Error opening mFile for truncate in popravi button";
+            return;
+        }
+        mFile.flush();
+        mFile.close();
+        if(!mFile.open(QFile::WriteOnly | QFile::Text)) {
+            qDebug() << "Error opening mFile for writing in popravi button";
+            return;
+        }
+        in << allText;
+        mFile.flush();
+        mFile.close();
         racun.PopraviRacun(tmp_list.at(12), tmp_list.at(4), tmp_list.at(6), tmp_list.at(8), tmp_list.at(22), tmp_list.at(14), tmp_list.at(16), tmp_list.at(18), tmp_list.at(20), tmp_list.at(32));
         racun.exec();
         ui->listWidget->clear();

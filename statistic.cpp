@@ -34,6 +34,18 @@ Statistic::Statistic(QWidget *parent) :
     ui->tableWidget_brez->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->plot->legend->setWrap(6);
     ui->plot->clearPlottables();
+    QFile mFile(m_currentDir + "/num_company.txt");
+    if(!mFile.open(QFile::ReadOnly | QFile::Text)) {
+        qDebug() << "Error opening file for reading in AddToComboBox() in statistic.cpp";
+        return;
+    } else {
+        QTextStream mText(&mFile);
+        while(!mText.atEnd()) {
+            m_numInCombo = mText.readLine().toInt();
+            qDebug() << m_numInCombo;
+        }
+        mFile.close();
+    }
     Plot();
     ui->pushButton_isci->setFocus();
 }
@@ -65,7 +77,6 @@ void Statistic::AddToComboBox(QString mFileName)
             mList = mLine.split(exp, QString::SkipEmptyParts);
             mLine = mList.at(3);
             ui->comboBox_podjetja->addItem(mLine);
-            m_numInCombo++;
         }
         mFile.close();
     }
@@ -106,6 +117,7 @@ void Statistic::AddToTableWidget(QString fileName)
         QString date = QString::number(ui->dateEdit->date().year());
         QString num("");
         QString tmp("");
+        QString opomba("");
         while(!mText.atEnd())
         {
             QTableWidgetItem *itm_setSkupaj = new QTableWidgetItem();
@@ -114,18 +126,21 @@ void Statistic::AddToTableWidget(QString fileName)
             itm_setDDV->setTextAlignment(Qt::AlignHCenter);
             QTableWidgetItem *itm_setOsnova = new QTableWidgetItem();
             itm_setOsnova->setTextAlignment(Qt::AlignHCenter);
-
             QTableWidgetItem *itm_setSkupajBrezIF = new QTableWidgetItem();
             itm_setSkupajBrezIF->setTextAlignment(Qt::AlignHCenter);
             QTableWidgetItem *itm_setDDVBrezIF = new QTableWidgetItem();
             itm_setDDVBrezIF->setTextAlignment(Qt::AlignHCenter);
             QTableWidgetItem *itm_setOsnovaBrezIF = new QTableWidgetItem();
             itm_setOsnovaBrezIF->setTextAlignment(Qt::AlignHCenter);
-
             mLine = mText.readLine();
             mList = mLine.split(exp, QString::SkipEmptyParts);
             tmp = mList.at(7);
             tmp.remove("Narocnik: ");
+            opomba = mList.at(12);
+            opomba.remove("Opomba: ");
+            if(opomba == "racun_je_bil_spremenjen!!!????" || opomba == "racun_je_bil_odstranjen!!!????") {
+                continue;
+            }
             if(ui->comboBox_podjetja->currentIndex() == 0)
             {
                 tmp = mList.at(5);
@@ -2671,6 +2686,7 @@ void Statistic::Plot()
 void Statistic::GetData(QVector<double> *allData, int itr, QString name)
 {
     QString date = QString::number(ui->dateEdit->date().year());
+    QString opomba("");
     QFile mFile(m_fileRacun);
     if(!mFile.open(QFile::ReadOnly | QFile::Text))
     {
@@ -2696,6 +2712,11 @@ void Statistic::GetData(QVector<double> *allData, int itr, QString name)
                     listText = lineText.split(exp, QString::SkipEmptyParts);
                     tmp = listText.at(7);
                     tmp.remove("Narocnik: ");
+                    opomba = listText.at(12);
+                    opomba.remove("Opomba: ");
+                    if(opomba == "racun_je_bil_spremenjen!!!????" || opomba == "racun_je_bil_odstranjen!!!????") {
+                        continue;
+                    }
                     if(ui->comboBox_podjetja->itemText(itr) == tmp)
                     {
                         tmp = listText.at(5);
@@ -2738,6 +2759,11 @@ void Statistic::GetData(QVector<double> *allData, int itr, QString name)
                     listText = lineText.split(exp, QString::SkipEmptyParts);
                     tmp = listText.at(7);
                     tmp.remove("Narocnik: ");
+                    opomba = listText.at(12);
+                    opomba.remove("Opomba: ");
+                    if(opomba == "racun_je_bil_spremenjen!!!????" || opomba == "racun_je_bil_odstranjen!!!????") {
+                        continue;
+                    }
                     if(name == tmp)
                     {
                         tmp = listText.at(5);

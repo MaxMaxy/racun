@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>431</width>
-    <height>247</height>
+    <height>280</height>
    </rect>
   </property>
   <property name="font">
@@ -167,6 +167,20 @@
        </property>
        <property name="text">
         <string>Vnos</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_izbris">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>IZBRIS</string>
        </property>
       </widget>
      </item>

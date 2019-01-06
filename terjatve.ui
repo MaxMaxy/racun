@@ -265,40 +265,64 @@
               <property name="text">
                <string>Račun št.</string>
               </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
              </column>
              <column>
               <property name="text">
                <string>Stranka</string>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
               </property>
              </column>
              <column>
               <property name="text">
                <string>Datum izdaje</string>
               </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
              </column>
              <column>
               <property name="text">
                <string>Datum valute</string>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
               </property>
              </column>
              <column>
               <property name="text">
                <string>Znesek</string>
               </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
              </column>
              <column>
               <property name="text">
                <string>Plačilo</string>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
               </property>
              </column>
              <column>
               <property name="text">
                <string>Datum plačila</string>
               </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
              </column>
              <column>
               <property name="text">
                <string>Opomba</string>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
               </property>
              </column>
             </widget>
@@ -545,35 +569,56 @@
               <property name="text">
                <string>Listina</string>
               </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
              </column>
              <column>
               <property name="text">
                <string>Dobavitelj</string>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
               </property>
              </column>
              <column>
               <property name="text">
                <string>Znesek</string>
               </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
              </column>
              <column>
               <property name="text">
                <string>Datum valute</string>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
               </property>
              </column>
              <column>
               <property name="text">
                <string>Znesek plačila</string>
               </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
              </column>
              <column>
               <property name="text">
                <string>Datum plačila</string>
               </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
              </column>
              <column>
               <property name="text">
                <string>Opombe</string>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
               </property>
              </column>
             </widget>
