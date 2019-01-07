@@ -209,7 +209,7 @@
             </layout>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_isci">
+            <widget class="QPushButton" name="pushButton_isciTerjatve">
              <property name="text">
               <string>Posodobi</string>
              </property>
@@ -526,7 +526,7 @@
             </layout>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_3">
+            <widget class="QPushButton" name="pushButton_isciObveznosti">
              <property name="text">
               <string>Posodobi</string>
              </property>
@@ -673,6 +673,26 @@
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_15">
          <item>
+          <widget class="QLabel" name="label_obveznostiStaro">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_terjatveStaro">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QLabel" name="label_11">
            <property name="font">
             <font>
@@ -745,6 +765,20 @@
        </item>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_16">
+         <item>
+          <widget class="QLabel" name="label_obveznostiStaroCena">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_terjatveStaroCena">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
          <item>
           <widget class="QLabel" name="label_skupajObveznosti">
            <property name="font">
@@ -840,14 +874,14 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>pushButton_isci</tabstop>
+  <tabstop>pushButton_isciTerjatve</tabstop>
   <tabstop>comboBox_stranke</tabstop>
   <tabstop>dateEdit_terjatveOd</tabstop>
   <tabstop>dateEdit_terjatveDo</tabstop>
   <tabstop>lineEdit_iskalnikTerjatve</tabstop>
   <tabstop>treeWidget_terjatve</tabstop>
   <tabstop>pushButton_2</tabstop>
-  <tabstop>pushButton_3</tabstop>
+  <tabstop>pushButton_isciObveznosti</tabstop>
   <tabstop>comboBox</tabstop>
   <tabstop>dateEdit_obveznostiOd</tabstop>
   <tabstop>dateEdit_obveznostiDo</tabstop>

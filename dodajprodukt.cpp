@@ -21,7 +21,7 @@ DodajProdukt::DodajProdukt(QWidget *parent) :
     QRegularExpression regex("^[.0123456789]*$");
     QValidator *validator = new QRegularExpressionValidator(regex, this);
     ui->lineEdit_cena->setValidator(validator);
-    QRegularExpression regealfabet("^[a-zA-Z0-9,@. -/&#čšžŠČŽ]*$");
+    QRegularExpression regealfabet("^[a-zA-Z0-9,@. -/&#čšžŠČŽ=]*$");
     QValidator *validatoralfabet = new QRegularExpressionValidator(regealfabet, this);
     ui->lineEdit_nazivProdukta->setValidator(validatoralfabet);
     this->setWindowTitle("Dodaj - popravi produkt");
@@ -202,13 +202,13 @@ void DodajProdukt::on_pushButton_dodaj_clicked()
     out.setCodec("UTF-8");
     m_id = ui->lineEdit_id->text();
     if(m_id == "")
-        m_id = "ni podatka";
+        m_id = "/";
     m_naziv = ui->lineEdit_nazivProdukta->text();
     if(m_naziv == "")
         m_naziv = "ni podatka";
     m_cena = ui->lineEdit_cena->text();
     if(m_cena == "")
-        m_cena = "ni podatka";
+        m_cena = "0";
     out << m_id << ";" << m_naziv << ";" << m_cena << ";" << "\n";
     fileName.flush();
     fileName.close();
@@ -228,48 +228,36 @@ void DodajProdukt::on_comboBox_podjetje_currentIndexChanged()
     Read();
 }
 
-void DodajProdukt::on_treeWidget_doubleClicked(const QModelIndex &index)
-{
-    ui->pushButton_popravi->setEnabled(true);
-    int izbPod = ui->comboBox_podjetje->currentIndex() + 1;
-    QString podjetje = QString::number(izbPod) + ".txt";
-
-    QFile mFile(podjetje);
-    // test ce je file odprt
-    if(!mFile.open(QFile::ReadOnly | QFile::Text))
-    {
-        qDebug() << "Error opening mFile for reading in list clicked";
-        return;
+void DodajProdukt::on_treeWidget_doubleClicked(const QModelIndex &index) {
+    if(index.column() != 2) {
+        ui->pushButton_popravi->setEnabled(true);
+        int izbPod = ui->comboBox_podjetje->currentIndex() + 1;
+        QString podjetje = QString::number(izbPod) + ".txt";
+        QFile mFile(podjetje);
+        if(!mFile.open(QFile::ReadOnly | QFile::Text)) {
+            qDebug() << "Error opening mFile for reading in list clicked";
+            return;
+        }
+        QTextStream in(&mFile);
+        in.setCodec("UTF-8");
+        QString text("");
+        while(!in.atEnd()) {
+            text = in.readLine();
+            if(text.contains(index.data().toString(), Qt::CaseInsensitive)) {
+                m_produkt = text;
+                QRegExp rx("[;]");
+                QStringList list = text.split(rx, QString::SkipEmptyParts);
+                ui->lineEdit_id->setText(list.at(0));
+                ui->lineEdit_nazivProdukta->setText(list.at(1));
+                ui->lineEdit_cena->setText(list.at(2));
+                m_id = ui->lineEdit_id->text();
+                m_naziv = ui->lineEdit_nazivProdukta->text();
+                m_cena = ui->lineEdit_cena->text();
+                ui->pushButton_dodaj->setEnabled(false);
+            }
+        }
+        mFile.close();
     }
-    // stream za file
-    QTextStream in(&mFile);
-    in.setCodec("UTF-8");
-    // itr nastavimo na -1 da prebere 0-to vrstico v filu
-    m_itr = -2;
-    // var za text
-    QString text("");
-    // while loop da pride do vrstice ki smo jo kliknali in shrani to vrstico v text var
-    do
-    {
-        text = in.readLine();
-        m_itr++;
-        // safety da ne pride v endless loop
-        if(m_itr > 5000) break;
-    } while(m_itr != index.row());
-    m_produkt = text;
-    // rx var kjer je locilo med podatki o podjetju
-    QRegExp rx("[;]");
-    // v listo shranimo posamezne podatke podjetja iz fila
-    QStringList list = text.split(rx, QString::SkipEmptyParts);
-    // iz liste vzame posamezne podatke in jih vstavi v lineEdite po kategorijah
-    ui->lineEdit_id->setText(list.at(0));
-    ui->lineEdit_nazivProdukta->setText(list.at(1));
-    ui->lineEdit_cena->setText(list.at(2));
-    // nastavi spremenljivke za podjetje ki smo ga oznacili
-    m_id = ui->lineEdit_id->text();
-    m_naziv = ui->lineEdit_nazivProdukta->text();
-    m_cena = ui->lineEdit_cena->text();
-    ui->pushButton_dodaj->setEnabled(false);
 }
 
 void DodajProdukt::on_pushButton_popravi_clicked()
@@ -331,41 +319,30 @@ void DodajProdukt::on_pushButton_popravi_clicked()
     ui->pushButton_dodaj->setEnabled(true);
 }
 
-void DodajProdukt::Search(QString searchName)
-{
+void DodajProdukt::Search(QString searchName) {
     int izbPod = ui->comboBox_podjetje->currentIndex() + 1;
     QString podjetje = QString::number(izbPod) + ".txt";
-    // odpre file za branje
     QFile mFile(podjetje);
-    // test ce je file odprt
-    if(!mFile.open(QFile::Text | QFile::ReadOnly))
-    {
+    if(!mFile.open(QFile::Text | QFile::ReadOnly)) {
         qDebug() << "Error opening mFile for reading in popravi button";
         return;
     }
-    // stream za shranit text fila
     QTextStream out(&mFile);
     out.setCodec("UTF-8");
-    // prebere celoten dokument in shrani v var
     QString line;
     while(!out.atEnd()){
         line = out.readLine();
         if(line.contains(searchName, Qt::CaseInsensitive)) {
-            // locilo med podatki podjetja v filu ime_podjetja;naslov;ddv;email itd itd
             QRegExp rx("[;]");
-            // naredimo listo da posamezne podatke locimo in shranimo kot posamezno kategorijo
             QStringList list;
             list = line.split(rx, QString::SkipEmptyParts);
-                if(list.at(0) == "Dodano: ")
-                    break;
-                else
-                {
-                    // v treeWidget vnesemo vsa podjetja (posamezni podatki iz liste so list.at(?))
-                    AddRoot(list.at(0), list.at(1), list.at(2));
-                }
+            if(list.at(0) == "Dodano: ")
+                break;
+            else {
+                AddRoot(list.at(0), list.at(1), list.at(2));
+            }
         }
     }
-    // zapre file
     mFile.close();
 }
 

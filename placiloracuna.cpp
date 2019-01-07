@@ -16,7 +16,7 @@ PlaciloRacuna::PlaciloRacuna(QWidget *parent) :
     QRegularExpression regex("^[.0123456789]*$");
     QValidator *validator = new QRegularExpressionValidator(regex, this);
     ui->lineEdit->setValidator(validator);
-    QRegularExpression regealfabet("^[a-zA-Z0-9,@. -/&#čšžŠČŽ]*$");
+    QRegularExpression regealfabet("^[a-zA-Z0-9,@. -/&#čšžŠČŽ=]*$");
     QValidator *validatoralfabet = new QRegularExpressionValidator(regealfabet, this);
     ui->lineEdit_opombe->setValidator(validatoralfabet);
 }
