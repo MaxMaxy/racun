@@ -40,12 +40,12 @@ Kalkulacija::Kalkulacija(QWidget *parent) :
     ui->pushButton_isci->setVisible(false);
     ui->radioButton_meter->setChecked(true);
     ui->lineEdit_kalo->setText("5");
-    QRegularExpression regex("^[a-zA-Z0-9,@. -/&#čšžŠČŽ]*$");
+    QRegularExpression regex("^[a-zA-Z0-9,@. -/&#čšžŠČŽ=]*$");
     QValidator *validator = new QRegularExpressionValidator(regex, this);
     ui->lineEdit_nazivProdukta->setValidator(validator);
     ui->lineEdit_operacija->setValidator(validator);
     ui->lineEdit_nazivMateriala->setValidator(validator);
-    QRegularExpression regenum("^[0123456789]*$");
+    QRegularExpression regenum("^[0123456789/]*$");
     QValidator *validatornum = new QRegularExpressionValidator(regenum, this);
     ui->lineEdit_ID->setValidator(validatornum);
     ui->lineEdit_kalo->setValidator(validatornum);
@@ -478,11 +478,11 @@ void Kalkulacija::on_pushButton_vnosProdukta_clicked() {
     }
     QTextStream out(&fileName);
     QString id = ui->lineEdit_ID->text();
-    if(id == "") id = "ni podatka";
+    if(id == "") id = "/";
     QString naziv = ui->lineEdit_nazivProdukta->text();
     if(naziv == "") naziv = "ni podatka";
     QString cena = ui->lineEdit_cenaProdukta->text();
-    if(cena == "") cena = "ni podatka";
+    if(cena == "") cena = "0";
     out << id << ";" << naziv << ";" << cena << ";" << "\n";
     fileName.flush();
     fileName.close();

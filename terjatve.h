@@ -28,12 +28,13 @@ public:
     void AddItemsToComboBox();
     void ReadTerjatve(bool);
     void ReadObveznosti(bool);
-    void AddRootTerjatve(QStringList);
-    void AddRootObveznosti(QStringList);
+    void AddRootTerjatve(QStringList, bool);
+    void AddRootObveznosti(QStringList, bool);
     void Search(QString, QString, bool);
     void SumTerjatve();
     void SetStatisticParameterTerjatve(int, QDate, QDate);
     void SetStatisticParameterObveznosti(int, QDate, QDate);
+    void LabelsUpdate();
 
 private slots:
     void on_comboBox_stranke_currentIndexChanged();
@@ -56,6 +57,8 @@ private slots:
     void on_dateEdit_obveznostiDo_dateChanged(const QDate &date);
     void on_checkBox_neplacaneTerjatve_stateChanged(int arg1);
     void on_checkBox_neplacaneObveznosti_stateChanged(int arg1);
+    void on_pushButton_isciTerjatve_clicked();
+    void on_pushButton_isciObveznosti_clicked();
 
 private:
     Ui::Terjatve *ui;
@@ -67,6 +70,8 @@ private:
     double m_totalTerjatve;
     double m_totalObveznosti;
     double m_totalTerMinObv;
+    double m_totalTerjatveStaro;
+    double m_totalObveznostiStaro;
 };
 
 #endif // TERJATVE_H

@@ -82,7 +82,7 @@
         <bool>true</bool>
        </property>
        <property name="plainText">
-        <string>Trenutna verzija 0.9.9.5
+        <string>Trenutna verzija 0.9.9.7
 
 Avtor: Nejc Sedovnik
 Datum: november 2017
@@ -185,10 +185,14 @@ v0.9.9.5
     - popravki na kalkulaciji (netestirano)
     - razni tehnicni popravki (utf-8)
 
+v0.9.9.7
+    - dodane terjatve in obveznosti iz prejsnjih let v okno Terjatve
+    - posodobljeno popravljanje produktov v Dodaj/popravi produkt
+    - nov racun popravljena dobavnica
+
 TO_DO:
     - moznost posiljanja racuna po emailu strankam
-    - printanje deluje preko AdobeReaderja
-    - ideja: v statistiki naredi moznost dvojnega klika na terjatvah in obveznostih, da pokaze neplacanje terjatve in obveznosti, nekaj v smislu iskanja neplacanih racunov glede na stranko</string>
+    - printanje deluje preko AdobeReaderja</string>
        </property>
       </widget>
      </item>
