@@ -36,7 +36,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Test</string>
+    <string>To ANSI</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit">
@@ -86,7 +86,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Test 2</string>
+    <string>To UTF-8</string>
    </property>
   </widget>
  </widget>

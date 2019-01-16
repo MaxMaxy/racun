@@ -54,6 +54,15 @@
                        <bold>true</bold>
                       </font>
                      </property>
+                     <property name="frameShape">
+                      <enum>QFrame::Panel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
+                     </property>
+                     <property name="lineWidth">
+                      <number>2</number>
+                     </property>
                      <property name="text">
                       <string>Nov račun</string>
                      </property>
@@ -86,6 +95,12 @@
                        <italic>true</italic>
                        <bold>true</bold>
                       </font>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::Panel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
                      </property>
                      <property name="text">
                       <string>Naročnik:</string>
@@ -123,6 +138,12 @@
                        <bold>true</bold>
                       </font>
                      </property>
+                     <property name="frameShape">
+                      <enum>QFrame::Panel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
+                     </property>
                      <property name="text">
                       <string>Številka računa:</string>
                      </property>
@@ -159,6 +180,12 @@
                        <bold>true</bold>
                       </font>
                      </property>
+                     <property name="frameShape">
+                      <enum>QFrame::Panel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
+                     </property>
                      <property name="text">
                       <string>Vezni dokument:</string>
                      </property>
@@ -194,6 +221,12 @@
                        <italic>true</italic>
                        <bold>true</bold>
                       </font>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::Panel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
                      </property>
                      <property name="text">
                       <string>Datum:</string>
@@ -240,6 +273,12 @@
                        <italic>true</italic>
                        <bold>true</bold>
                       </font>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::Panel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
                      </property>
                      <property name="text">
                       <string>Opombe:</string>
@@ -289,6 +328,12 @@
                          <italic>true</italic>
                          <bold>true</bold>
                         </font>
+                       </property>
+                       <property name="frameShape">
+                        <enum>QFrame::Panel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
                        </property>
                        <property name="text">
                         <string>Seznam produktov:</string>
@@ -431,6 +476,12 @@
                          <bold>true</bold>
                         </font>
                        </property>
+                       <property name="frameShape">
+                        <enum>QFrame::Panel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
                        <property name="text">
                         <string>Dodani produkti:</string>
                        </property>
@@ -530,7 +581,7 @@
                        </column>
                        <column>
                         <property name="text">
-                         <string>Kos</string>
+                         <string>Kos / Kol.</string>
                         </property>
                         <property name="font">
                          <font>
@@ -596,6 +647,12 @@
                        <bold>true</bold>
                       </font>
                      </property>
+                     <property name="frameShape">
+                      <enum>QFrame::Panel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
+                     </property>
                      <property name="text">
                       <string>Iskalnik produktov:</string>
                      </property>
@@ -651,7 +708,7 @@
                       </font>
                      </property>
                      <property name="text">
-                      <string>Dodaj/popravi produkt</string>
+                      <string>Dodaj / popravi produkt</string>
                      </property>
                     </widget>
                    </item>
@@ -708,6 +765,12 @@
                        <bold>true</bold>
                       </font>
                      </property>
+                     <property name="frameShape">
+                      <enum>QFrame::Panel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
+                     </property>
                      <property name="text">
                       <string>Osnova €</string>
                      </property>
@@ -734,7 +797,7 @@
                       </font>
                      </property>
                      <property name="frameShape">
-                      <enum>QFrame::WinPanel</enum>
+                      <enum>QFrame::Panel</enum>
                      </property>
                      <property name="frameShadow">
                       <enum>QFrame::Sunken</enum>
@@ -767,6 +830,12 @@
                        <italic>true</italic>
                        <bold>false</bold>
                       </font>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::Panel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
                      </property>
                      <property name="text">
                       <string>Popust %</string>
@@ -822,6 +891,12 @@
                        <bold>false</bold>
                       </font>
                      </property>
+                     <property name="frameShape">
+                      <enum>QFrame::Panel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
+                     </property>
                      <property name="text">
                       <string>Osnova € - Popust €</string>
                      </property>
@@ -848,7 +923,7 @@
                       </font>
                      </property>
                      <property name="frameShape">
-                      <enum>QFrame::WinPanel</enum>
+                      <enum>QFrame::Panel</enum>
                      </property>
                      <property name="frameShadow">
                       <enum>QFrame::Sunken</enum>
@@ -882,6 +957,12 @@
                        <bold>false</bold>
                       </font>
                      </property>
+                     <property name="frameShape">
+                      <enum>QFrame::Panel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
+                     </property>
                      <property name="text">
                       <string>DDV €</string>
                      </property>
@@ -908,7 +989,7 @@
                       </font>
                      </property>
                      <property name="frameShape">
-                      <enum>QFrame::WinPanel</enum>
+                      <enum>QFrame::Panel</enum>
                      </property>
                      <property name="frameShadow">
                       <enum>QFrame::Sunken</enum>
@@ -977,6 +1058,15 @@
                    <bold>true</bold>
                   </font>
                  </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Panel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="lineWidth">
+                  <number>2</number>
+                 </property>
                  <property name="text">
                   <string>SKUPAJ €</string>
                  </property>
@@ -1012,10 +1102,10 @@
                   <string notr="true">background-color : {50,50,50}</string>
                  </property>
                  <property name="frameShape">
-                  <enum>QFrame::Box</enum>
+                  <enum>QFrame::Panel</enum>
                  </property>
                  <property name="frameShadow">
-                  <enum>QFrame::Raised</enum>
+                  <enum>QFrame::Sunken</enum>
                  </property>
                  <property name="lineWidth">
                   <number>2</number>

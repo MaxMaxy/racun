@@ -14,6 +14,10 @@ TestingDialog::~TestingDialog()
     delete ui;
 }
 
+void TestingDialog::closeEvent(QCloseEvent *) {
+    emit close_me();
+}
+
 void TestingDialog::AddItemsToCombo() {
     ui->comboBox->clear();
     QFile mFile("C:\\Users\\Nejc\\Desktop\\qt_unicode.txt");
@@ -611,20 +615,20 @@ void TestingDialog::ReadFile() {
 }
 
 void TestingDialog::WriteUnicode() {
-    QString unicodeString = QString::fromUtf8("Some Unicode string čšžŠČŽ");
+    QString unicodeString = ui->lineEdit->text().toUtf8();
     QFile fileOut("C:\\Users\\Nejc\\Desktop\\qt_unicode.txt");
     if (!fileOut.open(QIODevice::WriteOnly | QIODevice::Text)) {
         return;
     }
     QTextStream streamFileOut(&fileOut);
     streamFileOut.setCodec("UTF-8");
-    streamFileOut << unicodeString;
+    streamFileOut << unicodeString.toUtf8();
     streamFileOut.flush();
     fileOut.close();
 }
 
 void TestingDialog::WriteASCII() {
-    QString ASCIIString = "Some Unicode string čšžŠČŽ";
+    QString ASCIIString = ui->lineEdit->text();
     QFile fileName("C:\\Users\\Nejc\\Desktop\\qt_NOunicode.txt");
     if(!fileName.open(QFile::WriteOnly | QIODevice::Text)) {
         qDebug() << "Error opening fileName for writing in dodaj produkt gumb";
@@ -637,11 +641,10 @@ void TestingDialog::WriteASCII() {
 }
 
 void TestingDialog::on_pushButton_Test_clicked() {
-    WriteUnicode();
+    WriteASCII();
     AddItemsToCombo();
 }
 
 void TestingDialog::on_pushButton_Test2_clicked() {
-    WriteASCII();
-    AddItemsToCombo();
+
 }

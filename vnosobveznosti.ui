@@ -34,6 +34,15 @@
          <bold>true</bold>
         </font>
        </property>
+       <property name="frameShape">
+        <enum>QFrame::Panel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <property name="lineWidth">
+        <number>2</number>
+       </property>
        <property name="text">
         <string>Vnos obveznosti</string>
        </property>
@@ -65,6 +74,12 @@
          <italic>true</italic>
          <bold>true</bold>
         </font>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Panel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
        </property>
        <property name="text">
         <string>Listina:</string>
@@ -100,6 +115,12 @@
          <bold>true</bold>
         </font>
        </property>
+       <property name="frameShape">
+        <enum>QFrame::Panel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
        <property name="text">
         <string>Dobavitelj:</string>
        </property>
@@ -133,6 +154,12 @@
          <italic>true</italic>
          <bold>true</bold>
         </font>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Panel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
        </property>
        <property name="text">
         <string>Znesek:</string>
@@ -168,6 +195,12 @@
          <bold>true</bold>
         </font>
        </property>
+       <property name="frameShape">
+        <enum>QFrame::Panel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
        <property name="text">
         <string>Datum valute:</string>
        </property>
@@ -201,6 +234,12 @@
          <italic>true</italic>
          <bold>true</bold>
         </font>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Panel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
        </property>
        <property name="text">
         <string>Opombe:</string>

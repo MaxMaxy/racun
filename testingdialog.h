@@ -24,6 +24,12 @@ public:
     void WriteUnicode();
     void WriteASCII();
 
+signals:
+    void close_me();
+
+protected:
+    void closeEvent(QCloseEvent *);
+
 private slots:
     void on_pushButton_Test_clicked();
     void on_pushButton_Test2_clicked();
@@ -31,6 +37,9 @@ private slots:
 private:
     Ui::TestingDialog *ui;
     int m_num_of_products;
+
+    int timeout;
+    QString message;
 };
 
 #endif // TESTINGDIALOG_H

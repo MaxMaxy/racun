@@ -13,7 +13,7 @@ PlaciloRacuna::PlaciloRacuna(QWidget *parent) :
     ui->lineEdit->setFocus();
     this->setWindowTitle("Plačilo");
     this->setWindowFlags(Qt::Window);
-    QRegularExpression regex("^[.0123456789]*$");
+    QRegularExpression regex("^[.,0123456789]*$");
     QValidator *validator = new QRegularExpressionValidator(regex, this);
     ui->lineEdit->setValidator(validator);
     QRegularExpression regealfabet("^[a-zA-Z0-9,@. -/&#čšžŠČŽ=]*$");
@@ -21,42 +21,49 @@ PlaciloRacuna::PlaciloRacuna(QWidget *parent) :
     ui->lineEdit_opombe->setValidator(validatoralfabet);
 }
 
-PlaciloRacuna::~PlaciloRacuna()
-{
+PlaciloRacuna::~PlaciloRacuna() {
     delete ui;
 }
 
-void PlaciloRacuna::setOpombe(QString &opomba, QString &cena, QString &datum, bool obveznost)
-{
+void PlaciloRacuna::closeEvent(QCloseEvent *) {
+    emit close_me();
+}
+
+void PlaciloRacuna::setOpombe(QString &opomba, QString &cena, QString &datum, QString &terObv, bool obveznost) {
+    ui->label_terObv->setText("€" + terObv);
     ui->lineEdit_opombe->setText(opomba);
-    ui->lineEdit->setText(cena);
+    ui->lineEdit->setText(cena.replace(",","."));
     ui->dateEdit->setDate(QDate::fromString(datum));
     if(!obveznost)
         m_obveznost = true;
 }
 
-QStringList PlaciloRacuna::on_pushButton_clicked()
-{
-    m_list.append(ui->lineEdit->text());
+QStringList PlaciloRacuna::on_pushButton_clicked() {
+    QString opomba(ui->lineEdit_opombe->text());
+    if(opomba != "") {
+        opomba.replace(0,1,opomba.at(0).toUpper());
+        while(opomba.at(opomba.length() - 1) == " ") {
+            opomba.remove(-1, 1);
+        }
+    }
+    m_list.append(ui->lineEdit->text().replace(",","."));
     m_list.append(ui->dateEdit->text());
-    m_list.append(ui->lineEdit_opombe->text());
-    PlaciloRacuna::close();
+    m_list.append(opomba);
+    close();
     m_quit = false;
     return m_list;
 }
 
-void PlaciloRacuna::on_lineEdit_textChanged(const QString &arg1)
-{
-    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == ".") {
+void PlaciloRacuna::on_lineEdit_textChanged(const QString &arg1) {
+    if(arg1.length() == 1 && (arg1.at(arg1.length()-1) == "." || arg1.at(arg1.length()-1) == ",")) {
         ui->lineEdit->backspace();
     }
-    if(arg1.contains("..")) {
+    if(arg1.contains("..") || arg1.contains(",,") || arg1.contains(",.") || arg1.contains(".,")) {
         ui->lineEdit->backspace();
     }
 }
 
-void PlaciloRacuna::on_lineEdit_opombe_textChanged(const QString &arg1)
-{
+void PlaciloRacuna::on_lineEdit_opombe_textChanged(const QString &arg1) {
     if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
         ui->lineEdit_opombe->backspace();
     }
@@ -75,8 +82,7 @@ void PlaciloRacuna::on_lineEdit_opombe_textChanged(const QString &arg1)
     }
 }
 
-void PlaciloRacuna::on_pushButton_izbris_clicked()
-{
+void PlaciloRacuna::on_pushButton_izbris_clicked() {
     if(m_obveznost) {
         QMessageBox msgBox;
         msgBox.setWindowTitle("IZBRIS RAČUNA");
@@ -112,6 +118,7 @@ void PlaciloRacuna::on_pushButton_izbris_clicked()
             m_quit = false;
         }
     }
+    close();
 }
 
 void PlaciloRacuna::reject() {

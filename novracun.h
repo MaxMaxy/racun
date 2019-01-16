@@ -46,6 +46,11 @@ public:
     void PopraviRacun(QString, QString, QString, QString, QString, QString, QString, QString, QString, QString);
     QString CenaDDV(QString, QString);
 
+signals:
+    void close_me();
+
+protected:
+    void closeEvent(QCloseEvent *);
 
 private slots:
     void on_comboBox_narocnik_currentIndexChanged();
@@ -58,6 +63,8 @@ private slots:
     void on_lineEdit_stRacuna_textChanged(const QString &arg1);
     void on_lineEdit_sklic_textChanged(const QString &arg1);
     void on_lineEdit_textChanged(const QString &arg1);
+    void on_pushButton_izhod_clicked();
+    void CloseChild();
 
 private:
     Ui::NovRacun *ui;
@@ -80,9 +87,10 @@ private:
     int m_max_produktov;
     int m_vrstic;
     bool m_sprememba;
+    bool m_show_child;
 
 public slots:
-    int creatPDF();
+    void creatPDF();
 };
 
 #endif // NOVRACUN_H

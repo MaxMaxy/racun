@@ -2,12 +2,14 @@
 #include "ui_dodajprodukt.h"
 
 DodajProdukt::DodajProdukt(QWidget *parent) :
-    QDialog(parent), ui(new Ui::DodajProdukt), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/company_file.txt"), m_arhivProdukti(m_currentDir + "/arhiv_produkti.txt"), m_id(""), m_naziv(""), m_cena(""), m_produkt(""), m_count(true), m_itr(0)
+    QDialog(parent), ui(new Ui::DodajProdukt), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/company_file.txt"),
+    m_arhivProdukti(m_currentDir + "/arhiv_produkti.txt"), m_id(""), m_naziv(""), m_cena(""), m_produkt(""), m_count(true), m_itr(0)
 {
     ui->setupUi(this);
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
     this->setWindowFlags(Qt::Window);
+    this->showMaximized();
     ui->treeWidget->setColumnCount(3);
     ui->treeWidget->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     ui->treeWidget->header()->setSectionResizeMode(1, QHeaderView::Stretch);
@@ -18,7 +20,7 @@ DodajProdukt::DodajProdukt(QWidget *parent) :
     QRegularExpression regenum("^[0123456789/]*$");
     QValidator *validatornum = new QRegularExpressionValidator(regenum, this);
     ui->lineEdit_id->setValidator(validatornum);
-    QRegularExpression regex("^[.0123456789]*$");
+    QRegularExpression regex("^[.,0123456789]*$");
     QValidator *validator = new QRegularExpressionValidator(regex, this);
     ui->lineEdit_cena->setValidator(validator);
     QRegularExpression regealfabet("^[a-zA-Z0-9,@. -/&#čšžŠČŽ=]*$");
@@ -36,6 +38,10 @@ DodajProdukt::DodajProdukt(QWidget *parent) :
 DodajProdukt::~DodajProdukt()
 {
     delete ui;
+}
+
+void DodajProdukt::closeEvent(QCloseEvent *) {
+    emit close_me();
 }
 
 void DodajProdukt::Arhiv(QString arhiv_file, QString stream)
@@ -193,8 +199,7 @@ void DodajProdukt::on_pushButton_dodaj_clicked()
     QString podjetje = QString::number(izbPod) + ".txt";
 
     QFile fileName(podjetje);
-    if(!fileName.open(QFile::WriteOnly | QFile::Append))
-    {
+    if(!fileName.open(QFile::WriteOnly | QFile::Append)) {
         qDebug() << "Error opening fileName for writing in dodaj produkt gumb";
         return;
     }
@@ -204,11 +209,16 @@ void DodajProdukt::on_pushButton_dodaj_clicked()
     if(m_id == "")
         m_id = "/";
     m_naziv = ui->lineEdit_nazivProdukta->text();
+    m_naziv.replace(0,1,m_naziv.at(0).toUpper());
+    while(m_naziv.at(m_naziv.length() - 1) == " ") {
+        m_naziv.remove(-1, 1);
+    }
     if(m_naziv == "")
         m_naziv = "ni podatka";
     m_cena = ui->lineEdit_cena->text();
     if(m_cena == "")
         m_cena = "0";
+    m_cena.replace(",", ".");
     out << m_id << ";" << m_naziv << ";" << m_cena << ";" << "\n";
     fileName.flush();
     fileName.close();
@@ -315,6 +325,7 @@ void DodajProdukt::on_pushButton_popravi_clicked()
     ui->lineEdit_id->clear();
     ui->lineEdit_nazivProdukta->clear();
     ui->lineEdit_cena->clear();
+    ui->lineEdit_isci->clear();
     ui->pushButton_popravi->setEnabled(false);
     ui->pushButton_dodaj->setEnabled(true);
 }
@@ -381,10 +392,10 @@ void DodajProdukt::on_lineEdit_nazivProdukta_textChanged(const QString &arg1) {
 }
 
 void DodajProdukt::on_lineEdit_cena_textChanged(const QString &arg1) {
-    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == ".") {
+    if(arg1.length() == 1 && (arg1.at(arg1.length()-1) == "." || arg1.at(arg1.length()-1) == ",")) {
         ui->lineEdit_cena->backspace();
     }
-    if(arg1.contains("..")) {
+    if(arg1.contains("..") || arg1.contains(",,") || arg1.contains(",.") || arg1.contains(".,")) {
         ui->lineEdit_cena->backspace();
     }
     if(ui->lineEdit_id->text() == "" && ui->lineEdit_nazivProdukta->text() == "" && ui->lineEdit_cena->text() == "") {
@@ -398,4 +409,8 @@ void DodajProdukt::on_lineEdit_id_textChanged() {
         ui->pushButton_dodaj->setEnabled(true);
         ui->pushButton_popravi->setEnabled(false);
     }
+}
+
+void DodajProdukt::on_pushButton_clicked() {
+    close();
 }

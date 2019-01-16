@@ -22,6 +22,12 @@ public:
     ~Login();
     void Arhiv(QString, QString);
 
+signals:
+    void close_me();
+
+protected:
+    void closeEvent(QCloseEvent *);
+
 private slots:
     void on_pushButton_clicked();
     void on_pushButton_prijava_clicked();
