@@ -40,6 +40,15 @@
          <bold>true</bold>
         </font>
        </property>
+       <property name="frameShape">
+        <enum>QFrame::Panel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <property name="lineWidth">
+        <number>2</number>
+       </property>
        <property name="text">
         <string>O programu</string>
        </property>
@@ -82,7 +91,7 @@
         <bool>true</bool>
        </property>
        <property name="plainText">
-        <string>Trenutna verzija 0.9.9.7
+        <string>Trenutna verzija 0.9.9.9
 
 Avtor: Nejc Sedovnik
 Datum: november 2017
@@ -189,6 +198,10 @@ v0.9.9.7
     - dodane terjatve in obveznosti iz prejsnjih let v okno Terjatve
     - posodobljeno popravljanje produktov v Dodaj/popravi produkt
     - nov racun popravljena dobavnica
+
+v0.9.9.9
+    - dodana statistika za obveznosti
+    - pri testiranju ni zaznanih programskih tezav
 
 TO_DO:
     - moznost posiljanja racuna po emailu strankam

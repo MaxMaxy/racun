@@ -47,8 +47,17 @@
            <bold>true</bold>
           </font>
          </property>
+         <property name="frameShape">
+          <enum>QFrame::Panel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>2</number>
+         </property>
          <property name="text">
-          <string>Količina:</string>
+          <string>Količina</string>
          </property>
         </widget>
        </item>
@@ -73,7 +82,15 @@
          <property name="font">
           <font>
            <family>Serif</family>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Panel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
          </property>
          <property name="text">
           <string>Vstavi dolžino v milimetrih:</string>
@@ -94,7 +111,15 @@
          <property name="font">
           <font>
            <family>Serif</family>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Panel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
          </property>
          <property name="text">
           <string>Vstavi količino v kosih:</string>
@@ -135,6 +160,7 @@
        <property name="font">
         <font>
          <family>Serif</family>
+         <pointsize>12</pointsize>
          <weight>75</weight>
          <italic>true</italic>
          <bold>true</bold>

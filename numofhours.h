@@ -17,6 +17,12 @@ public:
     ~NumOfHours();
     QString m_numOfHours;
 
+signals:
+    void close_me();
+
+protected:
+    void closeEvent(QCloseEvent *);
+
 private slots:
     void on_pushButton_clicked();
     void reject();

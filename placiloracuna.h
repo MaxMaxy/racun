@@ -18,9 +18,15 @@ class PlaciloRacuna : public QDialog
 public:
     explicit PlaciloRacuna(QWidget *parent = nullptr);
     ~PlaciloRacuna();
-    void setOpombe(QString&, QString&, QString&, bool);
+    void setOpombe(QString&, QString&, QString&, QString&, bool);
     bool deleteRacun;
     bool m_quit;
+
+protected:
+    void closeEvent(QCloseEvent *);
+
+signals:
+  void close_me();
 
 public slots:
     QStringList on_pushButton_clicked();
