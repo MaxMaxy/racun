@@ -3,13 +3,16 @@
 
 Terjatve::Terjatve(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::Terjatve), m_currentDir(QDir::currentPath()), m_stranke(m_currentDir + "/company_file.txt"), m_terjatve(m_currentDir + "/arhiv_novRacun.txt"), m_obveznosti(m_currentDir + "/arhiv_upniki.txt"), m_upnikiSeznam(m_currentDir + "/arhiv_upnikiSeznam.txt"), m_totalTerjatve(0), m_totalObveznosti(0), m_totalTerMinObv(0), m_totalTerjatveStaro(0), m_totalObveznostiStaro(0)
+    ui(new Ui::Terjatve), m_currentDir(QDir::currentPath()), m_stranke(m_currentDir + "/company_file.txt"), m_terjatve(m_currentDir + "/arhiv_novRacun.txt"),
+    m_obveznosti(m_currentDir + "/arhiv_upniki.txt"), m_upnikiSeznam(m_currentDir + "/arhiv_upnikiSeznam.txt"), m_totalTerjatve(0), m_totalObveznosti(0),
+    m_totalTerMinObv(0), m_totalTerjatveStaro(0), m_totalObveznostiStaro(0), m_show_child(false)
 {
     ui->setupUi(this);
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
     this->setWindowTitle("Terjatve in obveznosti");
     this->setWindowFlags(Qt::Window);
+    this->showMaximized();
     ui->dateEdit_obveznostiOd->setDisplayFormat("d. M. yyyy");
     ui->dateEdit_obveznostiDo->setDisplayFormat("d. M. yyyy");
     ui->dateEdit_terjatveOd->setDisplayFormat("d. M. yyyy");
@@ -19,31 +22,31 @@ Terjatve::Terjatve(QWidget *parent) :
     ui->dateEdit_obveznostiOd->setMinimumDate(QDate(2018,1,1));
     ui->dateEdit_obveznostiDo->setMinimumDate(QDate(2018,1,1));
     ui->dateEdit_terjatveOd->setDate(QDate(QDate::currentDate().year(),1,1));
-    ui->dateEdit_terjatveDo->setDate(QDate::currentDate());
+    ui->dateEdit_terjatveDo->setDate(QDate(QDate::currentDate().year(),12,31));
     ui->dateEdit_obveznostiOd->setDate(QDate(QDate::currentDate().year(),1,1));
-    ui->dateEdit_obveznostiDo->setDate(QDate::currentDate());
+    ui->dateEdit_obveznostiDo->setDate(QDate(QDate::currentDate().year(),12,31));
     ui->treeWidget_obveznosti->setSortingEnabled(true);
     ui->treeWidget_terjatve->setSortingEnabled(true);
     ui->treeWidget_obveznosti->setRootIsDecorated(false);
     ui->treeWidget_terjatve->setRootIsDecorated(false);
-    ui->treeWidget_terjatve->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
-    ui->treeWidget_terjatve->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
-    ui->treeWidget_terjatve->header()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
-    ui->treeWidget_terjatve->header()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
-    ui->treeWidget_terjatve->header()->setSectionResizeMode(4, QHeaderView::ResizeToContents);
-    ui->treeWidget_terjatve->header()->setSectionResizeMode(5, QHeaderView::ResizeToContents);
-    ui->treeWidget_terjatve->header()->setSectionResizeMode(6, QHeaderView::ResizeToContents);
-    ui->treeWidget_terjatve->header()->setSectionResizeMode(7, QHeaderView::Stretch);
-    ui->treeWidget_terjatve->header()->setSectionResizeMode(8, QHeaderView::ResizeToContents);
+    ui->treeWidget_terjatve->header()->setSectionResizeMode(0, QHeaderView::Interactive);
+    ui->treeWidget_terjatve->header()->setSectionResizeMode(1, QHeaderView::Stretch);
+    ui->treeWidget_terjatve->header()->setSectionResizeMode(2, QHeaderView::Interactive);
+    ui->treeWidget_terjatve->header()->setSectionResizeMode(3, QHeaderView::Interactive);
+    ui->treeWidget_terjatve->header()->setSectionResizeMode(4, QHeaderView::Interactive);
+    ui->treeWidget_terjatve->header()->setSectionResizeMode(5, QHeaderView::Interactive);
+    ui->treeWidget_terjatve->header()->setSectionResizeMode(6, QHeaderView::Interactive);
+    ui->treeWidget_terjatve->header()->setSectionResizeMode(7, QHeaderView::Interactive);
+    ui->treeWidget_terjatve->header()->setSectionResizeMode(8, QHeaderView::Interactive);
     ui->treeWidget_terjatve->header()->setStretchLastSection(false);
-    ui->treeWidget_obveznosti->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
+    ui->treeWidget_obveznosti->header()->setSectionResizeMode(0, QHeaderView::Interactive);
     ui->treeWidget_obveznosti->header()->setSectionResizeMode(1, QHeaderView::Stretch);
-    ui->treeWidget_obveznosti->header()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
-    ui->treeWidget_obveznosti->header()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
-    ui->treeWidget_obveznosti->header()->setSectionResizeMode(4, QHeaderView::ResizeToContents);
-    ui->treeWidget_obveznosti->header()->setSectionResizeMode(5, QHeaderView::ResizeToContents);
-    ui->treeWidget_obveznosti->header()->setSectionResizeMode(6, QHeaderView::ResizeToContents);
-    ui->treeWidget_obveznosti->header()->setSectionResizeMode(7, QHeaderView::ResizeToContents);
+    ui->treeWidget_obveznosti->header()->setSectionResizeMode(2, QHeaderView::Interactive);
+    ui->treeWidget_obveznosti->header()->setSectionResizeMode(3, QHeaderView::Interactive);
+    ui->treeWidget_obveznosti->header()->setSectionResizeMode(4, QHeaderView::Interactive);
+    ui->treeWidget_obveznosti->header()->setSectionResizeMode(5, QHeaderView::Interactive);
+    ui->treeWidget_obveznosti->header()->setSectionResizeMode(6, QHeaderView::Interactive);
+    ui->treeWidget_obveznosti->header()->setSectionResizeMode(7, QHeaderView::Interactive);
     ui->treeWidget_obveznosti->header()->setStretchLastSection(false);
     AddItemsToComboBox();
     LabelsUpdate();
@@ -52,6 +55,14 @@ Terjatve::Terjatve(QWidget *parent) :
 Terjatve::~Terjatve()
 {
     delete ui;
+}
+
+void Terjatve::CloseChild() {
+    m_show_child = false;
+}
+
+void Terjatve::closeEvent(QCloseEvent *) {
+    emit close_me();
 }
 
 void Terjatve::AddItemsToComboBox() {
@@ -146,23 +157,17 @@ void Terjatve::AddRootTerjatve(QStringList textList, bool staro) {
         itm->setText(5, placilo);
         itm->setText(6, dat_placila);
         itm->setText(8, itemDatum);
-
-        if(znesek.remove("€").toDouble() > placilo.remove("€").toDouble())
-        {
+        if(znesek.remove("€").toDouble() > placilo.remove("€").toDouble()) {
             for(int i(0); i < itm->columnCount(); i++)
                 itm->setTextColor(i, QColor("red"));
         }
-        else if(znesek.remove("€").toDouble() < placilo.remove("€").toDouble())
-        {
+        else if(znesek.remove("€").toDouble() < placilo.remove("€").toDouble()) {
             for(int i(0); i < itm->columnCount(); i++)
                 itm->setBackgroundColor(i, QColor("red"));
-        }
-        else
-        {
+        } else {
             for(int i(0); i < itm->columnCount(); i++)
                 itm->setTextColor(i, QColor("green"));
         }
-
         ui->treeWidget_terjatve->addTopLevelItem(itm);
     } else {
         QStringList list;
@@ -322,18 +327,14 @@ void Terjatve::AddRootObveznosti(QStringList textList, bool staro)
         itm->setText(5, dat_placila);
         itm->setText(6, opomba);
         itm->setText(7, ident);
-        if(znesek.remove("€").toDouble() > placilo.remove("€").toDouble())
-        {
+        if(znesek.remove("€").toDouble() > placilo.remove("€").toDouble()) {
             for(int i(0); i < itm->columnCount(); i++)
                 itm->setTextColor(i, QColor("red"));
         }
-        else if(znesek.remove("€").toDouble() < placilo.remove("€").toDouble())
-        {
+        else if(znesek.remove("€").toDouble() < placilo.remove("€").toDouble()) {
             for(int i(0); i < itm->columnCount(); i++)
                 itm->setBackgroundColor(i, QColor("red"));
-        }
-        else
-        {
+        } else {
             for(int i(0); i < itm->columnCount(); i++)
                 itm->setTextColor(i, QColor("green"));
         }
@@ -388,7 +389,6 @@ void Terjatve::ReadObveznosti(bool neplacani)
             date = textList.at(6);
             date.remove("Dat_valute: ");
             date.remove(-1,1);
-            qDebug() << date;
             date_Od_Do = date_Od_Do.fromString(date, "d. M. yyyy");
             opomba = textList.at(9);
             placano = textList.at(7);
@@ -469,7 +469,7 @@ void Terjatve::Search(QString searchName, QString file, bool ter_obv)
     QString line;
     while(!out.atEnd()){
         line = out.readLine();
-        if(line.contains(searchName, Qt::CaseInsensitive)) {
+        if(line.contains(searchName, Qt::CaseInsensitive) && !(line.contains("terjatev_je_bila_odstranjena!!!????", Qt::CaseInsensitive) || line.contains("racun_je_bil_odstranjen!!!????", Qt::CaseInsensitive) || line.contains("racun_je_bil_spremenjen!!!????", Qt::CaseInsensitive))) {
             // locilo med podatki podjetja v filu ime_podjetja;naslov;ddv;email itd itd
             QRegExp rx("[;]");
             // naredimo listo da posamezne podatke locimo in shranimo kot posamezno kategorijo
@@ -486,16 +486,18 @@ void Terjatve::Search(QString searchName, QString file, bool ter_obv)
     mFile.close();
 }
 
-void Terjatve::SetStatisticParameterTerjatve(int comboIndex, QDate dateOd, QDate dateDo) {
+void Terjatve::SetStatisticParameterTerjatve(int comboIndex, QDate dateOd, QDate dateDo, bool neplacani) {
     ui->comboBox_stranke->setCurrentIndex(comboIndex);
     ui->dateEdit_terjatveOd->setDate(dateOd);
     ui->dateEdit_terjatveDo->setDate(dateDo);
+    ui->checkBox_neplacaneTerjatve->setChecked(neplacani);
 }
 
-void Terjatve::SetStatisticParameterObveznosti(int comboIndex, QDate dateOd, QDate dateDo) {
+void Terjatve::SetStatisticParameterObveznosti(int comboIndex, QDate dateOd, QDate dateDo, bool neplacani) {
     ui->comboBox->setCurrentIndex(comboIndex);
     ui->dateEdit_obveznostiOd->setDate(dateOd);
     ui->dateEdit_obveznostiDo->setDate(dateDo);
+    ui->checkBox_neplacaneObveznosti->setChecked(neplacani);
 }
 
 void Terjatve::LabelsUpdate() {
@@ -545,7 +547,13 @@ void Terjatve::on_pushButton_clicked()
 {
     VnosObveznosti vnos;
     vnos.setModal(true);
-    vnos.exec();
+    this->hide();
+    QObject::connect(&vnos,SIGNAL(close_me()),this,SLOT(CloseChild()));
+    m_show_child = true;
+    while (m_show_child) {
+        vnos.exec();
+    }
+    this->show();
     ui->treeWidget_obveznosti->clear();
     AddItemsToComboBox();
     ReadObveznosti(true);
@@ -585,7 +593,13 @@ void Terjatve::on_pushButton_2_clicked()
 {
     NovRacun racun;
     racun.setModal(true);
-    racun.exec();
+    this->hide();
+    QObject::connect(&racun,SIGNAL(close_me()),this,SLOT(CloseChild()));
+    m_show_child = true;
+    while (m_show_child) {
+        racun.exec();
+    }
+    this->show();
     AddItemsToComboBox();
     ReadTerjatve(true);
     LabelsUpdate();
@@ -633,20 +647,29 @@ void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
             }
             tmp = text_stRacuna;
             tmp_list = tmp.split(exp, QString::SkipEmptyParts);
-            placilo.setModal(true);
-            QString opomba = tmp_list.at(12);
+            QString opomba(tmp_list.at(12));
             opomba.remove("Opomba: ");
             opomba.remove(0,1);
-            QString cena = tmp_list.at(14);
+            QString cena(tmp_list.at(14));
             cena.remove("Placilo: ");
             cena.remove(0,1);
-            QString datum = tmp_list.at(15);
+            QString datum(tmp_list.at(15));
             datum.remove("Dat_placila: ");
             datum.remove(0,1);
             if(opomba == " ") opomba = "";
             if(cena == " ") cena = "";
-            placilo.setOpombe(opomba, cena, datum, false);
-            placilo.exec();
+            QString terObv(tmp_list.at(11));
+            terObv.remove("Sum_skupaj: ");
+            terObv.remove(" ");
+            placilo.setOpombe(opomba, cena, datum, terObv, false);
+            placilo.setModal(true);
+            this->hide();
+            QObject::connect(&placilo,SIGNAL(close_me()),this,SLOT(CloseChild()));
+            m_show_child = true;
+            while (m_show_child) {
+                placilo.exec();
+            }
+            this->show();
             if(!placilo.m_quit) {
                 if(placilo.deleteRacun) {
                     QFile mFile(m_terjatve);
@@ -697,6 +720,7 @@ void Terjatve::on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *item)
             }
         }
     }
+    qDebug() << "error";
     AddItemsToComboBox();
     ReadTerjatve(true);
     LabelsUpdate();
@@ -753,8 +777,17 @@ void Terjatve::on_treeWidget_obveznosti_itemDoubleClicked(QTreeWidgetItem *item)
             QString datum = tmp_list.at(8);
             datum.remove("Dat_placila: ");
             datum.remove(0,1);
-            placilo.setOpombe(opomba, cena, datum, true);
-            placilo.exec();
+            QString terObv(tmp_list.at(5));
+            terObv.remove("Znesek: ");
+            terObv.remove(" ");
+            placilo.setOpombe(opomba, cena, datum, terObv, true);
+            this->hide();
+            QObject::connect(&placilo,SIGNAL(close_me()),this,SLOT(CloseChild()));
+            m_show_child = true;
+            while (m_show_child) {
+                placilo.exec();
+            }
+            this->show();
             if(!placilo.m_quit) {
                 if(placilo.deleteRacun) {
                     QFile mFile(m_obveznosti);

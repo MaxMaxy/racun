@@ -1,15 +1,18 @@
 #include "novracun.h"
 #include "ui_novracun.h"
 
-NovRacun::NovRacun(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::NovRacun), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/company_file.txt"), m_arhivNovRacun(m_currentDir + "/arhiv_novRacun.txt"), m_arhivStRacuna(m_currentDir + "/arhiv_stRacuna.txt"), m_arhivLogin(m_currentDir + "/arhiv_login.txt"), m_cNaziv(""), m_naslov(""), m_posta(""), m_ddv(""), m_email(""), m_numItems("1"), m_shrani(m_currentDir + "/settings.txt"), m_fileShrani(m_currentDir), m_count(true), m_total(0), m_itemsAdded(0), m_max_produktov(21), m_sprememba(false)
+NovRacun::NovRacun(QWidget *parent) : QDialog(parent),
+    ui(new Ui::NovRacun), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/company_file.txt"), m_arhivNovRacun(m_currentDir + "/arhiv_novRacun.txt"),
+    m_arhivStRacuna(m_currentDir + "/arhiv_stRacuna.txt"), m_arhivLogin(m_currentDir + "/arhiv_login.txt"), m_cNaziv(""), m_naslov(""), m_posta(""), m_ddv(""),
+    m_email(""), m_numItems("0"), m_shrani(m_currentDir + "/settings.txt"), m_fileShrani(m_currentDir), m_count(true), m_total(0), m_itemsAdded(0), m_max_produktov(21),
+    m_sprememba(false), m_show_child(false)
 {
     ui->setupUi(this);
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
     this->setWindowTitle("Nov račun");
     this->setWindowFlags(Qt::Window);
+    this->showMaximized();
     ui->treeWidget_seznam->setColumnCount(3);
     ui->treeWidget_seznam->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     ui->treeWidget_seznam->header()->setSectionResizeMode(1, QHeaderView::Stretch);
@@ -31,7 +34,7 @@ NovRacun::NovRacun(QWidget *parent) :
     ui->dateEdit->setDate(QDate::currentDate());
     ui->lineEdit_sklic->setMaxLength(35);
     ui->lineEdit->setMaxLength(60);
-    QRegularExpression regealfabet("^[a-zA-Z0-9,@. -/&#čšžŠČŽ=]*$");
+    QRegularExpression regealfabet("^[a-zA-Z0-9,@. -/&#čšžŠČŽ()+=]*$");
     QValidator *validatoralfabet = new QRegularExpressionValidator(regealfabet, this);
     ui->lineEdit_sklic->setValidator(validatoralfabet);
     ui->lineEdit_stRacuna->setValidator(validatoralfabet);
@@ -72,6 +75,14 @@ NovRacun::NovRacun(QWidget *parent) :
 NovRacun::~NovRacun()
 {
     delete ui;
+}
+
+void NovRacun::CloseChild() {
+    m_show_child = false;
+}
+
+void NovRacun::closeEvent(QCloseEvent *) {
+    emit close_me();
 }
 
 void NovRacun::Arhiv(QString arhiv_file, QString stream)
@@ -1280,17 +1291,16 @@ void NovRacun::AddRoot(QString id, QString naziv, QString cena)
     QColor color(210,210,210);
     QColor wcolor(250,250,250);
     // m_count je member bool ce je tru je barva siva drugace bela
-    if(m_count)
-    {
+    if(ui->treeWidget_seznam->topLevelItemCount() % 2 == 0) m_count = true;
+    else m_count = false;
+    if(m_count) {
         itm->setBackgroundColor(0,color);
         itm->setBackgroundColor(1,color);
         itm->setBackgroundColor(2,color);
-        m_count = false;
     } else {
         itm->setBackgroundColor(0,wcolor);
         itm->setBackgroundColor(1,wcolor);
         itm->setBackgroundColor(2,wcolor);
-        m_count = true;
     }
 }
 
@@ -1362,7 +1372,7 @@ QString NovRacun::CenaDDV(QString price, QString items)
     if(price_list.size() == 2)
     {
         QRegularExpression place_dot(price);
-        QString rep_produkt(price_list.at(0) + "." + price_list.at(1));
+        QString rep_produkt(price_list.at(0) + '.' + price_list.at(1));
         price.replace(place_dot, rep_produkt);
     }
     double dPrice = price.toDouble();
@@ -1379,10 +1389,17 @@ void NovRacun::on_treeWidget_seznam_doubleClicked()
         error_stringToLong.show();
         return;
     }
-    NumOfItems numItems;
-    numItems.setModal(true);
-    numItems.exec();
-    m_numItems = numItems.m_numKosov;
+    NumOfItems numKosov;
+    numKosov.setModal(true);
+    this->hide();
+    QObject::connect(&numKosov,SIGNAL(close_me()),this,SLOT(CloseChild()));
+    m_show_child = true;
+    while (m_show_child) {
+      numKosov.exec();
+      m_numItems = numKosov.m_numKosov;
+    }
+    ui->lineEdit_isci->clear();
+    this->show();
     bool insertCorrect(true);
     if(m_numItems == "0")
         insertCorrect = false;
@@ -1402,19 +1419,18 @@ void NovRacun::on_treeWidget_seznam_doubleClicked()
         QColor color(210,210,210);
         QColor wcolor(250,250,250);
         // m_count je member bool ce je true je barva siva drugace bela
-        if(m_count)
-        {
+        if(ui->treeWidget_dodani->topLevelItemCount() % 2 == 0) m_count = true;
+        else m_count = false;
+        if(m_count) {
             itm->setBackgroundColor(0,color);
             itm->setBackgroundColor(1,color);
             itm->setBackgroundColor(2,color);
             itm->setBackgroundColor(3,color);
-            m_count = false;
         } else {
             itm->setBackgroundColor(0,wcolor);
             itm->setBackgroundColor(1,wcolor);
             itm->setBackgroundColor(2,wcolor);
             itm->setBackgroundColor(3,wcolor);
-            m_count = true;
         }
         QString price = ui->treeWidget_seznam->currentItem()->text(2);
         CalcSkupaj(price, m_numItems, true);
@@ -1439,7 +1455,7 @@ void NovRacun::CalcSkupaj(QString &price, QString &numOfItems, bool plus)
     if(price_list.size() == 2)
     {
         QRegularExpression place_dot(price);
-        QString rep_produkt(price_list.at(0) + "." + price_list.at(1));
+        QString rep_produkt(price_list.at(0) + '.' + price_list.at(1));
         price.replace(place_dot, rep_produkt);
     }
 
@@ -1530,12 +1546,12 @@ void NovRacun::Search(QString searchName)
     mFile.close();
 }
 
-int NovRacun::creatPDF()
+void NovRacun::creatPDF()
 {
     // Arhivski del
     QDate inputDate = ui->dateEdit->date();
     QDateTime date = QDateTime::currentDateTime();
-    QString items(" ");
+    QString items(' ');
     QString product;
     for(int i(0); i < m_itemsAdded; i++)
     {
@@ -1558,7 +1574,7 @@ int NovRacun::creatPDF()
     if(!mFile.open(QFile::ReadOnly | QFile::Text))
     {
         qDebug() << "Error opening file for reading in creatPDF login";
-        return 1;
+        return;
     }
     QTextStream in(&mFile);
     in.setCodec("UTF-8");
@@ -1576,16 +1592,22 @@ int NovRacun::creatPDF()
     sum_osnova.remove("€");
     sum_ddv.remove("€");
     sum_skupaj.remove("€");
-    QString st_racuna(" ");
-    QString st_sklic(" ");
-    QString text_opomba(" ");
-    QString nov_sprememba(" ");
+    QString st_racuna(' ');
+    QString st_sklic(' ');
+    QString text_opomba(' ');
+    QString nov_sprememba(' ');
     if(ui->lineEdit_stRacuna->text() != "")
         st_racuna = ui->lineEdit_stRacuna->text();
     if(ui->lineEdit_sklic->text() != "")
         st_sklic = ui->lineEdit_sklic->text();
     if(ui->lineEdit->text() != "")
         text_opomba = ui->lineEdit->text();
+    if(text_opomba != "") {
+        text_opomba.replace(0,1,text_opomba.at(0).toUpper());
+        while(text_opomba.at(text_opomba.length() - 1) == ' ') {
+            text_opomba.remove(-1, 1);
+        }
+    }
     if(m_sprememba)
         nov_sprememba = "Sprememba racuna ; ";
     else
@@ -1602,7 +1624,7 @@ int NovRacun::creatPDF()
             + "Sum_skupaj: " + sum_skupaj + " ; "
             + "Opomba: " + text_opomba + " ; "
             + "Rac_napisal: " + mText + " ; "
-            + "Placilo: " + " " + " ; " + "Dat_placila: " + " " + " ; " + "Opomba: " + " " + " ; Popust: " + ui->lineEdit_popust->text() + " (end)" ;
+            + "Placilo: " + ' ' + " ; " + "Dat_placila: " + ' ' + " ; " + "Opomba: " + ' ' + " ; Popust: " + ui->lineEdit_popust->text() + " (end)" ;
     Arhiv(m_arhivNovRacun, arhiv);
     arhiv = ui->lineEdit_stRacuna->text();
     QStringList arhivLine = arhiv.split("-", QString::SkipEmptyParts);
@@ -1611,14 +1633,14 @@ int NovRacun::creatPDF()
 
     // PDF del
     QString footer = "<table align=center width=100% height=100%>"
-                     "<div align=center>"
-                        "<hr width=100% size=5>""<font color=#0000aa size=5>""|""</font>""<font color=#aa0000 size=5>"" ELRA SETI d.o.o., proizvodnja setov iz kablov in vodnikov ""</font>""<font color=#0000aa size=5>""|""</font>""<font color=#aa0000 size=5>"" Andraž nad Polzelo 74a ""</font>""<font color=#0000aa size=5>""|""</font>""<font color=#aa0000 size=5>"" 3313 Polzela ""</font>""<font color=#0000aa size=5>""|""<br>"
-                        "<font color=#aa0000 size=5>""|""</font>""<font color=#0000aa size=5>"" T+386(0)3 897 44 46 ""</font>""<font color=#aa0000 size=5>""|""</font>""<font color=#0000aa size=5>"" GSM +386 (0)41 326 103 ""</font>""<font color=#aa0000 size=5>""|""</font>""<font color=#0000aa size=5>"" F+386(0)3 897 44 47 ""</font>""<font color=#aa0000 size=5>""|""</font>""<font color=#0000aa size=5>"" info@elraseti.si ""</font>""<font color=#aa0000 size=5>""|""</font>""<br>"
-                        "<font color=#000000 size=5>"
-                        "| ID DDV (VAT nr.): SI83452010 | Matična št.: 6514812000 | Reg. št.: Srg 2013/53219 |<br>"
-                        "| TRR (BANK): SBERBANK: SI56 3000 0001 1326 144 | osnovni kapital €7.500,00 |"
-                        "</font>"
-                     "</div>"
+                         "<div align=center>"
+                            "<hr width=100% size=5>""<font color=#0000aa size=5>""|""</font>""<font color=#aa0000 size=5>"" ELRA SETI d.o.o., proizvodnja setov iz kablov in vodnikov ""</font>""<font color=#0000aa size=5>""|""</font>""<font color=#aa0000 size=5>"" Andraž nad Polzelo 74a ""</font>""<font color=#0000aa size=5>""|""</font>""<font color=#aa0000 size=5>"" 3313 Polzela ""</font>""<font color=#0000aa size=5>""|""<br>"
+                            "<font color=#aa0000 size=5>""|""</font>""<font color=#0000aa size=5>"" T+386(0)3 897 44 46 ""</font>""<font color=#aa0000 size=5>""|""</font>""<font color=#0000aa size=5>"" GSM +386 (0)41 326 103 ""</font>""<font color=#aa0000 size=5>""|""</font>""<font color=#0000aa size=5>"" F+386(0)3 897 44 47 ""</font>""<font color=#aa0000 size=5>""|""</font>""<font color=#0000aa size=5>"" info@elraseti.si ""</font>""<font color=#aa0000 size=5>""|""</font>""<br>"
+                            "<font color=#000000 size=5>"
+                            "| ID DDV (VAT nr.): SI83452010 | Matična št.: 6514812000 | Reg. št.: Srg 2013/53219 |<br>"
+                            "| TRR (BANK): SBERBANK: SI56 3000 0001 1326 144 | osnovni kapital €7.500,00 |"
+                            "</font>"
+                         "</div>"
                      "</table>";
 
     QString header = "<font color=#ffffff size=0 align=center>"
@@ -1676,7 +1698,7 @@ int NovRacun::creatPDF()
                                  "<tr>"
                                      "<th>"
                                          "<div align=left>"
-                                             "Opombe: " + ui->lineEdit->text() + "<br>"
+                                             "Opombe: " + text_opomba + "<br>"
                                          "</div>"
                                      "</th>"
                                      "<th rowspan=5>"
@@ -1810,8 +1832,8 @@ int NovRacun::creatPDF()
         produkti_brezCen.append("</div>");
         produkti_brezCen.append("</th>");
         produkti_brezCen.append("<th>");
-        produkti_brezCen.append("<div align=center>""<font size=4>");
-        produkti_brezCen.append("");
+        produkti_brezCen.append("<div align=center>""<font size=4 color=#ffffff>");
+        produkti_brezCen.append("€" + ui->treeWidget_dodani->topLevelItem(i)->text(4));
         produkti_brezCen.append("</div>");
         produkti_brezCen.append("</th>");
         produkti_brezCen.append("</tr>");
@@ -2143,7 +2165,7 @@ int NovRacun::creatPDF()
                     "</th>"
                     "<th>"
                         "<div align=left>""<font size=4>"
-                            "00 " + sklicList.at(0) + " " + sklicList.at(1) +
+                            "00 " + sklicList.at(0) + ' ' + sklicList.at(1) +
                         "</div>"
                     "</th>"
                 "</tr>"
@@ -2152,7 +2174,6 @@ int NovRacun::creatPDF()
             + produkti
             +
             "</table>"
-
             "<table align=left width=100% height=100%>"
                 "<div align=left>"
                     "<tr>"
@@ -2270,7 +2291,7 @@ int NovRacun::creatPDF()
 
     QString text_dobavnica =
             /**************************** DOBAVNICA *********************************/
-            "<font color='#00000000' size=0>""_" +
+            "<font color='#00000000' size=4>""_" +
             header +
             "<table align=left width=100% height=100%>"
                 "<tr>"
@@ -2382,7 +2403,7 @@ int NovRacun::creatPDF()
                     "</th>"
                     "<th>"
                         "<div align=left>""<font size=4>"
-                            "00 " + sklicList.at(0) + " " + sklicList.at(1) +
+                            "00 " + sklicList.at(0) + ' ' + sklicList.at(1) +
                         "</div>"
                     "</th>"
                 "</tr>"
@@ -2494,7 +2515,6 @@ int NovRacun::creatPDF()
                     "</th>"
                 "</tr>"
             "</table>"
-
             + tabela_za_dodane_produkte
             + produkti_brezCen
             +
@@ -2504,215 +2524,238 @@ int NovRacun::creatPDF()
                     "<tr>"
                         "<th>"
                             "<div align=left>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            "<font size=4 font color=#ffffff>"
+                            "OSNOVA €"
+                            "</font>"
                             "</div>"
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            ""
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            ""
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            ""
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            ""
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            ""
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
-                        "</th>"
-                    "</tr>"
-                    "<tr>"
-                        "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
-                        "</th>"
-                        "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
-                        "</th>"
-                        "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
-                        "</th>"
-                        "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
-                        "</th>"
-                        "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
-                        "</th>"
-                        "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
-                        "</th>"
-                        "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
-                        "</th>"
-                    "</tr>"
-                    "<tr>"
-                        "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
-                        "</th>"
-                        "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
-                        "</th>"
-                        "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
-                        "</th>"
-                        "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
-                        "</th>"
-                        "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
-                        "</th>"
-                        "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
-                        "</th>"
-                        "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            "<font size=4 color=#ffffff>"
+                            + ui->label_popust->text() +
+                            "</font>"
                         "</th>"
                     "</tr>"
                     "<tr>"
                         "<th>"
                             "<div align=left>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            "<font color=#ffffff>"
+                            "Popust %"
+                            "</font>"
                             "</div>"
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            ""
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            ""
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            ""
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            ""
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            ""
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                        "<font color=#ffffff>"
+                            + ui->lineEdit_popust->text() + "%"
+                        "</font>"
                         "</th>"
                     "</tr>"
                     "<tr>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            "<div align=left>"
+                            "<font color=#ffffff>"
+                            "DDV €"
+                            "</font>"
+                            "</div>"
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            ""
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            ""
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            ""
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            ""
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            ""
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            "<font color=#ffffff>"
+                            + ui->label_ddv->text() +
+                            "</font>"
+                        "</th>"
+                        "</tr>"
+                        "<tr>"
+                            "<th>"
+                                "<div align=left>"
+                                "<font color=#ffffff>"
+                                "DDV €"
+                                "</font>"
+                                "</div>"
+                            "</th>"
+                            "<th>"
+                                ""
+                            "</th>"
+                            "<th>"
+                                ""
+                            "</th>"
+                            "<th>"
+                                ""
+                            "</th>"
+                            "<th>"
+                                ""
+                            "</th>"
+                            "<th>"
+                                ""
+                            "</th>"
+                            "<th>"
+                                "<font color=#ffffff>"
+                                + ui->label_ddv->text() +
+                                "</font>"
+                            "</th>"
+                        "</tr>"
+                        "<tr>"
+                            "<th>"
+                                "<div align=left>"
+                                "<font color=#ffffff>"
+                                "DDV €"
+                                "</font>"
+                                "</div>"
+                            "</th>"
+                            "<th>"
+                                ""
+                            "</th>"
+                            "<th>"
+                                ""
+                            "</th>"
+                            "<th>"
+                                ""
+                            "</th>"
+                            "<th>"
+                                ""
+                            "</th>"
+                            "<th>"
+                                ""
+                            "</th>"
+                            "<th>"
+                                "<font color=#ffffff>"
+                                + ui->label_ddv->text() +
+                                "</font>"
+                            "</th>"
+                        "</tr>"
+                        "<tr>"
+                        "<th>"
+                            "<div align=left>"
+                            "<font color=#ffffff>"
+                            "DDV €"
+                            "</font>"
+                            "</div>"
+                        "</th>"
+                        "<th>"
+                            ""
+                        "</th>"
+                        "<th>"
+                            ""
+                        "</th>"
+                        "<th>"
+                            ""
+                        "</th>"
+                        "<th>"
+                            ""
+                        "</th>"
+                        "<th>"
+                            ""
+                        "</th>"
+                        "<th>"
+                            "<font color=#ffffff>"
+                            + ui->label_ddv->text() +
+                            "</font>"
                         "</th>"
                     "</tr>"
                     "<tr>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            "<div align=left>"
+                            "<font color=#ffffff>"
+                            "DDV €"
+                            "</font>"
+                            "</div>"
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            ""
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            ""
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            ""
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            ""
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            ""
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>"
+                            "<font color=#ffffff>"
+                            + ui->label_ddv->text() +
+                            "</font>"
                         "</th>"
                     "</tr>"
                     "<tr>"
                         "<th>"
-                            "<font size=5>"
+                            "<div align=left>"
+                            "<font size=6 color=#ffffff>"
+                                "ZA PLAČILO €<hr width=100% size=2>"
+                            "</font>"
+                            "</div>"
+                        "</th>"
+                        "<th>"
+                            "<font size=6>"
                             "<font color=#ffffff>""prazno""</font>""<hr width=100% size=2>"
                         "</th>"
                         "<th>"
-                            "<font size=5>"
+                            "<font size=6>"
                             "<font color=#ffffff>""prazno""</font>""<hr width=100% size=2>"
                         "</th>"
                         "<th>"
-                            "<font size=5>"
+                            "<font size=6>"
                             "<font color=#ffffff>""prazno""</font>""<hr width=100% size=2>"
                         "</th>"
                         "<th>"
-                            "<font size=5>"
+                            "<font size=6>"
                             "<font color=#ffffff>""prazno""</font>""<hr width=100% size=2>"
                         "</th>"
                         "<th>"
-                            "<font size=5>"
+                            "<font size=6>"
                             "<font color=#ffffff>""prazno""</font>""<hr width=100% size=2>"
                         "</th>"
                         "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>""<hr width=100% size=2>"
-                        "</th>"
-                        "<th>"
-                            "<font size=5>"
-                            "<font color=#ffffff>""prazno""</font>""<hr width=100% size=2>"
+                            "<font size=6 color=#ffffff>"
+                                + ui->label_skupaj->text() + "<hr width=100% size=2>"
+                            "</font>"
                         "</th>"
                     "</tr>"
             "</table>"
@@ -2735,7 +2778,9 @@ int NovRacun::creatPDF()
     QRegExp rx("[ ]");
     QStringList list;
     list = stranka.split(rx, QString::SkipEmptyParts);
-
+    if(list.length() == 1) {
+        list.append("n.n.");
+    }
     if(list.at(1) == "d.o.o." || list.at(1) == "doo" || list.at(1) == "D.O.O."  || list.at(1) == "DOO" || list.at(1) == "s.p." || list.at(1) == "sp" || list.at(1) == "s.p" || list.at(1) == "S.P." || list.at(1) == "S.P" || list.at(1) == "SP")
         stranka = list.at(0);
     else
@@ -2791,16 +2836,21 @@ int NovRacun::creatPDF()
     */
     if(ui->comboBox_narocnik->currentText() == "KRONOTERM d.o.o.")
         MakeXML();
-    NovRacun::close();
-    return 0;
+    if(ui->checkBox_sendMail->isChecked())
+        sendMail(output);
 }
 
-void NovRacun::on_pushButton_dodajNovProdukt_clicked()
-{
+void NovRacun::on_pushButton_dodajNovProdukt_clicked() {
     DodajProdukt produkt;
     produkt.setModal(true);
     produkt.SetIndex(ui->comboBox_narocnik->currentIndex());
-    produkt.exec();
+    this->hide();
+    QObject::connect(&produkt,SIGNAL(close_me()),this,SLOT(CloseChild()));
+    m_show_child = true;
+    while (m_show_child) {
+        produkt.exec();
+    }
+    this->show();
     Read();
 }
 
@@ -2849,60 +2899,80 @@ void NovRacun::on_lineEdit_isci_textChanged()
 
 void NovRacun::on_lineEdit_stRacuna_textChanged(const QString &arg1)
 {
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == ' ') {
         ui->lineEdit_stRacuna->backspace();
     }
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == '.') {
         ui->lineEdit_stRacuna->backspace();
         ui->lineEdit_stRacuna->backspace();
         ui->lineEdit_stRacuna->insert(".");
     }
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == ',') {
         ui->lineEdit_stRacuna->backspace();
         ui->lineEdit_stRacuna->backspace();
         ui->lineEdit_stRacuna->insert(",");
     }
-    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == ' ') {
         ui->lineEdit_stRacuna->backspace();
     }
 }
 
 void NovRacun::on_lineEdit_sklic_textChanged(const QString &arg1)
 {
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == ' ') {
         ui->lineEdit_sklic->backspace();
     }
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == '.') {
         ui->lineEdit_sklic->backspace();
         ui->lineEdit_sklic->backspace();
         ui->lineEdit_sklic->insert(".");
     }
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == ',') {
         ui->lineEdit_sklic->backspace();
         ui->lineEdit_sklic->backspace();
         ui->lineEdit_sklic->insert(",");
     }
-    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == ' ') {
         ui->lineEdit_sklic->backspace();
     }
 }
 
 void NovRacun::on_lineEdit_textChanged(const QString &arg1)
 {
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == ' ') {
         ui->lineEdit->backspace();
     }
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == '.') {
         ui->lineEdit->backspace();
         ui->lineEdit->backspace();
         ui->lineEdit->insert(".");
     }
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == ',') {
         ui->lineEdit->backspace();
         ui->lineEdit->backspace();
         ui->lineEdit->insert(",");
     }
-    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == ' ') {
         ui->lineEdit->backspace();
     }
+}
+
+void NovRacun::on_pushButton_izhod_clicked() {
+    close();
+}
+
+void NovRacun::sendMail(QString output) {
+    Smtp* smtp = new Smtp("elraseti@elraseti.si", "666M@xM@x666", "mail.elraseti.si", 465);
+    connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
+    m_files.clear();
+    m_files.append(output);
+    if(!m_files.isEmpty())
+        smtp->sendMail("elraseti@elraseti.si", m_email, "Račun številka " + ui->lineEdit_stRacuna->text(), "Račun številka " + ui->lineEdit_stRacuna->text() + " v prilogi.", m_files);
+    else
+        QMessageBox::critical(this, tr("Napaka elektronske pošte"), tr("V elektrnski pošti ni pripete priloge!\n"));
+}
+
+void NovRacun::mailSent(QString status) {
+    if(status == "Message sent")
+        QMessageBox::warning(this, tr("Račun poslan po elektronski pošti"), tr("Račun poslan po elektronski pošti!\n\n") );
 }

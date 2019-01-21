@@ -9,7 +9,7 @@ NumOfHours::NumOfHours(QWidget *parent) :
     this->setWindowIcon(icon);
     this->setWindowTitle("Število ur");
     ui->lineEdit->setFocus();
-    QRegularExpression regex("^[.0123456789]*$");
+    QRegularExpression regex("^[.,0123456789]*$");
     QValidator *validator = new QRegularExpressionValidator(regex, this);
     ui->lineEdit->setValidator(validator);
 }
@@ -18,12 +18,16 @@ NumOfHours::~NumOfHours() {
     delete ui;
 }
 
+void NumOfHours::closeEvent(QCloseEvent *) {
+    emit close_me();
+}
+
 void NumOfHours::on_pushButton_clicked() {
-    close();
     if(ui->lineEdit->text() == "")
         m_numOfHours = "0";
     else
-        m_numOfHours = ui->lineEdit->text();
+        m_numOfHours = ui->lineEdit->text().replace(",",".");
+    close();
 }
 
 void NumOfHours::reject() {

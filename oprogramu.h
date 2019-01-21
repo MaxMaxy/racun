@@ -16,6 +16,12 @@ public:
     explicit Oprogramu(QWidget *parent = nullptr);
     ~Oprogramu();
 
+protected:
+    void closeEvent(QCloseEvent *);
+
+signals:
+  void close_me();
+
 private:
     Ui::Oprogramu *ui;
 };

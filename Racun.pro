@@ -50,7 +50,9 @@ SOURCES += \
     testingdialog.cpp \
     kalkulacija.cpp \
     numofitemskalk.cpp \
-    numofhours.cpp
+    numofhours.cpp \
+    statistikaobveznosti.cpp \
+    smtp.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -70,7 +72,9 @@ HEADERS += \
     testingdialog.h \
     kalkulacija.h \
     numofitemskalk.h \
-    numofhours.h
+    numofhours.h \
+    statistikaobveznosti.h \
+    smtp.h
 
 FORMS += \
     mainwindow.ui \
@@ -89,7 +93,8 @@ FORMS += \
     testingdialog.ui \
     kalkulacija.ui \
     numofitemskalk.ui \
-    numofhours.ui
+    numofhours.ui \
+    statistikaobveznosti.ui
 
 RESOURCES += \
     files.qrc

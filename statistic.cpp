@@ -2,13 +2,15 @@
 #include "ui_statistic.h"
 
 Statistic::Statistic(QWidget *parent) :
-    QDialog(parent), ui(new Ui::Statistic), m_currentDir(QDir::currentPath()) , m_fileNameCompanys(m_currentDir + "/arhiv_stranke.txt"), m_fileRacun(m_currentDir + "/arhiv_novRacun.txt"), m_upnikiSeznam(m_currentDir + "/arhiv_upnikiSeznam.txt"), m_numInCombo(1)
+    QDialog(parent), ui(new Ui::Statistic), m_currentDir(QDir::currentPath()) , m_fileNameCompanys(m_currentDir + "/arhiv_stranke.txt"),
+    m_fileRacun(m_currentDir + "/arhiv_novRacun.txt"), m_upnikiSeznam(m_currentDir + "/arhiv_upnikiSeznam.txt"), m_numInCombo(1), m_show_child(false)
 {
     ui->setupUi(this);
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
-    this->setWindowTitle("Statistika");
+    this->setWindowTitle("Statistika terjatve");
     this->setWindowFlags(Qt::Window);
+    this->showMaximized();
     int color(0);
     for(int i(0); i < 150; i++) {
         color = qrand() % 255;
@@ -51,6 +53,14 @@ Statistic::Statistic(QWidget *parent) :
 Statistic::~Statistic()
 {
     delete ui;
+}
+
+void Statistic::CloseChild() {
+    m_show_child = false;
+}
+
+void Statistic::closeEvent(QCloseEvent *) {
+    emit close_me();
 }
 
 void Statistic::AddToComboBox(QString mFileName) {
@@ -140,8 +150,7 @@ void Statistic::AddToTableWidget(QString fileName)
             if(opomba == "racun_je_bil_spremenjen!!!????" || opomba == "racun_je_bil_odstranjen!!!????") {
                 continue;
             }
-            if(ui->comboBox_podjetja->currentIndex() == 0)
-            {
+            if(ui->comboBox_podjetja->currentIndex() == 0) {
                 tmp = mList.at(5);
                 if(tmp.endsWith(date)) {
                     tmp.remove("Dat_izdaje: ");
@@ -359,7 +368,8 @@ void Statistic::AddToTableWidget(QString fileName)
                         mSumSkupaj = num.toDouble() + tmp.toDouble();
                         if(mSumSkupaj < 0)
                             mSumSkupaj = 0;
-                        itm_setOsnova->setTextAlignment(Qt::AlignCenter);
+                        itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        itm_setOsnovaBrezIF->setTextAlignment(Qt::AlignCenter);
                         if(mSumSkupaj > 0)
                             itm_setSkupajBrezIF->setTextColor(QColor("green"));
                         ui->tableWidget_brez->setItem(1,2,itm_setSkupajBrezIF);
@@ -1416,6 +1426,7 @@ void Statistic::AddToTableWidget(QString fileName)
                     continue;
                 }
             } else if(tmp == ui->comboBox_podjetja->currentText()) {
+                qDebug() << tmp;
                 tmp = mList.at(5);
                 if(tmp.endsWith(date)) {
                     tmp.remove("Dat_izdaje: ");
@@ -2866,10 +2877,17 @@ void Statistic::on_tableWidget_vse_itemDoubleClicked(QTableWidgetItem *item) {
     dateOd.setDate(ui->dateEdit->date().year(), item->row()+1, 1);
     QDate dateDo;
     dateDo.setDate(ui->dateEdit->date().year(), item->row()+1, dateOd.daysInMonth());
-    terjatve.SetStatisticParameterTerjatve(ui->comboBox_podjetja->currentIndex(),  dateOd, dateDo);
+    terjatve.SetStatisticParameterTerjatve(ui->comboBox_podjetja->currentIndex(),  dateOd, dateDo, false);
     terjatve.ReadTerjatve(true);
-    close();
-    terjatve.exec();
+    this->hide();
+    QObject::connect(&terjatve,SIGNAL(close_me()),this,SLOT(CloseChild()));
+    m_show_child = true;
+    while (m_show_child) {
+        terjatve.exec();
+    }
+    Plot();
+    AddToTableWidget(m_fileRacun);
+    this->show();
 }
 
 void Statistic::on_tableWidget_brez_itemDoubleClicked(QTableWidgetItem *item) {
@@ -2879,8 +2897,21 @@ void Statistic::on_tableWidget_brez_itemDoubleClicked(QTableWidgetItem *item) {
     dateOd.setDate(ui->dateEdit->date().year(), item->row()+1, 1);
     QDate dateDo;
     dateDo.setDate(ui->dateEdit->date().year(), item->row()+1, dateOd.daysInMonth());
-    terjatve.SetStatisticParameterTerjatve(ui->comboBox_podjetja->currentIndex(),  dateOd, dateDo);
+    terjatve.SetStatisticParameterTerjatve(ui->comboBox_podjetja->currentIndex(),  dateOd, dateDo, true);
     terjatve.ReadTerjatve(false);
-    close();
-    terjatve.exec();
+    this->hide();
+    QObject::connect(&terjatve,SIGNAL(close_me()),this,SLOT(CloseChild()));
+    m_show_child = true;
+    while (m_show_child) {
+        terjatve.exec();
+    }
+    Plot();
+    AddToTableWidget(m_fileRacun);
+    this->show();
+}
+
+void Statistic::on_comboBox_podjetja_currentIndexChanged(int index) {
+    qDebug() << index;
+    Plot();
+    AddToTableWidget(m_fileRacun);
 }

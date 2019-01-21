@@ -9,15 +9,18 @@ numOfItemsKalk::numOfItemsKalk(QWidget *parent) :
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
     this->setWindowTitle("Vstavi količino");
-    QRegularExpression regex("^[.0123456789]*$");
+    QRegularExpression regex("^[.,0123456789]*$");
     QValidator *validator = new QRegularExpressionValidator(regex, this);
     ui->lineEdit_dolzina->setValidator(validator);
     ui->lineEdit_kos->setValidator(validator);
 }
 
-numOfItemsKalk::~numOfItemsKalk()
-{
+numOfItemsKalk::~numOfItemsKalk() {
     delete ui;
+}
+
+void numOfItemsKalk::closeEvent(QCloseEvent *) {
+    emit close_me();
 }
 
 void numOfItemsKalk::LineEditorState(bool dolzina) {
@@ -25,15 +28,14 @@ void numOfItemsKalk::LineEditorState(bool dolzina) {
     else ui->lineEdit_dolzina->setDisabled(true);
 }
 
-void numOfItemsKalk::on_pushButton_vstavi_clicked()
-{
-    close();
+void numOfItemsKalk::on_pushButton_vstavi_clicked() {
     if(ui->lineEdit_dolzina->isEnabled() && ui->lineEdit_dolzina->text() != "")
-        m_kolicina = QString::number(ui->lineEdit_dolzina->text().toDouble() / 1000);
+        m_kolicina = QString::number(ui->lineEdit_dolzina->text().replace(",",".").toDouble() / 1000);
     else if(ui->lineEdit_kos->isEnabled() && ui->lineEdit_kos->text() != "")
-        m_kolicina = ui->lineEdit_kos->text();
+        m_kolicina = ui->lineEdit_kos->text().replace(",",".");
     else
         m_kolicina = "0";
+    close();
 }
 
 void numOfItemsKalk::reject() {
