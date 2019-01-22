@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>200</width>
-    <height>160</height>
+    <width>250</width>
+    <height>205</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,14 +18,14 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>200</width>
-    <height>160</height>
+    <width>250</width>
+    <height>205</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>200</width>
-    <height>160</height>
+    <width>250</width>
+    <height>205</height>
    </size>
   </property>
   <property name="font">
@@ -54,6 +54,15 @@
            <bold>true</bold>
           </font>
          </property>
+         <property name="frameShape">
+          <enum>QFrame::Panel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>2</number>
+         </property>
          <property name="text">
           <string>Nastavitve</string>
          </property>
@@ -72,6 +81,41 @@
         </widget>
        </item>
       </layout>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Panel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <property name="text">
+        <string>Trenutna lokacija shranjevanja:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_lokacija">
+       <property name="frameShape">
+        <enum>QFrame::Panel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Sunken</enum>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
      </item>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_3">

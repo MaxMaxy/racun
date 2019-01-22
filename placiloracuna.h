@@ -18,9 +18,15 @@ class PlaciloRacuna : public QDialog
 public:
     explicit PlaciloRacuna(QWidget *parent = nullptr);
     ~PlaciloRacuna();
-    void setOpombe(QString&, QString&, QString&, bool);
+    void setOpombe(QString&, QString&, QString&, QString&, bool);
     bool deleteRacun;
     bool m_quit;
+
+protected:
+    void closeEvent(QCloseEvent *);
+
+signals:
+  void close_me();
 
 public slots:
     QStringList on_pushButton_clicked();
@@ -30,6 +36,10 @@ private slots:
     void on_lineEdit_opombe_textChanged(const QString &arg1);
     void on_pushButton_izbris_clicked();
     void reject();
+
+    void on_radioButton_placiloSkupaj_clicked();
+
+    void on_radioButton_placiloEnkratno_clicked();
 
 private:
     Ui::PlaciloRacuna *ui;

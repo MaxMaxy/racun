@@ -36,6 +36,15 @@
            <bold>true</bold>
           </font>
          </property>
+         <property name="frameShape">
+          <enum>QFrame::Panel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>2</number>
+         </property>
          <property name="text">
           <string>Statistika</string>
          </property>
@@ -69,6 +78,12 @@
              <italic>true</italic>
              <bold>true</bold>
             </font>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::Panel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
            </property>
            <property name="text">
             <string>Stranke:</string>
@@ -157,6 +172,12 @@
              <italic>true</italic>
              <bold>true</bold>
             </font>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::Panel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
            </property>
            <property name="text">
             <string>SKUPAJ TERJATVE</string>
@@ -297,6 +318,12 @@
              <bold>true</bold>
             </font>
            </property>
+           <property name="frameShape">
+            <enum>QFrame::Panel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
            <property name="text">
             <string>ODPRTE TERJATVE</string>
            </property>
@@ -425,6 +452,12 @@
            <weight>75</weight>
            <bold>true</bold>
           </font>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Panel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
          </property>
          <property name="text">
           <string>Statistika po mesecih (OSNOVA TERJATVE)</string>

@@ -27,6 +27,12 @@ public:
     void AddItemsToCombo();
     void Search(QString);
 
+signals:
+    void close_me();
+
+protected:
+    void closeEvent(QCloseEvent *);
+
 private slots:
     void on_comboBox_currentIndexChanged(const QString&);
     void on_radioButton_uspesnaPrijava_toggled(bool);
@@ -40,12 +46,16 @@ private slots:
     void on_radioButton_noviRacuni_toggled(bool checked);
     void on_radioButton_spremenjeniRacuni_toggled(bool checked);
     void on_lineEdit_isci_textChanged();
+    void CloseChild();
+
+    void on_pushButton_clicked();
 
 private:
     Ui::Arhiv *ui;
     QString m_currentDir;
     QString m_fileName;
     QString m_arhivRacun;
+    bool m_show_child;
 
 };
 

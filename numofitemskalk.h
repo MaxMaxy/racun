@@ -18,6 +18,12 @@ public:
     QString m_kolicina;
     ~numOfItemsKalk();
 
+protected:
+    void closeEvent(QCloseEvent *);
+
+signals:
+  void close_me();
+
 private slots:
     void on_pushButton_vstavi_clicked();
     void reject();

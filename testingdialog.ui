@@ -36,14 +36,14 @@
     </rect>
    </property>
    <property name="text">
-    <string>Test</string>
+    <string>To ANSI</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>50</y>
+     <x>240</x>
+     <y>290</y>
      <width>113</width>
      <height>23</height>
     </rect>
@@ -86,7 +86,79 @@
     </rect>
    </property>
    <property name="text">
-    <string>Test 2</string>
+    <string>To UTF-8</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonSendMail">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>390</y>
+     <width>113</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>send mail</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonBrowsFiles">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>330</y>
+     <width>113</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Brows files</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_text">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>240</y>
+     <width>113</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_subject">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>180</y>
+     <width>113</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>150</y>
+     <width>87</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Subjekt</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>210</y>
+     <width>87</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Sporocilo</string>
    </property>
   </widget>
  </widget>

@@ -11,6 +11,8 @@ int main(int argc, char *argv[])
     w.show();
     //Login login;
     //login.setModal(true);
+    //MainWindow::hide();
     //login.exec();
+    //MainWindow::show();
     return a.exec();
 }

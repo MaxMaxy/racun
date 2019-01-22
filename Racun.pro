@@ -5,19 +5,27 @@
 #-------------------------------------------------
 
 greaterThan(QT_MAJOR_VERSION, 4) {
-    QT       += widgets
-    QT       += core
-    QT       += gui
-    QT       += printsupport
-    QT       += xml
-    QT       += serialport
-    QT       += network
+    QT += widgets
+    QT += core
+    QT += gui
+    QT += printsupport
+    QT += xml
+    QT += serialport
+    QT += network
+    QT += sql
+    QT += svg
 }
+
 TARGET = Racun
 TEMPLATE = app
 
 QTPLUGIN += windowsprintersupport
 
+target.path = C:/Qt/Tools/mingw530_32/opt
+documentation.files = bin/libeay32.dll
+documentation.files = bin/ssleay32.dll
+INSTALLS += target
+CONFIG += openssl-linked
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
@@ -50,7 +58,9 @@ SOURCES += \
     testingdialog.cpp \
     kalkulacija.cpp \
     numofitemskalk.cpp \
-    numofhours.cpp
+    numofhours.cpp \
+    statistikaobveznosti.cpp \
+    smtp.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -70,7 +80,9 @@ HEADERS += \
     testingdialog.h \
     kalkulacija.h \
     numofitemskalk.h \
-    numofhours.h
+    numofhours.h \
+    statistikaobveznosti.h \
+    smtp.h
 
 FORMS += \
     mainwindow.ui \
@@ -89,7 +101,8 @@ FORMS += \
     testingdialog.ui \
     kalkulacija.ui \
     numofitemskalk.ui \
-    numofhours.ui
+    numofhours.ui \
+    statistikaobveznosti.ui
 
 RESOURCES += \
     files.qrc

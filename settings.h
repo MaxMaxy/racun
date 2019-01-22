@@ -21,6 +21,12 @@ public:
     explicit Settings(QWidget *parent = nullptr);
     ~Settings();
 
+protected:
+    void closeEvent(QCloseEvent *);
+
+signals:
+  void close_me();
+
 private slots:
     void on_pushButton_shraniV_clicked();
     void on_pushButton_nastaviShrani_clicked();
