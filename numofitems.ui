@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>193</width>
-    <height>121</height>
+    <width>290</width>
+    <height>125</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>290</width>
+    <height>125</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>290</width>
+    <height>125</height>
+   </size>
   </property>
   <property name="font">
    <font>
@@ -34,8 +46,17 @@
          <bold>true</bold>
         </font>
        </property>
+       <property name="frameShape">
+        <enum>QFrame::Panel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <property name="lineWidth">
+        <number>2</number>
+       </property>
        <property name="text">
-        <string>Število kosov</string>
+        <string>Število kosov/količina</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

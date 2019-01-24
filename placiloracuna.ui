@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>431</width>
-    <height>280</height>
+    <width>600</width>
+    <height>400</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>600</width>
+    <height>400</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>600</width>
+    <height>400</height>
+   </size>
   </property>
   <property name="font">
    <font>
@@ -36,6 +48,15 @@
            <bold>true</bold>
           </font>
          </property>
+         <property name="frameShape">
+          <enum>QFrame::Panel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>2</number>
+         </property>
          <property name="text">
           <string>Plačilo</string>
          </property>
@@ -56,23 +77,55 @@
       </layout>
      </item>
      <item>
+      <widget class="QLabel" name="label_5">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Panel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <property name="text">
+        <string>Terjatev / obveznost:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_terObv">
+       <property name="minimumSize">
+        <size>
+         <width>450</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Panel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Sunken</enum>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QLabel" name="label_2">
+        <widget class="QRadioButton" name="radioButton_placiloSkupaj">
          <property name="font">
           <font>
-           <family>MS Sans Serif</family>
-           <pointsize>10</pointsize>
            <weight>75</weight>
-           <italic>true</italic>
            <bold>true</bold>
           </font>
          </property>
          <property name="text">
-          <string>Znesek:</string>
-         </property>
-         <property name="buddy">
-          <cstring>lineEdit</cstring>
+          <string>Znesek plačila (celotno plačilo):</string>
          </property>
         </widget>
        </item>
@@ -85,6 +138,22 @@
           </font>
          </property>
         </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton_placiloEnkratno">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Znesek plačila (obročno plačilo):</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_TrenutnoPlacilo"/>
        </item>
       </layout>
      </item>
@@ -100,6 +169,12 @@
            <italic>true</italic>
            <bold>true</bold>
           </font>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Panel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
          </property>
          <property name="text">
           <string>Datum plačila:</string>
@@ -134,6 +209,12 @@
            <italic>true</italic>
            <bold>true</bold>
           </font>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Panel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
          </property>
          <property name="text">
           <string>Opombe:</string>
@@ -181,6 +262,18 @@
        </property>
        <property name="text">
         <string>IZBRIS</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Izhod</string>
        </property>
       </widget>
      </item>

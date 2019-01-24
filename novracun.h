@@ -21,6 +21,8 @@
 #include <QXmlStreamWriter>
 #include <QPrintPreviewDialog>
 #include <QDesktopServices>
+#include <QFileDialog>
+#include "smtp.h"
 #include "numofitems.h"
 #include "dodajprodukt.h"
 
@@ -44,8 +46,15 @@ public:
     void Shrani();
     void MakeXML();
     void PopraviRacun(QString, QString, QString, QString, QString, QString, QString, QString, QString, QString);
+    void sendMail(QString);
+    void mailSent(QString);
     QString CenaDDV(QString, QString);
 
+signals:
+    void close_me();
+
+protected:
+    void closeEvent(QCloseEvent *);
 
 private slots:
     void on_comboBox_narocnik_currentIndexChanged();
@@ -58,6 +67,8 @@ private slots:
     void on_lineEdit_stRacuna_textChanged(const QString &arg1);
     void on_lineEdit_sklic_textChanged(const QString &arg1);
     void on_lineEdit_textChanged(const QString &arg1);
+    void on_pushButton_izhod_clicked();
+    void CloseChild();
 
 private:
     Ui::NovRacun *ui;
@@ -74,15 +85,17 @@ private:
     QString m_numItems;
     QString m_shrani;
     QString m_fileShrani;
+    QStringList m_files;
     bool m_count;
     double m_total;
     int m_itemsAdded;
     int m_max_produktov;
     int m_vrstic;
     bool m_sprememba;
+    bool m_show_child;
 
 public slots:
-    int creatPDF();
+    void creatPDF();
 };
 
 #endif // NOVRACUN_H

@@ -7,11 +7,17 @@ TestingDialog::TestingDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     AddItemsToCombo();
+    connect(ui->pushButtonSendMail, SIGNAL(clicked()),this, SLOT(sendMail()));
+    connect(ui->pushButtonBrowsFiles, SIGNAL(clicked()), this, SLOT(browse()));
 }
 
 TestingDialog::~TestingDialog()
 {
     delete ui;
+}
+
+void TestingDialog::closeEvent(QCloseEvent *) {
+    emit close_me();
 }
 
 void TestingDialog::AddItemsToCombo() {
@@ -611,20 +617,20 @@ void TestingDialog::ReadFile() {
 }
 
 void TestingDialog::WriteUnicode() {
-    QString unicodeString = QString::fromUtf8("Some Unicode string čšžŠČŽ");
+    QString unicodeString = ui->lineEdit->text().toUtf8();
     QFile fileOut("C:\\Users\\Nejc\\Desktop\\qt_unicode.txt");
     if (!fileOut.open(QIODevice::WriteOnly | QIODevice::Text)) {
         return;
     }
     QTextStream streamFileOut(&fileOut);
     streamFileOut.setCodec("UTF-8");
-    streamFileOut << unicodeString;
+    streamFileOut << unicodeString.toUtf8();
     streamFileOut.flush();
     fileOut.close();
 }
 
 void TestingDialog::WriteASCII() {
-    QString ASCIIString = "Some Unicode string čšžŠČŽ";
+    QString ASCIIString = ui->lineEdit->text();
     QFile fileName("C:\\Users\\Nejc\\Desktop\\qt_NOunicode.txt");
     if(!fileName.open(QFile::WriteOnly | QIODevice::Text)) {
         qDebug() << "Error opening fileName for writing in dodaj produkt gumb";
@@ -637,11 +643,46 @@ void TestingDialog::WriteASCII() {
 }
 
 void TestingDialog::on_pushButton_Test_clicked() {
-    WriteUnicode();
+    WriteASCII();
     AddItemsToCombo();
 }
 
 void TestingDialog::on_pushButton_Test2_clicked() {
-    WriteASCII();
-    AddItemsToCombo();
+    sendMail();
+}
+
+void TestingDialog::browse()
+{
+    files.clear();
+
+    QFileDialog dialog(this);
+    dialog.setDirectory(QDir::homePath());
+    dialog.setFileMode(QFileDialog::ExistingFiles);
+
+    if (dialog.exec())
+        files = dialog.selectedFiles();
+
+    QString fileListString;
+    foreach(QString file, files)
+        fileListString.append( "\"" + QFileInfo(file).fileName() + "\" " );
+
+    ui->lineEdit->setText( fileListString );
+
+}
+
+void TestingDialog::sendMail()
+{
+    Smtp* smtp = new Smtp("elraseti@elraseti.si", "666M@xM@x666", "mail.elraseti.si", 465);
+    connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
+
+    if(!files.isEmpty())
+        smtp->sendMail("elraseti@elraseti.si", "sedovnik666@gmail.com", ui->lineEdit_subject->text(), ui->lineEdit_text->text(), files);
+    else
+        smtp->sendMail("elraseti@elraseti.si", "sedovnik666@gmail.com", ui->lineEdit_subject->text(), ui->lineEdit_text->text());
+}
+
+void TestingDialog::mailSent(QString status)
+{
+    if(status == "Message sent")
+        QMessageBox::warning( nullptr, tr( "Qt Simple SMTP client" ), tr( "Message sent!\n\n" ) );
 }

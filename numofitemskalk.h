@@ -16,7 +16,14 @@ public:
     explicit numOfItemsKalk(QWidget *parent = nullptr);
     void LineEditorState(bool);
     QString m_kolicina;
+    QString m_kalo;
     ~numOfItemsKalk();
+
+protected:
+    void closeEvent(QCloseEvent *);
+
+signals:
+  void close_me();
 
 private slots:
     void on_pushButton_vstavi_clicked();

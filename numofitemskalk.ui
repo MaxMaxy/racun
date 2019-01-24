@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>300</width>
-    <height>210</height>
+    <height>261</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>300</width>
-    <height>210</height>
+    <height>261</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>300</width>
-    <height>210</height>
+    <height>261</height>
    </size>
   </property>
   <property name="font">
@@ -47,8 +47,17 @@
            <bold>true</bold>
           </font>
          </property>
+         <property name="frameShape">
+          <enum>QFrame::Panel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>2</number>
+         </property>
          <property name="text">
-          <string>Količina:</string>
+          <string>Količina</string>
          </property>
         </widget>
        </item>
@@ -73,10 +82,18 @@
          <property name="font">
           <font>
            <family>Serif</family>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
          </property>
+         <property name="frameShape">
+          <enum>QFrame::Panel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
          <property name="text">
-          <string>Vstavi dolžino v milimetrih:</string>
+          <string>Dolžina v milimetrih:</string>
          </property>
         </widget>
        </item>
@@ -94,10 +111,18 @@
          <property name="font">
           <font>
            <family>Serif</family>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
          </property>
+         <property name="frameShape">
+          <enum>QFrame::Panel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
          <property name="text">
-          <string>Vstavi količino v kosih:</string>
+          <string>Količina v kosih:</string>
          </property>
         </widget>
        </item>
@@ -109,6 +134,28 @@
           </font>
          </property>
         </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_4">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Panel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="text">
+          <string>Kalo %:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_kalo"/>
        </item>
        <item>
         <spacer name="verticalSpacer">
@@ -135,6 +182,7 @@
        <property name="font">
         <font>
          <family>Serif</family>
+         <pointsize>12</pointsize>
          <weight>75</weight>
          <italic>true</italic>
          <bold>true</bold>

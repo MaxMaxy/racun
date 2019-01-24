@@ -17,6 +17,9 @@ Login::~Login()
     delete ui;
 }
 
+void Login::closeEvent(QCloseEvent *) {
+    emit close_me();
+}
 
 void Login::Arhiv(QString arhiv_file, QString stream)
 {
@@ -42,8 +45,7 @@ void Login::on_pushButton_clicked()
     QApplication::quit();
 }
 
-void Login::on_pushButton_prijava_clicked()
-{
+void Login::on_pushButton_prijava_clicked() {
     QDateTime date = QDateTime::currentDateTime();
     QFile fileName(m_fileName);
     if(!fileName.open(QFile::ReadOnly | QFile::Text))
@@ -72,4 +74,5 @@ void Login::on_pushButton_prijava_clicked()
             return;
         }
     }
+    close();
 }

@@ -30,6 +30,12 @@ public:
     void Search(QString, QString, QTreeWidget *);
     void Arhiv(QString, QString);
 
+signals:
+    void close_me();
+
+protected:
+    void closeEvent(QCloseEvent *);
+
 private slots:
     void on_lineEdit_iskalnik_textChanged(const QString &);
     void on_treeWidget_material_itemDoubleClicked();
@@ -38,22 +44,17 @@ private slots:
     void on_treeWidget_deloProdukta_itemDoubleClicked();
     void on_pushButton_dodajMaterial_clicked();
     void on_pushButton_dodajOperacijo_clicked();
-    void on_lineEdit_kalo_textChanged();
     void on_checkBox_popraviOperacijo_stateChanged();
     void on_checkBox_popravekMateriala_stateChanged();
     void on_pushButton_vnosProdukta_clicked();
-
     void on_lineEdit_nazivProdukta_textChanged(const QString &arg1);
-
     void on_lineEdit_nazivMateriala_textChanged(const QString &arg1);
-
     void on_lineEdit_cenaMateriala_textChanged(const QString &arg1);
-
     void on_lineEdit_operacija_textChanged(const QString &arg1);
-
     void on_lineEdit_cenaOperacije_textChanged(const QString &arg1);
-
     void on_lineEdit_cenaProdukta_textChanged(const QString &arg1);
+    void CloseChild();
+    void on_lineEdit_dodatekNaDelo_textChanged(const QString &arg1);
 
 private:
     Ui::Kalkulacija *ui;
@@ -66,6 +67,7 @@ private:
     double m_materialCena;
     double m_deloCena;
     bool m_count;
+    bool m_show_child;
 };
 
 #endif // KALKULACIJA_H
