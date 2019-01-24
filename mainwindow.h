@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include <QIcon>
+#include <QTextCodec>
+#include <QDir>
+#include <QDirIterator>
 #include "novracun.h"
 #include "dodajpodjetje.h"
 #include "dodajprodukt.h"
@@ -14,6 +17,7 @@
 #include "statistic.h"
 #include "kalkulacija.h"
 #include "testingdialog.h"
+#include "statistikaobveznosti.h"
 
 namespace Ui {
 class MainWindow;
@@ -47,9 +51,31 @@ private slots:
     void on_actionTesting_triggered();
     void on_pushButton_8_clicked();
     void on_actionKalkulacija_produkta_triggered();
+    void CheckFiles();
+    void CloseChild();
+    void on_actionStatistika_obveznosti_triggered();
+    void on_pushButton_9_clicked();
 
 private:
     Ui::MainWindow *ui;
+    QString m_copy_path;
+    QString m_currentDir;
+    QString m_arhiv_files;
+    QString m_arhiv_login;
+    QString m_arhiv_novRacun;
+    QString m_arhiv_produkti;
+    QString m_arhiv_stRacuna;
+    QString m_arhiv_stranke;
+    QString m_arhiv_upniki;
+    QString m_arhiv_upnikiSeznam;
+    QString m_company_file;
+    QString m_delavni_proces;
+    QString m_login_file;
+    QString m_material;
+    QString m_num_company;
+    QString m_settings;
+    bool m_show_child;
+    QString m_saveRacun;
 };
 
 #endif // MAINWINDOW_H

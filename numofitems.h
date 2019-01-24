@@ -18,6 +18,12 @@ public:
     ~NumOfItems();
     QString m_numKosov;
 
+protected:
+    void closeEvent(QCloseEvent *);
+
+signals:
+  void close_me();
+
 private slots:
     void on_pushButton_vnos_clicked();
     void reject();

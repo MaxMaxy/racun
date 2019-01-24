@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>458</width>
-    <height>862</height>
+    <width>541</width>
+    <height>782</height>
    </rect>
   </property>
   <property name="font">
@@ -25,346 +25,478 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="18" column="1" colspan="2">
-    <widget class="QTreeWidget" name="treeWidget">
+  <layout class="QGridLayout" name="gridLayout_4">
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="groupBox">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
-       <pointsize>10</pointsize>
-       <italic>true</italic>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">gridline-color: rgb(176, 176, 176);
-QHeaderView::section{padding:7px 15px}</string>
-     </property>
-     <property name="midLineWidth">
-      <number>0</number>
-     </property>
-     <property name="uniformRowHeights">
-      <bool>true</bool>
-     </property>
-     <column>
-      <property name="text">
-       <string>St.</string>
-      </property>
-      <property name="font">
-       <font>
-        <family>MS Sans Serif</family>
-        <pointsize>10</pointsize>
-        <italic>true</italic>
-       </font>
-      </property>
-      <property name="textAlignment">
-       <set>AlignCenter</set>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Seznam strank</string>
-      </property>
-      <property name="font">
-       <font>
-        <family>MS Sans Serif</family>
-        <pointsize>10</pointsize>
-        <italic>true</italic>
-       </font>
-      </property>
-      <property name="textAlignment">
-       <set>AlignCenter</set>
-      </property>
-     </column>
-    </widget>
-   </item>
-   <item row="8" column="1">
-    <widget class="QLabel" name="label_7">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <pointsize>10</pointsize>
-       <weight>75</weight>
-       <italic>true</italic>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Pošta:</string>
-     </property>
-     <property name="buddy">
-      <cstring>lineEdit_posta</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="9" column="1" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_posta">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <pointsize>10</pointsize>
-       <italic>true</italic>
-      </font>
-     </property>
-    </widget>
-   </item>
-   <item row="14" column="1" colspan="2">
-    <widget class="Line" name="line_3">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <italic>true</italic>
-      </font>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="QLabel" name="label">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
        <pointsize>18</pointsize>
        <weight>75</weight>
        <italic>true</italic>
        <bold>true</bold>
       </font>
      </property>
-     <property name="text">
-      <string>Dodaj stranko</string>
+     <property name="title">
+      <string>DODAJANJE STRANK</string>
      </property>
-    </widget>
-   </item>
-   <item row="6" column="1">
-    <widget class="QLabel" name="label_3">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <pointsize>10</pointsize>
-       <weight>75</weight>
-       <italic>true</italic>
-       <bold>true</bold>
-      </font>
+     <property name="flat">
+      <bool>true</bool>
      </property>
-     <property name="text">
-      <string>Naslov podjetja:</string>
-     </property>
-     <property name="buddy">
-      <cstring>lineEdit_naslov</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="1" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_kNaziv">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <pointsize>10</pointsize>
-       <italic>true</italic>
-      </font>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="1" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_naslov">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <pointsize>10</pointsize>
-       <italic>true</italic>
-      </font>
-     </property>
-    </widget>
-   </item>
-   <item row="11" column="1" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_ddv">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <pointsize>10</pointsize>
-       <italic>true</italic>
-      </font>
-     </property>
-    </widget>
-   </item>
-   <item row="10" column="1">
-    <widget class="QLabel" name="label_4">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <pointsize>10</pointsize>
-       <weight>75</weight>
-       <italic>true</italic>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>ID DDV:</string>
-     </property>
-     <property name="buddy">
-      <cstring>lineEdit_ddv</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="1">
-    <widget class="QLabel" name="label_6">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <pointsize>10</pointsize>
-       <weight>75</weight>
-       <italic>true</italic>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Celoten naziv:</string>
-     </property>
-     <property name="buddy">
-      <cstring>lineEdit_cNaziv</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="1" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_cNaziv">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <pointsize>10</pointsize>
-       <italic>true</italic>
-      </font>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="QLabel" name="label_2">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <pointsize>10</pointsize>
-       <weight>75</weight>
-       <italic>true</italic>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Kratek naziv:</string>
-     </property>
-     <property name="buddy">
-      <cstring>lineEdit_kNaziv</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="12" column="1">
-    <widget class="QLabel" name="label_5">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <pointsize>10</pointsize>
-       <weight>75</weight>
-       <italic>true</italic>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Elektronski naslov:</string>
-     </property>
-     <property name="buddy">
-      <cstring>lineEdit_email</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="13" column="1" colspan="2">
-    <widget class="QLineEdit" name="lineEdit_email">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <pointsize>10</pointsize>
-       <italic>true</italic>
-      </font>
-     </property>
-    </widget>
-   </item>
-   <item row="20" column="1" colspan="2">
-    <widget class="Line" name="line">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <italic>true</italic>
-      </font>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="16" column="2">
-    <widget class="QPushButton" name="pushButton_dodajPodjetje">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <pointsize>12</pointsize>
-       <italic>true</italic>
-      </font>
-     </property>
-     <property name="text">
-      <string>Dodaj stranko</string>
-     </property>
-    </widget>
-   </item>
-   <item row="16" column="1">
-    <widget class="QPushButton" name="pushButton_popraviPodatke">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <pointsize>12</pointsize>
-       <italic>true</italic>
-      </font>
-     </property>
-     <property name="text">
-      <string>Popravi podatke</string>
-     </property>
-    </widget>
-   </item>
-   <item row="17" column="1" colspan="2">
-    <widget class="Line" name="line_4">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <italic>true</italic>
-      </font>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1" colspan="2">
-    <widget class="Line" name="line_2">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <italic>true</italic>
-      </font>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="21" column="1" colspan="2">
-    <widget class="QPushButton" name="pushButton_izhod">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <pointsize>12</pointsize>
-       <italic>true</italic>
-      </font>
-     </property>
-     <property name="text">
-      <string>Izhod</string>
-     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="font">
+         <font>
+          <family>MS Sans Serif</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <italic>true</italic>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="title">
+         <string>Podatki stranke</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0">
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QLabel" name="label_2">
+             <property name="font">
+              <font>
+               <family>MS Sans Serif</family>
+               <pointsize>10</pointsize>
+               <weight>50</weight>
+               <italic>true</italic>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::WinPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <property name="text">
+              <string>Kratek naziv</string>
+             </property>
+             <property name="buddy">
+              <cstring>lineEdit_kNaziv</cstring>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_kNaziv">
+             <property name="font">
+              <font>
+               <family>MS Sans Serif</family>
+               <pointsize>10</pointsize>
+               <weight>75</weight>
+               <italic>true</italic>
+               <bold>true</bold>
+              </font>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="1" column="0">
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QLabel" name="label_6">
+             <property name="font">
+              <font>
+               <family>MS Sans Serif</family>
+               <pointsize>10</pointsize>
+               <weight>50</weight>
+               <italic>true</italic>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::WinPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <property name="text">
+              <string>Celoten naziv</string>
+             </property>
+             <property name="buddy">
+              <cstring>lineEdit_cNaziv</cstring>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_cNaziv">
+             <property name="font">
+              <font>
+               <family>MS Sans Serif</family>
+               <pointsize>10</pointsize>
+               <weight>75</weight>
+               <italic>true</italic>
+               <bold>true</bold>
+              </font>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="2" column="0">
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="QLabel" name="label_3">
+             <property name="font">
+              <font>
+               <family>MS Sans Serif</family>
+               <pointsize>10</pointsize>
+               <weight>50</weight>
+               <italic>true</italic>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::WinPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <property name="text">
+              <string>Naslov podjetja</string>
+             </property>
+             <property name="buddy">
+              <cstring>lineEdit_naslov</cstring>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_naslov">
+             <property name="font">
+              <font>
+               <family>MS Sans Serif</family>
+               <pointsize>10</pointsize>
+               <weight>75</weight>
+               <italic>true</italic>
+               <bold>true</bold>
+              </font>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="3" column="0">
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <widget class="QLabel" name="label_7">
+             <property name="font">
+              <font>
+               <family>MS Sans Serif</family>
+               <pointsize>10</pointsize>
+               <weight>50</weight>
+               <italic>true</italic>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::WinPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <property name="text">
+              <string>Pošta</string>
+             </property>
+             <property name="buddy">
+              <cstring>lineEdit_posta</cstring>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_posta">
+             <property name="font">
+              <font>
+               <family>MS Sans Serif</family>
+               <pointsize>10</pointsize>
+               <weight>75</weight>
+               <italic>true</italic>
+               <bold>true</bold>
+              </font>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="4" column="0">
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <widget class="QLabel" name="label_4">
+             <property name="font">
+              <font>
+               <family>MS Sans Serif</family>
+               <pointsize>10</pointsize>
+               <weight>50</weight>
+               <italic>true</italic>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::WinPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <property name="text">
+              <string>ID DDV</string>
+             </property>
+             <property name="buddy">
+              <cstring>lineEdit_ddv</cstring>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_ddv">
+             <property name="font">
+              <font>
+               <family>MS Sans Serif</family>
+               <pointsize>10</pointsize>
+               <weight>75</weight>
+               <italic>true</italic>
+               <bold>true</bold>
+              </font>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="5" column="0">
+          <layout class="QVBoxLayout" name="verticalLayout_6">
+           <item>
+            <widget class="QLabel" name="label_5">
+             <property name="font">
+              <font>
+               <family>MS Sans Serif</family>
+               <pointsize>10</pointsize>
+               <weight>50</weight>
+               <italic>true</italic>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::WinPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <property name="text">
+              <string>Elektronski naslov</string>
+             </property>
+             <property name="buddy">
+              <cstring>lineEdit_email</cstring>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_email">
+             <property name="font">
+              <font>
+               <family>MS Sans Serif</family>
+               <pointsize>10</pointsize>
+               <weight>75</weight>
+               <italic>true</italic>
+               <bold>true</bold>
+              </font>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
+         <widget class="Line" name="line_3">
+          <property name="font">
+           <font>
+            <family>MS Sans Serif</family>
+            <pointsize>18</pointsize>
+            <weight>75</weight>
+            <italic>true</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QPushButton" name="pushButton_popraviPodatke">
+            <property name="font">
+             <font>
+              <family>MS Sans Serif</family>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <italic>true</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Popravi podatke</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_dodajPodjetje">
+            <property name="font">
+             <font>
+              <family>MS Sans Serif</family>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <italic>true</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Dodaj stranko</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="Line" name="line_4">
+          <property name="font">
+           <font>
+            <family>MS Sans Serif</family>
+            <pointsize>18</pointsize>
+            <weight>75</weight>
+            <italic>true</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="2" column="0">
+       <layout class="QVBoxLayout" name="verticalLayout_9">
+        <item>
+         <widget class="QGroupBox" name="groupBox_3">
+          <property name="font">
+           <font>
+            <family>MS Sans Serif</family>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <italic>true</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="title">
+           <string>Seznam strank</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="0">
+            <widget class="QTreeWidget" name="treeWidget">
+             <property name="font">
+              <font>
+               <family>MS Sans Serif</family>
+               <pointsize>10</pointsize>
+               <weight>50</weight>
+               <italic>true</italic>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">gridline-color: rgb(176, 176, 176);
+QHeaderView::section{padding:7px 15px}</string>
+             </property>
+             <property name="midLineWidth">
+              <number>0</number>
+             </property>
+             <property name="uniformRowHeights">
+              <bool>true</bool>
+             </property>
+             <column>
+              <property name="text">
+               <string>Št.</string>
+              </property>
+              <property name="font">
+               <font>
+                <family>MS Sans Serif</family>
+                <pointsize>10</pointsize>
+                <italic>true</italic>
+               </font>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Seznam strank</string>
+              </property>
+              <property name="font">
+               <font>
+                <family>MS Sans Serif</family>
+                <pointsize>10</pointsize>
+                <italic>true</italic>
+               </font>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_8">
+          <item>
+           <widget class="Line" name="line">
+            <property name="font">
+             <font>
+              <family>MS Sans Serif</family>
+              <pointsize>18</pointsize>
+              <weight>75</weight>
+              <italic>true</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_izhod">
+            <property name="font">
+             <font>
+              <family>MS Sans Serif</family>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <italic>true</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Izhod</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>

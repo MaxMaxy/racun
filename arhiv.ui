@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>710</width>
-    <height>515</height>
+    <height>558</height>
    </rect>
   </property>
   <property name="font">
@@ -20,254 +20,322 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
+  <layout class="QGridLayout" name="gridLayout_3">
    <item row="0" column="0">
-    <widget class="QLabel" name="label_2">
+    <widget class="QGroupBox" name="groupBox_5">
      <property name="font">
       <font>
-       <family>MS Sans Serif</family>
        <pointsize>18</pointsize>
        <weight>75</weight>
-       <italic>true</italic>
        <bold>true</bold>
+       <kerning>true</kerning>
       </font>
      </property>
-     <property name="text">
-      <string>Arhiv</string>
+     <property name="title">
+      <string>ARHIV</string>
      </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="Line" name="line">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <italic>true</italic>
-      </font>
+     <property name="flat">
+      <bool>true</bool>
      </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+     <property name="checkable">
+      <bool>false</bool>
      </property>
-    </widget>
-   </item>
-   <item row="6" column="0">
-    <widget class="QLabel" name="label">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <pointsize>10</pointsize>
-       <weight>75</weight>
-       <italic>true</italic>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Iskalnik</string>
-     </property>
-     <property name="buddy">
-      <cstring>lineEdit_isci</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="0">
-    <widget class="QLineEdit" name="lineEdit_isci">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <pointsize>10</pointsize>
-       <italic>true</italic>
-      </font>
-     </property>
-    </widget>
-   </item>
-   <item row="10" column="0">
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <widget class="QRadioButton" name="radioButton_vse">
-           <property name="font">
-            <font>
-             <family>MS Sans Serif</family>
-             <pointsize>10</pointsize>
-             <italic>true</italic>
-            </font>
-           </property>
-           <property name="text">
-            <string>Vse</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_noviRacuni">
-           <property name="font">
-            <font>
-             <family>MS Sans Serif</family>
-             <pointsize>10</pointsize>
-             <italic>true</italic>
-            </font>
-           </property>
-           <property name="text">
-            <string>Novi računi</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_spremenjeniRacuni">
-           <property name="font">
-            <font>
-             <family>MS Sans Serif</family>
-             <pointsize>10</pointsize>
-             <italic>true</italic>
-            </font>
-           </property>
-           <property name="text">
-            <string>Spremenjeni računi</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_dodaneStranke">
-           <property name="font">
-            <font>
-             <family>MS Sans Serif</family>
-             <pointsize>10</pointsize>
-             <italic>true</italic>
-            </font>
-           </property>
-           <property name="text">
-            <string>Dodane stranke</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_popravljeneStranke">
-           <property name="font">
-            <font>
-             <family>MS Sans Serif</family>
-             <pointsize>10</pointsize>
-             <italic>true</italic>
-            </font>
-           </property>
-           <property name="text">
-            <string>Popravljene stranke</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_dodaniProdukti">
-           <property name="font">
-            <font>
-             <family>MS Sans Serif</family>
-             <pointsize>10</pointsize>
-             <italic>true</italic>
-            </font>
-           </property>
-           <property name="text">
-            <string>Dodani produkti</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_popravljeniProdukti">
-           <property name="font">
-            <font>
-             <family>MS Sans Serif</family>
-             <pointsize>10</pointsize>
-             <italic>true</italic>
-            </font>
-           </property>
-           <property name="text">
-            <string>Popravljeni produkti</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_uspesnaPrijava">
-           <property name="font">
-            <font>
-             <family>MS Sans Serif</family>
-             <pointsize>10</pointsize>
-             <italic>true</italic>
-            </font>
-           </property>
-           <property name="text">
-            <string>Uspešna prijava</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_neuspesnaPrijava">
-           <property name="font">
-            <font>
-             <family>MS Sans Serif</family>
-             <pointsize>10</pointsize>
-             <italic>true</italic>
-            </font>
-           </property>
-           <property name="text">
-            <string>Neuspešna prijava</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="QListWidget" name="listWidget">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="font">
-          <font>
-           <family>MS Sans Serif</family>
-           <pointsize>10</pointsize>
-           <italic>true</italic>
-          </font>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton">
-       <property name="font">
-        <font>
-         <family>MS Sans Serif</family>
-         <pointsize>12</pointsize>
-         <italic>true</italic>
-        </font>
-       </property>
-       <property name="text">
-        <string>Izhod</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="2" column="0">
-    <widget class="QComboBox" name="comboBox">
-     <property name="font">
-      <font>
-       <family>MS Sans Serif</family>
-       <pointsize>12</pointsize>
-       <italic>true</italic>
-      </font>
-     </property>
-    </widget>
-   </item>
-   <item row="9" column="0">
-    <widget class="QPushButton" name="pushButton_isci">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Posodobi</string>
-     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetDefaultConstraint</enum>
+      </property>
+      <item row="0" column="0">
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <widget class="QGroupBox" name="groupBox_3">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="title">
+             <string>Izbira datoteke</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <item>
+              <widget class="QComboBox" name="comboBox">
+               <property name="font">
+                <font>
+                 <family>MS Sans Serif</family>
+                 <pointsize>10</pointsize>
+                 <italic>true</italic>
+                </font>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_2">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="title">
+             <string>Iskalnik teksta v datoteki</string>
+            </property>
+            <property name="flat">
+             <bool>false</bool>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout">
+             <item>
+              <widget class="QLineEdit" name="lineEdit_isci">
+               <property name="font">
+                <font>
+                 <family>MS Sans Serif</family>
+                 <pointsize>10</pointsize>
+                 <italic>true</italic>
+                </font>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_isci">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Posodobi</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QGroupBox" name="groupBox">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="title">
+             <string>Hitri iskalnik</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_2">
+             <item>
+              <widget class="QRadioButton" name="radioButton_uspesnaPrijava">
+               <property name="font">
+                <font>
+                 <family>MS Sans Serif</family>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <italic>true</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Uspešna prijava</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="radioButton_dodaniProdukti">
+               <property name="font">
+                <font>
+                 <family>MS Sans Serif</family>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <italic>true</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Dodani produkti</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="radioButton_vse">
+               <property name="font">
+                <font>
+                 <family>MS Sans Serif</family>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <italic>true</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Vse</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="radioButton_popravljeniProdukti">
+               <property name="font">
+                <font>
+                 <family>MS Sans Serif</family>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <italic>true</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Popravljeni produkti</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="radioButton_popravljeneStranke">
+               <property name="font">
+                <font>
+                 <family>MS Sans Serif</family>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <italic>true</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Popravljene stranke</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="radioButton_spremenjeniRacuni">
+               <property name="font">
+                <font>
+                 <family>MS Sans Serif</family>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <italic>true</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Spremenjeni računi</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="radioButton_noviRacuni">
+               <property name="font">
+                <font>
+                 <family>MS Sans Serif</family>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <italic>true</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Novi računi</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="radioButton_dodaneStranke">
+               <property name="font">
+                <font>
+                 <family>MS Sans Serif</family>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <italic>true</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Dodane stranke</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="radioButton_neuspesnaPrijava">
+               <property name="font">
+                <font>
+                 <family>MS Sans Serif</family>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <italic>true</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Neuspešna prijava</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_4">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="title">
+             <string>Vsebina datoteke</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout">
+             <item row="0" column="0">
+              <widget class="QListWidget" name="listWidget">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="font">
+                <font>
+                 <family>MS Sans Serif</family>
+                 <pointsize>10</pointsize>
+                 <italic>true</italic>
+                </font>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="font">
+           <font>
+            <family>MS Sans Serif</family>
+            <pointsize>12</pointsize>
+            <italic>true</italic>
+           </font>
+          </property>
+          <property name="text">
+           <string>Izhod</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>
@@ -276,15 +344,6 @@
   <tabstop>pushButton_isci</tabstop>
   <tabstop>comboBox</tabstop>
   <tabstop>lineEdit_isci</tabstop>
-  <tabstop>radioButton_vse</tabstop>
-  <tabstop>radioButton_noviRacuni</tabstop>
-  <tabstop>radioButton_spremenjeniRacuni</tabstop>
-  <tabstop>radioButton_dodaneStranke</tabstop>
-  <tabstop>radioButton_popravljeneStranke</tabstop>
-  <tabstop>radioButton_dodaniProdukti</tabstop>
-  <tabstop>radioButton_popravljeniProdukti</tabstop>
-  <tabstop>radioButton_uspesnaPrijava</tabstop>
-  <tabstop>radioButton_neuspesnaPrijava</tabstop>
   <tabstop>listWidget</tabstop>
   <tabstop>pushButton</tabstop>
  </tabstops>
