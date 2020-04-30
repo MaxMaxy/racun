@@ -10,6 +10,7 @@
 #include <QDir>
 #include <QTextStream>
 #include <QIcon>
+#include <QClipboard>
 #include "vnosobveznosti.h"
 #include "novracun.h"
 #include "placiloracuna.h"
@@ -32,9 +33,16 @@ public:
     void AddRootObveznosti(QStringList, bool);
     void Search(QString, QString, bool);
     void SumTerjatve();
-    void SetStatisticParameterTerjatve(int, QDate, QDate);
-    void SetStatisticParameterObveznosti(int, QDate, QDate);
+    void SetStatisticParameterTerjatve(int, QDate, QDate, bool);
+    void SetStatisticParameterObveznosti(int, QDate, QDate, bool);
     void LabelsUpdate();
+    void Shrani();
+
+protected:
+    void closeEvent(QCloseEvent *);
+
+signals:
+  void close_me();
 
 private slots:
     void on_comboBox_stranke_currentIndexChanged();
@@ -46,7 +54,6 @@ private slots:
     void on_dateEdit_obveznostiDo_editingFinished();
     void on_pushButton_2_clicked();
     void on_treeWidget_terjatve_itemDoubleClicked(QTreeWidgetItem *);
-    void on_treeWidget_obveznosti_itemDoubleClicked(QTreeWidgetItem *);
     void on_lineEdit_iskalnikTerjatve_textChanged();
     void on_lineEdit_iskalnikObveznosti_textChanged();
     void on_comboBox_stranke_currentIndexChanged(int index);
@@ -59,6 +66,9 @@ private slots:
     void on_checkBox_neplacaneObveznosti_stateChanged(int arg1);
     void on_pushButton_isciTerjatve_clicked();
     void on_pushButton_isciObveznosti_clicked();
+    void CloseChild();
+    void on_treeWidget_terjatve_itemPressed(QTreeWidgetItem *item, int column);
+    void on_treeWidget_obveznosti_itemDoubleClicked(QTreeWidgetItem *item, int column);
 
 private:
     Ui::Terjatve *ui;
@@ -67,11 +77,15 @@ private:
     QString m_terjatve;
     QString m_obveznosti;
     QString m_upnikiSeznam;
+    QString m_shrani;
+    QString m_fileShrani;
     double m_totalTerjatve;
     double m_totalObveznosti;
     double m_totalTerMinObv;
     double m_totalTerjatveStaro;
     double m_totalObveznostiStaro;
+    bool m_show_child;
+    QClipboard *m_copyText;
 };
 
 #endif // TERJATVE_H

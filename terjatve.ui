@@ -20,146 +20,86 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
+  <layout class="QGridLayout" name="gridLayout_4">
    <item row="0" column="0">
-    <layout class="QVBoxLayout" name="verticalLayout_14">
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_13">
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <widget class="QLabel" name="label">
-           <property name="font">
-            <font>
-             <family>MS Sans Serif</family>
-             <pointsize>18</pointsize>
-             <weight>75</weight>
-             <italic>true</italic>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Obveznosti / Terjatve</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="Line" name="line">
-           <property name="font">
-            <font>
-             <italic>true</italic>
-            </font>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_10">
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout_7">
-             <item>
-              <widget class="QLabel" name="label_7">
-               <property name="font">
-                <font>
-                 <family>MS Sans Serif</family>
-                 <pointsize>12</pointsize>
-                 <weight>75</weight>
-                 <italic>true</italic>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>Terjatve</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="Line" name="line_2">
-               <property name="font">
-                <font>
-                 <italic>true</italic>
-                </font>
-               </property>
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_2">
-               <property name="font">
-                <font>
-                 <family>MS Sans Serif</family>
-                 <pointsize>10</pointsize>
-                 <weight>75</weight>
-                 <italic>true</italic>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>Dolžnik:</string>
-               </property>
-               <property name="buddy">
-                <cstring>comboBox_stranke</cstring>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <layout class="QVBoxLayout" name="verticalLayout_2">
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1670</width>
+        <height>861</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="groupBox">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="title">
+          <string>OBVEZNOSTI / TERJATVE</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_7">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QGroupBox" name="groupBox_2">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="title">
+               <string>Terjatve</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_3">
+               <item>
+                <widget class="QLabel" name="label_2">
+                 <property name="font">
+                  <font>
+                   <family>MS Sans Serif</family>
+                   <pointsize>10</pointsize>
+                   <weight>50</weight>
+                   <italic>true</italic>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Panel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="text">
+                  <string>Dolžnik</string>
+                 </property>
+                 <property name="buddy">
+                  <cstring>comboBox_stranke</cstring>
+                 </property>
+                </widget>
+               </item>
                <item>
                 <widget class="QComboBox" name="comboBox_stranke">
                  <property name="font">
                   <font>
                    <family>MS Sans Serif</family>
-                   <pointsize>12</pointsize>
-                   <weight>50</weight>
-                   <italic>true</italic>
-                   <bold>false</bold>
-                  </font>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout">
-             <item>
-              <layout class="QVBoxLayout" name="verticalLayout_3">
-               <item>
-                <widget class="QLabel" name="label_3">
-                 <property name="font">
-                  <font>
-                   <family>MS Sans Serif</family>
-                   <pointsize>10</pointsize>
-                   <weight>75</weight>
-                   <italic>true</italic>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Od:</string>
-                 </property>
-                 <property name="buddy">
-                  <cstring>dateEdit_terjatveOd</cstring>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QDateEdit" name="dateEdit_terjatveOd">
-                 <property name="font">
-                  <font>
-                   <family>MS Sans Serif</family>
                    <pointsize>10</pointsize>
                    <weight>50</weight>
                    <italic>true</italic>
@@ -168,228 +108,98 @@
                  </property>
                 </widget>
                </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QVBoxLayout" name="verticalLayout_4">
                <item>
-                <widget class="QLabel" name="label_4">
-                 <property name="font">
-                  <font>
-                   <family>MS Sans Serif</family>
-                   <pointsize>10</pointsize>
-                   <weight>75</weight>
-                   <italic>true</italic>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Do:</string>
-                 </property>
-                 <property name="buddy">
-                  <cstring>dateEdit_terjatveDo</cstring>
-                 </property>
-                </widget>
+                <layout class="QHBoxLayout" name="horizontalLayout">
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout">
+                   <item>
+                    <widget class="QLabel" name="label_3">
+                     <property name="font">
+                      <font>
+                       <family>MS Sans Serif</family>
+                       <pointsize>10</pointsize>
+                       <weight>50</weight>
+                       <italic>true</italic>
+                       <bold>false</bold>
+                      </font>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::Panel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
+                     </property>
+                     <property name="text">
+                      <string>Od</string>
+                     </property>
+                     <property name="buddy">
+                      <cstring>dateEdit_terjatveOd</cstring>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QDateEdit" name="dateEdit_terjatveOd">
+                     <property name="font">
+                      <font>
+                       <family>MS Sans Serif</family>
+                       <pointsize>10</pointsize>
+                       <weight>50</weight>
+                       <italic>true</italic>
+                       <bold>false</bold>
+                      </font>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_2">
+                   <item>
+                    <widget class="QLabel" name="label_4">
+                     <property name="font">
+                      <font>
+                       <family>MS Sans Serif</family>
+                       <pointsize>10</pointsize>
+                       <weight>50</weight>
+                       <italic>true</italic>
+                       <bold>false</bold>
+                      </font>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::Panel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
+                     </property>
+                     <property name="text">
+                      <string>Do</string>
+                     </property>
+                     <property name="buddy">
+                      <cstring>dateEdit_terjatveDo</cstring>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QDateEdit" name="dateEdit_terjatveDo">
+                     <property name="font">
+                      <font>
+                       <family>MS Sans Serif</family>
+                       <pointsize>10</pointsize>
+                       <weight>50</weight>
+                       <italic>true</italic>
+                       <bold>false</bold>
+                      </font>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
                </item>
                <item>
-                <widget class="QDateEdit" name="dateEdit_terjatveDo">
+                <widget class="QPushButton" name="pushButton_isciTerjatve">
                  <property name="font">
                   <font>
-                   <family>MS Sans Serif</family>
-                   <pointsize>10</pointsize>
-                   <weight>50</weight>
-                   <italic>true</italic>
-                   <bold>false</bold>
-                  </font>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_isciTerjatve">
-             <property name="text">
-              <string>Posodobi</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_13">
-             <property name="font">
-              <font>
-               <family>MS Sans Serif</family>
-               <pointsize>10</pointsize>
-               <weight>75</weight>
-               <italic>true</italic>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Iskalnik:</string>
-             </property>
-             <property name="buddy">
-              <cstring>lineEdit_iskalnikTerjatve</cstring>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="lineEdit_iskalnikTerjatve">
-             <property name="font">
-              <font>
-               <family>MS Sans Serif</family>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <italic>true</italic>
-               <bold>false</bold>
-              </font>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="checkBox_neplacaneTerjatve">
-             <property name="font">
-              <font>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Neplačane terjatve</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QTreeWidget" name="treeWidget_terjatve">
-             <property name="font">
-              <font>
-               <family>MS Sans Serif</family>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <italic>true</italic>
-               <bold>false</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QHeaderView::section{padding:7px 15px}</string>
-             </property>
-             <column>
-              <property name="text">
-               <string>Račun št.</string>
-              </property>
-              <property name="textAlignment">
-               <set>AlignCenter</set>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Stranka</string>
-              </property>
-              <property name="textAlignment">
-               <set>AlignCenter</set>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Datum izdaje</string>
-              </property>
-              <property name="textAlignment">
-               <set>AlignCenter</set>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Datum valute</string>
-              </property>
-              <property name="textAlignment">
-               <set>AlignCenter</set>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Znesek</string>
-              </property>
-              <property name="textAlignment">
-               <set>AlignCenter</set>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Plačilo</string>
-              </property>
-              <property name="textAlignment">
-               <set>AlignCenter</set>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Datum plačila</string>
-              </property>
-              <property name="textAlignment">
-               <set>AlignCenter</set>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Opomba</string>
-              </property>
-              <property name="textAlignment">
-               <set>AlignCenter</set>
-              </property>
-             </column>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_2">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-               <italic>true</italic>
-              </font>
-             </property>
-             <property name="text">
-              <string>Vnesi nov račun</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="Line" name="line_4">
-           <property name="font">
-            <font>
-             <italic>true</italic>
-            </font>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="Line" name="line_5">
-           <property name="font">
-            <font>
-             <italic>true</italic>
-            </font>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_12">
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout_11">
-             <item>
-              <layout class="QVBoxLayout" name="verticalLayout_9">
-               <item>
-                <widget class="QLabel" name="label_8">
-                 <property name="font">
-                  <font>
-                   <family>MS Sans Serif</family>
                    <pointsize>12</pointsize>
                    <weight>75</weight>
                    <italic>true</italic>
@@ -397,479 +207,718 @@
                   </font>
                  </property>
                  <property name="text">
-                  <string>Obveznosti</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
+                  <string>Posodobi</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="Line" name="line_3">
+                <widget class="QGroupBox" name="groupBox_5">
+                 <property name="title">
+                  <string>Iskalnik</string>
+                 </property>
+                 <layout class="QGridLayout" name="gridLayout_2">
+                  <item row="0" column="0">
+                   <widget class="QLineEdit" name="lineEdit_iskalnikTerjatve">
+                    <property name="font">
+                     <font>
+                      <family>MS Sans Serif</family>
+                      <pointsize>10</pointsize>
+                      <weight>50</weight>
+                      <italic>true</italic>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="checkBox_neplacaneTerjatve">
                  <property name="font">
                   <font>
-                   <italic>true</italic>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
                   </font>
                  </property>
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
+                 <property name="text">
+                  <string>Neplačane terjatve</string>
                  </property>
                 </widget>
                </item>
+               <item>
+                <widget class="QTreeWidget" name="treeWidget_terjatve">
+                 <property name="font">
+                  <font>
+                   <family>MS Sans Serif</family>
+                   <pointsize>10</pointsize>
+                   <weight>50</weight>
+                   <italic>true</italic>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QHeaderView::section{padding:7px 15px}</string>
+                 </property>
+                 <column>
+                  <property name="text">
+                   <string>Račun št.</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Stranka</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Datum izdaje</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Datum valute</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Znesek</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Plačilo</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Datum plačila</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Opomba</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                 </column>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_2">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                   <weight>75</weight>
+                   <italic>true</italic>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Vnesi nov račun</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="groupBox_3">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="title">
+               <string>Obveznosti</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_6">
                <item>
                 <widget class="QLabel" name="label_14">
                  <property name="font">
                   <font>
                    <family>MS Sans Serif</family>
                    <pointsize>10</pointsize>
+                   <weight>50</weight>
+                   <italic>true</italic>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Panel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="text">
+                  <string>Upnik</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="comboBox">
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_2">
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_4">
+                   <item>
+                    <widget class="QLabel" name="label_5">
+                     <property name="font">
+                      <font>
+                       <family>MS Sans Serif</family>
+                       <pointsize>10</pointsize>
+                       <weight>50</weight>
+                       <italic>true</italic>
+                       <bold>false</bold>
+                      </font>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::Panel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
+                     </property>
+                     <property name="text">
+                      <string>Od</string>
+                     </property>
+                     <property name="buddy">
+                      <cstring>dateEdit_obveznostiOd</cstring>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QDateEdit" name="dateEdit_obveznostiOd">
+                     <property name="font">
+                      <font>
+                       <family>MS Sans Serif</family>
+                       <pointsize>10</pointsize>
+                       <weight>50</weight>
+                       <italic>true</italic>
+                       <bold>false</bold>
+                      </font>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_5">
+                   <item>
+                    <widget class="QLabel" name="label_6">
+                     <property name="font">
+                      <font>
+                       <family>MS Sans Serif</family>
+                       <pointsize>10</pointsize>
+                       <weight>50</weight>
+                       <italic>true</italic>
+                       <bold>false</bold>
+                      </font>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::Panel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
+                     </property>
+                     <property name="text">
+                      <string>Do</string>
+                     </property>
+                     <property name="buddy">
+                      <cstring>dateEdit_obveznostiDo</cstring>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QDateEdit" name="dateEdit_obveznostiDo">
+                     <property name="font">
+                      <font>
+                       <family>MS Sans Serif</family>
+                       <pointsize>10</pointsize>
+                       <weight>50</weight>
+                       <italic>true</italic>
+                       <bold>false</bold>
+                      </font>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_isciObveznosti">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
                    <weight>75</weight>
                    <italic>true</italic>
                    <bold>true</bold>
                   </font>
                  </property>
                  <property name="text">
-                  <string>Upnik:</string>
+                  <string>Posodobi</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <layout class="QVBoxLayout" name="verticalLayout_8">
-                 <item>
-                  <widget class="QComboBox" name="comboBox">
-                   <property name="font">
-                    <font>
-                     <pointsize>12</pointsize>
-                    </font>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_2">
-               <item>
-                <layout class="QVBoxLayout" name="verticalLayout_6">
-                 <item>
-                  <widget class="QLabel" name="label_5">
-                   <property name="font">
-                    <font>
-                     <family>MS Sans Serif</family>
-                     <pointsize>10</pointsize>
-                     <weight>75</weight>
-                     <italic>true</italic>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>Od:</string>
-                   </property>
-                   <property name="buddy">
-                    <cstring>dateEdit_obveznostiOd</cstring>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QDateEdit" name="dateEdit_obveznostiOd">
-                   <property name="font">
-                    <font>
-                     <family>MS Sans Serif</family>
-                     <pointsize>10</pointsize>
-                     <weight>50</weight>
-                     <italic>true</italic>
-                     <bold>false</bold>
-                    </font>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
+                <widget class="QGroupBox" name="groupBox_4">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="title">
+                  <string>Iskalnik</string>
+                 </property>
+                 <layout class="QGridLayout" name="gridLayout">
+                  <item row="0" column="0">
+                   <widget class="QLineEdit" name="lineEdit_iskalnikObveznosti">
+                    <property name="font">
+                     <font>
+                      <family>MS Sans Serif</family>
+                      <pointsize>10</pointsize>
+                      <weight>50</weight>
+                      <italic>true</italic>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
                </item>
                <item>
-                <layout class="QVBoxLayout" name="verticalLayout_5">
-                 <item>
-                  <widget class="QLabel" name="label_6">
-                   <property name="font">
-                    <font>
-                     <family>MS Sans Serif</family>
-                     <pointsize>10</pointsize>
-                     <weight>75</weight>
-                     <italic>true</italic>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>Do:</string>
-                   </property>
-                   <property name="buddy">
-                    <cstring>dateEdit_obveznostiDo</cstring>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QDateEdit" name="dateEdit_obveznostiDo">
-                   <property name="font">
-                    <font>
-                     <family>MS Sans Serif</family>
-                     <pointsize>10</pointsize>
-                     <weight>50</weight>
-                     <italic>true</italic>
-                     <bold>false</bold>
-                    </font>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
+                <widget class="QCheckBox" name="checkBox_neplacaneObveznosti">
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Neplačane obveznosti</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QTreeWidget" name="treeWidget_obveznosti">
+                 <property name="font">
+                  <font>
+                   <family>MS Sans Serif</family>
+                   <pointsize>10</pointsize>
+                   <weight>50</weight>
+                   <italic>true</italic>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QHeaderView::section{padding:7px 15px}</string>
+                 </property>
+                 <column>
+                  <property name="text">
+                   <string>Listina</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Dobavitelj</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Znesek</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Datum valute</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Znesek plačila</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Datum plačila</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Opombe</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                 </column>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                   <weight>75</weight>
+                   <italic>true</italic>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Vnesi novo obveznost</string>
+                 </property>
+                </widget>
                </item>
               </layout>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_isciObveznosti">
-             <property name="text">
-              <string>Posodobi</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_9">
-             <property name="font">
-              <font>
-               <family>MS Sans Serif</family>
-               <pointsize>10</pointsize>
-               <weight>75</weight>
-               <italic>true</italic>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Iskalnik:</string>
-             </property>
-             <property name="buddy">
-              <cstring>lineEdit_iskalnikObveznosti</cstring>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="lineEdit_iskalnikObveznosti">
-             <property name="font">
-              <font>
-               <family>MS Sans Serif</family>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <italic>true</italic>
-               <bold>false</bold>
-              </font>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="checkBox_neplacaneObveznosti">
-             <property name="font">
-              <font>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Neplačane obveznosti</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QTreeWidget" name="treeWidget_obveznosti">
-             <property name="font">
-              <font>
-               <family>MS Sans Serif</family>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <italic>true</italic>
-               <bold>false</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QHeaderView::section{padding:7px 15px}</string>
-             </property>
-             <column>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="QLabel" name="label_obveznostiStaro">
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::WinPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
               <property name="text">
-               <string>Listina</string>
+               <string/>
               </property>
-              <property name="textAlignment">
-               <set>AlignCenter</set>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
-             </column>
-             <column>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_obveznostiStaroCena">
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::WinPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Sunken</enum>
+              </property>
               <property name="text">
-               <string>Dobavitelj</string>
+               <string/>
               </property>
-              <property name="textAlignment">
-               <set>AlignCenter</set>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QLabel" name="label_terjatveStaro">
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
+               </font>
               </property>
-             </column>
-             <column>
+              <property name="frameShape">
+               <enum>QFrame::WinPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
               <property name="text">
-               <string>Znesek</string>
+               <string/>
               </property>
-              <property name="textAlignment">
-               <set>AlignCenter</set>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
-             </column>
-             <column>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_terjatveStaroCena">
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::WinPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Sunken</enum>
+              </property>
               <property name="text">
-               <string>Datum valute</string>
+               <string/>
               </property>
-              <property name="textAlignment">
-               <set>AlignCenter</set>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_6">
+            <item>
+             <widget class="QLabel" name="label_11">
+              <property name="font">
+               <font>
+                <family>MS Sans Serif</family>
+                <pointsize>10</pointsize>
+                <weight>50</weight>
+                <italic>true</italic>
+                <bold>false</bold>
+               </font>
               </property>
-             </column>
-             <column>
+              <property name="frameShape">
+               <enum>QFrame::WinPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
               <property name="text">
-               <string>Znesek plačila</string>
+               <string>Skupaj obveznosti:</string>
               </property>
-              <property name="textAlignment">
-               <set>AlignCenter</set>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
-             </column>
-             <column>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_skupajObveznosti">
+              <property name="font">
+               <font>
+                <family>MS Sans Serif</family>
+                <pointsize>10</pointsize>
+                <weight>50</weight>
+                <italic>true</italic>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::WinPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Sunken</enum>
+              </property>
               <property name="text">
-               <string>Datum plačila</string>
+               <string/>
               </property>
-              <property name="textAlignment">
-               <set>AlignCenter</set>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <item>
+             <widget class="QLabel" name="label_10">
+              <property name="font">
+               <font>
+                <family>MS Sans Serif</family>
+                <pointsize>10</pointsize>
+                <weight>50</weight>
+                <italic>true</italic>
+                <bold>false</bold>
+               </font>
               </property>
-             </column>
-             <column>
+              <property name="frameShape">
+               <enum>QFrame::WinPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
               <property name="text">
-               <string>Opombe</string>
+               <string>Skupaj terjatve:</string>
               </property>
-              <property name="textAlignment">
-               <set>AlignCenter</set>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
-             </column>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-               <italic>true</italic>
-              </font>
-             </property>
-             <property name="text">
-              <string>Vnesi novo obveznost</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_skupajTerjatve">
+              <property name="font">
+               <font>
+                <family>MS Sans Serif</family>
+                <pointsize>10</pointsize>
+                <weight>50</weight>
+                <italic>true</italic>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::WinPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Sunken</enum>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="Line" name="line_7">
+            <property name="font">
+             <font>
+              <italic>true</italic>
+             </font>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_8">
+            <item>
+             <widget class="QLabel" name="label_12">
+              <property name="font">
+               <font>
+                <family>MS Sans Serif</family>
+                <pointsize>10</pointsize>
+                <weight>75</weight>
+                <italic>true</italic>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::WinPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <property name="lineWidth">
+               <number>2</number>
+              </property>
+              <property name="text">
+               <string>Terjatve - obveznosti:</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_terjatve_obveznosti">
+              <property name="font">
+               <font>
+                <family>MS Sans Serif</family>
+                <pointsize>12</pointsize>
+                <weight>75</weight>
+                <italic>true</italic>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::WinPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Sunken</enum>
+              </property>
+              <property name="lineWidth">
+               <number>2</number>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_izhod">
+            <property name="font">
+             <font>
+              <family>MS Sans Serif</family>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <italic>true</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Izhod</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </item>
       </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_5">
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_15">
-         <item>
-          <widget class="QLabel" name="label_obveznostiStaro">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_terjatveStaro">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_11">
-           <property name="font">
-            <font>
-             <family>MS Sans Serif</family>
-             <pointsize>12</pointsize>
-             <weight>75</weight>
-             <italic>true</italic>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Skupaj obveznosti:</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_10">
-           <property name="font">
-            <font>
-             <family>MS Sans Serif</family>
-             <pointsize>12</pointsize>
-             <weight>75</weight>
-             <italic>true</italic>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Skupaj terjatve:</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="Line" name="line_7">
-           <property name="font">
-            <font>
-             <italic>true</italic>
-            </font>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_12">
-           <property name="font">
-            <font>
-             <family>MS Sans Serif</family>
-             <pointsize>14</pointsize>
-             <weight>75</weight>
-             <italic>true</italic>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Terjatve - obveznosti:</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_16">
-         <item>
-          <widget class="QLabel" name="label_obveznostiStaroCena">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_terjatveStaroCena">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_skupajObveznosti">
-           <property name="font">
-            <font>
-             <family>MS Sans Serif</family>
-             <pointsize>12</pointsize>
-             <weight>75</weight>
-             <italic>true</italic>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_skupajTerjatve">
-           <property name="font">
-            <font>
-             <family>MS Sans Serif</family>
-             <pointsize>12</pointsize>
-             <weight>75</weight>
-             <italic>true</italic>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="Line" name="line_8">
-           <property name="font">
-            <font>
-             <italic>true</italic>
-            </font>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_terjatve_obveznosti">
-           <property name="font">
-            <font>
-             <family>MS Sans Serif</family>
-             <pointsize>14</pointsize>
-             <weight>75</weight>
-             <italic>true</italic>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="Line" name="line_6">
-       <property name="font">
-        <font>
-         <italic>true</italic>
-        </font>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_izhod">
-       <property name="font">
-        <font>
-         <family>MS Sans Serif</family>
-         <pointsize>12</pointsize>
-         <italic>true</italic>
-        </font>
-       </property>
-       <property name="text">
-        <string>Izhod</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+     </widget>
+    </widget>
    </item>
   </layout>
  </widget>
@@ -879,6 +928,7 @@
   <tabstop>dateEdit_terjatveOd</tabstop>
   <tabstop>dateEdit_terjatveDo</tabstop>
   <tabstop>lineEdit_iskalnikTerjatve</tabstop>
+  <tabstop>checkBox_neplacaneTerjatve</tabstop>
   <tabstop>treeWidget_terjatve</tabstop>
   <tabstop>pushButton_2</tabstop>
   <tabstop>pushButton_isciObveznosti</tabstop>
@@ -886,6 +936,7 @@
   <tabstop>dateEdit_obveznostiOd</tabstop>
   <tabstop>dateEdit_obveznostiDo</tabstop>
   <tabstop>lineEdit_iskalnikObveznosti</tabstop>
+  <tabstop>checkBox_neplacaneObveznosti</tabstop>
   <tabstop>treeWidget_obveznosti</tabstop>
   <tabstop>pushButton</tabstop>
   <tabstop>pushButton_izhod</tabstop>

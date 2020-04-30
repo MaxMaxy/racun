@@ -2,13 +2,15 @@
 #include "ui_statistic.h"
 
 Statistic::Statistic(QWidget *parent) :
-    QDialog(parent), ui(new Ui::Statistic), m_currentDir(QDir::currentPath()) , m_fileNameCompanys(m_currentDir + "/arhiv_stranke.txt"), m_fileRacun(m_currentDir + "/arhiv_novRacun.txt"), m_upnikiSeznam(m_currentDir + "/arhiv_upnikiSeznam.txt"), m_numInCombo(1)
+    QDialog(parent), ui(new Ui::Statistic), m_currentDir(QDir::currentPath()) , m_fileNameCompanys(m_currentDir + "/arhiv_stranke.txt"),
+    m_fileRacun(m_currentDir + "/arhiv_novRacun.txt"), m_upnikiSeznam(m_currentDir + "/arhiv_upnikiSeznam.txt"), m_numInCombo(1), m_show_child(false)
 {
     ui->setupUi(this);
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
-    this->setWindowTitle("Statistika");
+    this->setWindowTitle("Statistika terjatve");
     this->setWindowFlags(Qt::Window);
+    this->showMaximized();
     int color(0);
     for(int i(0); i < 150; i++) {
         color = qrand() % 255;
@@ -31,7 +33,7 @@ Statistic::Statistic(QWidget *parent) :
     AddToTableWidget(m_fileRacun);
     ui->tableWidget_vse->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableWidget_brez->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->plot->legend->setWrap(5);
+    ui->plot->legend->setWrap(10);
     ui->plot->clearPlottables();
     QFile mFile(m_currentDir + "/num_company.txt");
     if(!mFile.open(QFile::ReadOnly | QFile::Text)) {
@@ -51,6 +53,14 @@ Statistic::Statistic(QWidget *parent) :
 Statistic::~Statistic()
 {
     delete ui;
+}
+
+void Statistic::CloseChild() {
+    m_show_child = false;
+}
+
+void Statistic::closeEvent(QCloseEvent *) {
+    emit close_me();
 }
 
 void Statistic::AddToComboBox(QString mFileName) {
@@ -137,11 +147,12 @@ void Statistic::AddToTableWidget(QString fileName)
             tmp.remove("Narocnik: ");
             opomba = mList.at(12);
             opomba.remove("Opomba: ");
-            if(opomba == "racun_je_bil_spremenjen!!!????" || opomba == "racun_je_bil_odstranjen!!!????") {
+            QString test(mList.at(0));
+            test.remove(' ');
+            if(opomba == "racun_je_bil_spremenjen!!!????" || opomba == "racun_je_bil_odstranjen!!!????" || test == "Ponudba" || test == "Dobavnica") {
                 continue;
             }
-            if(ui->comboBox_podjetja->currentIndex() == 0)
-            {
+            if(ui->comboBox_podjetja->currentIndex() == 0) {
                 tmp = mList.at(5);
                 if(tmp.endsWith(date)) {
                     tmp.remove("Dat_izdaje: ");
@@ -196,7 +207,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             itm_setOsnovaBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(0,0,itm_setOsnovaBrezIF);
                         }
                         else
@@ -210,7 +221,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             itm_setOsnovaBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(0,0,itm_setOsnovaBrezIF);
                         }
 
@@ -228,7 +239,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             itm_setDDVBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(0,1,itm_setDDVBrezIF);
                         }
                         else
@@ -239,7 +250,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             itm_setDDVBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(0,1,itm_setDDVBrezIF);
                         }
 
@@ -254,7 +265,7 @@ void Statistic::AddToTableWidget(QString fileName)
                         itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
                         itm_setSkupajBrezIF->setTextAlignment(Qt::AlignCenter);
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(0,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -304,7 +315,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             itm_setOsnovaBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(1,0,itm_setOsnovaBrezIF);
                         }
                         else
@@ -318,7 +329,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             itm_setOsnovaBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(1,0,itm_setOsnovaBrezIF);
                         }
 
@@ -336,7 +347,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             itm_setDDVBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(1,1,itm_setDDVBrezIF);
                         }
                         else
@@ -347,7 +358,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             itm_setDDVBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(1,1,itm_setDDVBrezIF);
                         }
 
@@ -359,9 +370,10 @@ void Statistic::AddToTableWidget(QString fileName)
                         mSumSkupaj = num.toDouble() + tmp.toDouble();
                         if(mSumSkupaj < 0)
                             mSumSkupaj = 0;
-                        itm_setOsnova->setTextAlignment(Qt::AlignCenter);
+                        itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
+                        itm_setOsnovaBrezIF->setTextAlignment(Qt::AlignCenter);
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(1,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -407,7 +419,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumOsnova = 0;
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
 
                             ui->tableWidget_brez->setItem(2,0,itm_setOsnovaBrezIF);
                         }
@@ -421,9 +433,9 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumOsnova += tmp.toDouble();
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(2,0,itm_setOsnovaBrezIF);
                         }
 
@@ -440,7 +452,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumSkupaj = 0;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(2,1,itm_setDDVBrezIF);
                         }
                         else
@@ -450,7 +462,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumDDV = num.toDouble() * 0.22;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(2,1,itm_setDDVBrezIF);
                         }
 
@@ -464,7 +476,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumSkupaj = 0;
                         itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));itm_setOsnova->setTextAlignment(Qt::AlignCenter);
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(2,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -510,7 +522,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumOsnova = 0;
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(3,0,itm_setOsnovaBrezIF);
                         }
                         else
@@ -523,7 +535,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumOsnova += tmp.toDouble();
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(3,0,itm_setOsnovaBrezIF);
                         }
 
@@ -540,7 +552,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumSkupaj = 0;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(3,1,itm_setDDVBrezIF);
                         }
                         else
@@ -550,7 +562,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumDDV = num.toDouble() * 0.22;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(3,1,itm_setDDVBrezIF);
                         }
 
@@ -564,7 +576,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumSkupaj = 0;
                         itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));itm_setOsnova->setTextAlignment(Qt::AlignCenter);
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(3,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -610,7 +622,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumOsnova = 0;
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(4,0,itm_setOsnovaBrezIF);
                         }
                         else
@@ -623,7 +635,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumOsnova += tmp.toDouble();
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(4,0,itm_setOsnovaBrezIF);
                         }
 
@@ -640,7 +652,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumSkupaj = 0;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(4,1,itm_setDDVBrezIF);
                         }
                         else
@@ -650,7 +662,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumDDV = num.toDouble() * 0.22;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(4,1,itm_setDDVBrezIF);
                         }
 
@@ -664,7 +676,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumSkupaj = 0;
                         itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));itm_setOsnova->setTextAlignment(Qt::AlignCenter);
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(4,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -710,7 +722,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumOsnova = 0;
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(5,0,itm_setOsnovaBrezIF);
                         }
                         else
@@ -723,7 +735,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumOsnova += tmp.toDouble();
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(5,0,itm_setOsnovaBrezIF);
                         }
 
@@ -740,7 +752,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumSkupaj = 0;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(5,1,itm_setDDVBrezIF);
                         }
                         else
@@ -750,7 +762,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumDDV = num.toDouble() * 0.22;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(5,1,itm_setDDVBrezIF);
                         }
 
@@ -764,7 +776,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumSkupaj = 0;
                         itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));itm_setOsnova->setTextAlignment(Qt::AlignCenter);itm_setOsnova->setTextAlignment(Qt::AlignCenter);
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(5,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -810,7 +822,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumOsnova = 0;
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(6,0,itm_setOsnovaBrezIF);
                         }
                         else
@@ -823,7 +835,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumOsnova += tmp.toDouble();
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(6,0,itm_setOsnovaBrezIF);
                         }
 
@@ -840,7 +852,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumSkupaj = 0;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(6,1,itm_setDDVBrezIF);
                         }
                         else
@@ -850,7 +862,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumDDV = num.toDouble() * 0.22;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(6,1,itm_setDDVBrezIF);
                         }
 
@@ -865,7 +877,7 @@ void Statistic::AddToTableWidget(QString fileName)
                         itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
                         itm_setOsnova->setTextAlignment(Qt::AlignCenter);
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(6,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -915,7 +927,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             itm_setOsnovaBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(7,0,itm_setOsnovaBrezIF);
                         }
                         else
@@ -929,7 +941,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             itm_setOsnovaBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(7,0,itm_setOsnovaBrezIF);
                         }
 
@@ -947,7 +959,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             itm_setDDVBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(7,1,itm_setDDVBrezIF);
                         }
                         else
@@ -958,7 +970,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
                             itm_setDDVBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(7,1,itm_setDDVBrezIF);
                         }
 
@@ -973,7 +985,7 @@ void Statistic::AddToTableWidget(QString fileName)
                         itm_setSkupajBrezIF->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
                         itm_setSkupajBrezIF->setTextAlignment(Qt::AlignCenter);
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(7,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -1023,7 +1035,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
                             itm_setOsnovaBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(8,0,itm_setOsnovaBrezIF);
                         }
                         else
@@ -1037,7 +1049,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
                             itm_setOsnovaBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(8,0,itm_setOsnovaBrezIF);
                         }
 
@@ -1055,7 +1067,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
                             itm_setDDVBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(8,1,itm_setDDVBrezIF);
                         }
                         else
@@ -1066,7 +1078,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
                             itm_setDDVBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(8,1,itm_setDDVBrezIF);
                         }
 
@@ -1081,7 +1093,7 @@ void Statistic::AddToTableWidget(QString fileName)
                         itm_setSkupajBrezIF->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
                         itm_setSkupajBrezIF->setTextAlignment(Qt::AlignCenter);
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(8,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -1131,7 +1143,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
                             itm_setOsnovaBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(9,0,itm_setOsnovaBrezIF);
                         }
                         else
@@ -1145,7 +1157,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
                             itm_setOsnovaBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(9,0,itm_setOsnovaBrezIF);
                         }
 
@@ -1163,7 +1175,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
                             itm_setDDVBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(9,1,itm_setDDVBrezIF);
                         }
                         else
@@ -1174,7 +1186,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
                             itm_setDDVBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(9,1,itm_setDDVBrezIF);
                         }
 
@@ -1189,7 +1201,7 @@ void Statistic::AddToTableWidget(QString fileName)
                         itm_setSkupajBrezIF->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
                         itm_setSkupajBrezIF->setTextAlignment(Qt::AlignCenter);
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(9,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -1239,7 +1251,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
                             itm_setOsnovaBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(10,0,itm_setOsnovaBrezIF);
                         }
                         else
@@ -1253,7 +1265,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
                             itm_setOsnovaBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(10,0,itm_setOsnovaBrezIF);
                         }
 
@@ -1271,7 +1283,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
                             itm_setDDVBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(10,1,itm_setDDVBrezIF);
                         }
                         else
@@ -1282,7 +1294,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
                             itm_setDDVBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(10,1,itm_setDDVBrezIF);
                         }
 
@@ -1297,7 +1309,7 @@ void Statistic::AddToTableWidget(QString fileName)
                         itm_setSkupajBrezIF->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
                         itm_setSkupajBrezIF->setTextAlignment(Qt::AlignCenter);
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(10,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -1347,7 +1359,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
                             itm_setOsnovaBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(11,0,itm_setOsnovaBrezIF);
                         }
                         else
@@ -1361,7 +1373,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
                             itm_setOsnovaBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(11,0,itm_setOsnovaBrezIF);
                         }
 
@@ -1379,7 +1391,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
                             itm_setDDVBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(11,1,itm_setDDVBrezIF);
                         }
                         else
@@ -1390,7 +1402,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
                             itm_setDDVBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(11,1,itm_setDDVBrezIF);
                         }
 
@@ -1405,7 +1417,7 @@ void Statistic::AddToTableWidget(QString fileName)
                         itm_setSkupajBrezIF->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
                         itm_setSkupajBrezIF->setTextAlignment(Qt::AlignCenter);
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(11,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -1469,7 +1481,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             itm_setOsnovaBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(0,0,itm_setOsnovaBrezIF);
                         }
                         else
@@ -1483,7 +1495,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             itm_setOsnovaBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(0,0,itm_setOsnovaBrezIF);
                         }
 
@@ -1501,7 +1513,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             itm_setDDVBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(0,1,itm_setDDVBrezIF);
                         }
                         else
@@ -1512,7 +1524,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             itm_setDDVBrezIF->setTextAlignment(Qt::AlignCenter);
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(0,1,itm_setDDVBrezIF);
                         }
 
@@ -1527,7 +1539,7 @@ void Statistic::AddToTableWidget(QString fileName)
                         itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
                         itm_setSkupajBrezIF->setTextAlignment(Qt::AlignCenter);
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(0,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -1573,7 +1585,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumOsnova = 0;
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(1,0,itm_setOsnovaBrezIF);
                         }
                         else
@@ -1586,7 +1598,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumOsnova += tmp.toDouble();
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(1,0,itm_setOsnovaBrezIF);
                         }
 
@@ -1603,7 +1615,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumSkupaj = 0;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(1,1,itm_setDDVBrezIF);
                         }
                         else
@@ -1613,7 +1625,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumDDV = num.toDouble() * 0.22;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(1,1,itm_setDDVBrezIF);
                         }
 
@@ -1627,7 +1639,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumSkupaj = 0;
                         itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(1,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -1673,7 +1685,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumOsnova = 0;
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
 
                             ui->tableWidget_brez->setItem(2,0,itm_setOsnovaBrezIF);
                         }
@@ -1687,9 +1699,9 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumOsnova += tmp.toDouble();
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(2,0,itm_setOsnovaBrezIF);
                         }
 
@@ -1706,7 +1718,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumSkupaj = 0;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(2,1,itm_setDDVBrezIF);
                         }
                         else
@@ -1716,7 +1728,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumDDV = num.toDouble() * 0.22;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(2,1,itm_setDDVBrezIF);
                         }
 
@@ -1730,7 +1742,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumSkupaj = 0;
                         itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(2,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -1776,7 +1788,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumOsnova = 0;
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(3,0,itm_setOsnovaBrezIF);
                         }
                         else
@@ -1789,7 +1801,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumOsnova += tmp.toDouble();
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(3,0,itm_setOsnovaBrezIF);
                         }
 
@@ -1806,7 +1818,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumSkupaj = 0;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(3,1,itm_setDDVBrezIF);
                         }
                         else
@@ -1816,7 +1828,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumDDV = num.toDouble() * 0.22;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(3,1,itm_setDDVBrezIF);
                         }
 
@@ -1830,7 +1842,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumSkupaj = 0;
                         itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(3,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -1876,7 +1888,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumOsnova = 0;
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(4,0,itm_setOsnovaBrezIF);
                         }
                         else
@@ -1889,7 +1901,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumOsnova += tmp.toDouble();
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(4,0,itm_setOsnovaBrezIF);
                         }
 
@@ -1906,7 +1918,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumSkupaj = 0;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(4,1,itm_setDDVBrezIF);
                         }
                         else
@@ -1916,7 +1928,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumDDV = num.toDouble() * 0.22;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(4,1,itm_setDDVBrezIF);
                         }
 
@@ -1930,7 +1942,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumSkupaj = 0;
                         itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(4,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -1976,7 +1988,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumOsnova = 0;
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(5,0,itm_setOsnovaBrezIF);
                         }
                         else
@@ -1989,7 +2001,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumOsnova += tmp.toDouble();
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(5,0,itm_setOsnovaBrezIF);
                         }
 
@@ -2006,7 +2018,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumSkupaj = 0;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(5,1,itm_setDDVBrezIF);
                         }
                         else
@@ -2016,7 +2028,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumDDV = num.toDouble() * 0.22;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(5,1,itm_setDDVBrezIF);
                         }
 
@@ -2030,7 +2042,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumSkupaj = 0;
                         itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(5,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -2076,7 +2088,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumOsnova = 0;
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(6,0,itm_setOsnovaBrezIF);
                         }
                         else
@@ -2089,7 +2101,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumOsnova += tmp.toDouble();
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(6,0,itm_setOsnovaBrezIF);
                         }
 
@@ -2106,7 +2118,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumSkupaj = 0;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(6,1,itm_setDDVBrezIF);
                         }
                         else
@@ -2116,7 +2128,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumDDV = num.toDouble() * 0.22;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(6,1,itm_setDDVBrezIF);
                         }
 
@@ -2130,7 +2142,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumSkupaj = 0;
                         itm_setSkupajBrezIF->setText("€" + QString::number(mSumSkupaj, 'f', 2));
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(6,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -2176,7 +2188,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumOsnova = 0;
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(7,0,itm_setOsnovaBrezIF);
                         }
                         else
@@ -2189,7 +2201,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumOsnova += tmp.toDouble();
                             itm_setOsnovaBrezIF->setText("€" + QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(7,0,itm_setOsnovaBrezIF);
                         }
 
@@ -2206,7 +2218,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumSkupaj = 0;
                             itm_setDDVBrezIF->setText("€" + QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(7,1,itm_setDDVBrezIF);
                         }
                         else
@@ -2216,7 +2228,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumDDV = num.toDouble() * 0.22;
                             itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(7,1,itm_setDDVBrezIF);
                         }
 
@@ -2230,7 +2242,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumSkupaj = 0;
                         itm_setSkupajBrezIF->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(7,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -2276,7 +2288,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumOsnova = 0;
                             itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(8,0,itm_setOsnovaBrezIF);
                         }
                         else
@@ -2289,7 +2301,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumOsnova += tmp.toDouble();
                             itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(8,0,itm_setOsnovaBrezIF);
                         }
 
@@ -2306,7 +2318,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumSkupaj = 0;
                             itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(8,1,itm_setDDVBrezIF);
                         }
                         else
@@ -2316,7 +2328,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumDDV = num.toDouble() * 0.22;
                             itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(8,1,itm_setDDVBrezIF);
                         }
 
@@ -2330,7 +2342,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumSkupaj = 0;
                         itm_setSkupajBrezIF->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(8,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -2376,7 +2388,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumOsnova = 0;
                             itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(9,0,itm_setOsnovaBrezIF);
                         }
                         else
@@ -2389,7 +2401,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumOsnova += tmp.toDouble();
                             itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(9,0,itm_setOsnovaBrezIF);
                         }
 
@@ -2406,7 +2418,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumSkupaj = 0;
                             itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(9,1,itm_setDDVBrezIF);
                         }
                         else
@@ -2416,7 +2428,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumDDV = num.toDouble() * 0.22;
                             itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(9,1,itm_setDDVBrezIF);
                         }
 
@@ -2430,7 +2442,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumSkupaj = 0;
                         itm_setSkupajBrezIF->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(9,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -2476,7 +2488,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumOsnova = 0;
                             itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(10,0,itm_setOsnovaBrezIF);
                         }
                         else
@@ -2489,7 +2501,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumOsnova += tmp.toDouble();
                             itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(10,0,itm_setOsnovaBrezIF);
                         }
 
@@ -2506,7 +2518,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumSkupaj = 0;
                             itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(10,1,itm_setDDVBrezIF);
                         }
                         else
@@ -2516,7 +2528,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumDDV = num.toDouble() * 0.22;
                             itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(10,1,itm_setDDVBrezIF);
                         }
 
@@ -2530,7 +2542,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumSkupaj = 0;
                         itm_setSkupajBrezIF->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(10,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -2576,7 +2588,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumOsnova = 0;
                             itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(11,0,itm_setOsnovaBrezIF);
                         }
                         else
@@ -2589,7 +2601,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumOsnova += tmp.toDouble();
                             itm_setOsnovaBrezIF->setText("€"+ QString::number(mSumOsnova, 'f', 2));
                             if(mSumOsnova > 0)
-                                itm_setOsnovaBrezIF->setTextColor(QColor("green"));
+                                itm_setOsnovaBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(11,0,itm_setOsnovaBrezIF);
                         }
 
@@ -2606,7 +2618,7 @@ void Statistic::AddToTableWidget(QString fileName)
                                 mSumSkupaj = 0;
                             itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(11,1,itm_setDDVBrezIF);
                         }
                         else
@@ -2616,7 +2628,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumDDV = num.toDouble() * 0.22;
                             itm_setDDVBrezIF->setText("€"+ QString::number(mSumDDV, 'f', 2));
                             if(mSumDDV > 0)
-                                itm_setDDVBrezIF->setTextColor(QColor("green"));
+                                itm_setDDVBrezIF->setForeground(QColor("green"));
                             ui->tableWidget_brez->setItem(11,1,itm_setDDVBrezIF);
                         }
 
@@ -2630,7 +2642,7 @@ void Statistic::AddToTableWidget(QString fileName)
                             mSumSkupaj = 0;
                         itm_setSkupajBrezIF->setText("€"+ QString::number(mSumSkupaj, 'f', 2));
                         if(mSumSkupaj > 0)
-                            itm_setSkupajBrezIF->setTextColor(QColor("green"));
+                            itm_setSkupajBrezIF->setForeground(QColor("green"));
                         ui->tableWidget_brez->setItem(11,2,itm_setSkupajBrezIF);
                         break;
                     }
@@ -2746,8 +2758,7 @@ void Statistic::Plot()
     ui->plot->update();
 }
 
-void Statistic::GetData(QVector<double> *allData, int itr, QString name)
-{
+void Statistic::GetData(QVector<double> *allData, int itr, QString name) {
     QString date = QString::number(ui->dateEdit->date().year());
     QString opomba("");
     QFile mFile(m_fileRacun);
@@ -2773,11 +2784,13 @@ void Statistic::GetData(QVector<double> *allData, int itr, QString name)
                 {
                     lineText = in.readLine();
                     listText = lineText.split(exp, QString::SkipEmptyParts);
+                    QString test = listText.at(0);
+                    test.remove(' ');
                     tmp = listText.at(7);
                     tmp.remove("Narocnik: ");
                     opomba = listText.at(12);
                     opomba.remove("Opomba: ");
-                    if(opomba == "racun_je_bil_spremenjen!!!????" || opomba == "racun_je_bil_odstranjen!!!????") {
+                    if(opomba == "racun_je_bil_spremenjen!!!????" || opomba == "racun_je_bil_odstranjen!!!????" || test == "Ponudba" || test == "Dobavnica") {
                         continue;
                     }
                     if(ui->comboBox_podjetja->itemText(itr) == tmp)
@@ -2813,18 +2826,20 @@ void Statistic::GetData(QVector<double> *allData, int itr, QString name)
             QStringList tmpList;
             QRegularExpression expDot(". ");
             QRegularExpression exp(" ; ");
-            double sumPerMonth(0);
+            double sumPerMonth(0.00);
             for(int itr_month(0); itr_month < 12; itr_month++)
             {
                 while(!in.atEnd())
                 {
                     lineText = in.readLine();
                     listText = lineText.split(exp, QString::SkipEmptyParts);
+                    QString test = listText.at(0);
+                    test.remove(' ');
                     tmp = listText.at(7);
                     tmp.remove("Narocnik: ");
                     opomba = listText.at(12);
                     opomba.remove("Opomba: ");
-                    if(opomba == "racun_je_bil_spremenjen!!!????" || opomba == "racun_je_bil_odstranjen!!!????") {
+                    if(opomba == "racun_je_bil_spremenjen!!!????" || opomba == "racun_je_bil_odstranjen!!!????" || test == "Ponudba" || test == "Dobavnica") {
                         continue;
                     }
                     if(name == tmp)
@@ -2847,7 +2862,7 @@ void Statistic::GetData(QVector<double> *allData, int itr, QString name)
                 }
                 in.seek(0);
                 allData[itr].append(sumPerMonth);
-                sumPerMonth = 0;
+                sumPerMonth = 0.00;
             }
         }
         mFile.close();
@@ -2866,10 +2881,17 @@ void Statistic::on_tableWidget_vse_itemDoubleClicked(QTableWidgetItem *item) {
     dateOd.setDate(ui->dateEdit->date().year(), item->row()+1, 1);
     QDate dateDo;
     dateDo.setDate(ui->dateEdit->date().year(), item->row()+1, dateOd.daysInMonth());
-    terjatve.SetStatisticParameterTerjatve(ui->comboBox_podjetja->currentIndex(),  dateOd, dateDo);
+    terjatve.SetStatisticParameterTerjatve(ui->comboBox_podjetja->currentIndex(),  dateOd, dateDo, false);
     terjatve.ReadTerjatve(true);
-    close();
-    terjatve.exec();
+    this->hide();
+    QObject::connect(&terjatve,SIGNAL(close_me()),this,SLOT(CloseChild()));
+    m_show_child = true;
+    while (m_show_child) {
+        terjatve.exec();
+    }
+    Plot();
+    AddToTableWidget(m_fileRacun);
+    this->show();
 }
 
 void Statistic::on_tableWidget_brez_itemDoubleClicked(QTableWidgetItem *item) {
@@ -2879,8 +2901,20 @@ void Statistic::on_tableWidget_brez_itemDoubleClicked(QTableWidgetItem *item) {
     dateOd.setDate(ui->dateEdit->date().year(), item->row()+1, 1);
     QDate dateDo;
     dateDo.setDate(ui->dateEdit->date().year(), item->row()+1, dateOd.daysInMonth());
-    terjatve.SetStatisticParameterTerjatve(ui->comboBox_podjetja->currentIndex(),  dateOd, dateDo);
+    terjatve.SetStatisticParameterTerjatve(ui->comboBox_podjetja->currentIndex(),  dateOd, dateDo, true);
     terjatve.ReadTerjatve(false);
-    close();
-    terjatve.exec();
+    this->hide();
+    QObject::connect(&terjatve,SIGNAL(close_me()),this,SLOT(CloseChild()));
+    m_show_child = true;
+    while (m_show_child) {
+        terjatve.exec();
+    }
+    Plot();
+    AddToTableWidget(m_fileRacun);
+    this->show();
+}
+
+void Statistic::on_comboBox_podjetja_currentIndexChanged(int /*index*/) {
+    Plot();
+    AddToTableWidget(m_fileRacun);
 }

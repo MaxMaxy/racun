@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1077</width>
-    <height>819</height>
+    <width>1126</width>
+    <height>1133</height>
    </rect>
   </property>
   <property name="font">
@@ -20,946 +20,973 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
+  <layout class="QGridLayout" name="gridLayout_5">
    <item row="0" column="0">
-    <layout class="QVBoxLayout" name="verticalLayout_20">
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_19">
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_18">
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_13">
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout_11">
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1106</width>
+        <height>1113</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="groupBox">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="title">
+          <string>NOV RAČUN</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <widget class="QGroupBox" name="groupBox_2">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="title">
+             <string>Podatki za račun</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_2">
              <item>
-              <layout class="QVBoxLayout" name="verticalLayout_17">
+              <layout class="QHBoxLayout" name="horizontalLayout_7">
                <item>
-                <layout class="QVBoxLayout" name="verticalLayout_15">
-                 <item>
-                  <layout class="QVBoxLayout" name="verticalLayout_14">
-                   <item>
-                    <widget class="QLabel" name="label">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>18</pointsize>
-                       <weight>75</weight>
-                       <italic>true</italic>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>Nov račun</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="Line" name="line_2">
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <italic>true</italic>
-                      </font>
-                     </property>
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QVBoxLayout" name="verticalLayout">
-                   <item>
-                    <widget class="QLabel" name="label_4">
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>10</pointsize>
-                       <weight>75</weight>
-                       <italic>true</italic>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>Naročnik:</string>
-                     </property>
-                     <property name="buddy">
-                      <cstring>comboBox_narocnik</cstring>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QComboBox" name="comboBox_narocnik">
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>12</pointsize>
-                       <weight>50</weight>
-                       <italic>true</italic>
-                       <bold>false</bold>
-                      </font>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QVBoxLayout" name="verticalLayout_2">
-                   <item>
-                    <widget class="QLabel" name="label_3">
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>10</pointsize>
-                       <weight>75</weight>
-                       <italic>true</italic>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>Številka računa:</string>
-                     </property>
-                     <property name="buddy">
-                      <cstring>lineEdit_stRacuna</cstring>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="lineEdit_stRacuna">
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>10</pointsize>
-                       <weight>50</weight>
-                       <italic>true</italic>
-                       <bold>false</bold>
-                      </font>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QVBoxLayout" name="verticalLayout_3">
-                   <item>
-                    <widget class="QLabel" name="label_7">
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>10</pointsize>
-                       <weight>75</weight>
-                       <italic>true</italic>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>Vezni dokument:</string>
-                     </property>
-                     <property name="buddy">
-                      <cstring>lineEdit_sklic</cstring>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="lineEdit_sklic">
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>10</pointsize>
-                       <weight>50</weight>
-                       <italic>true</italic>
-                       <bold>false</bold>
-                      </font>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QVBoxLayout" name="verticalLayout_4">
-                   <item>
-                    <widget class="QLabel" name="label_2">
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>10</pointsize>
-                       <weight>75</weight>
-                       <italic>true</italic>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>Datum:</string>
-                     </property>
-                     <property name="buddy">
-                      <cstring>dateEdit</cstring>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QDateEdit" name="dateEdit">
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>10</pointsize>
-                       <weight>50</weight>
-                       <italic>true</italic>
-                       <bold>false</bold>
-                      </font>
-                     </property>
-                     <property name="displayFormat">
-                      <string>d. M. yyyy</string>
-                     </property>
-                     <property name="date">
-                      <date>
-                       <year>2018</year>
-                       <month>1</month>
-                       <day>1</day>
-                      </date>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QVBoxLayout" name="verticalLayout_5">
-                   <item>
-                    <widget class="QLabel" name="label_13">
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>10</pointsize>
-                       <weight>75</weight>
-                       <italic>true</italic>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>Opombe:</string>
-                     </property>
-                     <property name="buddy">
-                      <cstring>lineEdit</cstring>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="lineEdit">
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>10</pointsize>
-                       <weight>50</weight>
-                       <italic>true</italic>
-                       <bold>false</bold>
-                      </font>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <widget class="Line" name="line_5">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
+                <widget class="QRadioButton" name="radioButton_racun">
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Račun in dobavnica</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <layout class="QVBoxLayout" name="verticalLayout_16">
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout">
-                   <item>
-                    <layout class="QVBoxLayout" name="verticalLayout_6">
-                     <item>
-                      <widget class="QLabel" name="label_5">
-                       <property name="font">
-                        <font>
-                         <family>MS Sans Serif</family>
-                         <pointsize>10</pointsize>
-                         <weight>75</weight>
-                         <italic>true</italic>
-                         <bold>true</bold>
-                        </font>
-                       </property>
-                       <property name="text">
-                        <string>Seznam produktov:</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignCenter</set>
-                       </property>
-                       <property name="buddy">
-                        <cstring>treeWidget_seznam</cstring>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QTreeWidget" name="treeWidget_seznam">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>MS Sans Serif</family>
-                         <pointsize>10</pointsize>
-                         <weight>50</weight>
-                         <italic>true</italic>
-                         <bold>false</bold>
-                        </font>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true">QHeaderView::section{padding:7px 15px}</string>
-                       </property>
-                       <column>
-                        <property name="text">
-                         <string>ID</string>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>MS Sans Serif</family>
-                          <pointsize>10</pointsize>
-                          <italic>true</italic>
-                         </font>
-                        </property>
-                        <property name="textAlignment">
-                         <set>AlignCenter</set>
-                        </property>
-                        <property name="background">
-                         <color>
-                          <red>215</red>
-                          <green>215</green>
-                          <blue>215</blue>
-                         </color>
-                        </property>
-                       </column>
-                       <column>
-                        <property name="text">
-                         <string>Naziv</string>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>MS Sans Serif</family>
-                          <pointsize>10</pointsize>
-                          <italic>true</italic>
-                         </font>
-                        </property>
-                        <property name="textAlignment">
-                         <set>AlignCenter</set>
-                        </property>
-                        <property name="background">
-                         <color>
-                          <red>215</red>
-                          <green>215</green>
-                          <blue>215</blue>
-                         </color>
-                        </property>
-                       </column>
-                       <column>
-                        <property name="text">
-                         <string>Cena €</string>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>MS Sans Serif</family>
-                          <pointsize>10</pointsize>
-                          <italic>true</italic>
-                         </font>
-                        </property>
-                        <property name="textAlignment">
-                         <set>AlignCenter</set>
-                        </property>
-                        <property name="background">
-                         <color>
-                          <red>215</red>
-                          <green>215</green>
-                          <blue>215</blue>
-                         </color>
-                        </property>
-                       </column>
-                      </widget>
-                     </item>
-                    </layout>
-                   </item>
-                   <item>
-                    <widget class="Line" name="line_3">
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <italic>true</italic>
-                      </font>
-                     </property>
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="Line" name="line_9">
-                     <property name="orientation">
-                      <enum>Qt::Vertical</enum>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="Line" name="line_10">
-                     <property name="orientation">
-                      <enum>Qt::Vertical</enum>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <layout class="QVBoxLayout" name="verticalLayout_7">
-                     <item>
-                      <widget class="QLabel" name="label_6">
-                       <property name="font">
-                        <font>
-                         <family>MS Sans Serif</family>
-                         <pointsize>10</pointsize>
-                         <weight>75</weight>
-                         <italic>true</italic>
-                         <bold>true</bold>
-                        </font>
-                       </property>
-                       <property name="text">
-                        <string>Dodani produkti:</string>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignCenter</set>
-                       </property>
-                       <property name="buddy">
-                        <cstring>treeWidget_dodani</cstring>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QTreeWidget" name="treeWidget_dodani">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>MS Sans Serif</family>
-                         <pointsize>10</pointsize>
-                         <weight>50</weight>
-                         <italic>true</italic>
-                         <bold>false</bold>
-                        </font>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true">QHeaderView::section{padding:7px 15px}</string>
-                       </property>
-                       <column>
-                        <property name="text">
-                         <string>ID</string>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>MS Sans Serif</family>
-                          <pointsize>10</pointsize>
-                          <italic>true</italic>
-                         </font>
-                        </property>
-                        <property name="textAlignment">
-                         <set>AlignCenter</set>
-                        </property>
-                        <property name="background">
-                         <color>
-                          <red>215</red>
-                          <green>215</green>
-                          <blue>215</blue>
-                         </color>
-                        </property>
-                       </column>
-                       <column>
-                        <property name="text">
-                         <string>Naziv</string>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>MS Sans Serif</family>
-                          <pointsize>10</pointsize>
-                          <italic>true</italic>
-                         </font>
-                        </property>
-                        <property name="textAlignment">
-                         <set>AlignCenter</set>
-                        </property>
-                        <property name="background">
-                         <color>
-                          <red>215</red>
-                          <green>215</green>
-                          <blue>215</blue>
-                         </color>
-                        </property>
-                       </column>
-                       <column>
-                        <property name="text">
-                         <string>Cena €</string>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>MS Sans Serif</family>
-                          <pointsize>10</pointsize>
-                          <italic>true</italic>
-                         </font>
-                        </property>
-                        <property name="textAlignment">
-                         <set>AlignCenter</set>
-                        </property>
-                        <property name="background">
-                         <color>
-                          <red>215</red>
-                          <green>215</green>
-                          <blue>215</blue>
-                         </color>
-                        </property>
-                       </column>
-                       <column>
-                        <property name="text">
-                         <string>Kos</string>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>MS Sans Serif</family>
-                          <pointsize>10</pointsize>
-                          <italic>true</italic>
-                         </font>
-                        </property>
-                        <property name="textAlignment">
-                         <set>AlignCenter</set>
-                        </property>
-                        <property name="background">
-                         <color>
-                          <red>215</red>
-                          <green>215</green>
-                          <blue>215</blue>
-                         </color>
-                        </property>
-                       </column>
-                      </widget>
-                     </item>
-                    </layout>
-                   </item>
-                  </layout>
-                 </item>
-                </layout>
+                <widget class="QRadioButton" name="radioButton_predRacun">
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Predračun</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="radioButton_dobavnica">
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Dobavnica</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="radioButton_ponudba">
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Ponudba</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
              <item>
-              <widget class="Line" name="line_4">
+              <widget class="QLabel" name="label_4">
                <property name="font">
                 <font>
                  <family>MS Sans Serif</family>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
                  <italic>true</italic>
+                 <bold>false</bold>
                 </font>
                </property>
+               <property name="frameShape">
+                <enum>QFrame::WinPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="lineWidth">
+                <number>0</number>
+               </property>
+               <property name="text">
+                <string>Naročnik</string>
+               </property>
+               <property name="buddy">
+                <cstring>comboBox_narocnik</cstring>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboBox_narocnik">
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_3">
+               <property name="font">
+                <font>
+                 <family>MS Sans Serif</family>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <italic>true</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::WinPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="lineWidth">
+                <number>0</number>
+               </property>
+               <property name="text">
+                <string>Številka računa</string>
+               </property>
+               <property name="buddy">
+                <cstring>lineEdit_stRacuna</cstring>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_stRacuna">
+               <property name="font">
+                <font>
+                 <family>MS Sans Serif</family>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <italic>true</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="cursorMoveStyle">
+                <enum>Qt::LogicalMoveStyle</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_7">
+               <property name="font">
+                <font>
+                 <family>MS Sans Serif</family>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <italic>true</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::WinPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="lineWidth">
+                <number>0</number>
+               </property>
+               <property name="text">
+                <string>Vezni dokument</string>
+               </property>
+               <property name="buddy">
+                <cstring>lineEdit_sklic</cstring>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_sklic">
+               <property name="font">
+                <font>
+                 <family>MS Sans Serif</family>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <italic>true</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="cursorMoveStyle">
+                <enum>Qt::LogicalMoveStyle</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_2">
+               <property name="font">
+                <font>
+                 <family>MS Sans Serif</family>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <italic>true</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::WinPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="lineWidth">
+                <number>0</number>
+               </property>
+               <property name="text">
+                <string>Datum</string>
+               </property>
+               <property name="buddy">
+                <cstring>dateEdit</cstring>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QDateEdit" name="dateEdit">
+               <property name="font">
+                <font>
+                 <family>MS Sans Serif</family>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <italic>true</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="displayFormat">
+                <string>d. M. yyyy</string>
+               </property>
+               <property name="date">
+                <date>
+                 <year>2018</year>
+                 <month>1</month>
+                 <day>1</day>
+                </date>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_13">
+               <property name="font">
+                <font>
+                 <family>MS Sans Serif</family>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <italic>true</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::WinPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="lineWidth">
+                <number>0</number>
+               </property>
+               <property name="text">
+                <string>Opombe</string>
+               </property>
+               <property name="buddy">
+                <cstring>lineEdit</cstring>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit">
+               <property name="font">
+                <font>
+                 <family>MS Sans Serif</family>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <italic>true</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="cursorMoveStyle">
+                <enum>Qt::LogicalMoveStyle</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QGroupBox" name="groupBox_3">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="title">
+               <string>Seznam vseh produktov</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <layout class="QGridLayout" name="gridLayout">
+               <item row="0" column="0">
+                <widget class="QTreeWidget" name="treeWidget_seznam">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>MS Sans Serif</family>
+                   <pointsize>10</pointsize>
+                   <weight>50</weight>
+                   <italic>true</italic>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QHeaderView::section{padding:7px 15px}</string>
+                 </property>
+                 <column>
+                  <property name="text">
+                   <string>ID</string>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>MS Sans Serif</family>
+                    <pointsize>10</pointsize>
+                    <italic>true</italic>
+                   </font>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                  <property name="background">
+                   <color>
+                    <red>215</red>
+                    <green>215</green>
+                    <blue>215</blue>
+                   </color>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Naziv</string>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>MS Sans Serif</family>
+                    <pointsize>10</pointsize>
+                    <italic>true</italic>
+                   </font>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                  <property name="background">
+                   <color>
+                    <red>215</red>
+                    <green>215</green>
+                    <blue>215</blue>
+                   </color>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Cena €</string>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>MS Sans Serif</family>
+                    <pointsize>10</pointsize>
+                    <italic>true</italic>
+                   </font>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                  <property name="background">
+                   <color>
+                    <red>215</red>
+                    <green>215</green>
+                    <blue>215</blue>
+                   </color>
+                  </property>
+                 </column>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QGroupBox" name="groupBox_5">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="title">
+                  <string>Iskalnik produktov</string>
+                 </property>
+                 <property name="flat">
+                  <bool>false</bool>
+                 </property>
+                 <layout class="QGridLayout" name="gridLayout_4">
+                  <item row="0" column="0">
+                   <widget class="QLineEdit" name="lineEdit_isci">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="MinimumExpanding" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>MS Sans Serif</family>
+                      <pointsize>12</pointsize>
+                      <weight>50</weight>
+                      <italic>true</italic>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="clearButtonEnabled">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QPushButton" name="pushButton_dodajNovProdukt">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="MinimumExpanding" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>MS Sans Serif</family>
+                      <pointsize>12</pointsize>
+                      <weight>75</weight>
+                      <italic>true</italic>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Dodaj / popravi produkt</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QPushButton" name="pushButton_isci">
+                    <property name="font">
+                     <font>
+                      <pointsize>12</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Isci</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="groupBox_4">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="title">
+               <string>Seznam dodanih produktov</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_2">
+               <item row="0" column="0">
+                <widget class="QTreeWidget" name="treeWidget_dodani">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>MS Sans Serif</family>
+                   <pointsize>10</pointsize>
+                   <weight>50</weight>
+                   <italic>true</italic>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QHeaderView::section{padding:7px 15px}</string>
+                 </property>
+                 <column>
+                  <property name="text">
+                   <string>ID</string>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>MS Sans Serif</family>
+                    <pointsize>10</pointsize>
+                    <italic>true</italic>
+                   </font>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                  <property name="background">
+                   <color>
+                    <red>215</red>
+                    <green>215</green>
+                    <blue>215</blue>
+                   </color>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Naziv</string>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>MS Sans Serif</family>
+                    <pointsize>10</pointsize>
+                    <italic>true</italic>
+                   </font>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                  <property name="background">
+                   <color>
+                    <red>215</red>
+                    <green>215</green>
+                    <blue>215</blue>
+                   </color>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Cena €</string>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>MS Sans Serif</family>
+                    <pointsize>10</pointsize>
+                    <italic>true</italic>
+                   </font>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                  <property name="background">
+                   <color>
+                    <red>215</red>
+                    <green>215</green>
+                    <blue>215</blue>
+                   </color>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Kos / Kol.</string>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>MS Sans Serif</family>
+                    <pointsize>10</pointsize>
+                    <italic>true</italic>
+                   </font>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                  <property name="background">
+                   <color>
+                    <red>215</red>
+                    <green>215</green>
+                    <blue>215</blue>
+                   </color>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Popust %</string>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>MS Sans Serif</family>
+                    <pointsize>10</pointsize>
+                    <italic>true</italic>
+                   </font>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignCenter</set>
+                  </property>
+                  <property name="background">
+                   <color>
+                    <red>215</red>
+                    <green>215</green>
+                    <blue>215</blue>
+                   </color>
+                  </property>
+                 </column>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="Line" name="line_4">
+            <property name="font">
+             <font>
+              <family>MS Sans Serif</family>
+              <italic>true</italic>
+             </font>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_6">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="title">
+             <string>Izračun</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_6">
+               <item>
+                <widget class="QLabel" name="label_8">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>MS Sans Serif</family>
+                   <pointsize>12</pointsize>
+                   <weight>75</weight>
+                   <italic>true</italic>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::WinPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="text">
+                  <string>Osnova €</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_osnova">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>MS Sans Serif</family>
+                   <pointsize>12</pointsize>
+                   <weight>75</weight>
+                   <italic>true</italic>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::WinPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Sunken</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_5">
+               <item>
+                <widget class="QLabel" name="label_10">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>MS Sans Serif</family>
+                   <pointsize>10</pointsize>
+                   <weight>50</weight>
+                   <italic>true</italic>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::WinPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="text">
+                  <string>Popust €</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_popust_2">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::WinPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Sunken</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_4">
+               <item>
+                <widget class="QLabel" name="label_14">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>MS Sans Serif</family>
+                   <pointsize>10</pointsize>
+                   <weight>50</weight>
+                   <italic>true</italic>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::WinPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="text">
+                  <string>Osnova € - Popust €</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_popust">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>MS Sans Serif</family>
+                   <pointsize>10</pointsize>
+                   <weight>50</weight>
+                   <italic>true</italic>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::WinPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Sunken</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <item>
+                <widget class="QLabel" name="label_9">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>MS Sans Serif</family>
+                   <pointsize>10</pointsize>
+                   <weight>50</weight>
+                   <italic>true</italic>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::WinPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="text">
+                  <string>DDV €</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_ddv">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>MS Sans Serif</family>
+                   <pointsize>10</pointsize>
+                   <weight>50</weight>
+                   <italic>true</italic>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::WinPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Sunken</enum>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="Line" name="line_6">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
               </widget>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_7">
-               <item>
-                <layout class="QVBoxLayout" name="verticalLayout_10">
-                 <item>
-                  <layout class="QVBoxLayout" name="verticalLayout_8">
-                   <item>
-                    <widget class="QLabel" name="label_12">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>10</pointsize>
-                       <weight>75</weight>
-                       <italic>true</italic>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>Iskalnik produktov:</string>
-                     </property>
-                     <property name="buddy">
-                      <cstring>lineEdit_isci</cstring>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="lineEdit_isci">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>12</pointsize>
-                       <weight>50</weight>
-                       <italic>true</italic>
-                       <bold>false</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="clearButtonEnabled">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QVBoxLayout" name="verticalLayout_9">
-                   <item>
-                    <widget class="QPushButton" name="pushButton_dodajNovProdukt">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>12</pointsize>
-                       <weight>50</weight>
-                       <italic>true</italic>
-                       <bold>false</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>Dodaj/popravi produkt</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_17">
-                     <property name="text">
-                      <string/>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <widget class="Line" name="line_7">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="Line" name="line_8">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="Line" name="line_11">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <layout class="QVBoxLayout" name="verticalLayout_12">
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_2">
-                   <item>
-                    <widget class="QLabel" name="label_8">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>12</pointsize>
-                       <weight>75</weight>
-                       <italic>true</italic>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>Osnova €</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_osnova">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>12</pointsize>
-                       <weight>75</weight>
-                       <italic>true</italic>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="frameShape">
-                      <enum>QFrame::WinPanel</enum>
-                     </property>
-                     <property name="frameShadow">
-                      <enum>QFrame::Sunken</enum>
-                     </property>
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_3">
-                   <item>
-                    <widget class="QLabel" name="label_10">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>10</pointsize>
-                       <weight>50</weight>
-                       <italic>true</italic>
-                       <bold>false</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>Popust %</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                     </property>
-                     <property name="buddy">
-                      <cstring>lineEdit_popust</cstring>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="lineEdit_popust">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>10</pointsize>
-                       <weight>50</weight>
-                       <italic>true</italic>
-                       <bold>false</bold>
-                      </font>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_4">
-                   <item>
-                    <widget class="QLabel" name="label_14">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>10</pointsize>
-                       <weight>50</weight>
-                       <italic>true</italic>
-                       <bold>false</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>Osnova € - Popust €</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_popust">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>10</pointsize>
-                       <weight>50</weight>
-                       <italic>true</italic>
-                       <bold>false</bold>
-                      </font>
-                     </property>
-                     <property name="frameShape">
-                      <enum>QFrame::WinPanel</enum>
-                     </property>
-                     <property name="frameShadow">
-                      <enum>QFrame::Sunken</enum>
-                     </property>
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_5">
-                   <item>
-                    <widget class="QLabel" name="label_9">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>10</pointsize>
-                       <weight>50</weight>
-                       <italic>true</italic>
-                       <bold>false</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>DDV €</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_ddv">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <family>MS Sans Serif</family>
-                       <pointsize>10</pointsize>
-                       <weight>50</weight>
-                       <italic>true</italic>
-                       <bold>false</bold>
-                      </font>
-                     </property>
-                     <property name="frameShape">
-                      <enum>QFrame::WinPanel</enum>
-                     </property>
-                     <property name="frameShadow">
-                      <enum>QFrame::Sunken</enum>
-                     </property>
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                </layout>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_isci">
-               <property name="text">
-                <string>Isci</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="Line" name="line_6">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_9">
-             <item>
-              <widget class="QLabel" name="label_15">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_6">
+              <layout class="QHBoxLayout" name="horizontalLayout_2">
                <item>
                 <widget class="QLabel" name="label_11">
                  <property name="sizePolicy">
@@ -976,6 +1003,15 @@
                    <italic>true</italic>
                    <bold>true</bold>
                   </font>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::WinPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="lineWidth">
+                  <number>2</number>
                  </property>
                  <property name="text">
                   <string>SKUPAJ €</string>
@@ -1012,10 +1048,10 @@
                   <string notr="true">background-color : {50,50,50}</string>
                  </property>
                  <property name="frameShape">
-                  <enum>QFrame::Box</enum>
+                  <enum>QFrame::WinPanel</enum>
                  </property>
                  <property name="frameShadow">
-                  <enum>QFrame::Raised</enum>
+                  <enum>QFrame::Sunken</enum>
                  </property>
                  <property name="lineWidth">
                   <number>2</number>
@@ -1031,67 +1067,95 @@
               </layout>
              </item>
             </layout>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="Line" name="line">
-           <property name="font">
-            <font>
-             <family>MS Sans Serif</family>
-             <italic>true</italic>
-            </font>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_natisniRacun">
-         <property name="font">
-          <font>
-           <family>MS Sans Serif</family>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <italic>true</italic>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Natisni račun</string>
-         </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="Line" name="line">
+            <property name="font">
+             <font>
+              <family>MS Sans Serif</family>
+              <italic>true</italic>
+             </font>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_sendMail">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::RightToLeft</enum>
+            </property>
+            <property name="text">
+             <string>Pošlji račun po elektronski pošti</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_eRacun">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::RightToLeft</enum>
+            </property>
+            <property name="text">
+             <string>Izdelaj e-račun</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_natisniRacun">
+            <property name="font">
+             <font>
+              <family>MS Sans Serif</family>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <italic>true</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Natisni račun</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_izhod">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>MS Sans Serif</family>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <italic>true</italic>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Izhod</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_8">
-       <item>
-        <widget class="QPushButton" name="pushButton_izhod">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>MS Sans Serif</family>
-           <pointsize>12</pointsize>
-           <italic>true</italic>
-          </font>
-         </property>
-         <property name="text">
-          <string>Izhod</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
+     </widget>
+    </widget>
    </item>
   </layout>
  </widget>
@@ -1103,10 +1167,11 @@
   <tabstop>dateEdit</tabstop>
   <tabstop>lineEdit</tabstop>
   <tabstop>treeWidget_seznam</tabstop>
-  <tabstop>treeWidget_dodani</tabstop>
   <tabstop>lineEdit_isci</tabstop>
   <tabstop>pushButton_dodajNovProdukt</tabstop>
-  <tabstop>lineEdit_popust</tabstop>
+  <tabstop>treeWidget_dodani</tabstop>
+  <tabstop>checkBox_sendMail</tabstop>
+  <tabstop>checkBox_eRacun</tabstop>
   <tabstop>pushButton_natisniRacun</tabstop>
   <tabstop>pushButton_izhod</tabstop>
  </tabstops>

@@ -21,8 +21,12 @@
 #include <QXmlStreamWriter>
 #include <QPrintPreviewDialog>
 #include <QDesktopServices>
+#include <QFileDialog>
+#include <QKeyEvent>
+#include "smtp.h"
 #include "numofitems.h"
 #include "dodajprodukt.h"
+#include "eracun.h"
 
 namespace Ui {
 class NovRacun;
@@ -38,26 +42,40 @@ public:
     void Read();
     void AddItemsToCombo();
     void AddRoot(QString, QString, QString);
-    void CalcSkupaj(QString &, QString &, bool);
+    void CalcSkupaj(QString &, bool);
     void Search(QString);
     void Arhiv(QString, QString);
     void Shrani();
-    void MakeXML();
-    void PopraviRacun(QString, QString, QString, QString, QString, QString, QString, QString, QString, QString);
+    void MakeXML(QString, QString, QString, QString, QString, QString, QString, QString, QString, QString);
+    void PopraviRacun(QString, QString, QString, QString, QString, QString, QString);
+    void sendMail(QString);
+    void mailSent(QString);
+    void keyReleaseEvent(QKeyEvent*);
     QString CenaDDV(QString, QString);
 
+signals:
+    void close_me();
+
+protected:
+    void closeEvent(QCloseEvent *);
 
 private slots:
     void on_comboBox_narocnik_currentIndexChanged();
     void on_treeWidget_seznam_doubleClicked();
-    void on_treeWidget_dodani_doubleClicked();
     void on_pushButton_dodajNovProdukt_clicked();
-    void on_lineEdit_popust_textChanged();
-    void on_lineEdit_popust_editingFinished();
     void on_lineEdit_isci_textChanged();
-    void on_lineEdit_stRacuna_textChanged(const QString &arg1);
-    void on_lineEdit_sklic_textChanged(const QString &arg1);
-    void on_lineEdit_textChanged(const QString &arg1);
+    void on_lineEdit_stRacuna_textChanged(const QString &);
+    void on_lineEdit_sklic_textChanged(const QString &);
+    void on_lineEdit_textChanged(const QString &);
+    void on_pushButton_izhod_clicked();
+    void CloseChild();
+    void on_checkBox_eRacun_stateChanged(int);
+    void on_radioButton_racun_clicked();
+    void on_radioButton_predRacun_clicked();
+    void on_radioButton_dobavnica_clicked();
+    void on_radioButton_ponudba_clicked();
+
+    void on_treeWidget_dodani_itemDoubleClicked(QTreeWidgetItem *item, int column);
 
 private:
     Ui::NovRacun *ui;
@@ -69,20 +87,29 @@ private:
     QString m_cNaziv;
     QString m_naslov;
     QString m_posta;
+    QString m_postnaStStranke;
     QString m_ddv;
     QString m_email;
     QString m_numItems;
+    QString m_popust;
     QString m_shrani;
     QString m_fileShrani;
+    QStringList m_files;
+    QString m_drzavaStranke;
+    QString m_kodaDrzave;
+    QString m_bancniRacunStranke;
+    QString m_bicStranke;
+    QString m_vatStranke;
     bool m_count;
     double m_total;
     int m_itemsAdded;
     int m_max_produktov;
     int m_vrstic;
     bool m_sprememba;
+    bool m_show_child;
 
 public slots:
-    int creatPDF();
+    void creatPDF();
 };
 
 #endif // NOVRACUN_H

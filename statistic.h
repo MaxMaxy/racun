@@ -26,10 +26,19 @@ public:
     void Plot();
     void GetData(QVector<double>*, int, QString);
 
+protected:
+    void closeEvent(QCloseEvent *);
+
+signals:
+  void close_me();
+
 private slots:
     void on_pushButton_isci_clicked();
     void on_tableWidget_vse_itemDoubleClicked(QTableWidgetItem *item);
     void on_tableWidget_brez_itemDoubleClicked(QTableWidgetItem *item);
+    void CloseChild();
+
+    void on_comboBox_podjetja_currentIndexChanged(int index);
 
 private:
     Ui::Statistic *ui;
@@ -39,6 +48,7 @@ private:
     QString m_upnikiSeznam;
     int m_numInCombo;
     int m_colorArray[150];
+    bool m_show_child;
 };
 
 #endif // STATISTIC_H

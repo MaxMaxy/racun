@@ -7,11 +7,17 @@ TestingDialog::TestingDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     AddItemsToCombo();
+    connect(ui->pushButtonSendMail, SIGNAL(clicked()),this, SLOT(sendMail()));
+    connect(ui->pushButtonBrowsFiles, SIGNAL(clicked()), this, SLOT(browse()));
 }
 
 TestingDialog::~TestingDialog()
 {
     delete ui;
+}
+
+void TestingDialog::closeEvent(QCloseEvent *) {
+    emit close_me();
 }
 
 void TestingDialog::AddItemsToCombo() {
@@ -540,91 +546,67 @@ void TestingDialog::QML()
 }
 
 void TestingDialog::ReadFile() {
-    QFile inputFile("C:\\Users\\Nejc\\Documents\\racun.txt");
-    int cmpInt(0);
-    QString companyName("");
-    QString line("");
+    QFile inputFile("C:\\Users\\Rajh\\Documents\\material – kopija.txt");
+    QFile file("C:\\Users\\Rajh\\Documents\\material.txt");
+    QString id("");
     QString naziv("");
     QString cena("");
-    QString id("");
+    QString kolicina("");
+    QString me("");
+    QString line("");
     QStringList list;
-    QFile file;
-    if (inputFile.open(QIODevice::ReadOnly)) {
-        QTextStream in(&inputFile);
-        bool fileEnd(false);
+    QTextStream in(&inputFile);
+    in.setCodec("UTF-8");
+    QTextStream stream(&file);
+    stream.setCodec("UTF-8");
+    QRegExp rx(";");
+    if(inputFile.open(QIODevice::ReadOnly)) {
         while (!in.atEnd()) {
-            if(!fileEnd) {
-                file.setFileName(QString::number(cmpInt) + ".txt");
-                if(!file.open(QFile::WriteOnly | QFile::Text)) {
-                    qDebug() << "File not opened failed";
-                    return;
-                }
-                fileEnd = true;
-            }
-            QTextStream stream(&file);
             line = in.readLine();
-            QRegExp rx("\t");
             list = line.split(rx, QString::SkipEmptyParts);
-            if(list.size() == 5) {
-                if(list.at(0) == "")
-                    naziv = "ni podatka";
-                else
-                    naziv = list.at(0);
-                if(list.at(1) == "")
-                    cena = "0.0";
-                else {
-                    cena = list.at(1);
-                }
-                if(list.at(4) == "")
-                    id = "/";
-                else
-                    id = list.at(4);
-                QRegExp whitespace("s+");
-                naziv.replace(whitespace, " ");
-                if(naziv.size() > 64) {
-                    qDebug() << naziv.remove(64,(naziv.length() - 64));
-                }
-                stream << id << ";" << naziv.remove(";") << ";" << cena.remove(" €") << ";\n";
-            }
-            else if(list.size() == 4) {
-                if(list.at(0) == "")
-                    naziv = "ni podatka";
-                else
-                    naziv = list.at(0);
-                if(list.at(1) == "")
-                    cena = "0.0";
-                else {
-                    cena = list.at(1);
-                }
-                id = "/";
-                stream << id << ";" << naziv.remove(";") << ";" << cena.remove(" €") << ";\n";
-            }
-            else if(list.size() == 0) {
+            if(list.at(0) == "") list.append("/");
+            id = list.at(0);
+            while(id.contains(' '))
+                id.remove(' ');
+            naziv = list.at(1);
+            while(naziv.at(-1) == ' ') naziv.remove(-1, 1);
+            while(naziv.at(0) == ' ') naziv.remove(0,1);
+            naziv.replace(";", "-");
+            while(naziv.contains("  ")) naziv.replace("  ", " ");
+            if(list.size() == 2) list.append("0.00");
+            else cena = list.at(2);
+            cena.remove("€").remove("/km").remove("/kos").remove("/kg").remove("(HTE)").remove("/");
+            cena.remove("€").remove("?").remove("+transp").remove("(HTE)").remove("(3seg)").replace(",",".");
+            kolicina = "1000";
+            if(list.at(1).contains("kabel", Qt::CaseInsensitive) || list.at(1).contains("vodnik", Qt::CaseInsensitive) || list.at(1).contains("cev", Qt::CaseInsensitive) || list.at(1).contains("mm2", Qt::CaseInsensitive) || list.at(1).contains("awg", Qt::CaseInsensitive) || list.at(1).contains("Liyy", Qt::CaseInsensitive) || list.at(1).contains("LIYCY", Qt::CaseInsensitive))
+                me = "meter";
+            else
+                me = "kos";
+            if(file.open(QFile::WriteOnly | QFile::Append)) {
+                stream << id << ";" << naziv << ";" << QString::number(cena.toDouble(), 'f', 2) << ";" << kolicina << ";" << me << ";\n";
                 file.flush();
                 file.close();
-                cmpInt++;
-                fileEnd = false;
             }
         }
-        inputFile.close();
     }
+    inputFile.close();
 }
 
 void TestingDialog::WriteUnicode() {
-    QString unicodeString = QString::fromUtf8("Some Unicode string čšžŠČŽ");
+    QString unicodeString = ui->lineEdit->text().toUtf8();
     QFile fileOut("C:\\Users\\Nejc\\Desktop\\qt_unicode.txt");
     if (!fileOut.open(QIODevice::WriteOnly | QIODevice::Text)) {
         return;
     }
     QTextStream streamFileOut(&fileOut);
     streamFileOut.setCodec("UTF-8");
-    streamFileOut << unicodeString;
+    streamFileOut << unicodeString.toUtf8();
     streamFileOut.flush();
     fileOut.close();
 }
 
 void TestingDialog::WriteASCII() {
-    QString ASCIIString = "Some Unicode string čšžŠČŽ";
+    QString ASCIIString = ui->lineEdit->text();
     QFile fileName("C:\\Users\\Nejc\\Desktop\\qt_NOunicode.txt");
     if(!fileName.open(QFile::WriteOnly | QIODevice::Text)) {
         qDebug() << "Error opening fileName for writing in dodaj produkt gumb";
@@ -637,11 +619,45 @@ void TestingDialog::WriteASCII() {
 }
 
 void TestingDialog::on_pushButton_Test_clicked() {
-    WriteUnicode();
-    AddItemsToCombo();
+    ReadFile();
 }
 
 void TestingDialog::on_pushButton_Test2_clicked() {
-    WriteASCII();
-    AddItemsToCombo();
+    sendMail();
+}
+
+void TestingDialog::browse()
+{
+    files.clear();
+
+    QFileDialog dialog(this);
+    dialog.setDirectory(QDir::homePath());
+    dialog.setFileMode(QFileDialog::ExistingFiles);
+
+    if (dialog.exec())
+        files = dialog.selectedFiles();
+
+    QString fileListString;
+    foreach(QString file, files)
+        fileListString.append( "\\" + QFileInfo(file).fileName() + "\\" );
+
+    ui->lineEdit->setText( fileListString );
+
+}
+
+void TestingDialog::sendMail()
+{
+    Smtp* smtp = new Smtp("elraseti@elraseti.si", "666M@xM@x666", "mail.elraseti.si", 465);
+    connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
+
+    if(!files.isEmpty())
+        smtp->sendMail("elraseti@elraseti.si", "sedovnik666@gmail.com", ui->lineEdit_subject->text(), ui->lineEdit_text->text(), files);
+    else
+        smtp->sendMail("elraseti@elraseti.si", "sedovnik666@gmail.com", ui->lineEdit_subject->text(), ui->lineEdit_text->text());
+}
+
+void TestingDialog::mailSent(QString status)
+{
+    if(status == "Message sent")
+        QMessageBox::warning( nullptr, tr( "Qt Simple SMTP client" ), tr( "Message sent!\n\n" ) );
 }
