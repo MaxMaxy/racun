@@ -14,5 +14,19 @@
         <file>zig.png</file>
         <file>podpis.png</file>
         <file>calculation.png</file>
+        <file>about.ico</file>
+        <file>arhiv.ico</file>
+        <file>calculation.ico</file>
+        <file>dodaj_podjetje.ico</file>
+        <file>dodaj_produkt.ico</file>
+        <file>izhod.ico</file>
+        <file>money-bag.ico</file>
+        <file>new_invoice.ico</file>
+        <file>podpis.ico</file>
+        <file>settings.ico</file>
+        <file>statistic.ico</file>
+        <file>terjatve_obveznosti.ico</file>
+        <file>fix.png</file>
+        <file>bin.png</file>
     </qresource>
 </RCC>

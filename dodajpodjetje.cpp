@@ -2,15 +2,16 @@
 #include "ui_dodajpodjetje.h"
 
 DodajPodjetje::DodajPodjetje(QWidget *parent) :
-    QDialog(parent), ui(new Ui::DodajPodjetje), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/company_file.txt"), m_numOfCompany(m_currentDir + "/num_company.txt"), m_arhivStranke(m_currentDir + "/arhiv_stranke.txt"), m_zapSt("") ,m_cNaziv(""), m_kNaziv(""), m_naslov(""),m_posta(""), m_ddv(""), m_email(""), m_stranka(""), m_itr(0), m_totalCompanys(0), m_count(true)
+    QDialog(parent), ui(new Ui::DodajPodjetje), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/company_file.txt"), m_numOfCompany(m_currentDir + "/num_company.txt"), m_arhivStranke(m_currentDir + "/arhiv_stranke.txt"), m_zapSt("") ,m_cNaziv(""), m_kNaziv(""), m_naslov(""),m_posta(""), m_ddv(""), m_email(""), m_stranka(""), m_itr(0), m_totalCompanys(0), m_count(true), m_popravi(false)
 {
     ui->setupUi(this);
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
     this->setWindowFlags(Qt::Window);
+    this->showMaximized();
     ui->treeWidget->setColumnCount(2);
     ui->treeWidget->setColumnWidth(0,40);
-    QRegularExpression regex("^[a-zA-Z0-9,@. -/&#čšžŠČŽ=]*$");
+    QRegularExpression regex("^[a-zA-Z0-9,@. -/&#čšžŠČŽ()+=]*$");
     QValidator *validator = new QRegularExpressionValidator(regex, this);
     ui->lineEdit_kNaziv->setValidator(validator);
     ui->lineEdit_cNaziv->setValidator(validator);
@@ -18,13 +19,21 @@ DodajPodjetje::DodajPodjetje(QWidget *parent) :
     ui->lineEdit_posta->setValidator(validator);
     ui->lineEdit_ddv->setValidator(validator);
     ui->lineEdit_email->setValidator(validator);
-    this->setWindowTitle("Dodaj - popravi stranko");
+    this->setWindowTitle("Dodaj - popravi stranko");;
+    ui->pushButton_popraviPodatke->setEnabled(false);
+    ui->pushButton_popraviPodatke->setVisible(false);
+    ui->pushButton_dodajPodjetje->setEnabled(false);
+    ui->pushButton_dodajPodjetje->setVisible(false);
     Read();
     TotalCompany();
 }
 
 DodajPodjetje::~DodajPodjetje() {
     delete ui;
+}
+
+void DodajPodjetje::closeEvent(QCloseEvent *) {
+    emit close_me();
 }
 
 // total companys(clients) function
@@ -52,14 +61,14 @@ void DodajPodjetje::AddRoot(QString name, QString num, QString cNaziv, QString n
     ui->treeWidget->addTopLevelItem(itm);
     QColor color(210,210,210);
     QColor wcolor(250,250,250);
+    if(ui->treeWidget->topLevelItemCount() % 2 == 0) m_count = true;
+    else m_count = false;
     if(m_count) {
-        itm->setBackgroundColor(0,color);
-        itm->setBackgroundColor(1,color);
-        m_count = false;
+        itm->setBackground(0,color);
+        itm->setBackground(1,color);
     } else {
-        itm->setBackgroundColor(0,wcolor);
-        itm->setBackgroundColor(1,wcolor);
-        m_count = true;
+        itm->setBackground(0,wcolor);
+        itm->setBackground(1,wcolor);
     }
     AddChild(itm, cNaziv);
     AddChild(itm, naslov);
@@ -122,6 +131,10 @@ void DodajPodjetje::Write(QString file_podjetje, QString file_num) {
     m_kNaziv.replace("D.O.O", "d.o.o.");
     m_kNaziv.replace("S.P.", "s.p.");
     m_kNaziv.replace("D.D.", "d.d.");
+    m_kNaziv.replace(0,1,m_kNaziv.at(0).toUpper());
+    while(m_kNaziv.at(m_kNaziv.length() - 1) == ' ') {
+        m_kNaziv.remove(-1, 1);
+    }
     m_cNaziv = ui->lineEdit_cNaziv->text().toUpper();
     if(m_cNaziv == "")
         m_cNaziv = "ni podatka";
@@ -129,15 +142,30 @@ void DodajPodjetje::Write(QString file_podjetje, QString file_num) {
     m_cNaziv.replace("D.O.O", "d.o.o.");
     m_cNaziv.replace("S.P.", "s.p.");
     m_cNaziv.replace("D.D.", "d.d.");
+    m_cNaziv.replace(0,1,m_cNaziv.at(0).toUpper());
+    while(m_cNaziv.at(m_cNaziv.length() - 1) == ' ') {
+        m_cNaziv.remove(-1, 1);
+    }
     m_naslov = ui->lineEdit_naslov->text();
     if(m_naslov == "")
         m_naslov = "ni podatka";
+    m_naslov.replace(0,1,m_naslov.at(0).toUpper());
+    while(m_naslov.at(m_naslov.length() - 1) == ' ') {
+        m_naslov.remove(-1, 1);
+    }
     m_posta = ui->lineEdit_posta->text().toUpper();
     if(m_posta == "")
         m_posta = "ni podatka";
+    while(m_posta.at(m_posta.length() - 1) == ' ') {
+        m_posta.remove(-1, 1);
+    }
     m_ddv = ui->lineEdit_ddv->text().toUpper();
     if(m_ddv == "")
         m_ddv = "ni podatka";
+    m_ddv.replace(0,1,m_ddv.at(0).toUpper());
+    while(m_ddv.at(m_ddv.length() - 1) == ' ') {
+        m_ddv.remove(-1, 1);
+    }
     m_email = ui->lineEdit_email->text();
     if(m_email == "")
         m_email = "ni podatka";
@@ -221,6 +249,14 @@ void DodajPodjetje::on_pushButton_dodajPodjetje_clicked() {
     QString dodano = "Dodano";
     QString arhiv = dodano + " ; " + date.toString("dd.MM.yyyy ; hh:mm:ss.zzz") + " ; " + m_kNaziv + " ; " + m_cNaziv + " ; " + m_naslov + " ; " + m_posta + " ; " + m_ddv + " ; " + m_email + " ; " + "Rajh" + " !?!";
     Arhiv(m_arhivStranke, arhiv);
+    ui->pushButton_popraviPodatke->setEnabled(false);
+    ui->pushButton_dodajPodjetje->setEnabled(true);
+    ui->lineEdit_kNaziv->clear();
+    ui->lineEdit_cNaziv->clear();
+    ui->lineEdit_naslov->clear();
+    ui->lineEdit_posta->clear();
+    ui->lineEdit_ddv->clear();
+    ui->lineEdit_email->clear();
 }
 
 // button to fix already added clients
@@ -238,7 +274,52 @@ void DodajPodjetje::on_pushButton_popraviPodatke_clicked() {
     QString allText = out.readAll();
     mFile.close();
     QRegularExpression stranka(m_stranka);
-    QString rep_stranka(m_zapSt + ";" + ui->lineEdit_kNaziv->text() + ";" + ui->lineEdit_cNaziv->text() + ";" + ui->lineEdit_naslov->text() + ";" + ui->lineEdit_posta->text() + ";" + ui->lineEdit_ddv->text() + ";" + ui->lineEdit_email->text() + ";");
+    m_kNaziv = ui->lineEdit_kNaziv->text().toUpper();
+    if(m_kNaziv == "")
+        m_kNaziv = "ni podatka";
+    m_kNaziv.replace("D.O.O.", "d.o.o.");
+    m_kNaziv.replace("D.O.O", "d.o.o.");
+    m_kNaziv.replace("S.P.", "s.p.");
+    m_kNaziv.replace("D.D.", "d.d.");
+    m_kNaziv.replace(0,1,m_kNaziv.at(0).toUpper());
+    while(m_kNaziv.at(m_kNaziv.length() - 1) == ' ') {
+        m_kNaziv.remove(-1, 1);
+    }
+    m_cNaziv = ui->lineEdit_cNaziv->text().toUpper();
+    if(m_cNaziv == "")
+        m_cNaziv = "ni podatka";
+    m_cNaziv.replace("D.O.O.", "d.o.o.");
+    m_cNaziv.replace("D.O.O", "d.o.o.");
+    m_cNaziv.replace("S.P.", "s.p.");
+    m_cNaziv.replace("D.D.", "d.d.");
+    m_cNaziv.replace(0,1,m_cNaziv.at(0).toUpper());
+    while(m_cNaziv.at(m_cNaziv.length() - 1) == ' ') {
+        m_cNaziv.remove(-1, 1);
+    }
+    m_naslov = ui->lineEdit_naslov->text();
+    if(m_naslov == "")
+        m_naslov = "ni podatka";
+    m_naslov.replace(0,1,m_naslov.at(0).toUpper());
+    while(m_naslov.at(m_naslov.length() - 1) == ' ') {
+        m_naslov.remove(-1, 1);
+    }
+    m_posta = ui->lineEdit_posta->text().toUpper();
+    if(m_posta == "")
+        m_posta = "ni podatka";
+    while(m_posta.at(m_posta.length() - 1) == ' ') {
+        m_posta.remove(-1, 1);
+    }
+    m_ddv = ui->lineEdit_ddv->text().toUpper();
+    if(m_ddv == "")
+        m_ddv = "ni podatka";
+    m_ddv.replace(0,1,m_ddv.at(0).toUpper());
+    while(m_ddv.at(m_ddv.length() - 1) == ' ') {
+        m_ddv.remove(-1, 1);
+    }
+    m_email = ui->lineEdit_email->text();
+    if(m_email == "")
+        m_email = "ni podatka";
+    QString rep_stranka(m_zapSt + ";" + m_kNaziv + ";" + m_cNaziv + ";" + m_naslov + ";" + m_posta + ";" + m_ddv + ";" + m_email + ";");
     allText.replace(stranka, rep_stranka);
     if(!mFile.open(QFile::WriteOnly | QFile::Truncate)) {
         qDebug() << "Error opening mFile for truncate in pushButton_popraviPodatke in dodajpodjetje.cpp";
@@ -258,6 +339,15 @@ void DodajPodjetje::on_pushButton_popraviPodatke_clicked() {
     QString popravljeno = "Popravljeno";
     QString arhiv = popravljeno + " ; " + date.toString("dd.MM.yyyy ; hh:mm:ss.zzz") + " ; " + m_kNaziv + " ; " + m_cNaziv + " ; " + m_naslov + " ; " + m_posta + " ; " + m_ddv + " ; " + m_email + " ; " + "Rajh" + " !?!";
     Arhiv(m_arhivStranke, arhiv);
+    ui->pushButton_popraviPodatke->setEnabled(false);
+    ui->pushButton_dodajPodjetje->setEnabled(true);
+    ui->lineEdit_kNaziv->clear();
+    ui->lineEdit_cNaziv->clear();
+    ui->lineEdit_naslov->clear();
+    ui->lineEdit_posta->clear();
+    ui->lineEdit_ddv->clear();
+    ui->lineEdit_email->clear();
+    m_popravi = false;
 }
 
 // duble clicked treeWidget function
@@ -295,124 +385,172 @@ void DodajPodjetje::on_treeWidget_doubleClicked(const QModelIndex &index) {
         m_ddv = ui->lineEdit_ddv->text();
         m_email = ui->lineEdit_email->text();
     }
+    m_popravi = true;
+    checkText();
 }
 
 void DodajPodjetje::on_lineEdit_kNaziv_textChanged(const QString &arg1)
 {
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == ' ') {
         ui->lineEdit_kNaziv->backspace();
     }
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == '.') {
         ui->lineEdit_kNaziv->backspace();
         ui->lineEdit_kNaziv->backspace();
         ui->lineEdit_kNaziv->insert(".");
     }
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == ',') {
         ui->lineEdit_kNaziv->backspace();
         ui->lineEdit_kNaziv->backspace();
         ui->lineEdit_kNaziv->insert(",");
     }
-    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == ' ') {
         ui->lineEdit_kNaziv->backspace();
     }
+    checkText();
 }
 
 void DodajPodjetje::on_lineEdit_cNaziv_textChanged(const QString &arg1)
 {
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == ' ') {
         ui->lineEdit_cNaziv->backspace();
     }
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == '.') {
         ui->lineEdit_cNaziv->backspace();
         ui->lineEdit_cNaziv->backspace();
         ui->lineEdit_cNaziv->insert(".");
     }
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == ',') {
         ui->lineEdit_cNaziv->backspace();
         ui->lineEdit_cNaziv->backspace();
         ui->lineEdit_cNaziv->insert(",");
     }
-    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == ' ') {
         ui->lineEdit_cNaziv->backspace();
     }
+    checkText();
 }
 
 void DodajPodjetje::on_lineEdit_naslov_textChanged(const QString &arg1)
 {
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == ' ') {
         ui->lineEdit_naslov->backspace();
     }
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == '.') {
         ui->lineEdit_naslov->backspace();
         ui->lineEdit_naslov->backspace();
         ui->lineEdit_naslov->insert(".");
     }
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == ',') {
         ui->lineEdit_naslov->backspace();
         ui->lineEdit_naslov->backspace();
         ui->lineEdit_naslov->insert(",");
     }
-    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == ' ') {
         ui->lineEdit_naslov->backspace();
     }
+    checkText();
 }
 
 void DodajPodjetje::on_lineEdit_posta_textChanged(const QString &arg1)
 {
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == ' ') {
         ui->lineEdit_posta->backspace();
     }
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == '.') {
         ui->lineEdit_posta->backspace();
         ui->lineEdit_posta->backspace();
         ui->lineEdit_posta->insert(".");
     }
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == ',') {
         ui->lineEdit_posta->backspace();
         ui->lineEdit_posta->backspace();
         ui->lineEdit_posta->insert(",");
     }
-    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == ' ') {
         ui->lineEdit_posta->backspace();
     }
+    checkText();
 }
 
 void DodajPodjetje::on_lineEdit_ddv_textChanged(const QString &arg1)
 {
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == ' ') {
         ui->lineEdit_ddv->backspace();
     }
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == '.') {
         ui->lineEdit_ddv->backspace();
         ui->lineEdit_ddv->backspace();
         ui->lineEdit_ddv->insert(".");
     }
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == ',') {
         ui->lineEdit_ddv->backspace();
         ui->lineEdit_ddv->backspace();
         ui->lineEdit_ddv->insert(",");
     }
-    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == ' ') {
         ui->lineEdit_ddv->backspace();
     }
+    checkText();
 }
 
 void DodajPodjetje::on_lineEdit_email_textChanged(const QString &arg1)
 {
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == ' ') {
         ui->lineEdit_email->backspace();
     }
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == '.') {
         ui->lineEdit_email->backspace();
         ui->lineEdit_email->backspace();
         ui->lineEdit_email->insert(".");
     }
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == ',') {
         ui->lineEdit_email->backspace();
         ui->lineEdit_email->backspace();
         ui->lineEdit_email->insert(",");
     }
-    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == ' ') {
         ui->lineEdit_email->backspace();
     }
+    checkText();
+}
+
+void DodajPodjetje::checkText() {
+    if(!m_popravi) {
+        if(ui->lineEdit_kNaziv->text() != "" && ui->lineEdit_cNaziv->text() != "" && ui->lineEdit_naslov->text() != "" && ui->lineEdit_posta->text() != "" && ui->lineEdit_ddv->text() != "" && ui->lineEdit_email->text() != "") {
+            ui->pushButton_popraviPodatke->setEnabled(false);
+            ui->pushButton_popraviPodatke->setVisible(false);
+            ui->pushButton_dodajPodjetje->setEnabled(true);
+            ui->pushButton_dodajPodjetje->setVisible(true);
+        } else {
+            ui->pushButton_popraviPodatke->setEnabled(false);
+            ui->pushButton_popraviPodatke->setVisible(false);
+            ui->pushButton_dodajPodjetje->setEnabled(false);
+            ui->pushButton_dodajPodjetje->setVisible(false);
+        }
+    } else {
+        if(m_popravi && (ui->lineEdit_kNaziv->text() == "" || ui->lineEdit_cNaziv->text() == "" || ui->lineEdit_naslov->text() == "" || ui->lineEdit_posta->text() == "" || ui->lineEdit_ddv->text() == "" || ui->lineEdit_email->text() == "")) {
+            ui->pushButton_popraviPodatke->setEnabled(false);
+            ui->pushButton_popraviPodatke->setVisible(false);
+            ui->pushButton_dodajPodjetje->setEnabled(false);
+            ui->pushButton_dodajPodjetje->setVisible(false);
+        }
+        if(m_popravi && ui->lineEdit_kNaziv->text() == "" && ui->lineEdit_cNaziv->text() == "" && ui->lineEdit_naslov->text() == "" && ui->lineEdit_posta->text() == "" && ui->lineEdit_ddv->text() == "" && ui->lineEdit_email->text() == "") {
+            m_popravi = false;
+            ui->pushButton_popraviPodatke->setEnabled(false);
+            ui->pushButton_popraviPodatke->setVisible(false);
+            ui->pushButton_dodajPodjetje->setEnabled(false);
+            ui->pushButton_dodajPodjetje->setVisible(false);
+        }
+        if(m_popravi && ui->lineEdit_kNaziv->text() != "" && ui->lineEdit_cNaziv->text() != "" && ui->lineEdit_naslov->text() != "" && ui->lineEdit_posta->text() != "" && ui->lineEdit_ddv->text() != "" && ui->lineEdit_email->text() != "") {
+            ui->pushButton_popraviPodatke->setEnabled(true);
+            ui->pushButton_popraviPodatke->setVisible(true);
+            ui->pushButton_dodajPodjetje->setEnabled(false);
+            ui->pushButton_dodajPodjetje->setVisible(false);
+        }
+    }
+}
+
+void DodajPodjetje::on_pushButton_izhod_clicked() {
+    close();
 }

@@ -29,6 +29,12 @@ public:
     void AddChild(QTreeWidgetItem *, QString);
     void Arhiv(QString, QString);
 
+signals:
+    void close_me();
+
+protected:
+    void closeEvent(QCloseEvent *);
+
 private slots:
     void on_pushButton_dodajPodjetje_clicked();
     void on_pushButton_popraviPodatke_clicked();
@@ -39,6 +45,9 @@ private slots:
     void on_lineEdit_posta_textChanged(const QString &arg1);
     void on_lineEdit_ddv_textChanged(const QString &arg1);
     void on_lineEdit_email_textChanged(const QString &arg1);
+    void checkText();
+
+    void on_pushButton_izhod_clicked();
 
 private:
     Ui::DodajPodjetje *ui;
@@ -57,6 +66,7 @@ private:
     int m_itr;
     int m_totalCompanys;
     bool m_count;
+    bool m_popravi;
 };
 
 #endif // DODAJPODJETJE_H

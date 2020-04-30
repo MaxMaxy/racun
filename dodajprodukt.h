@@ -27,6 +27,13 @@ public:
     void Search(QString);
     void Arhiv(QString, QString);
     void SetIndex(int);
+    void checkText();
+
+signals:
+    void close_me();
+
+protected:
+    void closeEvent(QCloseEvent *);
 
 private slots:
     void on_pushButton_dodaj_clicked();
@@ -37,6 +44,7 @@ private slots:
     void on_lineEdit_nazivProdukta_textChanged(const QString &arg1);
     void on_lineEdit_cena_textChanged(const QString &arg1);
     void on_lineEdit_id_textChanged();
+    void on_pushButton_clicked();
 
 private:
     Ui::DodajProdukt *ui;
@@ -49,6 +57,7 @@ private:
     QString m_produkt;
     bool m_count;
     int m_itr;
+    bool m_popravi;
 };
 
 #endif // DODAJPRODUKT_H

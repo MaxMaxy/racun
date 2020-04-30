@@ -2,13 +2,15 @@
 #include "ui_arhiv.h"
 
 Arhiv::Arhiv(QWidget *parent) :
-    QDialog(parent), ui(new Ui::Arhiv), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/arhiv_files.txt"), m_arhivRacun(m_currentDir + "/arhiv_novRacun.txt")
+    QDialog(parent), ui(new Ui::Arhiv), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/arhiv_files.txt"), m_arhivRacun(m_currentDir + "/arhiv_novRacun.txt"),
+    m_show_child(false)
 {
     ui->setupUi(this);
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
     this->setWindowTitle("Arhiv");
     this->setWindowFlags(Qt::Window);
+    this->showMaximized();
     ui->pushButton_isci->setFocus();
     ui->pushButton_isci->setVisible(false);
     AddItemsToCombo();
@@ -16,6 +18,14 @@ Arhiv::Arhiv(QWidget *parent) :
 
 Arhiv::~Arhiv() {
     delete ui;
+}
+
+void Arhiv::CloseChild() {
+    m_show_child = false;
+}
+
+void Arhiv::closeEvent(QCloseEvent *) {
+    emit close_me();
 }
 
 void Arhiv::on_comboBox_currentIndexChanged(const QString &item) {
@@ -106,7 +116,7 @@ void Arhiv::on_comboBox_currentIndexChanged(const QString &item) {
 }
 
 void Arhiv::Read() {
-    QString comboIzbira = ui->comboBox->currentText() + ".txt";
+    QString comboIzbira = ui->comboBox->currentText().toUtf8() + ".txt";
     QFile fileName(comboIzbira);
     if(!fileName.open(QFile::ReadOnly | QFile::Text)) {
         qDebug() << "Error opening file for reading in Read() function in arhiv.cpp";
@@ -120,7 +130,7 @@ void Arhiv::Read() {
         if(mText == "") {
             continue;
         } else {
-            ui->listWidget->addItem(mText);
+            ui->listWidget->addItem(mText.toUtf8());
         }
     }
     fileName.close();
@@ -141,7 +151,7 @@ void Arhiv::AddItemsToCombo() {
         if(mText == "") {
             continue;
         } else {
-            ui->comboBox->addItem(mText);
+            ui->comboBox->addItem(mText.toUtf8());
         }
     }
     mFile.close();
@@ -149,7 +159,7 @@ void Arhiv::AddItemsToCombo() {
 
 void Arhiv::Search(QString searchName) {
     ui->listWidget->clear();
-    QString comboIzbira = ui->comboBox->currentText() + ".txt";
+    QString comboIzbira = ui->comboBox->currentText().toUtf8() + ".txt";
     QFile mFile(comboIzbira);
     if(!mFile.open(QFile::ReadOnly | QFile::Text)) {
         qDebug() << "Error opening mFile for reading in Search() function in arhiv.cpp";
@@ -161,7 +171,7 @@ void Arhiv::Search(QString searchName) {
     while(!out.atEnd()) {
         line = out.readLine();
         if(line.contains(searchName, Qt::CaseInsensitive)) {
-            ui->listWidget->addItem(line);
+            ui->listWidget->addItem(line.toUtf8());
         }
     }
     mFile.close();
@@ -216,11 +226,14 @@ void Arhiv::on_listWidget_itemDoubleClicked(QListWidgetItem *item) {
         QStringList tmp_list;
         for(int i(0); i < list.length(); i++) {
             tmp = list.at(i);
+            if(list.at(i) == "")
+                tmp = "/";
             tmp_list.append(tmp.split(": ", QString::SkipEmptyParts));
         }
         NovRacun racun;
         racun.setModal(true);
         QFile mFile(m_arhivRacun);
+
         if(!mFile.open(QFile::Text | QFile::ReadOnly)) {
             qDebug() << "Error opening mFile for reading in popravi button";
             return;
@@ -229,25 +242,35 @@ void Arhiv::on_listWidget_itemDoubleClicked(QListWidgetItem *item) {
         in.setCodec("UTF-8");
         QString allText = in.readAll();
         mFile.close();
-        QString produkt_star = item->text();
-        QString opomba = list.at(12);
-        QString produkt_nov = item->text().replace(opomba, "Opomba: racun_je_bil_spremenjen!!!????");
+
+        QString produkt_star = item->text().toUtf8();
+        QString opomba = list.at(12).toUtf8();
+        QString produkt_nov = item->text().replace(opomba, "Opomba: racun_je_bil_spremenjen!!!????").toUtf8();
         allText.replace(produkt_star, produkt_nov);
+
         if(!mFile.open(QFile::WriteOnly | QFile::Truncate)) {
             qDebug() << "Error opening mFile for truncate in popravi button";
             return;
         }
         mFile.flush();
         mFile.close();
+
         if(!mFile.open(QFile::WriteOnly | QFile::Text)) {
             qDebug() << "Error opening mFile for writing in popravi button";
             return;
         }
-        in << allText;
+        in << allText.toUtf8();
         mFile.flush();
         mFile.close();
-        racun.PopraviRacun(tmp_list.at(12), tmp_list.at(4), tmp_list.at(6), tmp_list.at(8), tmp_list.at(22), tmp_list.at(14), tmp_list.at(16), tmp_list.at(18), tmp_list.at(20), tmp_list.at(32));
-        racun.exec();
+        racun.PopraviRacun(tmp_list.at(12).toUtf8(), tmp_list.at(4).toUtf8(), tmp_list.at(6).toUtf8(), tmp_list.at(8).toUtf8(), tmp_list.at(22).toUtf8(), tmp_list.at(14).toUtf8(), tmp_list.at(32).toUtf8());
+        this->hide();
+        QObject::connect(&racun,SIGNAL(close_me()),this,SLOT(CloseChild()));
+        m_show_child = true;
+        while (m_show_child) {
+            racun.exec();
+        }
+        this->show();
+        Arhiv::show();
         ui->listWidget->clear();
         Read();
     }
@@ -266,11 +289,15 @@ void Arhiv::on_radioButton_spremenjeniRacuni_toggled(bool checked) {
 }
 
 void Arhiv::on_lineEdit_isci_textChanged() {
-    QString search = ui->lineEdit_isci->text();
+    QString search = ui->lineEdit_isci->text().toUtf8();
     if(search == "")
         Read();
     else {
         ui->listWidget->clear();
         Search(search);
     }
+}
+
+void Arhiv::on_pushButton_clicked() {
+    close();
 }

@@ -2,12 +2,14 @@
 #include "ui_dodajprodukt.h"
 
 DodajProdukt::DodajProdukt(QWidget *parent) :
-    QDialog(parent), ui(new Ui::DodajProdukt), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/company_file.txt"), m_arhivProdukti(m_currentDir + "/arhiv_produkti.txt"), m_id(""), m_naziv(""), m_cena(""), m_produkt(""), m_count(true), m_itr(0)
+    QDialog(parent), ui(new Ui::DodajProdukt), m_currentDir(QDir::currentPath()), m_fileName(m_currentDir + "/company_file.txt"),
+    m_arhivProdukti(m_currentDir + "/arhiv_produkti.txt"), m_id(""), m_naziv(""), m_cena(""), m_produkt(""), m_count(true), m_itr(0), m_popravi(false)
 {
     ui->setupUi(this);
     QIcon icon(":/icons/icon.ico");
     this->setWindowIcon(icon);
     this->setWindowFlags(Qt::Window);
+    this->showMaximized();
     ui->treeWidget->setColumnCount(3);
     ui->treeWidget->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     ui->treeWidget->header()->setSectionResizeMode(1, QHeaderView::Stretch);
@@ -18,17 +20,17 @@ DodajProdukt::DodajProdukt(QWidget *parent) :
     QRegularExpression regenum("^[0123456789/]*$");
     QValidator *validatornum = new QRegularExpressionValidator(regenum, this);
     ui->lineEdit_id->setValidator(validatornum);
-    QRegularExpression regex("^[.0123456789]*$");
+    QRegularExpression regex("^[.,0123456789]*$");
     QValidator *validator = new QRegularExpressionValidator(regex, this);
     ui->lineEdit_cena->setValidator(validator);
-    QRegularExpression regealfabet("^[a-zA-Z0-9,@. -/&#čšžŠČŽ=]*$");
+    QRegularExpression regealfabet("^[a-zA-Z0-9,@. -/&#čšžŠČŽ()+=]*$");
     QValidator *validatoralfabet = new QRegularExpressionValidator(regealfabet, this);
     ui->lineEdit_nazivProdukta->setValidator(validatoralfabet);
     this->setWindowTitle("Dodaj - popravi produkt");
     ui->pushButton_isci->setFocus();
     ui->pushButton_isci->setVisible(false);
     ui->treeWidget->setRootIsDecorated(false);
-    ui->pushButton_popravi->setEnabled(false);
+    checkText();
     AddItemsToCombo();
     Read();
 }
@@ -36,6 +38,10 @@ DodajProdukt::DodajProdukt(QWidget *parent) :
 DodajProdukt::~DodajProdukt()
 {
     delete ui;
+}
+
+void DodajProdukt::closeEvent(QCloseEvent *) {
+    emit close_me();
 }
 
 void DodajProdukt::Arhiv(QString arhiv_file, QString stream)
@@ -68,28 +74,28 @@ void DodajProdukt::AddRoot(QString id, QString naziv, QString cena)
     QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
     // nastavimo stevilko podjetja in ime podjetja v colom 0 in 1
     itm->setText(0, id);
-    itm->setTextAlignment(0, Qt::AlignLeading);
+    itm->setTextAlignment(0, Qt::AlignHCenter);
     itm->setText(1, naziv);
-    itm->setTextAlignment(1, Qt::AlignLeading);
+    itm->setTextAlignment(1, Qt::AlignHCenter);
     itm->setText(2, "€" + cena);
-    itm->setTextAlignment(2, Qt::AlignLeading);
+    itm->setTextAlignment(2, Qt::AlignHCenter);
     // dodamo podjetje v treeWidget
     ui->treeWidget->addTopLevelItem(itm);
     // nastavimo barvo za vsako drugo podjetje
     QColor color(210,210,210);
     QColor wcolor(250,250,250);
     // m_count je member bool ce je tru je barva siva drugace bela
+    if(ui->treeWidget->topLevelItemCount() % 2 == 0) m_count = true;
+    else m_count = false;
     if(m_count)
     {
-        itm->setBackgroundColor(0,color);
-        itm->setBackgroundColor(1,color);
-        itm->setBackgroundColor(2,color);
-        m_count = false;
+        itm->setBackground(0,color);
+        itm->setBackground(1,color);
+        itm->setBackground(2,color);
     } else {
-        itm->setBackgroundColor(0,wcolor);
-        itm->setBackgroundColor(1,wcolor);
-        itm->setBackgroundColor(2,wcolor);
-        m_count = true;
+        itm->setBackground(0,wcolor);
+        itm->setBackground(1,wcolor);
+        itm->setBackground(2,wcolor);
     }
 }
 
@@ -193,8 +199,7 @@ void DodajProdukt::on_pushButton_dodaj_clicked()
     QString podjetje = QString::number(izbPod) + ".txt";
 
     QFile fileName(podjetje);
-    if(!fileName.open(QFile::WriteOnly | QFile::Append))
-    {
+    if(!fileName.open(QFile::WriteOnly | QFile::Append)) {
         qDebug() << "Error opening fileName for writing in dodaj produkt gumb";
         return;
     }
@@ -204,9 +209,13 @@ void DodajProdukt::on_pushButton_dodaj_clicked()
     if(m_id == "")
         m_id = "/";
     m_naziv = ui->lineEdit_nazivProdukta->text();
+    m_naziv.replace(0,1,m_naziv.at(0).toUpper());
+    while(m_naziv.at(m_naziv.length() - 1) == ' ') {
+        m_naziv.remove(-1, 1);
+    }
     if(m_naziv == "")
         m_naziv = "ni podatka";
-    m_cena = ui->lineEdit_cena->text();
+    m_cena = ui->lineEdit_cena->text().replace(',', '.').remove(" ");
     if(m_cena == "")
         m_cena = "0";
     out << m_id << ";" << m_naziv << ";" << m_cena << ";" << "\n";
@@ -222,15 +231,17 @@ void DodajProdukt::on_pushButton_dodaj_clicked()
     ui->lineEdit_cena->clear();
 }
 
-void DodajProdukt::on_comboBox_podjetje_currentIndexChanged()
-{
-    ui->pushButton_dodaj->setEnabled(true);
+void DodajProdukt::on_comboBox_podjetje_currentIndexChanged() {
+    checkText();
     Read();
 }
 
 void DodajProdukt::on_treeWidget_doubleClicked(const QModelIndex &index) {
     if(index.column() != 2) {
         ui->pushButton_popravi->setEnabled(true);
+        ui->pushButton_popravi->setVisible(true);
+        ui->pushButton_dodaj->setEnabled(false);
+        ui->pushButton_dodaj->setVisible(false);
         int izbPod = ui->comboBox_podjetje->currentIndex() + 1;
         QString podjetje = QString::number(izbPod) + ".txt";
         QFile mFile(podjetje);
@@ -253,17 +264,20 @@ void DodajProdukt::on_treeWidget_doubleClicked(const QModelIndex &index) {
                 m_id = ui->lineEdit_id->text();
                 m_naziv = ui->lineEdit_nazivProdukta->text();
                 m_cena = ui->lineEdit_cena->text();
+                ui->pushButton_popravi->setEnabled(true);
+                ui->pushButton_popravi->setVisible(true);
                 ui->pushButton_dodaj->setEnabled(false);
+                ui->pushButton_dodaj->setVisible(false);
             }
         }
         mFile.close();
     }
+    m_popravi = true;
+    checkText();
 }
 
-void DodajProdukt::on_pushButton_popravi_clicked()
-{
-    if(ui->treeWidget->currentItem() == nullptr)
-    {
+void DodajProdukt::on_pushButton_popravi_clicked() {
+    if(ui->treeWidget->currentItem() == nullptr) {
         return;
     }
     int izbPod = ui->comboBox_podjetje->currentIndex() + 1;
@@ -271,8 +285,7 @@ void DodajProdukt::on_pushButton_popravi_clicked()
     // odpre file za branje
     QFile mFile(podjetje);
     // test ce je file odprt
-    if(!mFile.open(QFile::Text | QFile::ReadOnly))
-    {
+    if(!mFile.open(QFile::Text | QFile::ReadOnly)) {
         qDebug() << "Error opening mFile for reading in popravi button";
         return;
     }
@@ -284,12 +297,11 @@ void DodajProdukt::on_pushButton_popravi_clicked()
     // zapre file
     mFile.close();
     // zamenja spremenjene dele besedila
-    QRegularExpression produkt(m_produkt);
-    QString rep_produkt(ui->lineEdit_id->text() + ";" + ui->lineEdit_nazivProdukta->text() + ";" + ui->lineEdit_cena->text() + ";");
+    QString produkt(m_produkt);
+    QString rep_produkt(ui->lineEdit_id->text() + ";" + ui->lineEdit_nazivProdukta->text() + ";" + ui->lineEdit_cena->text().replace(',', '.').remove(" ") + ";");
     allText.replace(produkt, rep_produkt);
     // odpre file za pisanje (z namenom da zbrise vse stare podatke) in test
-    if(!mFile.open(QFile::WriteOnly | QFile::Truncate))
-    {
+    if(!mFile.open(QFile::WriteOnly | QFile::Truncate)) {
         qDebug() << "Error opening mFile for truncate in popravi button";
         return;
     }
@@ -297,8 +309,7 @@ void DodajProdukt::on_pushButton_popravi_clicked()
     mFile.flush();
     mFile.close();
     // odpre file za pisanje (z namenom da zapise nove podatke) in test
-    if(!mFile.open(QFile::WriteOnly | QFile::Text))
-    {
+    if(!mFile.open(QFile::WriteOnly | QFile::Text)) {
         qDebug() << "Error opening mFile for writing in popravi button";
         return;
     }
@@ -310,13 +321,13 @@ void DodajProdukt::on_pushButton_popravi_clicked()
     Read();
     QDateTime date = QDateTime::currentDateTime();
     QString popravljeno = "Popravljeno";
-    QString arhiv = popravljeno + " ; " + date.toString("dd.MM.yyyy ; hh:mm:ss.zzz") + " ; " + m_id + " ; " + m_naziv + " ; " + m_cena + " ; " + "Rajh" + " !?!";
+    QString arhiv = popravljeno + " ; " + date.toString("dd.MM.yyyy ; hh:mm:ss.zzz") + " ; " + m_id + " ; " + m_naziv + " ; " + m_cena.replace(',', '.').remove(" ") + " ; " + "Rajh" + " !?!";
     Arhiv(m_arhivProdukti, arhiv);
     ui->lineEdit_id->clear();
     ui->lineEdit_nazivProdukta->clear();
     ui->lineEdit_cena->clear();
-    ui->pushButton_popravi->setEnabled(false);
-    ui->pushButton_dodaj->setEnabled(true);
+    ui->lineEdit_isci->clear();
+    checkText();
 }
 
 void DodajProdukt::Search(QString searchName) {
@@ -358,44 +369,75 @@ void DodajProdukt::on_lineEdit_isci_textChanged()
 }
 
 void DodajProdukt::on_lineEdit_nazivProdukta_textChanged(const QString &arg1) {
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == " ") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == ' ') {
         ui->lineEdit_nazivProdukta->backspace();
     }
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ".") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == '.') {
         ui->lineEdit_nazivProdukta->backspace();
         ui->lineEdit_nazivProdukta->backspace();
         ui->lineEdit_nazivProdukta->insert(".");
     }
-    if(arg1.at(arg1.length()-2) == " " && arg1.at(arg1.length()-1) == ",") {
+    if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == ',') {
         ui->lineEdit_nazivProdukta->backspace();
         ui->lineEdit_nazivProdukta->backspace();
         ui->lineEdit_nazivProdukta->insert(",");
     }
-    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == " ") {
+    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == ' ') {
         ui->lineEdit_nazivProdukta->backspace();
     }
-    if(ui->lineEdit_id->text() == "" && ui->lineEdit_nazivProdukta->text() == "" && ui->lineEdit_cena->text() == "") {
-        ui->pushButton_dodaj->setEnabled(true);
-        ui->pushButton_popravi->setEnabled(false);
-    }
+    checkText();
 }
 
 void DodajProdukt::on_lineEdit_cena_textChanged(const QString &arg1) {
-    if(arg1.length() == 1 && arg1.at(arg1.length()-1) == ".") {
+    if(arg1.length() == 1 && (arg1.at(arg1.length()-1) == '.' || arg1.at(arg1.length()-1) == ',')) {
         ui->lineEdit_cena->backspace();
     }
-    if(arg1.contains("..")) {
+    if(arg1.contains("..") || arg1.contains(",,") || arg1.contains(",.") || arg1.contains(".,")) {
         ui->lineEdit_cena->backspace();
     }
-    if(ui->lineEdit_id->text() == "" && ui->lineEdit_nazivProdukta->text() == "" && ui->lineEdit_cena->text() == "") {
-        ui->pushButton_dodaj->setEnabled(true);
-        ui->pushButton_popravi->setEnabled(false);
-    }
+    checkText();
 }
 
 void DodajProdukt::on_lineEdit_id_textChanged() {
-    if(ui->lineEdit_id->text() == "" && ui->lineEdit_nazivProdukta->text() == "" && ui->lineEdit_cena->text() == "") {
-        ui->pushButton_dodaj->setEnabled(true);
-        ui->pushButton_popravi->setEnabled(false);
+    checkText();
+}
+
+void DodajProdukt::checkText() {
+    if(!m_popravi) {
+        if(ui->lineEdit_id->text() != "" && ui->lineEdit_nazivProdukta->text() != "" && ui->lineEdit_cena->text() != "") {
+            ui->pushButton_popravi->setEnabled(false);
+            ui->pushButton_popravi->setVisible(false);
+            ui->pushButton_dodaj->setEnabled(true);
+            ui->pushButton_dodaj->setVisible(true);
+        } else {
+            ui->pushButton_popravi->setEnabled(false);
+            ui->pushButton_popravi->setVisible(false);
+            ui->pushButton_dodaj->setEnabled(false);
+            ui->pushButton_dodaj->setVisible(false);
+        }
+    } else {
+        if(m_popravi && (ui->lineEdit_id->text() == "" || ui->lineEdit_nazivProdukta->text() == "" || ui->lineEdit_cena->text() == "")) {
+            ui->pushButton_popravi->setEnabled(false);
+            ui->pushButton_popravi->setVisible(false);
+            ui->pushButton_dodaj->setEnabled(false);
+            ui->pushButton_dodaj->setVisible(false);
+        }
+        if(m_popravi && ui->lineEdit_id->text() == "" && ui->lineEdit_nazivProdukta->text() == "" && ui->lineEdit_cena->text() == "") {
+            m_popravi = false;
+            ui->pushButton_popravi->setEnabled(false);
+            ui->pushButton_popravi->setVisible(false);
+            ui->pushButton_dodaj->setEnabled(false);
+            ui->pushButton_dodaj->setVisible(false);
+        }
+        if(m_popravi && ui->lineEdit_id->text() != "" && ui->lineEdit_nazivProdukta->text() != "" && ui->lineEdit_cena->text() != "") {
+            ui->pushButton_popravi->setEnabled(true);
+            ui->pushButton_popravi->setVisible(true);
+            ui->pushButton_dodaj->setEnabled(false);
+            ui->pushButton_dodaj->setVisible(false);
+        }
     }
+}
+
+void DodajProdukt::on_pushButton_clicked() {
+    close();
 }

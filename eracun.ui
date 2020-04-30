@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>eRacun</class>
+ <widget class="QDialog" name="eRacun">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>411</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>MS Sans Serif</family>
+    <weight>75</weight>
+    <bold>true</bold>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>373</width>
+        <height>600</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="groupBox">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+           <italic>true</italic>
+          </font>
+         </property>
+         <property name="title">
+          <string>eRačun</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Naziv stranke</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lineEdit_nazivStranke">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Naslov stranke</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lineEdit_naslovStranke">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Naziv pošte</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lineEdit_postaStranke">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_4">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Poštna številka</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lineEdit_postnaStStranke">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_5">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Država</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lineEdit_drzavaStranke">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_6">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Koda države</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lineEdit_kodaDrzaveStranke">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_7">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Bančni račun stranke</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lineEdit_bancniRacunStranke">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_8">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>BIC številka banke</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lineEdit_bicStranke">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_9">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>VAT številka stranke</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lineEdit_vatStranke">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_vnos">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Vnos</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_izhod">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Izhod</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButton_izhod</sender>
+   <signal>clicked()</signal>
+   <receiver>eRacun</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>256</x>
+     <y>562</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>329</x>
+     <y>584</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
