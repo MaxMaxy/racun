@@ -1,645 +1,498 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow), m_copy_path(QDir::currentPath()), m_currentDir(QDir::currentPath()), m_arhiv_files(m_currentDir + "/arhiv_files.txt"), m_arhiv_login(m_currentDir + "/arhiv_login.txt"),
-                            m_arhiv_novRacun(m_currentDir + "/arhiv_novRacun.txt"), m_arhiv_produkti(m_currentDir + "/arhiv_produkti.txt"), m_arhiv_stRacuna(m_currentDir + "/arhiv_stRacuna.txt"),
-                            m_arhiv_stranke(m_currentDir + "/arhiv_stranke.txt"), m_arhiv_upniki(m_currentDir + "/arhiv_upniki.txt"), m_arhiv_upnikiSeznam(m_currentDir + "/arhiv_upnikiSeznam.txt"),
-                            m_company_file(m_currentDir + "/company_file.txt"), m_delavni_proces(m_currentDir + "/delavni_proces.txt"), m_login_file(m_currentDir + "/login_file.txt"),
-                            m_material(m_currentDir + "/material.txt"), m_num_company(m_currentDir + "/num_company.txt"), m_settings(m_currentDir + "/settings.txt"),
-                            m_show_child(false), m_saveRacun(m_currentDir)
+// KONSTRUKOR
+MainWindow::MainWindow(QWidget *parent)
+    : Methods(parent),
+      ui(new Ui::MainWindow),
+      m_count(true),
+      m_TreeWidgetIsClicked(false),
+      m_executable(true),
+      m_id(""),
+      m_naziv(""),
+      m_kolicina(""),
+      m_opomba(""),
+      m_verzija("v1.8"),
+      m_verzijaLabel(new QLabel(this)),
+      m_searchLine(";"),
+      m_searchList(m_searchLine.split(';', QString::SkipEmptyParts)),
+      m_treeItemCount(0),
+      m_nacinTiska(Methods::NacinTiska::Standard)
 {
     ui->setupUi(this);
-    QIcon icon(":icon/icon.ico");
+    QIcon icon(":icons/icon.ico");
     this->setWindowIcon(icon);
-    this->setWindowTitle("Glavni meni");
-    ui->pushButton->setFocus();
-    MainWindow::setWindowIcon(icon);
-    CheckFiles();
+    this->setWindowTitle("Tiskanje nalepk");
+    ui->treeWidget->setContextMenuPolicy(Qt::CustomContextMenu);
+    ui->treeWidget->setColumnCount(2);
+    ui->treeWidget->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
+    ui->treeWidget->header()->setSectionResizeMode(1, QHeaderView::Stretch);
+    ui->treeWidget->header()->setStretchLastSection(false);
+    ui->treeWidget->setRootIsDecorated(false);
+    ui->lineEdit_IDprodukta->setMaxLength(40);
+    ui->lineEdit_nazivProdukta->setMaxLength(40);
+    ui->lineEdit_kolicina->setMaxLength(40);
+    m_verzijaLabel->setAlignment(Qt::AlignLeft);
+    m_verzijaLabel->setText(m_verzija);
+    ui->statusbar->addPermanentWidget(m_verzijaLabel);
+    ui->spinBox_kopijePrint->setValue(1);
+    m_numOfCopies = ui->spinBox_kopijePrint->value();
+    Reset();
 }
 
-MainWindow::~MainWindow() {
+// DESTRUKTOR
+MainWindow::~MainWindow()
+{
+    delete m_verzijaLabel;
     delete ui;
 }
 
-void MainWindow::CloseChild() {
-  m_show_child = false;
+// OVERRIDE RESET
+void MainWindow::Reset()
+{
+    m_treeItemCount = 0;
+    m_TreeWidgetIsClicked = false;
+    ui->spinBox_kopijePrint->setValue(1);
+    ui->lineEdit_IDprodukta->clear();
+    ui->lineEdit_nazivProdukta->clear();
+    ui->lineEdit_kolicina->clear();
+    ui->textEdit_opombe->clear();
+    ui->pushButton_shraniNalepko->setDisabled(true);
+    ui->pushButton_natisni->setDisabled(true);
+    ui->actionPrint->setDisabled(true);
+    ui->actionShrani_nalepko->setDisabled(true);
+    ReadFileAndAddToTreeWidget();
+    ui->lineEdit_IDprodukta->setFocus();
 }
 
-void MainWindow::on_actionIzhod_triggered() {
+// ITEM V TREEWIDGET
+void MainWindow::AddRootToTreeWidget(const QString& id, const QString& naziv,
+                                     QTreeWidgetItem* itm)
+{
+    itm->setText(0, id);
+    itm->setTextAlignment(0, Qt::AlignHCenter | Qt::AlignVCenter);
+    itm->setText(1, naziv);
+    itm->setTextAlignment(1, Qt::AlignHCenter | Qt::AlignVCenter);
+    ui->treeWidget->addTopLevelItem(itm);
+
+    QColor color(220,220,220);
+    QColor wcolor(250,250,250);
+
+    ui->treeWidget->topLevelItemCount() % 2 == 0 ?
+                m_count = true :
+                m_count = false;
+
+    m_count ? itm->setBackground(0, wcolor) :
+                itm->setBackground(0, color);
+
+    m_count ? itm->setBackground(1, wcolor) :
+                itm->setBackground(1, color);
+}
+
+// PREBERE FILE Z SHRANJENIMI NALEPKAMI
+void MainWindow::ReadFileAndAddToTreeWidget()
+{
+    ui->treeWidget->clear();
+    QFile file("nalepke.txt");
+
+    if(!file.open(QFile::Text | QFile::ReadOnly))
+        ErrorCall(file, Methods::ErrorType::ReadError);
+
+    QTextStream in(&file);
+    in.setCodec("UTF-8");
+
+    while(!in.atEnd()) {
+        m_searchLine = in.readLine();
+        if(m_searchLine == "" || m_searchLine == "DELETE;DELETE" || m_searchLine == "Seznam nalepk:")
+            continue;
+        else {
+            QTreeWidgetItem* itm = new QTreeWidgetItem();
+            m_searchList = m_searchLine.split(';', QString::SkipEmptyParts);
+            AddRootToTreeWidget(m_searchList.at(0), m_searchList.at(1), itm);
+        }
+    }
+
+    file.close();
+}
+
+// ISKALNIK
+void MainWindow::Search(const QString& id, const QString& naziv)
+{
+    QFile file("nalepke.txt");
+
+    if(!file.open(QFile::Text | QFile::ReadOnly))
+        ErrorCall(file, Methods::ErrorType::SearchError);
+
+    QTextStream out(&file);
+    out.setCodec("UTF-8");
+    while(!out.atEnd())
+    {
+        m_searchLine = out.readLine();
+        if((m_searchLine.contains(id, Qt::CaseInsensitive) && id != "") || (m_searchLine.contains(naziv, Qt::CaseInsensitive) && naziv != ""))
+        {
+            if(m_searchLine == "Seznam nalepk:")
+                continue;
+            if(m_searchLine.contains("DELETE"))
+                continue;
+            else
+            {
+                QTreeWidgetItem* itm = new QTreeWidgetItem();
+                m_searchList = m_searchLine.split(';', QString::SkipEmptyParts);
+                AddRootToTreeWidget(m_searchList.at(0), m_searchList.at(1), itm);
+            }
+        }
+    }
+    file.close();
+}
+
+// UJAME PRITISK NA TIPKO
+void MainWindow::keyReleaseEvent(QKeyEvent* event)
+{
+    if(event->key() == Qt::Key_Insert) {
+        m_executable = false;
+        if(ui->treeWidget->topLevelItem(0) == nullptr) {
+            Reset();
+        }
+        else if(m_treeItemCount != 0) {
+            ui->lineEdit_IDprodukta->setText(ui->treeWidget->selectedItems().at(0)->text(0));
+            ui->lineEdit_nazivProdukta->setText(ui->treeWidget->selectedItems().at(0)->text(1));
+            ui->pushButton_natisni->setDisabled(false);
+            ui->actionPrint->setDisabled(false);
+            ui->lineEdit_kolicina->setFocus();
+            m_treeItemCount = 0;
+        }
+        else {
+            ui->lineEdit_IDprodukta->setText(ui->treeWidget->topLevelItem(0)->text(0));
+            ui->lineEdit_nazivProdukta->setText(ui->treeWidget->topLevelItem(0)->text(1));
+            ui->pushButton_natisni->setDisabled(false);
+            ui->actionPrint->setDisabled(false);
+            ui->lineEdit_kolicina->setFocus();
+            m_treeItemCount = 0;
+        }
+    }
+
+    if(event->key() == Qt::Key_Delete) {
+        m_executable = false;
+        Reset();
+    }
+
+    if(event->key() == Qt::Key_Up) {
+        m_executable = false;
+        m_treeItemCount == 0 ? m_treeItemCount = 0 : m_treeItemCount-- ;
+
+        if(m_treeItemCount == ui->treeWidget->topLevelItemCount() - 1) {
+            ui->treeWidget->topLevelItem(m_treeItemCount)->setSelected(false);
+        }
+        else {
+            ui->treeWidget->topLevelItem(m_treeItemCount + 1)->setSelected(false);
+        }
+
+        ui->treeWidget->topLevelItem(m_treeItemCount)->setSelected(true);
+    }
+
+    if(event->key() == Qt::Key_Down) {
+        m_executable = false;
+        m_treeItemCount == ui->treeWidget->topLevelItemCount() - 1 ? m_treeItemCount = ui->treeWidget->topLevelItemCount() - 1 : m_treeItemCount++ ;
+
+        if(m_treeItemCount == 0) {
+            ui->treeWidget->topLevelItem(m_treeItemCount)->setSelected(false);
+        }
+        else {
+            ui->treeWidget->topLevelItem(m_treeItemCount - 1)->setSelected(false);
+        }
+
+        ui->treeWidget->topLevelItem(m_treeItemCount)->setSelected(true);
+    }
+    m_executable = true;
+}
+
+// PREVERI ALI JE NALEPKA ZE SHRANJENA
+void MainWindow::ProduktCheck(QString& id, QString& naziv)
+{
+    QFile file("nalepke.txt");
+
+    if(!file.open(QFile::Text | QFile::ReadOnly))
+        ErrorCall(file, Methods::ErrorType::ProductCheckError);
+
+    QTextStream in(&file);
+    short numOfLines(0);
+    in.setCodec("UTF-8");
+    while(!in.atEnd())
+    {
+        m_searchLine = in.readLine();
+        numOfLines++;
+        if(m_searchLine == "Seznam nalepk:")
+            continue;
+
+        id.at(id.length()-1) == ' ' ? id = id.remove(id.length() - 1, 1) : nullptr;
+        naziv.at(naziv.length()-1) == ' ' ? naziv = naziv.remove(naziv.length() - 1, 1) : nullptr;
+
+        m_searchList = m_searchLine.split(';', QString::SkipEmptyParts);
+
+        if(id == "" || naziv == "")
+        {
+            ui->pushButton_natisni->setDisabled(true);
+            ui->actionPrint->setDisabled(true);
+        }
+        else
+        {
+            ui->pushButton_natisni->setDisabled(false);
+            ui->actionPrint->setDisabled(false);
+        }
+
+        if(m_searchList.at(0) == id || m_searchList.at(1) == naziv || id == "" || naziv == "")
+        {
+            ui->pushButton_shraniNalepko->setDisabled(true);
+            ui->actionShrani_nalepko->setDisabled(true);
+            break;
+        }
+        else
+        {
+            ui->pushButton_shraniNalepko->setDisabled(false);
+            ui->actionShrani_nalepko->setDisabled(false);
+        }
+    }
+
+    if(numOfLines == 1 && id != "" && naziv != "")
+    {
+        ui->pushButton_shraniNalepko->setDisabled(false);
+        ui->pushButton_natisni->setDisabled(false);
+    }
+
+    file.close();
+}
+
+// SHRANI NALEPKO
+void MainWindow::on_pushButton_shraniNalepko_clicked()
+{
+    MainWindow::on_actionShrani_nalepko_triggered();
+}
+
+// NATISNI NALEPKO
+void MainWindow::on_pushButton_natisni_clicked()
+{
+    MainWindow::on_actionPrint_triggered();
+}
+
+// ID SE SPREMENI
+void MainWindow::on_lineEdit_IDprodukta_textChanged(const QString& arg1)
+{
+    if(m_executable) {
+        m_treeItemCount = 0;
+        if(m_TreeWidgetIsClicked)
+        {
+            m_TreeWidgetIsClicked = false;
+            return;
+        }
+
+        if(arg1 == "")
+        {
+            ReadFileAndAddToTreeWidget();
+            ui->pushButton_shraniNalepko->setDisabled(true);
+            return;
+        }
+
+        if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == ' ')
+            ui->lineEdit_IDprodukta->backspace();
+        else
+        {
+            m_id = arg1.toUpper();
+            m_naziv = ui->lineEdit_nazivProdukta->text().toUpper();
+            ui->treeWidget->clear();
+            Search(m_id, m_naziv);
+            ProduktCheck(m_id, m_naziv);
+        }
+    }
+}
+
+// NAZIV SE SPREMENI
+void MainWindow::on_lineEdit_nazivProdukta_textChanged(const QString& arg1)
+{
+    if(m_executable) {
+        m_treeItemCount = 0;
+        if(m_TreeWidgetIsClicked)
+        {
+            m_TreeWidgetIsClicked = false;
+            return;
+        }
+
+        if(arg1 == "")
+        {
+            ReadFileAndAddToTreeWidget();
+            ui->pushButton_shraniNalepko->setDisabled(true);
+            return;
+        }
+
+        if(arg1.at(arg1.length()-2) == ' ' && arg1.at(arg1.length()-1) == ' ')
+            ui->lineEdit_nazivProdukta->backspace();
+        else
+        {
+            m_naziv = arg1.toUpper();
+            m_id = ui->lineEdit_IDprodukta->text().toUpper();
+            ui->treeWidget->clear();
+            Search(m_id, m_naziv);
+            ProduktCheck(m_id, m_naziv);
+        }
+    }
+}
+
+// OPOMBA SPREMEMBA
+void MainWindow::on_textEdit_opombe_textChanged()
+{
+    if(ui->textEdit_opombe->toPlainText().length() > 500)
+    {
+        QString napis(ui->textEdit_opombe->toPlainText());
+        QTextCursor tmpCursor = ui->textEdit_opombe->textCursor();
+        napis.chop(1);
+        QMessageBox::warning(this, "Napis predolg", "Napis lahko vsebuje največ 500 črk!");
+        ui->textEdit_opombe->setPlainText(napis);
+        ui->textEdit_opombe->setTextCursor(tmpCursor);
+    }
+}
+
+// CE KLIKNES NA NALEPKO V TREEWIDGETU
+void MainWindow::on_treeWidget_itemClicked(QTreeWidgetItem *item)
+{
+    m_TreeWidgetIsClicked = true;
+    ui->lineEdit_IDprodukta->setText(item->text(0));
+    ui->lineEdit_nazivProdukta->setText(item->text(1));
+    ui->lineEdit_kolicina->setFocus();
+}
+
+// DESNA TIPKA NA TREEWIDGET DA ZBRISES NALEPKO
+void MainWindow::on_treeWidget_customContextMenuRequested(QPoint pos)
+{
+    QMenu menu(this);
+    QIcon bin(":icons/delete.ico");
+    menu.addAction(ui->actionDelete);
+    ui->actionDelete->setData(QVariant(pos));
+    ui->actionDelete->setIcon(bin);
+    menu.exec(ui->treeWidget->mapToGlobal(pos));
+}
+
+// IZHOD
+void MainWindow::on_actionIzhod_triggered()
+{
+    ui->statusbar->showMessage("Izhod", 3000);
     QApplication::quit();
 }
 
-// nov racun gumb
-void MainWindow::on_pushButton_2_clicked() {
-    MainWindow::on_actionNov_racun_triggered();
+// IZBRISI NALEPKO
+void MainWindow::on_actionDelete_triggered()
+{
+    if(ui->treeWidget->currentItem() == nullptr)
+        return;
+
+    QFile file("nalepke.txt");
+
+    if(!file.open(QFile::Text | QFile::ReadOnly))
+        ErrorCall(file, Methods::ErrorType::DeleteError_ReadFile);
+
+    QTextStream in(&file);
+    in.setCodec("UTF-8");
+    QString allText = in.readAll();
+    file.close();
+
+    QString produkt(ui->treeWidget->currentItem()->text(0)+";"+ui->treeWidget->currentItem()->text(1));
+    allText.replace(produkt, "DELETE;DELETE");
+
+    if(!file.open(QFile::WriteOnly | QFile::Truncate))
+        ErrorCall(file, Methods::ErrorType::DeleteError_DeleteFileText);
+
+    file.flush();
+    file.close();
+
+    if(!file.open(QFile::Text | QFile::WriteOnly))
+        ErrorCall(file, Methods::ErrorType::DeleteError_InsertNewText);
+
+    in << allText;
+    file.flush();
+    file.close();
+
+    Reset();
+    ui->statusbar->showMessage("Nalepka izbrisana", 3000);
 }
 
-// dodaj podjetje gumb
-void MainWindow::on_pushButton_3_clicked() {
-    MainWindow::on_actionDodaj_podjetje_triggered();
+// SHRANI NALEPKO
+void MainWindow::on_actionShrani_nalepko_triggered()
+{
+    QFile file("nalepke.txt");
+
+    if(!file.open(QFile::WriteOnly | QFile::Append))
+        ErrorCall(file, Methods::ErrorType::SaveError);
+
+    QTextStream out(&file);
+    out.setCodec("UTF-8");
+    m_id = ui->lineEdit_IDprodukta->text().toUpper();
+    m_naziv = ui->lineEdit_nazivProdukta->text().toUpper();
+
+    while(m_naziv.at(m_naziv.length() - 1) == ' ')
+        m_naziv.remove(-1, 1);
+
+    out << m_id << ";" << m_naziv << "\n";
+    file.flush();
+    file.close();
+
+    Reset();
+    ui->statusbar->showMessage("Nalepka shranjena", 3000);
 }
 
-// dodaj produkt gumb
-void MainWindow::on_pushButton_4_clicked() {
-    MainWindow::on_actionDodaj_produkt_triggered();
+// PRINT
+void MainWindow::on_actionPrint_triggered()
+{
+    m_id = ui->lineEdit_IDprodukta->text().toUpper();
+    m_naziv = ui->lineEdit_nazivProdukta->text().toUpper();
+    m_kolicina = ui->lineEdit_kolicina->text().toUpper();
+    m_opomba = ui->textEdit_opombe->toPlainText();
+    m_numOfCopies = ui->spinBox_kopijePrint->value();
+    NalepkaPrint(m_id,
+                 m_naziv,
+                 m_kolicina,
+                 m_opomba,
+                 m_numOfCopies,
+                 m_nacinTiska);
+
+    Reset();
+    ui->statusbar->showMessage("Nalepka se tiska", 3000);
 }
 
-// terjatve gumb
-void MainWindow::on_pushButton_5_clicked() {
-    MainWindow::on_actionTerjatve_obveznosti_triggered();
+// O PROGRAMU
+void MainWindow::on_actionO_programu_triggered()
+{
+    QDialog *dialog = new QDialog(this);
+    QLabel *label = new QLabel(this);
+    QHBoxLayout *layout = new QHBoxLayout();
+    QIcon icon(":icons/about.ico");
+    dialog->setWindowTitle("O programu");
+    dialog->setWindowIcon(icon);
+    label->setText("Program za shranjevanje in tiskanje termo nalepk, ter Qr kode.\nTiskalnik Rollo.\n\nIzdelal: Nejc Sedovnik\nLeto: April 2020\nVerzija: " + m_verzija);
+    layout->addWidget(label);
+    dialog->setLayout(layout);
+    dialog->exec();
 }
 
-// obveznosti gump
-void MainWindow::on_pushButton_6_clicked() {
-    MainWindow::on_actionVnos_obveznosti_triggered();
+// QR KODA ALI NAPIS
+void MainWindow::on_actionNov_napis_triggered()
+{
+    novaNalepka* ustvariNalepko = new novaNalepka(this);
+    ustvariNalepko->setModal(true);
+    ustvariNalepko->exec();
+    delete ustvariNalepko;
 }
 
-// terjatve statistika gumb
-void MainWindow::on_pushButton_7_clicked() {
-    MainWindow::on_actionStatistika_triggered();
+// PROIZVODNI PROCES
+void MainWindow::on_actionProizvodni_proces_triggered()
+{
+    ProizvodniProces* proces = new ProizvodniProces(this);
+    proces->setModal(true);
+    proces->exec();
+    delete proces;
 }
 
-// kalkulacija gumb
-void MainWindow::on_pushButton_8_clicked() {
-    MainWindow::on_actionKalkulacija_produkta_triggered();
-}
-
-// statistika obveznosti gumb
-void MainWindow::on_pushButton_9_clicked() {
-    MainWindow::on_actionStatistika_obveznosti_triggered();
-}
-// action dodaj podjetje
-void MainWindow::on_actionDodaj_podjetje_triggered() {
-    DodajPodjetje dodajPodjetje;
-    dodajPodjetje.setModal(true);
-    this->hide();
-    QObject::connect(&dodajPodjetje,SIGNAL(close_me()),this,SLOT(CloseChild()));
-    m_show_child = true;
-    while (m_show_child) {
-        dodajPodjetje.exec();
-    }
-    this->show();
-}
-
-// action dodaj produkt
-void MainWindow::on_actionDodaj_produkt_triggered() {
-    DodajProdukt dodajProdukt;
-    dodajProdukt.setModal(true);
-    this->hide();
-    QObject::connect(&dodajProdukt,SIGNAL(close_me()),this,SLOT(CloseChild()));
-    m_show_child = true;
-    while (m_show_child) {
-        dodajProdukt.exec();
-    }
-    this->show();
-}
-
-//action nov racun
-void MainWindow::on_actionNov_racun_triggered() {
-    NovRacun novRacun;
-    novRacun.setModal(true);
-    this->hide();
-    QObject::connect(&novRacun,SIGNAL(close_me()),this,SLOT(CloseChild()));
-    m_show_child = true;
-    while (m_show_child) {
-        novRacun.exec();
-    }
-    this->show();
-}
-
-// action O programu
-void MainWindow::on_actionO_programu_triggered() {
-    Oprogramu program;
-    program.setModal(true);
-    this->hide();
-    QObject::connect(&program,SIGNAL(close_me()),this,SLOT(CloseChild()));
-    m_show_child = true;
-    while (m_show_child) {
-        program.exec();
-    }
-    this->show();
-}
-
-// action Arhiv
-void MainWindow::on_actionArhiv_triggered() {
-    Arhiv arhiv;
-    arhiv.setModal(true);
-    this->hide();
-    QObject::connect(&arhiv,SIGNAL(close_me()),this,SLOT(CloseChild()));
-    m_show_child = true;
-    while (m_show_child) {
-        arhiv.exec();
-    }
-    this->show();
-}
-
-// action terjatve/obveznosti
-void MainWindow::on_actionTerjatve_obveznosti_triggered() {
-    Terjatve terjatve;
-    terjatve.setModal(true);
-    this->hide();
-    QObject::connect(&terjatve,SIGNAL(close_me()),this,SLOT(CloseChild()));
-    m_show_child = true;
-    while (m_show_child) {
-        terjatve.exec();
-    }
-    this->show();
-}
-
-// action vnos obveznosti
-void MainWindow::on_actionVnos_obveznosti_triggered() {
-    VnosObveznosti obveznost;
-    obveznost.setModal(true);
-    this->hide();
-    QObject::connect(&obveznost,SIGNAL(close_me()),this,SLOT(CloseChild()));
-    m_show_child = true;
-    while (m_show_child) {
-        obveznost.exec();
-    }
-    this->show();
-}
-
-// action nastavitve
-void MainWindow::on_actionNastavitve_triggered() {
-    Settings settings;
-    settings.setModal(true);
-    this->hide();
-    QObject::connect(&settings,SIGNAL(close_me()),this,SLOT(CloseChild()));
-    m_show_child = true;
-    while (m_show_child) {
-        settings.exec();
-    }
-    this->show();
-}
-
-// action statistika terjatve
-void MainWindow::on_actionStatistika_triggered() {
-    Statistic statistika;
-    statistika.setModal(true);
-    this->hide();
-    QObject::connect(&statistika,SIGNAL(close_me()),this,SLOT(CloseChild()));
-    m_show_child = true;
-    while (m_show_child) {
-        statistika.exec();
-    }
-    this->show();
-}
-
-// action testing
-void MainWindow::on_actionTesting_triggered() {
-    TestingDialog testing;
-    testing.setModal(true);
-    this->hide();
-    QObject::connect(&testing,SIGNAL(close_me()),this,SLOT(CloseChild()));
-    m_show_child = true;
-    while (m_show_child) {
-        testing.exec();
-    }
-    this->show();
-}
-
-// action kalkulacija
-void MainWindow::on_actionKalkulacija_produkta_triggered() {
-    Kalkulacija kalkulacija;
-    kalkulacija.setModal(true);
-    this->hide();
-    QObject::connect(&kalkulacija,SIGNAL(close_me()),this,SLOT(CloseChild()));
-    m_show_child = true;
-    while (m_show_child) {
-        kalkulacija.exec();
-    }
-    this->show();
-}
-
-// action statistika obveznosti
-void MainWindow::on_actionStatistika_obveznosti_triggered() {
-    StatistikaObveznosti statistikaObveznosti;
-    statistikaObveznosti.setModal(true);
-    this->hide();
-    QObject::connect(&statistikaObveznosti,SIGNAL(close_me()),this,SLOT(CloseChild()));
-    m_show_child = true;
-    while (m_show_child) {
-        statistikaObveznosti.exec();
-    }
-    this->show();
-}
-
-void MainWindow::CheckFiles() {
-    QDateTime date = QDateTime::currentDateTime();
-    QFile file(m_settings);
-    if(!file.exists()) {
-        if(file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            QTextStream stream(&file);
-            stream.setCodec("UTF-8");
-            QString shrani("Shrani v: ; " + m_saveRacun + " ;\n" + "Backup: ; " + m_copy_path + " ;\n");
-            stream << shrani.toUtf8();
-            file.flush();
-            file.close();
-            if(!QDir(m_saveRacun + "/Racuni_in_dobavnice").exists()) {
-                QDir().mkdir(m_saveRacun + "/Racuni_in_dobavnice");
-                QDir().mkdir(m_saveRacun + "/Racuni_in_dobavnice/" + "IZBRISANI");
-            }
-            if(!QDir(m_copy_path + "/ElraSetiBackup").exists()) {
-                QDir().mkdir(m_copy_path + "/ElraSetiBackup");
-                QDir().mkdir(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz"));
-            }
-            if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/settings.txt")) {
-                QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/settings.txt");
-            }
-            QFile::copy(m_settings, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/settings.txt");
-        } else {
-            qDebug() << "Error settings";
-        }
-    } else {
-        if(file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            QTextStream stream(&file);
-            stream.setCodec("UTF-8");
-            QString text = stream.readAll();
-            QRegularExpression exp(";");
-            QStringList list = text.split(exp, QString::SkipEmptyParts);
-            m_copy_path = list.at(3);
-            m_saveRacun = list.at(1);
-            m_copy_path.remove(" ");
-            m_saveRacun.remove(" ");
-            file.close();
-            if(!QDir(m_saveRacun + "/Racuni_in_dobavnice").exists()) {
-                QDir().mkdir(m_saveRacun + "/Racuni_in_dobavnice");
-                QDir().mkdir(m_saveRacun + "/Racuni_in_dobavnice/" + "IZBRISANI");
-            }
-            if(!QDir(m_copy_path + "/ElraSetiBackup").exists()) {
-                QDir().mkdir(m_copy_path + "/ElraSetiBackup");
-                QDir().mkdir(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz"));
-            }
-            if(!QDir(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz")).exists())
-                QDir().mkdir(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz"));
-            if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/settings.txt")) {
-                QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/settings.txt");
-            }
-            QFile::copy(m_settings, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/settings.txt");
-        }
-    }
-
-    file.setFileName(m_arhiv_login);
-    if(!file.exists()) {
-        if(file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            QTextStream stream(&file);
-            stream.setCodec("UTF-8");
-            QString prijava("Prijava v sistem: 01.01.2018 - 00:00:00.000 ; ELRA\n");
-            stream << prijava.toUtf8();
-            file.flush();
-            file.close();
-            if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_login.txt")) {
-                QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_login.txt");
-            }
-            QFile::copy(m_arhiv_login, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_login.txt");
-        } else {
-            qDebug() << "Error arhiv_files";
-        }
-    } else {
-        if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_login.txt")) {
-            QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_login.txt");
-        }
-        QFile::copy(m_arhiv_login, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_login.txt");
-        file.close();
-    }
-
-    file.setFileName(m_arhiv_novRacun);
-    if(!file.exists()) {
-        if(file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            QTextStream stream(&file);
-            stream.setCodec("UTF-8");
-            QString empty("");
-            stream << empty.toUtf8();
-            file.flush();
-            file.close();
-            if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_novRacun.txt")) {
-                QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_novRacun.txt");
-            }
-            QFile::copy(m_arhiv_novRacun, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_novRacun.txt");
-        } else {
-            qDebug() << "Error arhiv_novRacun";
-        }
-    } else {
-        if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_novRacun.txt")) {
-            QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_novRacun.txt");
-        }
-        QFile::copy(m_arhiv_novRacun, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_novRacun.txt");
-        file.close();
-    }
-
-    file.setFileName(m_arhiv_produkti);
-    if(!file.exists()) {
-        if(file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            QTextStream stream(&file);
-            stream.setCodec("UTF-8");
-            QString empty("");
-            stream << empty.toUtf8();
-            file.flush();
-            file.close();
-            if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_produkti.txt")) {
-                QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_produkti.txt");
-            }
-            QFile::copy(m_arhiv_produkti, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_produkti.txt");
-        } else {
-            qDebug() << "Error arhiv_produkti";
-        }
-    } else {
-        if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_produkti.txt")) {
-            QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_produkti.txt");
-        }
-        QFile::copy(m_arhiv_produkti, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_produkti.txt");
-        file.close();
-    }
-
-    file.setFileName(m_arhiv_stRacuna);
-    if(!file.exists()) {
-        if(file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            QTextStream stream(&file);
-            stream.setCodec("UTF-8");
-            QString num("0\n");
-            stream << num.toUtf8();
-            file.flush();
-            file.close();
-            if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_stRacuna.txt")) {
-                QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_stRacuna.txt");
-            }
-            QFile::copy(m_arhiv_stRacuna, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_stRacuna.txt");
-        } else {
-            qDebug() << "Error arhiv_stRacuna";
-        }
-    } else {
-        if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_stRacuna.txt")) {
-            QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_stRacuna.txt");
-        }
-        QFile::copy(m_arhiv_stRacuna, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_stRacuna.txt");
-        file.close();
-    }
-
-    file.setFileName(m_arhiv_stranke);
-    if(!file.exists()) {
-        if(file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            QTextStream stream(&file);
-            stream.setCodec("UTF-8");
-            QString empty("");
-            stream << empty.toUtf8();
-            file.flush();
-            file.close();
-            if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_stranke.txt")) {
-                QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_stranke.txt");
-            }
-            QFile::copy(m_arhiv_stranke, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_stranke.txt");
-        } else {
-            qDebug() << "Error arhiv_stranke";
-        }
-    } else {
-        if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_stranke.txt")) {
-            QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_stranke.txt");
-        }
-        QFile::copy(m_arhiv_stranke, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_stranke.txt");
-        file.close();
-    }
-
-    file.setFileName(m_arhiv_upniki);
-    if(!file.exists()) {
-        if(file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            QTextStream stream(&file);
-            stream.setCodec("UTF-8");
-            QString empty("");
-            stream << empty.toUtf8();
-            file.flush();
-            file.close();
-            if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_upniki.txt")) {
-                QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_upniki.txt");
-            }
-            QFile::copy(m_arhiv_upniki, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_upniki.txt");
-        } else {
-            qDebug() << "Error arhiv_upniki";
-        }
-    } else {
-        if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_upniki.txt")) {
-            QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_upniki.txt");
-        }
-        QFile::copy(m_arhiv_upniki, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_upniki.txt");
-        file.close();
-    }
-
-    file.setFileName(m_arhiv_upnikiSeznam);
-    if(!file.exists()) {
-        if(file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            QTextStream stream(&file);
-            stream.setCodec("UTF-8");
-            QString empty("");
-            stream << empty.toUtf8();
-            file.flush();
-            file.close();
-            if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_upnikiSeznam.txt")) {
-                QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_upnikiSeznam.txt");
-            }
-            QFile::copy(m_arhiv_upnikiSeznam, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_upnikiSeznam.txt");
-        } else {
-            qDebug() << "Error arhiv_upnikiSeznam";
-        }
-    } else {
-        if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_upnikiSeznam.txt")) {
-            QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_upnikiSeznam.txt");
-        }
-        QFile::copy(m_arhiv_upnikiSeznam, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_upnikiSeznam.txt");
-        file.close();
-    }
-
-    file.setFileName(m_company_file);
-    if(!file.exists()) {
-        if(file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            QTextStream stream(&file);
-            stream.setCodec("UTF-8");
-            QString empty("");
-            stream << empty.toUtf8();
-            file.flush();
-            file.close();
-            if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/company_file.txt")) {
-                QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/company_file.txt");
-            }
-            QFile::copy(m_company_file, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/company_file.txt");
-        } else {
-            qDebug() << "Error company_file";
-        }
-    } else {
-        if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/company_file.txt")) {
-            QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/company_file.txt");
-        }
-        QFile::copy(m_company_file, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/company_file.txt");
-        file.close();
-    }
-
-    file.setFileName(m_delavni_proces);
-    if(!file.exists()) {
-        if(file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            QTextStream stream(&file);
-            stream.setCodec("UTF-8");
-            QString empty("Test;0.00; ; ; ;\n");
-            stream << empty.toUtf8();
-            file.flush();
-            file.close();
-            if (QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/delavni_proces.txt")) {
-                QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/delavni_proces.txt");
-            }
-            QFile::copy(m_delavni_proces, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/delavni_proces.txt");
-        } else {
-            qDebug() << "Error delavni_proces";
-        }
-    } else {
-        if (QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/delavni_proces.txt")) {
-            QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/delavni_proces.txt");
-        }
-        QFile::copy(m_delavni_proces, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/delavni_proces.txt");
-        file.close();
-    }
-
-    file.setFileName(m_login_file);
-    if(!file.exists()) {
-        if(file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            QTextStream stream(&file);
-            stream.setCodec("UTF-8");
-            QString admin("Admin\n");
-            stream << admin.toUtf8();
-            file.flush();
-            file.close();
-            if (QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/login_file.txt")) {
-                QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/login_file.txt");
-            }
-            QFile::copy(m_login_file, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/login_file.txt");
-        } else {
-            qDebug() << "Error login_file";
-        }
-    } else {
-        if (QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/login_file.txt")) {
-            QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/login_file.txt");
-        }
-        QFile::copy(m_login_file, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/login_file.txt");
-        file.close();
-    }
-
-    file.setFileName(m_material);
-    if(!file.exists()) {
-        if(file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            QTextStream stream(&file);
-            stream.setCodec("UTF-8");
-            QString empty("Test;Test;0.00;0;kos;\n");
-            stream << empty.toUtf8();
-            file.flush();
-            file.close();
-            if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/material.txt")) {
-                QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/material.txt");
-            }
-            QFile::copy(m_material, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/material.txt");
-        } else {
-            qDebug() << "Error material";
-        }
-    } else {
-        if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/material.txt")) {
-            QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/material.txt");
-        }
-        QFile::copy(m_material, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/material.txt");
-        file.close();
-    }
-
-    file.setFileName(m_num_company);
-    if(!file.exists()) {
-        if(file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            QTextStream stream(&file);
-            stream.setCodec("UTF-8");
-            QString empty("");
-            stream << empty.toUtf8();
-            file.flush();
-            file.close();
-            if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/num_company.txt")) {
-                QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/num_company.txt");
-            }
-            QFile::copy(m_num_company, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/num_company.txt");
-        } else {
-            qDebug() << "Error num_company";
-        }
-    } else {
-        if(file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            QTextStream stream(&file);
-            stream.setCodec("UTF-8");
-            QString lastLine("");
-            while(!stream.atEnd()) {
-                lastLine = stream.readLine();
-            }
-            for(int i(1); i < lastLine.toInt(); i++) {
-                if (QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/" + QString::number(i) + ".txt")) {
-                    QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/" + QString::number(i) + ".txt");
-                }
-                QFile::copy(m_currentDir + "/" + QString::number(i) + ".txt", m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/" + QString::number(i) + ".txt");
-            }
-            file.close();
-        }
-        file.close();
-        if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/num_company.txt")) {
-            QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/num_company.txt");
-        }
-        QFile::copy(m_num_company, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/num_company.txt");
-    }
-
-    file.setFileName(m_arhiv_files);
-    if(!file.exists()) {
-        if(file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-            QTextStream stream(&file);
-            stream.setCodec("UTF-8");
-            QStringList list;
-            QStringList tmp;
-            QString tmp_text;
-            QRegularExpression exp("/");
-            QDirIterator dirIt(QDir::currentPath());
-            while (dirIt.hasNext()) {
-                dirIt.next();
-                if (QFileInfo(dirIt.filePath()).isFile())
-                    if (QFileInfo(dirIt.filePath()).suffix() == "txt") {
-                        tmp_text = dirIt.filePath();
-                        tmp_text.remove(".txt");
-                        tmp = tmp_text.split(exp, QString::SkipEmptyParts);
-                        list.append(tmp.at(tmp.size()-1) + "\n");
-                    }
-            }
-            for(int i(0); i < list.size(); i++)
-                stream << list.at(i).toUtf8();
-            file.flush();
-            file.close();
-            if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_files.txt"))
-                QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_files.txt");
-            QFile::copy(m_arhiv_files, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_files.txt");
-        }
-    } else {
-        if(QFile::exists(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_files.txt")) {
-            QFile::remove(m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_files.txt");
-            if(file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-                QTextStream stream(&file);
-                stream.setCodec("UTF-8");
-                QStringList list;
-                QStringList tmp;
-                QString tmp_text;
-                QRegularExpression exp("/");
-                QDirIterator dirIt(QDir::currentPath());
-                while (dirIt.hasNext()) {
-                    dirIt.next();
-                    if (QFileInfo(dirIt.filePath()).isFile())
-                        if (QFileInfo(dirIt.filePath()).suffix() == "txt") {
-                            tmp_text = dirIt.filePath();
-                            tmp_text.remove(".txt");
-                            tmp = tmp_text.split(exp, QString::SkipEmptyParts);
-                            list.append(tmp.at(tmp.size()-1) + "\n");
-                        }
-                }
-                for(int i(0); i < list.size(); i++)
-                    stream << list.at(i).toUtf8();
-                file.flush();
-                file.close();
-            }
-        }
-        QFile::copy(m_arhiv_files, m_copy_path + "/ElraSetiBackup/" + date.toString("dd_MM_yyyy_hh_mm_ss_zzz") + "/arhiv_files.txt");
-        file.close();
-    }
+void MainWindow::on_actionDodaj_produkt_triggered()
+{
+    DodajProdukt* proces = new DodajProdukt(this);
+    proces->setModal(true);
+    proces->exec();
+    delete proces;
 }

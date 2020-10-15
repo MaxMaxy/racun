@@ -2,80 +2,71 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QIcon>
-#include <QTextCodec>
-#include <QDir>
-#include <QDirIterator>
-#include "novracun.h"
-#include "dodajpodjetje.h"
+#include "novanalepka.h"
+#include "methods.h"
+#include "proizvodniproces.h"
 #include "dodajprodukt.h"
-#include "oprogramu.h"
-#include "arhiv.h"
-#include "terjatve.h"
-#include "vnosobveznosti.h"
-#include "settings.h"
-#include "statistic.h"
-#include "kalkulacija.h"
-#include "testingdialog.h"
-#include "statistikaobveznosti.h"
 
-namespace Ui {
-class MainWindow;
-}
+QT_BEGIN_NAMESPACE
+namespace Ui { class MainWindow; }
+QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
+class MainWindow : public Methods
 {
     Q_OBJECT
 
+// PUBLIC METHODS
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    // Constructor
+    MainWindow(QWidget *parent = nullptr);
+    // Destructor
     ~MainWindow();
+    //Methods
+    void Reset() override;
+    void AddRootToTreeWidget(const QString&, const QString&,
+                             QTreeWidgetItem*);
+    void ReadFileAndAddToTreeWidget();
+    void Search(const QString&, const QString&);
+    void keyReleaseEvent(QKeyEvent*) override;
+    void ProduktCheck(QString&, QString&);
+    void Error(const ErrorType&);
 
+// SLOTS
 private slots:
+    void on_pushButton_shraniNalepko_clicked();
+    void on_pushButton_natisni_clicked();
+    void on_lineEdit_IDprodukta_textChanged(const QString&);
+    void on_lineEdit_nazivProdukta_textChanged(const QString&);
+    void on_treeWidget_itemClicked(QTreeWidgetItem*);
+    void on_treeWidget_customContextMenuRequested(QPoint);
     void on_actionIzhod_triggered();
-    void on_pushButton_2_clicked();
-    void on_pushButton_3_clicked();
-    void on_pushButton_4_clicked();
-    void on_actionDodaj_podjetje_triggered();
-    void on_actionDodaj_produkt_triggered();
-    void on_actionNov_racun_triggered();
+    void on_actionDelete_triggered();
+    void on_actionShrani_nalepko_triggered();
+    void on_actionPrint_triggered();
     void on_actionO_programu_triggered();
-    void on_actionArhiv_triggered();
-    void on_actionTerjatve_obveznosti_triggered();
-    void on_pushButton_5_clicked();
-    void on_actionVnos_obveznosti_triggered();
-    void on_pushButton_6_clicked();
-    void on_actionNastavitve_triggered();
-    void on_actionStatistika_triggered();
-    void on_pushButton_7_clicked();
-    void on_actionTesting_triggered();
-    void on_pushButton_8_clicked();
-    void on_actionKalkulacija_produkta_triggered();
-    void CheckFiles();
-    void CloseChild();
-    void on_actionStatistika_obveznosti_triggered();
-    void on_pushButton_9_clicked();
+    void on_actionNov_napis_triggered();
+    void on_textEdit_opombe_textChanged();
+
+// PRIVATE VARS
+    void on_actionProizvodni_proces_triggered();
+
+    void on_actionDodaj_produkt_triggered();
 
 private:
     Ui::MainWindow *ui;
-    QString m_copy_path;
-    QString m_currentDir;
-    QString m_arhiv_files;
-    QString m_arhiv_login;
-    QString m_arhiv_novRacun;
-    QString m_arhiv_produkti;
-    QString m_arhiv_stRacuna;
-    QString m_arhiv_stranke;
-    QString m_arhiv_upniki;
-    QString m_arhiv_upnikiSeznam;
-    QString m_company_file;
-    QString m_delavni_proces;
-    QString m_login_file;
-    QString m_material;
-    QString m_num_company;
-    QString m_settings;
-    bool m_show_child;
-    QString m_saveRacun;
+    bool m_count;
+    bool m_TreeWidgetIsClicked;
+    bool m_executable;
+    QString m_id;
+    QString m_naziv;
+    QString m_kolicina;
+    QString m_opomba;
+    QString m_verzija;
+    QLabel *m_verzijaLabel;
+    QString m_searchLine;
+    QStringList m_searchList;
+    short m_treeItemCount;
+    int m_numOfCopies;
+    Methods::NacinTiska m_nacinTiska;
 };
-
 #endif // MAINWINDOW_H

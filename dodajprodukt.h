@@ -3,12 +3,7 @@
 
 #include <QDialog>
 #include <QFile>
-#include <QDir>
-#include <QTextStream>
-#include <QTreeWidgetItem>
 #include <QDebug>
-#include <QDateTime>
-#include <QIcon>
 
 namespace Ui {
 class DodajProdukt;
@@ -21,43 +16,15 @@ class DodajProdukt : public QDialog
 public:
     explicit DodajProdukt(QWidget *parent = nullptr);
     ~DodajProdukt();
-    void AddItemsToCombo();
-    void AddRoot(QString, QString, QString);
-    void Read();
-    void Search(QString);
-    void Arhiv(QString, QString);
-    void SetIndex(int);
-    void checkText();
-
-signals:
-    void close_me();
-
-protected:
-    void closeEvent(QCloseEvent *);
 
 private slots:
-    void on_pushButton_dodaj_clicked();
-    void on_comboBox_podjetje_currentIndexChanged();
-    void on_treeWidget_doubleClicked(const QModelIndex &index);
-    void on_pushButton_popravi_clicked();
-    void on_lineEdit_isci_textChanged();
-    void on_lineEdit_nazivProdukta_textChanged(const QString &arg1);
-    void on_lineEdit_cena_textChanged(const QString &arg1);
-    void on_lineEdit_id_textChanged();
     void on_pushButton_clicked();
+    void on_comboBox_vrstaProdukta_currentIndexChanged(int index);
+
+    void on_comboBox_stevilozil_currentIndexChanged(int index);
 
 private:
     Ui::DodajProdukt *ui;
-    QString m_currentDir;
-    QString m_fileName;
-    QString m_arhivProdukti;
-    QString m_id;
-    QString m_naziv;
-    QString m_cena;
-    QString m_produkt;
-    bool m_count;
-    int m_itr;
-    bool m_popravi;
 };
 
 #endif // DODAJPRODUKT_H

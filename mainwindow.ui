@@ -6,533 +6,343 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>300</width>
-    <height>500</height>
+    <width>553</width>
+    <height>502</height>
    </rect>
-  </property>
-  <property name="sizePolicy">
-   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
   </property>
   <property name="minimumSize">
    <size>
-    <width>300</width>
-    <height>500</height>
+    <width>0</width>
+    <height>0</height>
    </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>300</width>
-    <height>500</height>
-   </size>
-  </property>
-  <property name="font">
-   <font>
-    <family>MS Sans Serif</family>
-    <pointsize>10</pointsize>
-    <italic>true</italic>
-   </font>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <property name="documentMode">
-   <bool>false</bool>
-  </property>
-  <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="0">
-     <widget class="QGroupBox" name="groupBox">
-      <property name="font">
-       <font>
-        <pointsize>18</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="8" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QPushButton" name="pushButton_izhod">
+          <property name="text">
+           <string>Izhod</string>
+          </property>
+          <property name="icon">
+           <iconset resource="icons.qrc">
+            <normaloff>:/icons/izhod.ico</normaloff>:/icons/izhod.ico</iconset>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_natisni">
+          <property name="text">
+           <string>Natisni nalepko</string>
+          </property>
+          <property name="icon">
+           <iconset resource="icons.qrc">
+            <normaloff>:/icons/print.ico</normaloff>:/icons/print.ico</iconset>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="spinBox_kopijePrint">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item row="5" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="label_nazivProdukta">
+        <property name="minimumSize">
+         <size>
+          <width>115</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::WinPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="text">
+         <string>Naziv produkta:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="buddy">
+         <cstring>lineEdit_nazivProdukta</cstring>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_nazivProdukta"/>
+      </item>
+     </layout>
+    </item>
+    <item row="4" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QLabel" name="label_IDprodukta">
+        <property name="minimumSize">
+         <size>
+          <width>115</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::WinPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="text">
+         <string>ID produkta:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="buddy">
+         <cstring>lineEdit_IDprodukta</cstring>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_IDprodukta"/>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="0">
+     <widget class="QTreeWidget" name="treeWidget">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>200</height>
+       </size>
       </property>
-      <property name="title">
-       <string>GLAVNI MENI</string>
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
       </property>
-      <property name="flat">
-       <bool>true</bool>
+      <property name="lineWidth">
+       <number>2</number>
       </property>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0">
-        <widget class="QFrame" name="frame">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::Box</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <property name="lineWidth">
-          <number>2</number>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_3">
-          <item row="0" column="0">
-           <layout class="QVBoxLayout" name="verticalLayout">
-            <item>
-             <widget class="QPushButton" name="pushButton_2">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="font">
-               <font>
-                <family>MS Sans Serif</family>
-                <pointsize>12</pointsize>
-                <weight>75</weight>
-                <italic>true</italic>
-                <bold>true</bold>
-                <kerning>true</kerning>
-               </font>
-              </property>
-              <property name="layoutDirection">
-               <enum>Qt::LeftToRight</enum>
-              </property>
-              <property name="text">
-               <string> Nov račun</string>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>../icons/new_invoice.png</normaloff>
-                <activeon>:/icons/new_invoice.png</activeon>../icons/new_invoice.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>28</width>
-                <height>28</height>
-               </size>
-              </property>
-              <property name="shortcut">
-               <string>Ctrl+R</string>
-              </property>
-              <property name="autoExclusive">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_6">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="font">
-               <font>
-                <family>MS Sans Serif</family>
-                <pointsize>12</pointsize>
-                <weight>75</weight>
-                <italic>true</italic>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>Vnos obveznosti</string>
-              </property>
-              <property name="icon">
-               <iconset>
-                <activeon>:/icons/money-bag.png</activeon>
-               </iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>28</width>
-                <height>28</height>
-               </size>
-              </property>
-              <property name="shortcut">
-               <string>Ctrl+O</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_5">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="font">
-               <font>
-                <family>MS Sans Serif</family>
-                <pointsize>12</pointsize>
-                <weight>75</weight>
-                <italic>true</italic>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>Terjatve / obveznosti</string>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normalon>../icons/terjatve_obveznosti.png</normalon>
-                <activeon>:/icons/terjatve_obveznosti.png</activeon>
-               </iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>28</width>
-                <height>28</height>
-               </size>
-              </property>
-              <property name="shortcut">
-               <string>Ctrl+T</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_3">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="font">
-               <font>
-                <family>MS Sans Serif</family>
-                <pointsize>12</pointsize>
-                <weight>75</weight>
-                <italic>true</italic>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string> Dodaj / popravi stranko</string>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>../icons/dodaj_podjetje.png</normaloff>
-                <activeon>:/icons/dodaj_podjetje.png</activeon>../icons/dodaj_podjetje.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>28</width>
-                <height>28</height>
-               </size>
-              </property>
-              <property name="shortcut">
-               <string>Ctrl+S</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_4">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="font">
-               <font>
-                <family>MS Sans Serif</family>
-                <pointsize>12</pointsize>
-                <weight>75</weight>
-                <italic>true</italic>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string> Dodaj / popravi produkt</string>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>../icons/dodaj_produkt.png</normaloff>
-                <activeon>:/icons/dodaj_produkt.png</activeon>../icons/dodaj_produkt.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>28</width>
-                <height>28</height>
-               </size>
-              </property>
-              <property name="shortcut">
-               <string>Ctrl+P</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_8">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>12</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>Kalkulacija produkta</string>
-              </property>
-              <property name="icon">
-               <iconset resource="files.qrc">
-                <normaloff>:/icons/calculation.png</normaloff>:/icons/calculation.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-              <property name="shortcut">
-               <string>Ctrl+K</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_7">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="font">
-               <font>
-                <family>MS Sans Serif</family>
-                <pointsize>12</pointsize>
-                <weight>75</weight>
-                <italic>true</italic>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>Statistika terjatve</string>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normalon>:/icons/statistic.png</normalon>
-               </iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>28</width>
-                <height>28</height>
-               </size>
-              </property>
-              <property name="shortcut">
-               <string>Ctrl+A</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_9">
-              <property name="font">
-               <font>
-                <pointsize>12</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>Statistika obveznosti</string>
-              </property>
-              <property name="icon">
-               <iconset resource="files.qrc">
-                <normaloff>:/icons/statistic.png</normaloff>:/icons/statistic.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>28</width>
-                <height>28</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="Line" name="line">
-              <property name="font">
-               <font>
-                <family>MS Sans Serif</family>
-                <italic>true</italic>
-               </font>
-              </property>
-              <property name="lineWidth">
-               <number>2</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="font">
-               <font>
-                <family>MS Sans Serif</family>
-                <pointsize>12</pointsize>
-                <weight>75</weight>
-                <italic>true</italic>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string> Izhod</string>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>../icons/izhod.png</normaloff>
-                <activeon>:/icons/izhod.png</activeon>../icons/izhod.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>28</width>
-                <height>28</height>
-               </size>
-              </property>
-              <property name="shortcut">
-               <string>Ctrl+Q</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label">
-         <property name="font">
-          <font>
-           <family>MS Sans Serif</family>
-           <pointsize>6</pointsize>
-           <italic>true</italic>
-          </font>
-         </property>
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::Panel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Sunken</enum>
-         </property>
-         <property name="lineWidth">
-          <number>2</number>
-         </property>
-         <property name="text">
-          <string>v1.1.3</string>
-         </property>
-         <property name="textFormat">
-          <enum>Qt::AutoText</enum>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustToContents</enum>
+      </property>
+      <column>
+       <property name="text">
+        <string>ID produkta</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Naziv produkta</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </column>
      </widget>
+    </item>
+    <item row="6" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="label_kolicina">
+        <property name="minimumSize">
+         <size>
+          <width>115</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::WinPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="text">
+         <string>Količina:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="buddy">
+         <cstring>lineEdit_kolicina</cstring>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_kolicina"/>
+      </item>
+     </layout>
+    </item>
+    <item row="3" column="0">
+     <widget class="QPushButton" name="pushButton_shraniNalepko">
+      <property name="text">
+       <string>Shrani nalepko</string>
+      </property>
+      <property name="icon">
+       <iconset resource="icons.qrc">
+        <normaloff>:/icons/save.ico</normaloff>:/icons/save.ico</iconset>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0">
+      <property name="spacing">
+       <number>6</number>
+      </property>
+      <property name="sizeConstraint">
+       <enum>QLayout::SetFixedSize</enum>
+      </property>
+      <item>
+       <widget class="QLabel" name="label_opombe">
+        <property name="minimumSize">
+         <size>
+          <width>115</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::WinPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="lineWidth">
+         <number>1</number>
+        </property>
+        <property name="text">
+         <string>Opombe:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTextEdit" name="textEdit_opombe">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>50</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menuBar">
+  <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>300</width>
+     <width>553</width>
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuStart">
+   <widget class="QMenu" name="menuMeni">
     <property name="title">
      <string>Meni</string>
     </property>
-    <addaction name="actionNov_racun"/>
-    <addaction name="actionVnos_obveznosti"/>
-    <addaction name="actionTerjatve_obveznosti"/>
-    <addaction name="actionDodaj_podjetje"/>
-    <addaction name="actionDodaj_produkt"/>
-    <addaction name="actionKalkulacija_produkta"/>
-    <addaction name="actionStatistika"/>
-    <addaction name="actionStatistika_obveznosti"/>
-    <addaction name="separator"/>
-    <addaction name="actionArhiv"/>
-    <addaction name="actionNastavitve"/>
+    <addaction name="actionNov_napis"/>
+    <addaction name="actionPrint"/>
+    <addaction name="actionShrani_nalepko"/>
     <addaction name="separator"/>
     <addaction name="actionIzhod"/>
    </widget>
-   <widget class="QMenu" name="menuPomoc">
+   <widget class="QMenu" name="menuO_progrramu">
     <property name="title">
-     <string>Pomoc</string>
+     <string>O programu</string>
     </property>
     <addaction name="actionO_programu"/>
-    <addaction name="separator"/>
-    <addaction name="actionTesting"/>
    </widget>
-   <addaction name="menuStart"/>
-   <addaction name="menuPomoc"/>
+   <widget class="QMenu" name="menuProizvodni_proces">
+    <property name="title">
+     <string>Proizvodni proces</string>
+    </property>
+    <addaction name="actionProizvodni_proces"/>
+    <addaction name="actionDodaj_produkt"/>
+   </widget>
+   <addaction name="menuMeni"/>
+   <addaction name="menuProizvodni_proces"/>
+   <addaction name="menuO_progrramu"/>
   </widget>
-  <action name="actionNov_racun">
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionPrint">
    <property name="icon">
-    <iconset resource="files.qrc">
-     <normaloff>:/icons/new_invoice.png</normaloff>
-     <normalon>../icons/new_invoice.png</normalon>:/icons/new_invoice.png</iconset>
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/icon.ico</normaloff>:/icons/icon.ico</iconset>
    </property>
    <property name="text">
-    <string>Nov racun</string>
-   </property>
-   <property name="font">
-    <font>
-     <family>MS Sans Serif</family>
-     <pointsize>10</pointsize>
-     <italic>true</italic>
-    </font>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+R</string>
-   </property>
-  </action>
-  <action name="actionDodaj_podjetje">
-   <property name="icon">
-    <iconset>
-     <normalon>:/icons/dodaj_podjetje.png</normalon>
-    </iconset>
-   </property>
-   <property name="text">
-    <string>Dodaj stranko</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+S</string>
-   </property>
-  </action>
-  <action name="actionDodaj_produkt">
-   <property name="icon">
-    <iconset>
-     <normalon>:/icons/dodaj_produkt.png</normalon>
-    </iconset>
-   </property>
-   <property name="text">
-    <string>Dodaj produkt</string>
+    <string>Natisni nalepko...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+P</string>
@@ -540,9 +350,8 @@
   </action>
   <action name="actionIzhod">
    <property name="icon">
-    <iconset>
-     <normalon>:/icons/izhod.png</normalon>
-    </iconset>
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/izhod.ico</normaloff>:/icons/izhod.ico</iconset>
    </property>
    <property name="text">
     <string>Izhod</string>
@@ -551,139 +360,93 @@
     <string>Ctrl+Q</string>
    </property>
   </action>
+  <action name="actionEdit">
+   <property name="text">
+    <string>Edit</string>
+   </property>
+  </action>
+  <action name="actionDelete">
+   <property name="text">
+    <string>Izbriši nalepko</string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Izbriše nalepko&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
   <action name="actionO_programu">
    <property name="icon">
-    <iconset>
-     <normaloff>../icons/about.png</normaloff>
-     <normalon>:/icons/about.png</normalon>../icons/about.png</iconset>
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/about.ico</normaloff>:/icons/about.ico</iconset>
    </property>
    <property name="text">
-    <string>O programu</string>
-   </property>
-   <property name="font">
-    <font>
-     <family>MS Sans Serif</family>
-     <pointsize>10</pointsize>
-     <italic>true</italic>
-    </font>
+    <string>O programu...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+I</string>
    </property>
   </action>
-  <action name="actionArhiv">
+  <action name="actionShrani_nalepko">
    <property name="icon">
-    <iconset>
-     <normalon>:/icons/arhiv.png</normalon>
-    </iconset>
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/save.ico</normaloff>:/icons/save.ico</iconset>
    </property>
    <property name="text">
-    <string>Arhiv</string>
+    <string>Shrani nalepko...</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+A</string>
+    <string>Ctrl+S</string>
    </property>
   </action>
-  <action name="actionTerjatve_obveznosti">
+  <action name="actionNov_napis">
    <property name="icon">
     <iconset>
-     <normalon>:/icons/terjatve_obveznosti.png</normalon>
-    </iconset>
+     <normaloff>:/icons/elraseti.png</normaloff>:/icons/elraseti.png</iconset>
    </property>
    <property name="text">
-    <string>Terjatve / obveznosti</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+T</string>
-   </property>
-  </action>
-  <action name="actionVnos_obveznosti">
-   <property name="icon">
-    <iconset>
-     <normalon>:/icons/money-bag.png</normalon>
-    </iconset>
-   </property>
-   <property name="text">
-    <string>Vnos obveznosti</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+O</string>
-   </property>
-  </action>
-  <action name="actionNastavitve">
-   <property name="icon">
-    <iconset>
-     <normalon>:/icons/settings.png</normalon>
-    </iconset>
-   </property>
-   <property name="text">
-    <string>Nastavitve</string>
+    <string>Qr koda...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
    </property>
   </action>
-  <action name="actionStatistika">
-   <property name="icon">
-    <iconset>
-     <normalon>:/icons/statistic.png</normalon>
-    </iconset>
-   </property>
+  <action name="actionProizvodni_proces">
    <property name="text">
-    <string>Statistika terjatve</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+A</string>
+    <string>Išči produkt...</string>
    </property>
   </action>
-  <action name="actionTesting">
+  <action name="actionDodaj_produkt">
    <property name="text">
-    <string>Testing</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+T</string>
-   </property>
-  </action>
-  <action name="actionKalkulacija_produkta">
-   <property name="icon">
-    <iconset resource="files.qrc">
-     <normaloff>:/icons/calculation.png</normaloff>:/icons/calculation.png</iconset>
-   </property>
-   <property name="text">
-    <string>Kalkulacija produkta</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+K</string>
-   </property>
-  </action>
-  <action name="actionStatistika_obveznosti">
-   <property name="icon">
-    <iconset resource="files.qrc">
-     <normaloff>:/icons/statistic.png</normaloff>:/icons/statistic.png</iconset>
-   </property>
-   <property name="text">
-    <string>Statistika obveznosti</string>
+    <string>Dodaj produkt...</string>
    </property>
   </action>
  </widget>
- <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>lineEdit_IDprodukta</tabstop>
+  <tabstop>lineEdit_nazivProdukta</tabstop>
+  <tabstop>lineEdit_kolicina</tabstop>
+  <tabstop>textEdit_opombe</tabstop>
+  <tabstop>pushButton_natisni</tabstop>
+  <tabstop>pushButton_shraniNalepko</tabstop>
+  <tabstop>treeWidget</tabstop>
+  <tabstop>pushButton_izhod</tabstop>
+ </tabstops>
  <resources>
-  <include location="files.qrc"/>
+  <include location="icons.qrc"/>
  </resources>
  <connections>
   <connection>
-   <sender>pushButton</sender>
+   <sender>pushButton_izhod</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>239</x>
-     <y>462</y>
+     <x>253</x>
+     <y>470</y>
     </hint>
     <hint type="destinationlabel">
-     <x>231</x>
-     <y>290</y>
+     <x>522</x>
+     <y>448</y>
     </hint>
    </hints>
   </connection>

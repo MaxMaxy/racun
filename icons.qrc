@@ -1,1 +1,12 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/icon"/>
+    <qresource prefix="/icons">
+        <file>icon.ico</file>
+        <file>izhod.ico</file>
+        <file>about.ico</file>
+        <file>save.ico</file>
+        <file>print.ico</file>
+        <file>error.ico</file>
+        <file>delete.ico</file>
+    </qresource>
+</RCC>
